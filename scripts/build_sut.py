@@ -1,0 +1,20 @@
+import gzip, json
+from pathlib import Path
+
+DATA_PATH = Path("data/humaneval/data/HumanEval.jsonl.gz")
+OUT_DIR = Path("sut")
+OUT_DIR.mkdir(parents=True, exist_ok=True)
+
+with gzip.open(DATA_PATH, "rt", encoding="utf-8") as f:
+    for line in f:
+        obj = json.loads(line)
+        task_id = obj["task_id"].replace("/", "_")   # e.g., HumanEval_0
+        entry_point = obj["entry_point"]
+        solution_code = obj["canonical_solution"]
+
+        # Write to sut/problem_<id>.py
+        out_file = OUT_DIR / f"problem_{task_id}.py"
+        with open(out_file, "w") as fw:
+            fw.write(solution_code + "\n")
+        
+        print(f"Wrote {out_file}")
