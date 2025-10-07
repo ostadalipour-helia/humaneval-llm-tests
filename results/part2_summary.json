@@ -1,0 +1,22 @@
+{
+  "test_fixing": {
+    "total_tests": 1638,
+    "passed_initially": 1573,
+    "fixed": 37,
+    "discarded": 28,
+    "final_passing": 1610,
+    "pass_rate_initial": 96.03174603174604,
+    "pass_rate_final": 98.29059829059828
+  },
+  "coverage_enhancement": {
+    "total_problems": 163,
+    "avg_coverage_before": 97.65644171779141,
+    "avg_coverage_after": 98.41104294478528,
+    "avg_improvement": 0.75460122699387,
+    "improved_count": 9,
+    "no_change_count": 154,
+    "decreased_count": 0,
+    "max_improvement": 20.0,
+    "min_improvement": 0.0
+  }
+}

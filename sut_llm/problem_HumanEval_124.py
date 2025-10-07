@@ -1,0 +1,76 @@
+def valid_date(date):
+    """You have to write a function which validates a given date string and
+    returns True if the date is valid otherwise False.
+    The date is valid if all of the following rules are satisfied:
+    1. The date string is not empty.
+    2. The number of days is not less than 1 or higher than 31 days for months 1,3,5,7,8,10,12. And the number of days is not less than 1 or higher than 30 days for months 4,6,9,11. And, the number of days is not less than 1 or higher than 29 for the month 2.
+    3. The months should not be less than 1 or higher than 12.
+    4. The date should be in the format: mm-dd-yyyy
+
+    for example: 
+    valid_date('03-11-2000') => True
+
+    valid_date('15-01-2012') => False
+
+    valid_date('04-0-2040') => False
+
+    valid_date('06-04-2020') => True
+
+    valid_date('06/04/2020') => False
+    """
+    # Rule 1: The date string is not empty.
+    if not date:
+        return False
+
+    # Rule 4: The date should be in the format: mm-dd-yyyy
+    # Check overall length.
+    if len(date) != 10:
+        return False
+    
+    # Check separators.
+    if date[2] != '-' or date[5] != '-':
+        return False
+
+    # Split the date string into month, day, and year parts.
+    parts = date.split('-')
+    
+    # This check is largely redundant if length and separator checks pass,
+    # but adds an extra layer of safety.
+    if len(parts) != 3:
+        return False
+
+    month_str, day_str, year_str = parts
+
+    # Check that each part has the expected number of digits.
+    if len(month_str) != 2 or len(day_str) != 2 or len(year_str) != 4:
+        return False
+
+    # Attempt to convert parts to integers.
+    try:
+        month = int(month_str)
+        day = int(day_str)
+        year = int(year_str) # Year is not used for day validation, but must be an integer.
+    except ValueError:
+        return False # Conversion failed, e.g., '03-XX-2000'
+
+    # Rule 3: The months should not be less than 1 or higher than 12.
+    if not (1 <= month <= 12):
+        return False
+
+    # Rule 2: Validate the number of days based on the month.
+    max_days = 0
+    if month in [1, 3, 5, 7, 8, 10, 12]:
+        max_days = 31
+    elif month in [4, 6, 9, 11]:
+        max_days = 30
+    elif month == 2:
+        # As per the rule: "not less than 1 or higher than 29 for the month 2."
+        # This implies 29 is the absolute maximum for February, simplifying leap year logic.
+        max_days = 29
+    
+    # Check if the day is within the valid range for the determined month.
+    if not (1 <= day <= max_days):
+        return False
+
+    # If all checks pass, the date is valid.
+    return True
