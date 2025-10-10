@@ -3,58 +3,97 @@ from sut_llm.problem_HumanEval_50 import decode_shift
 
 class TestDecodeShift(unittest.TestCase):
 
-    def test_empty_string(self):
-        self.assertEqual(decode_shift(""), "")
+    def test_01_basic_decode_simple_string(self):
+        """
+        Tests basic decoding of a common string.
+        (Typical/Expected Input)
+        """
+        self.assertEqual(decode_shift("fghij"), "abcde")
 
-    def test_basic_lowercase_string(self):
-        # "abc" encoded is "fgh"
-        self.assertEqual(decode_shift("fgh"), "abc")
-
-    def test_string_with_wrap_around_at_end(self):
-        # "xyz" encoded is "cde"
+    def test_02_decode_wraparound_from_z(self):
+        """
+        Tests decoding characters that wrap around from the end of the alphabet (e.g., 'x', 'y', 'z').
+        (Boundary Condition, Extreme Input, Logic Mutation)
+        """
         self.assertEqual(decode_shift("cde"), "xyz")
 
-    def test_single_character_no_wrap(self):
-        # "g" encoded is "l"
-        self.assertEqual(decode_shift("l"), "g")
+    def test_03_decode_wraparound_to_a(self):
+        """
+        Tests decoding characters that wrap around to the beginning of the alphabet (e.g., 'a', 'b', 'c').
+        (Boundary Condition, Extreme Input, Logic Mutation)
+        """
+        self.assertEqual(decode_shift("fgh"), "abc")
 
-    def test_single_character_wrap_around_to_a(self):
-        # "v" encoded is "a"
-        self.assertEqual(decode_shift("a"), "v")
+    def test_04_empty_string(self):
+        """
+        Tests the function with an empty input string.
+        (Edge Case)
+        """
+        self.assertEqual(decode_shift(""), "")
 
-    def test_single_character_wrap_around_to_z(self):
-        # "u" encoded is "z"
-        self.assertEqual(decode_shift("z"), "u")
+    def test_05_single_char_decodes_to_a(self):
+        """
+        Tests decoding a single character that results in 'a' (the first letter).
+        (Boundary Condition, Off-by-One Error, Edge Case - single element)
+        """
+        self.assertEqual(decode_shift("f"), "a")
 
-    def test_mixed_characters_with_wrap(self):
-        # "hello" encoded is "mjqqt"
-        self.assertEqual(decode_shift("mjqqt"), "hello")
+    def test_06_single_char_decodes_to_z(self):
+        """
+        Tests decoding a single character that results in 'z' (the last letter), involving wrap-around.
+        (Boundary Condition, Off-by-One Error, Edge Case - single element)
+        """
+        self.assertEqual(decode_shift("e"), "z")
 
-    def test_longer_string(self):
-        # "python" encoded is "udymts"
-        self.assertEqual(decode_shift("udymts"), "python")
+    def test_07_string_with_all_same_characters(self):
+        """
+        Tests decoding a string where all characters are identical.
+        (Edge Case - all same values, Typical Input)
+        """
+        self.assertEqual(decode_shift("jjjjj"), "eeeee")
 
-    def test_string_with_repeated_characters(self):
-        # "aaaaa" encoded is "fffff"
-        self.assertEqual(decode_shift("fffff"), "aaaaa")
+    def test_08_full_alphabet_cycle(self):
+        """
+        Tests decoding a string that represents the entire alphabet, covering all characters and wrap-arounds.
+        (Extreme Input, Logic Mutation)
+        """
+        encoded_alphabet = "fghijklmnopqrstuvwxyzabcde"
+        decoded_alphabet = "abcdefghijklmnopqrstuvwxyz"
+        self.assertEqual(decode_shift(encoded_alphabet), decoded_alphabet)
 
-    def test_string_starting_near_end_of_alphabet(self):
-        # "zebra" encoded is "ejgwf"
-        self.assertEqual(decode_shift("ejgwf"), "zebra")
+    def test_09_chars_around_wraparound_boundaries(self):
+        """
+        Tests characters immediately adjacent to the wrap-around points ('a' and 'z').
+        'd' -> 'y', 'e' -> 'z', 'f' -> 'a', 'g' -> 'b'.
+        (Boundary Condition, Off-by-One Error)
+        """
+        self.assertEqual(decode_shift("defg"), "yzab")
+
+    def test_10_string_with_duplicate_patterns(self):
+        """
+        Tests decoding a string with repeating patterns and duplicate characters.
+        (Typical/Expected Input, Logic Mutation)
+        """
+        self.assertEqual(decode_shift("fghfgh"), "abcabc")
 
     def test_encode_shift_basic(self):
-        # This test covers line 5 by executing the encode_shift function with a basic string.
-        input_str = "hello"
-        expected_output = "mjqqt"
-        result = encode_shift(input_str)
-        self.assertEqual(result, expected_output)
+        """
+        Tests encode_shift with a simple lowercase string.
+        """
+        result = encode_shift("abc")
+        self.assertEqual(result, "fgh")
 
     def test_encode_shift_wrap_around(self):
-        # This test also covers line 5, specifically with characters that wrap around 'z'.
-        input_str = "xyz"
-        expected_output = "cde"
-        result = encode_shift(input_str)
-        self.assertEqual(result, expected_output)
+        """
+        Tests encode_shift with characters that wrap around the alphabet (e.g., 'z').
+        """
+        result = encode_shift("xyz")
+        self.assertEqual(result, "cde")
 
-if __name__ == '__main__':
-    unittest.main()
+    def test_encode_shift_empty_string(self):
+        """
+        Tests encode_shift with an empty string.
+        """
+        result = encode_shift("")
+        self.assertEqual(result, "")
+

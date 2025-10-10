@@ -100,8 +100,30 @@ def calculate_coverage(problem_id):
         print(f"  Error in coverage for {problem_id}: {e}")
         return None
 
+def get_passing_tests(problem_id):
+    """Identify which tests pass"""
+    test_file = Path(f"tests/problem_{problem_id}_gen.py")
+    
+    # Run tests and capture which ones pass
+    result = subprocess.run(
+        [sys.executable, "-m", "pytest", str(test_file), "-v", "--tb=no"],
+        capture_output=True,
+        text=True,
+        timeout=30
+    )
+    
+    passing_tests = []
+    for line in result.stdout.split('\n'):
+        if ' PASSED' in line:
+            # Extract test name: "test_file.py::TestClass::test_name PASSED"
+            test_name = line.split('::')[-1].split(' ')[0]
+            passing_tests.append(test_name)
+    
+    return passing_tests
+
+
 def calculate_mutation_score(problem_id):
-    """Calculate mutation score using mutmut"""
+    """Calculate mutation score using only passing tests"""
     sut_file = Path(f"sut/problem_{problem_id}.py")
     test_file = Path(f"tests/problem_{problem_id}_gen.py")
     
@@ -109,70 +131,66 @@ def calculate_mutation_score(problem_id):
         return None
     
     try:
-        # Ensure directories are Python packages
-        Path("sut/__init__.py").touch(exist_ok=True)
-        Path("tests/__init__.py").touch(exist_ok=True)
+        # Get list of passing tests
+        passing_tests = get_passing_tests(problem_id)
         
-        # Clean previous mutmut cache - handle both file and directory
+        if not passing_tests:
+            print(f"  No passing tests for {problem_id}")
+            return 0.0
+        
+        # Clean cache
         cache_path = Path(".mutmut-cache")
         if cache_path.exists():
             if cache_path.is_file():
-                cache_path.unlink()  # Remove file
+                cache_path.unlink()
             else:
-                shutil.rmtree(cache_path)  # Remove directory
+                shutil.rmtree(cache_path)
         
-        # Create setup.cfg for this specific problem
-        config = f"""[mutmut]
-paths_to_mutate=sut/problem_{problem_id}.py
-runner=pytest tests/problem_{problem_id}_gen.py -x --tb=no -q
-"""
-        with open("setup.cfg", "w") as f:
-            f.write(config)
+        # Build test selection string for pytest
+        # Format: "test_name1 or test_name2 or test_name3"
+        test_selector = " or ".join(passing_tests)
         
-        # Run mutmut with increased timeout
+        # Run mutmut with only passing tests
         result = subprocess.run(
-            [sys.executable, "-m", "mutmut", "run"],
+            [
+                sys.executable, "-m", "mutmut", "run",
+                "--paths-to-mutate", f"sut/problem_{problem_id}.py",
+                "--tests-dir", "tests/",
+                "--runner", f"python -m pytest tests/problem_{problem_id}_gen.py -k '{test_selector}' -x --tb=no -q"
+            ],
             capture_output=True,
             text=True,
             timeout=180
         )
         
-        # Get results
-        results = subprocess.run(
-            [sys.executable, "-m", "mutmut", "results"],
-            capture_output=True,
-            text=True
-        )
+        # Parse output...
+        output = result.stdout + result.stderr
         
-        output = results.stdout
-        
-        # Parse mutmut 2.4.0 output format
         killed = survived = timeout_count = suspicious = 0
         
-        # Try to parse from the summary line
-        for line in result.stdout.split('\n'):
-            if '🎉' in line and '🙁' in line:
+        for line in output.split('\n'):
+            if '🎉' in line or '🙁' in line:
                 parts = line.split()
                 for i, part in enumerate(parts):
                     if '🎉' in part and i+1 < len(parts):
                         try:
                             killed = int(parts[i+1])
-                        except ValueError:
+                        except (ValueError, IndexError):
                             pass
                     elif '🙁' in part and i+1 < len(parts):
                         try:
                             survived = int(parts[i+1])
-                        except ValueError:
+                        except (ValueError, IndexError):
                             pass
                     elif '⏰' in part and i+1 < len(parts):
                         try:
                             timeout_count = int(parts[i+1])
-                        except ValueError:
+                        except (ValueError, IndexError):
                             pass
                     elif '🤔' in part and i+1 < len(parts):
                         try:
                             suspicious = int(parts[i+1])
-                        except ValueError:
+                        except (ValueError, IndexError):
                             pass
         
         total = killed + survived + timeout_count + suspicious
@@ -180,17 +198,19 @@ runner=pytest tests/problem_{problem_id}_gen.py -x --tb=no -q
         if total > 0:
             mutation_score = (killed / total) * 100
             print(f"  Mutation details: {killed} killed, {survived} survived, {timeout_count} timeout, {suspicious} suspicious")
+            print(f"  (Using {len(passing_tests)} passing tests out of total)")
             return mutation_score
         
         print(f"  Warning: No mutations found for {problem_id}")
         return 0.0
-    
+        
     except subprocess.TimeoutExpired:
         print(f"  Mutation testing timed out for {problem_id}")
         return None
     except Exception as e:
         print(f"  Error in mutation testing for {problem_id}: {e}")
         return None
+
 
 def main():
     print("Starting evaluation of Part 1...\n")

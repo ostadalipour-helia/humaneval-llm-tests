@@ -3,65 +3,67 @@ from sut.problem_HumanEval_0 import has_close_elements
 
 class TestHasCloseElements(unittest.TestCase):
 
-    def test_docstring_example_false(self):
-        # Test case from docstring where no two elements are closer than the threshold.
+    def test_docstring_example_1(self):
+        # Typical input, no close elements
         numbers = [1.0, 2.0, 3.0]
         threshold = 0.5
-        self.assertFalse(has_close_elements(numbers, threshold))
+        self.assertEqual(has_close_elements(numbers, threshold), False)
 
-    def test_docstring_example_true(self):
-        # Test case from docstring where two elements are closer than the threshold.
+    def test_docstring_example_2(self):
+        # Typical input, with close elements
         numbers = [1.0, 2.8, 3.0, 4.0, 5.0, 2.0]
         threshold = 0.3
-        self.assertTrue(has_close_elements(numbers, threshold))
+        self.assertEqual(has_close_elements(numbers, threshold), True)
 
-    def test_empty_list(self):
-        # Test with an empty list, should always be False as no pairs exist.
-        numbers = []
+    def test_boundary_exact_threshold_false(self):
+        # Test when difference is exactly equal to threshold (should be False due to '<')
+        numbers = [1.0, 2.0]
         threshold = 1.0
-        self.assertFalse(has_close_elements(numbers, threshold))
+        self.assertEqual(has_close_elements(numbers, threshold), False)
 
-    def test_single_element_list(self):
-        # Test with a list containing only one element, should always be False.
+    def test_boundary_just_below_threshold_true(self):
+        # Test when difference is just below threshold (should be True)
+        numbers = [1.0, 1.999]
+        threshold = 1.0
+        self.assertEqual(has_close_elements(numbers, threshold), True)
+
+    def test_edge_empty_list(self):
+        # Edge case: empty list of numbers
+        numbers = []
+        threshold = 0.1
+        self.assertEqual(has_close_elements(numbers, threshold), False)
+
+    def test_edge_single_element_list(self):
+        # Edge case: list with a single number
         numbers = [5.0]
         threshold = 0.1
-        self.assertFalse(has_close_elements(numbers, threshold))
+        self.assertEqual(has_close_elements(numbers, threshold), False)
 
-    def test_two_elements_clearly_close(self):
-        # Test with two elements that are clearly closer than the threshold.
-        numbers = [10.0, 10.05]
-        threshold = 0.1
-        self.assertTrue(has_close_elements(numbers, threshold))
-
-    def test_two_elements_exactly_at_threshold(self):
-        # Test with two elements whose difference is exactly equal to the threshold.
-        # The condition is 'less than' threshold, so this should be False.
-        numbers = [2.0, 2.5]
-        threshold = 0.5
-        self.assertFalse(has_close_elements(numbers, threshold))
-
-    def test_two_elements_not_close(self):
-        # Test with two elements that are clearly not closer than the threshold.
+    def test_edge_two_elements_not_close(self):
+        # Edge case: list with two elements, but not close enough
         numbers = [1.0, 5.0]
         threshold = 1.0
-        self.assertFalse(has_close_elements(numbers, threshold))
+        self.assertEqual(has_close_elements(numbers, threshold), False)
 
-    def test_multiple_elements_close_pair_in_middle(self):
-        # Test with multiple elements where a close pair exists in the middle of the list.
-        numbers = [1.0, 2.0, 2.001, 3.0, 4.0]
-        threshold = 0.01
-        self.assertTrue(has_close_elements(numbers, threshold))
+    def test_extreme_large_numbers_close(self):
+        # Extreme input: very large numbers that are close
+        numbers = [1000000.0, 1000000.0001]
+        threshold = 0.001
+        self.assertEqual(has_close_elements(numbers, threshold), True)
 
-    def test_multiple_elements_all_far_apart(self):
-        # Test with multiple elements where all pairs are far apart.
-        numbers = [100.0, 200.0, 300.0]
-        threshold = 50.0
-        self.assertFalse(has_close_elements(numbers, threshold))
+    def test_extreme_negative_numbers_close(self):
+        # Extreme input: negative numbers that are close
+        numbers = [-5.0, -4.95]
+        threshold = 0.1
+        self.assertEqual(has_close_elements(numbers, threshold), True)
 
-    def test_threshold_is_zero(self):
-        # Test with a threshold of zero. Only identical numbers would satisfy abs(diff) < 0,
-        # which is impossible. So, it should be False unless numbers are identical and the
-        # condition was <=. With <, it should always be False.
-        numbers = [1.0, 1.0000000000000001] # A very small difference
-        threshold = 0.0
-        self.assertFalse(has_close_elements(numbers, threshold))
+    def test_logic_multiple_close_pairs_mixed_signs(self):
+        # Logic mutation: multiple pairs satisfy the condition, including zero and mixed signs
+        numbers = [-1.0, 0.0, 0.05, 1.0, 1.02]
+        threshold = 0.1
+        # abs(0.0 - 0.05) = 0.05 < 0.1
+        # abs(1.0 - 1.02) = 0.02 < 0.1
+        self.assertEqual(has_close_elements(numbers, threshold), True)
+
+if __name__ == '__main__':
+    unittest.main()

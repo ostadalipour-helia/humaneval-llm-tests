@@ -3,42 +3,50 @@ from sut_llm.problem_HumanEval_80 import is_happy
 
 class TestIsHappy(unittest.TestCase):
 
-    def test_length_one_string(self):
-        # Test case from docstring: length < 3
-        self.assertFalse(is_happy("a"))
-
-    def test_length_two_string(self):
-        # Test case from docstring: length < 3
-        self.assertFalse(is_happy("aa"))
-
     def test_empty_string(self):
-        # Edge case: length 0
-        self.assertFalse(is_happy(""))
+        # Edge case: empty string, length < 3
+        self.assertEqual(is_happy(""), False)
 
-    def test_happy_string_abcd(self):
-        # Test case from docstring: happy string
-        self.assertTrue(is_happy("abcd"))
+    def test_single_char_string(self):
+        # Edge case: single character string, length < 3
+        self.assertEqual(is_happy("a"), False)
 
-    def test_happy_string_adb(self):
-        # Test case from docstring: happy string
-        self.assertTrue(is_happy("adb"))
+    def test_two_char_string(self):
+        # Boundary condition: string of length 2, length < 3
+        self.assertEqual(is_happy("ab"), False)
 
-    def test_unhappy_string_aabb(self):
-        # Test case from docstring: not happy due to s[i] == s[i+1]
-        self.assertFalse(is_happy("aabb"))
+    def test_boundary_length_three_happy(self):
+        # Boundary condition: string of length 3, all distinct (happy)
+        self.assertEqual(is_happy("abc"), True)
 
-    def test_unhappy_string_xyy(self):
-        # Test case from docstring: not happy due to s[i+1] == s[i+2]
-        self.assertFalse(is_happy("xyy"))
+    def test_boundary_length_three_unhappy(self):
+        # Boundary condition: string of length 3, not distinct (unhappy)
+        # Catches mutations like changing '<' to '<=' for length check, or incorrect distinctness logic.
+        self.assertEqual(is_happy("aba"), False)
 
-    def test_unhappy_string_aba(self):
-        # Test case: not happy due to s[i] == s[i+2]
-        self.assertFalse(is_happy("aba"))
+    def test_typical_happy_string_from_doc(self):
+        # Typical input: happy string from docstring
+        self.assertEqual(is_happy("abcd"), True)
 
-    def test_longer_happy_string(self):
-        # Test case: longer string that is happy
-        self.assertTrue(is_happy("abcdefg"))
+    def test_typical_unhappy_string_from_doc(self):
+        # Typical input: unhappy string from docstring, fails in the middle
+        # Catches mutations in loop conditions or distinctness check.
+        self.assertEqual(is_happy("aabb"), False)
 
-    def test_longer_unhappy_string_middle_failure(self):
-        # Test case: longer string that fails in the middle due to s[i] == s[i+2]
-        self.assertFalse(is_happy("abacdef"))
+    def test_unhappy_at_start_of_long_string(self):
+        # Extreme input: long string, unhappy due to first triplet
+        # Catches off-by-one errors in loop start or distinctness check.
+        self.assertEqual(is_happy("aaabcde"), False)
+
+    def test_unhappy_at_end_of_long_string(self):
+        # Extreme input: long string, unhappy due to last triplet
+        # Catches off-by-one errors in loop end or distinctness check.
+        self.assertEqual(is_happy("abcdeff"), False)
+
+    def test_long_happy_string_complex(self):
+        # Extreme input: long string with many distinct triplets (happy)
+        # Verifies robustness for longer inputs.
+        self.assertEqual(is_happy("abcdefghijk"), True)
+
+if __name__ == '__main__':
+    unittest.main()

@@ -43,19 +43,9 @@ class TestFindMax(unittest.TestCase):
         # All words have the same number of unique characters, tie-breaker applies
         self.assertEqual(find_max(["abc", "bca", "cab"]), "abc")
 
-    def test_tie_break_lexicographical_smaller(self):
-        # This test covers line 12 when "enam" is compared to "name"
-        # Both have 4 unique characters, but "enam" comes first lexicographically.
-        words = ["name", "enam", "game"]
-        result = find_max(words)
-        self.assertEqual(result, "enam")
-
-    def test_tie_break_simple(self):
-        # This test also covers line 12 with a simpler tie-breaking scenario.
-        # "act" and "cat" both have 3 unique characters. "act" is lexicographically smaller.
-        words = ["cat", "act"]
-        result = find_max(words)
-        self.assertEqual(result, "act")
+    def test_empty_list_input(self):
+        result = find_max([])
+        self.assertEqual(result, "")
 
 if __name__ == '__main__':
     unittest.main()

@@ -3,50 +3,75 @@ from sut_llm.problem_HumanEval_103 import rounded_avg
 
 class TestRoundedAvg(unittest.TestCase):
 
-    def test_example_1(self):
-        # Test case from docstring: average is an integer
-        self.assertEqual(rounded_avg(1, 5), "0b11")
+    def test_n_greater_than_m_boundary(self):
+        """
+        Test case where n is exactly one greater than m,
+        triggering the n > m condition.
+        """
+        self.assertEqual(rounded_avg(2, 1), -1)
 
-    def test_example_2_n_greater_than_m(self):
-        # Test case from docstring: n > m
+    def test_n_equals_m_single_element(self):
+        """
+        Test case where n equals m, representing a single-element range.
+        This checks the boundary for the n > m condition and basic average.
+        """
+        self.assertEqual(rounded_avg(5, 5), "0b101") # avg = 5, bin = "0b101"
+
+    def test_n_greater_than_m_general(self):
+        """
+        Test a general case where n is significantly greater than m,
+        verifying the -1 return path. (From example)
+        """
         self.assertEqual(rounded_avg(7, 5), -1)
 
-    def test_example_3(self):
-        # Test case from docstring: average is an integer
-        self.assertEqual(rounded_avg(10, 20), "0b1111")
+    def test_typical_integer_average_odd_sum(self):
+        """
+        Test a typical scenario where the average is an exact integer
+        and the sum (n+m) is even. (From example)
+        """
+        self.assertEqual(rounded_avg(1, 5), "0b11") # avg = (1+5)/2 = 3, bin = "0b11"
 
-    def test_example_4_round_half_to_even(self):
-        # Test case from docstring: average ends in .5, rounds to nearest even (down)
-        self.assertEqual(rounded_avg(20, 33), "0b11010")
+    def test_typical_integer_average_even_sum(self):
+        """
+        Test another typical scenario with a larger range where the average
+        is an exact integer and the sum (n+m) is even. (From example)
+        """
+        self.assertEqual(rounded_avg(10, 20), "0b1111") # avg = (10+20)/2 = 15, bin = "0b1111"
 
-    def test_n_equals_m(self):
-        # Test case where n and m are the same
-        self.assertEqual(rounded_avg(5, 5), "0b101")
+    def test_rounding_up_half_odd_sum(self):
+        """
+        Test a case where the average ends in .5 and rounds up.
+        This specifically checks the rounding behavior (0.5 rounds up). (From example)
+        """
+        self.assertEqual(rounded_avg(20, 33), "0b11010") # avg = (20+33)/2 = 26.5, rounds to 27, bin = "0b11010"
 
-    def test_round_half_to_even_up(self):
-        # Test case where average ends in .5, rounds to nearest even (up)
-        # (1 + 2) / 2 = 1.5, round(1.5) = 2, bin(2) = "0b10"
-        self.assertEqual(rounded_avg(1, 2), "0b10")
+    def test_rounding_up_half_even_sum_mutation_check(self):
+        """
+        Test a case where the average ends in .5, but n+m is even.
+        This is critical to catch mutations using Python's built-in `round()`
+        which rounds to the nearest even number for .5 (e.g., round(2.5) -> 2).
+        The docstring example (20, 33) implies Python's default round-half-to-even behavior.
+        """
+        # avg = (1+4)/2 = 2.5. Python's round(2.5) is 2. bin(2) = "0b10".
+        self.assertEqual(rounded_avg(1, 4), "0b10")
 
-    def test_round_half_to_even_down_another_case(self):
-        # Test case where average ends in .5, rounds to nearest even (down)
-        # (2 + 3) / 2 = 2.5, round(2.5) = 2, bin(2) = "0b10"
-        self.assertEqual(rounded_avg(2, 3), "0b10")
+    def test_smallest_positive_inputs(self):
+        """
+        Test the smallest possible valid inputs for n and m (both 1).
+        This is an edge case for minimum values.
+        """
+        self.assertEqual(rounded_avg(1, 1), "0b1") # avg = 1, bin = "0b1"
 
-    def test_larger_range_integer_average(self):
-        # Test with a larger range where the average is an integer
-        # (100 + 150) / 2 = 125, bin(125) = "0b1111101"
-        self.assertEqual(rounded_avg(100, 150), "0b1111101")
+    def test_large_numbers_integer_average(self):
+        """
+        Test with very large numbers where the average is an exact integer.
+        Checks for potential overflow issues or incorrect handling of large values.
+        """
+        self.assertEqual(rounded_avg(1000000, 1000000), "0b11110100001001000000") # avg = 1000000
 
-    def test_larger_range_round_half_to_even_down(self):
-        # Test with a larger range where average ends in .5, rounds to nearest even (down)
-        # (99 + 150) / 2 = 124.5, round(124.5) = 124, bin(124) = "0b1111100"
-        self.assertEqual(rounded_avg(99, 150), "0b1111100")
-
-    def test_larger_range_round_half_to_even_up(self):
-        # Test with a larger range where average ends in .5, rounds to nearest even (up)
-        # (100 + 151) / 2 = 125.5, round(125.5) = 126, bin(126) = "0b1111110"
-        self.assertEqual(rounded_avg(100, 151), "0b1111110")
-
-if __name__ == '__main__':
-    unittest.main()
+    def test_large_numbers_rounding_up_half(self):
+        """
+        Test with very large numbers where the average ends in .5 and rounds up.
+        Combines large number testing with rounding behavior.
+        """
+        self.assertEqual(rounded_avg(999999, 1000000), "0b11110100001001000000") # avg = 999999.5, rounds to 1000000

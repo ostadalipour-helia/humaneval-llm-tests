@@ -3,45 +3,52 @@ from sut.problem_HumanEval_84 import solve
 
 class TestSolve(unittest.TestCase):
 
-    def test_01_min_constraint(self):
-        # N = 0, sum of digits = 0, binary of 0 is "0"
+    def test_min_boundary_N_zero(self):
+        # Boundary test: N = 0 (minimum allowed value)
+        # Digits: 0, Sum: 0, Binary: "0"
         self.assertEqual(solve(0), "0")
 
-    def test_02_smallest_positive(self):
-        # N = 1, sum of digits = 1, binary of 1 is "1"
-        self.assertEqual(solve(1), "1")
-
-    def test_03_example_1000(self):
-        # N = 1000, sum of digits = 1, binary of 1 is "1"
-        self.assertEqual(solve(1000), "1")
-
-    def test_04_example_150(self):
-        # N = 150, sum of digits = 6, binary of 6 is "110"
-        self.assertEqual(solve(150), "110")
-
-    def test_05_example_147(self):
-        # N = 147, sum of digits = 12, binary of 12 is "1100"
-        self.assertEqual(solve(147), "1100")
-
-    def test_06_single_digit_max(self):
-        # N = 9, sum of digits = 9, binary of 9 is "1001"
-        self.assertEqual(solve(9), "1001")
-
-    def test_07_two_digits_simple(self):
-        # N = 25, sum of digits = 7, binary of 7 is "111"
-        self.assertEqual(solve(25), "111")
-
-    def test_08_two_digits_large_sum(self):
-        # N = 99, sum of digits = 18, binary of 18 is "10010"
-        self.assertEqual(solve(99), "10010")
-
-    def test_09_three_digits_large_sum(self):
-        # N = 999, sum of digits = 27, binary of 27 is "11011"
-        self.assertEqual(solve(999), "11011")
-
-    def test_10_max_constraint(self):
-        # N = 10000, sum of digits = 1, binary of 1 is "1"
+    def test_max_boundary_N_ten_thousand(self):
+        # Boundary test: N = 10000 (maximum allowed value)
+        # Digits: 1, 0, 0, 0, 0, Sum: 1, Binary: "1"
         self.assertEqual(solve(10000), "1")
 
-if __name__ == '__main__':
-    unittest.main()
+    def test_single_digit_N_one(self):
+        # Edge case / Off-by-one: Smallest non-zero N
+        # Digits: 1, Sum: 1, Binary: "1"
+        self.assertEqual(solve(1), "1")
+
+    def test_single_digit_N_nine(self):
+        # Off-by-one: Largest single digit N, results in a multi-digit binary sum
+        # Digits: 9, Sum: 9, Binary: "1001"
+        self.assertEqual(solve(9), "1001")
+
+    def test_example_N_one_hundred_fifty(self):
+        # Typical input, from docstring example
+        # Digits: 1, 5, 0, Sum: 6, Binary: "110"
+        self.assertEqual(solve(150), "110")
+
+    def test_example_N_one_hundred_forty_seven(self):
+        # Typical input, from docstring example
+        # Digits: 1, 4, 7, Sum: 12, Binary: "1100"
+        self.assertEqual(solve(147), "1100")
+
+    def test_all_nines_N_nine_nine_nine_nine(self):
+        # Extreme input: N just below max, largest possible sum of digits
+        # Digits: 9, 9, 9, 9, Sum: 36, Binary: "100100"
+        self.assertEqual(solve(9999), "100100")
+
+    def test_two_digits_N_eleven(self):
+        # Edge case: Two identical digits, small sum
+        # Digits: 1, 1, Sum: 2, Binary: "10"
+        self.assertEqual(solve(11), "10")
+
+    def test_two_digits_N_ten(self):
+        # Edge case: Two digits, one is zero, small sum
+        # Digits: 1, 0, Sum: 1, Binary: "1"
+        self.assertEqual(solve(10), "1")
+
+    def test_mid_range_N_five_five_five_five(self):
+        # Unusual input: All same digits, non-trivial sum
+        # Digits: 5, 5, 5, 5, Sum: 20, Binary: "10100"
+        self.assertEqual(solve(5555), "10100")

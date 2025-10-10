@@ -1,0 +1,95 @@
+================================================================================
+COVERAGE ENHANCEMENT LOG
+================================================================================
+Problem ID: HumanEval_132
+Timestamp: 2025-10-09T13:59:22.477630
+Status: success
+================================================================================
+
+================================================================================
+PROMPT
+================================================================================
+You are a Python developer writing unit tests to improve code coverage.
+
+The following code has some lines that are not covered by existing tests:
+
+def is_nested(string):
+    '''
+    Create a function that takes a string as input which contains only square brackets.
+    The function should return True if and only if there is a valid subsequence of brackets 
+    where at least one bracket in the subsequence is nested.
+
+    is_nested('[[]]') ➞ True
+    is_nested('[]]]]]]][[[[[]') ➞ False
+    is_nested('[][]') ➞ False
+    is_nested('[]') ➞ False
+    is_nested('[[][]]') ➞ True
+    is_nested('[[]][[') ➞ True
+    '''
+    
+    # For a subsequence of brackets to be considered "nested", it must contain 
+    # a structure where one pair of brackets encloses another non-empty valid 
+    # bracket sequence. The simplest such structure is '[[]]'.
+    # If we can form '[[]]' as a subsequence from the input string, 
+    # then the condition is met.
+    # To form '[[]]' as a subsequence, we need to find four characters in the 
+    # string at increasing indices i < j < k < l such that:
+    # string[i] == '['
+    # string[j] == '['
+    # string[k] == ']'
+    # string[l] == ']'
+
+    # Step 1: Find the first opening bracket '['
+    idx1 = string.find('[', 0)
+    if idx1 == -1:
+        return False  # No opening bracket found
+
+    # Step 2: Find a second opening bracket '[' after the first one
+    idx2 = string.find('[', idx1 + 1)
+    if idx2 == -1:
+        return False  # No second opening bracket found
+
+    # Step 3: Find a closing bracket ']' after the second opening bracket
+    idx3 = string.find(']', idx2 + 1)
+    if idx3 == -1:
+        return False  # No closing bracket found after the second '['
+
+    # Step 4: Find a second closing bracket ']' after the first closing bracket
+    idx4 = string.find(']', idx3 + 1)
+    if idx4 == -1:
+        return False  # No second closing bracket found
+
+    # If all four indices are found in the correct order, it means we can form 
+    # the subsequence '[[]]', which is a valid bracket sequence with a nested pair.
+    return True
+
+**Uncovered line numbers:** [40]
+
+**Actual uncovered lines:**
+Line 40:         return False  # No closing bracket found after the second '['
+
+Generate ONLY test method definitions (def test_xxx) that will execute these uncovered lines.
+- Generate 1-3 test methods
+- Each method should be a standalone unittest method
+- Use proper 4-space indentation for method body
+- DO NOT include: class definitions, import statements, or if __name__ blocks
+- Return ONLY the method definitions
+
+Example format:
+    def test_edge_case(self):
+        result = is_nested(test_input)
+        self.assertEqual(result, expected)
+
+Now generate the test methods:
+
+
+================================================================================
+RESPONSE
+================================================================================
+def test_no_closing_bracket_after_second_open(self):
+        # This input provides two opening brackets but no closing bracket
+        # after the second opening bracket, leading to idx3 being -1.
+        # This will execute the uncovered line 40.
+        result = is_nested('[[')
+        self.assertFalse(result)
+

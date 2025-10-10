@@ -8,6 +8,7 @@ import time
 from pathlib import Path
 from google import genai
 from tqdm import tqdm
+from datetime import datetime
 
 # --- Configuration ---
 SUT_DIR = Path("sut_llm")
@@ -16,6 +17,8 @@ ENHANCED_TEST_DIR = Path("tests_enhanced")
 ENHANCED_TEST_DIR.mkdir(parents=True, exist_ok=True)
 
 RESULTS_DIR = Path("results")
+LOGS_DIR = Path("results/enhancement_logs")
+LOGS_DIR.mkdir(parents=True, exist_ok=True)
 
 MODEL_NAME = "gemini-2.5-flash"
 API_KEY = os.environ["GEMINI_API_KEY"]
@@ -29,7 +32,10 @@ The following code has some lines that are not covered by existing tests:
 
 {function_code}
 
-Uncovered line numbers: {uncovered_lines}
+**Uncovered line numbers:** {uncovered_line_numbers}
+
+**Actual uncovered lines:**
+{uncovered_lines_content}
 
 Generate ONLY test method definitions (def test_xxx) that will execute these uncovered lines.
 - Generate 1-3 test methods
@@ -111,16 +117,76 @@ def extract_entry_point(function_code):
     return "unknown_function"
 
 
-def generate_coverage_tests(problem_id, function_code, uncovered_lines, max_retries=3):
+def get_uncovered_lines_content(function_code, uncovered_line_numbers):
+    """Extract the actual content of uncovered lines."""
+    lines = function_code.split('\n')
+    uncovered_content = []
+    
+    for line_num in uncovered_line_numbers:
+        # Convert to 0-indexed
+        idx = line_num - 1
+        if 0 <= idx < len(lines):
+            uncovered_content.append(f"Line {line_num}: {lines[idx]}")
+    
+    return '\n'.join(uncovered_content) if uncovered_content else "No specific lines identified"
+
+
+def save_prompt_log(problem_id, prompt, response, status, timestamp):
+    """Save detailed log of prompt and response."""
+    log_file = LOGS_DIR / f"{problem_id}_enhancement.json"
+    
+    log_entry = {
+        "timestamp": timestamp,
+        "problem_id": problem_id,
+        "status": status,
+        "prompt": prompt,
+        "response": response,
+        "response_length": len(response) if response else 0
+    }
+    
+    with open(log_file, 'w') as f:
+        json.dump(log_entry, f, indent=2)
+    
+    # Also save a human-readable version
+    log_txt_file = LOGS_DIR / f"{problem_id}_enhancement.txt"
+    with open(log_txt_file, 'w') as f:
+        f.write(f"{'='*80}\n")
+        f.write(f"COVERAGE ENHANCEMENT LOG\n")
+        f.write(f"{'='*80}\n")
+        f.write(f"Problem ID: {problem_id}\n")
+        f.write(f"Timestamp: {timestamp}\n")
+        f.write(f"Status: {status}\n")
+        f.write(f"{'='*80}\n\n")
+        
+        f.write(f"{'='*80}\n")
+        f.write(f"PROMPT\n")
+        f.write(f"{'='*80}\n")
+        f.write(prompt)
+        f.write(f"\n\n")
+        
+        f.write(f"{'='*80}\n")
+        f.write(f"RESPONSE\n")
+        f.write(f"{'='*80}\n")
+        f.write(response if response else "No response generated")
+        f.write(f"\n\n")
+
+
+def generate_coverage_tests(problem_id, function_code, uncovered_line_numbers, max_retries=3):
     """Generate new tests to cover uncovered lines with retry logic."""
     entry_point = extract_entry_point(function_code)
     
+    # Get the actual content of uncovered lines
+    uncovered_lines_content = get_uncovered_lines_content(function_code, uncovered_line_numbers)
+    
     prompt = COVERAGE_ENHANCE_PROMPT.format(
         function_code=function_code,
-        uncovered_lines=uncovered_lines,
+        uncovered_line_numbers=uncovered_line_numbers,
+        uncovered_lines_content=uncovered_lines_content,
         problem_id=problem_id,
         entry_point=entry_point
     )
+    
+    timestamp = datetime.now().isoformat()
     
     for attempt in range(max_retries):
         try:
@@ -141,6 +207,7 @@ def generate_coverage_tests(problem_id, function_code, uncovered_lines, max_retr
                     print(f"    ⚠️ No response, retrying ({attempt + 1}/{max_retries})...")
                     time.sleep(2)
                     continue
+                save_prompt_log(problem_id, prompt, "No response received", "no_response", timestamp)
                 return None
             
             # Try to get text
@@ -159,16 +226,21 @@ def generate_coverage_tests(problem_id, function_code, uncovered_lines, max_retr
                     print(f"    ⚠️ Empty response, retrying ({attempt + 1}/{max_retries})...")
                     time.sleep(2)
                     continue
+                save_prompt_log(problem_id, prompt, "Empty response", "empty_response", timestamp)
                 return None
-                
-            return clean_code(text)
+            
+            cleaned_response = clean_code(text)
+            save_prompt_log(problem_id, prompt, cleaned_response, "success", timestamp)
+            return cleaned_response
             
         except Exception as e:
+            error_msg = f"Error: {str(e)}"
             if attempt < max_retries - 1:
                 print(f"    ⚠️ Error (attempt {attempt + 1}/{max_retries}): {e}")
                 time.sleep(2)
                 continue
             print(f"    ❌ LLM call failed after {max_retries} attempts: {e}")
+            save_prompt_log(problem_id, prompt, error_msg, "error", timestamp)
             return None
     
     return None
@@ -414,6 +486,7 @@ def enhance_coverage_for_problem(problem_data):
 
 def main():
     print("Starting coverage enhancement...\n")
+    print(f"Logs will be saved to: {LOGS_DIR}\n")
     
     # Load uncovered lines data
     uncovered_data = load_uncovered_lines()
@@ -454,6 +527,7 @@ def main():
         print(f"Average coverage after: {avg_after:.2f}%")
         print(f"Average improvement: {improvement:.2f}%")
         print(f"Results saved to: results/coverage_improvement.csv")
+        print(f"Detailed logs saved to: {LOGS_DIR}")
 
 
 if __name__ == "__main__":

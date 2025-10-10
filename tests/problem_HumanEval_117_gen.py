@@ -3,75 +3,66 @@ from sut.problem_HumanEval_117 import select_words
 
 class TestSelectWords(unittest.TestCase):
 
-    def test_01_docstring_example_one_match(self):
-        # Test case from docstring: one word matches
-        s = "Mary had a little lamb"
-        n = 4
-        expected_output = ["little"]
-        self.assertEqual(select_words(s, n), expected_output)
+    # Test 1: Empty string s (Edge Case, Return Value)
+    # As per docstring, an empty string should return an empty list.
+    def test_empty_string(self):
+        self.assertListEqual(select_words("", 3), [])
 
-    def test_02_docstring_example_multiple_matches(self):
-        # Test case from docstring: multiple words match
-        s = "Mary had a little lamb"
-        n = 3
-        expected_output = ["Mary", "lamb"]
-        self.assertEqual(select_words(s, n), expected_output)
+    # Test 2: Basic example from docstring (Typical/Expected Input)
+    # "little" has 'l', 't', 't', 'l' (4 consonants).
+    def test_docstring_example_four_consonants(self):
+        self.assertListEqual(select_words("Mary had a little lamb", 4), ["little"])
 
-    def test_03_docstring_example_no_matches(self):
-        # Test case from docstring: no words match
-        s = "simple white space"
-        n = 2
-        expected_output = []
-        self.assertEqual(select_words(s, n), expected_output)
+    # Test 3: Another basic example from docstring (Typical/Expected Input)
+    # "Mary" has 'M', 'r', 'y' (3 consonants). "lamb" has 'l', 'm', 'b' (3 consonants).
+    def test_docstring_example_three_consonants(self):
+        self.assertListEqual(select_words("Mary had a little lamb", 3), ["Mary", "lamb"])
 
-    def test_04_docstring_example_hello_world(self):
-        # Test case from docstring: "Hello world"
-        s = "Hello world"
-        n = 4
-        expected_output = ["world"]
-        self.assertEqual(select_words(s, n), expected_output)
+    # Test 4: No words match the given n (Return Value, Logic Mutation)
+    # "simple" (s,m,p,l=4), "white" (w,h,t=3), "space" (s,p,c=3). None have exactly 2 consonants.
+    def test_no_words_match_n(self):
+        self.assertListEqual(select_words("simple white space", 2), [])
 
-    def test_05_docstring_example_uncle_sam(self):
-        # Test case from docstring: "Uncle sam"
-        s = "Uncle sam"
-        n = 3
-        expected_output = ["Uncle"]
-        self.assertEqual(select_words(s, n), expected_output)
+    # Test 5: Boundary condition n=0 (Boundary Testing, Sign and Zero Testing)
+    # Words consisting only of vowels should have 0 consonants.
+    def test_n_is_zero_all_vowels(self):
+        self.assertListEqual(select_words("a e i o u", 0), ["a", "e", "i", "o", "u"])
 
-    def test_06_empty_string_input(self):
-        # Test case: empty input string should return an empty list
-        s = ""
-        n = 5
-        expected_output = []
-        self.assertEqual(select_words(s, n), expected_output)
+    # Test 6: Boundary condition n=1 (Boundary Testing, Off-by-One Error)
+    # Words with exactly one consonant.
+    # "my" (m=1), "by" (b=1), "to" (t=1), "go" (g=1).
+    def test_n_is_one_single_consonant_words(self):
+        self.assertListEqual(select_words("my by to go", 1), ["my", "by", "to", "go"])
 
-    def test_07_no_words_match_consonant_count(self):
-        # Test case: words exist but none match the exact consonant count
-        s = "apple banana cherry" # apple:3, banana:3, cherry:5
-        n = 4
-        expected_output = []
-        self.assertEqual(select_words(s, n), expected_output)
+    # Test 7: Single word string (Edge Case, Off-by-One Error for n)
+    # "Programming" has P,r,g,r,m,m,n (7 consonants).
+    # Test with n=7 (exact match), n=6 (one less), and n=8 (one more).
+    def test_single_word_string_and_off_by_one_n(self):
+        self.assertListEqual(select_words("Programming", 7), ["Programming"])
+        self.assertListEqual(select_words("Programming", 6), []) # n-1
+        self.assertListEqual(select_words("Programming", 8), []) # n+1
 
-    def test_08_words_with_y_as_consonant(self):
-        # Test case: words containing 'y' which should be counted as a consonant
-        s = "rhythm myth" # rhythm: r,h,y,t,h,m (6); myth: m,y,t,h (4)
-        n = 4
-        expected_output = ["myth"]
-        self.assertEqual(select_words(s, n), expected_output)
+    # Test 8: String with multiple spaces and leading/trailing spaces (Extreme/Unusual Input)
+    # "rhythm" (r,h,y,t,h,m = 6 consonants), "sky" (s,k,y = 3 consonants).
+    def test_multiple_and_leading_trailing_spaces(self):
+        self.assertListEqual(select_words("  rhythm   sky  ", 6), ["rhythm"])
+        self.assertListEqual(select_words("  rhythm   sky  ", 3), ["sky"])
+        self.assertListEqual(select_words("  rhythm   sky  ", 5), []) # No match
 
-    def test_09_case_sensitivity_and_multiple_words(self):
-        # Test case: checks for case sensitivity of letters and multiple words
-        s = "PYTHON is FUN" # PYTHON: P,Y,T,H,N (5); is: s (1); FUN: F,N (2)
-        n = 5
-        expected_output = ["PYTHON"]
-        self.assertEqual(select_words(s, n), expected_output)
+    # Test 9: Case sensitivity of vowels/consonants (Logic Mutation, Extreme/Unusual Input)
+    # Vowel/consonant check should be case-insensitive. "AEIOU" has 0 consonants. "BCDFG" has 5 consonants.
+    def test_case_sensitivity_of_consonants(self):
+        self.assertListEqual(select_words("AEIOU BCDFG", 0), ["AEIOU"])
+        self.assertListEqual(select_words("AEIOU BCDFG", 5), ["BCDFG"])
+        self.assertListEqual(select_words("aEiOu bCdFg", 0), ["aEiOu"])
+        self.assertListEqual(select_words("aEiOu bCdFg", 5), ["bCdFg"])
 
-    def test_10_string_with_various_spaces(self):
-        # Test case: string with leading/trailing/multiple spaces
-        s = "  a  test  string  " # a: 0; test: t,s,t (3); string: s,t,r,n,g (5)
-        n = 3
-        expected_output = ["test"]
-        self.assertEqual(select_words(s, n), expected_output)
-
-if __name__ == '__main__':
-    unittest.main()
+    # Test 10: Very long word and n too large/small (Boundary Testing, Extreme/Unusual Input)
+    # "pneumonoultramicroscopicsilicovolcanoconiosis" has 25 consonants.
+    # Test with n=25 (exact match), n=24 (one less), and n=26 (one more).
+    def test_very_long_word_and_n_off_by_one(self):
+        long_word = "pneumonoultramicroscopicsilicovolcanoconiosis"
+        # Consonants: p,n,m,n,l,t,r,m,c,r,s,c,p,c,s,l,c,v,l,c,n,c,n,s,s (25)
+        self.assertListEqual(select_words(long_word, 25), [long_word])
+        self.assertListEqual(select_words(long_word, 26), []) # n+1
+        self.assertListEqual(select_words(long_word, 24), []) # n-1

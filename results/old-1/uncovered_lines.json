@@ -1,0 +1,883 @@
+[
+  {
+    "problem_id": "HumanEval_0",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_1",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_2",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_3",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_4",
+    "coverage_before_enhancement": 89.0,
+    "uncovered_lines": [
+      14
+    ]
+  },
+  {
+    "problem_id": "HumanEval_5",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_6",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_7",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_8",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_9",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_10",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_11",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_12",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_13",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_14",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_15",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_16",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_17",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_18",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_19",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_20",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_21",
+    "coverage_before_enhancement": 91.0,
+    "uncovered_lines": [
+      11
+    ]
+  },
+  {
+    "problem_id": "HumanEval_22",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_23",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_24",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_25",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_26",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_27",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_28",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_29",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_30",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_31",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_32",
+    "coverage_before_enhancement": 88.0,
+    "uncovered_lines": [
+      42,
+      44,
+      76
+    ]
+  },
+  {
+    "problem_id": "HumanEval_33",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_34",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_35",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_36",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_37",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_38",
+    "coverage_before_enhancement": 62.0,
+    "uncovered_lines": [
+      6,
+      8,
+      9
+    ]
+  },
+  {
+    "problem_id": "HumanEval_39",
+    "coverage_before_enhancement": 93.0,
+    "uncovered_lines": [
+      8,
+      45
+    ]
+  },
+  {
+    "problem_id": "HumanEval_40",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_41",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_42",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_43",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_44",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_45",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_46",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_47",
+    "coverage_before_enhancement": 90.0,
+    "uncovered_lines": [
+      9
+    ]
+  },
+  {
+    "problem_id": "HumanEval_48",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_49",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_50",
+    "coverage_before_enhancement": 75.0,
+    "uncovered_lines": [
+      5
+    ]
+  },
+  {
+    "problem_id": "HumanEval_51",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_52",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_53",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_54",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_55",
+    "coverage_before_enhancement": 91.0,
+    "uncovered_lines": [
+      11
+    ]
+  },
+  {
+    "problem_id": "HumanEval_56",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_57",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_58",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_59",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_60",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_61",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_62",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_63",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_64",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_65",
+    "coverage_before_enhancement": 80.0,
+    "uncovered_lines": [
+      12,
+      13,
+      36
+    ]
+  },
+  {
+    "problem_id": "HumanEval_66",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_67",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_68",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_69",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_70",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_71",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_72",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_73",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_74",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_75",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_76",
+    "coverage_before_enhancement": 79.0,
+    "uncovered_lines": [
+      31,
+      43,
+      51,
+      57,
+      69
+    ]
+  },
+  {
+    "problem_id": "HumanEval_77",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_78",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_79",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_80",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_81",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_82",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_83",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_84",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_85",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_86",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_87",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_88",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_89",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_90",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_91",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_92",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_93",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_94",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_95",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_96",
+    "coverage_before_enhancement": 95.0,
+    "uncovered_lines": [
+      21
+    ]
+  },
+  {
+    "problem_id": "HumanEval_97",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_98",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_99",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_100",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_101",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_102",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_103",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_104",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_105",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_106",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_107",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_108",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_109",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_110",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_111",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_112",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_113",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_114",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_115",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_116",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_117",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_118",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_119",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_120",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_121",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_122",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_123",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_124",
+    "coverage_before_enhancement": 87.0,
+    "uncovered_lines": [
+      40,
+      46,
+      53,
+      54
+    ]
+  },
+  {
+    "problem_id": "HumanEval_125",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_126",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_127",
+    "coverage_before_enhancement": 91.0,
+    "uncovered_lines": [
+      16,
+      17
+    ]
+  },
+  {
+    "problem_id": "HumanEval_128",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_129",
+    "coverage_before_enhancement": "N/A",
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_130",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_131",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_132",
+    "coverage_before_enhancement": 93.0,
+    "uncovered_lines": [
+      40
+    ]
+  },
+  {
+    "problem_id": "HumanEval_133",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_134",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_135",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_136",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_137",
+    "coverage_before_enhancement": 80.0,
+    "uncovered_lines": [
+      21,
+      26,
+      27,
+      35
+    ]
+  },
+  {
+    "problem_id": "HumanEval_138",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_139",
+    "coverage_before_enhancement": 80.0,
+    "uncovered_lines": [
+      16,
+      18
+    ]
+  },
+  {
+    "problem_id": "HumanEval_140",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_141",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_142",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_143",
+    "coverage_before_enhancement": 85.0,
+    "uncovered_lines": [
+      35,
+      36,
+      37
+    ]
+  },
+  {
+    "problem_id": "HumanEval_144",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_145",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_146",
+    "coverage_before_enhancement": 0.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_147",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_148",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_149",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_150",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_151",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_152",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_153",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_154",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_155",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_156",
+    "coverage_before_enhancement": 90.0,
+    "uncovered_lines": [
+      13
+    ]
+  },
+  {
+    "problem_id": "HumanEval_157",
+    "coverage_before_enhancement": 86.0,
+    "uncovered_lines": [
+      13
+    ]
+  },
+  {
+    "problem_id": "HumanEval_158",
+    "coverage_before_enhancement": 93.0,
+    "uncovered_lines": [
+      12
+    ]
+  },
+  {
+    "problem_id": "HumanEval_159",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_160",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_161",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_162",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  },
+  {
+    "problem_id": "HumanEval_163",
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
+  }
+]

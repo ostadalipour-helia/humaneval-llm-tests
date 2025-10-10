@@ -3,32 +3,58 @@ from sut_llm.problem_HumanEval_69 import search
 
 class TestSearchFunction(unittest.TestCase):
 
-    def test_example_1(self):
+    def test_example_one(self):
+        # Typical input, multiple candidates, verifies exact output
+        # 1: freq=2 (2>=1 True), 2: freq=2 (2>=2 True), 3: freq=1 (1>=3 False), 4: freq=1 (1>=4 False)
+        # Greatest satisfying is 2.
         self.assertEqual(search([4, 1, 2, 2, 3, 1]), 2)
 
-    def test_example_2(self):
+    def test_example_two(self):
+        # Typical input, multiple candidates, verifies exact output
+        # 1: freq=1 (1>=1 True), 2: freq=2 (2>=2 True), 3: freq=3 (3>=3 True), 4: freq=3 (3>=4 False)
+        # Greatest satisfying is 3.
         self.assertEqual(search([1, 2, 2, 3, 3, 3, 4, 4, 4]), 3)
 
-    def test_example_3_no_candidate(self):
+    def test_example_three_no_satisfying_value(self):
+        # Typical input, no satisfying value, verifies -1 return
+        # 4: freq=3 (3>=4 False), 5: freq=2 (2>=5 False)
         self.assertEqual(search([5, 5, 4, 4, 4]), -1)
 
-    def test_all_same_valid(self):
-        self.assertEqual(search([1, 1, 1]), 1)
+    def test_boundary_exact_match_for_greatest(self):
+        # Boundary condition: The greatest number satisfies freq == value, others might or might not.
+        # 1: freq=1 (1>=1 True), 2: freq=1 (1>=2 False), 3: freq=3 (3>=3 True)
+        # Greatest satisfying is 3.
+        self.assertEqual(search([3, 3, 3, 1, 2]), 3)
 
-    def test_all_distinct_no_candidate(self):
-        self.assertEqual(search([10, 20, 30]), -1)
+    def test_boundary_all_fail_by_one(self):
+        # Boundary condition: All numbers have frequency less than their value (e.g., freq = value - 1).
+        # 5: freq=4 (4>=5 False), 6: freq=5 (5>=6 False)
+        self.assertEqual(search([6, 6, 6, 6, 6, 5, 5, 5, 5]), -1)
 
-    def test_multiple_candidates_greatest_is_not_smallest_value(self):
-        self.assertEqual(search([2, 2, 2, 1, 1, 1, 1]), 2)
-
-    def test_single_element_valid(self):
+    def test_edge_single_element_satisfies(self):
+        # Edge case: Single element list, where the element satisfies the condition.
+        # 1: freq=1 (1>=1 True)
         self.assertEqual(search([1]), 1)
 
-    def test_single_element_not_valid(self):
-        self.assertEqual(search([5]), -1)
+    def test_edge_all_same_elements_satisfy(self):
+        # Edge case: List with all same values, and they satisfy the condition.
+        # 3: freq=3 (3>=3 True)
+        self.assertEqual(search([3, 3, 3]), 3)
 
-    def test_multiple_candidates_greatest_is_not_largest_number_in_list(self):
-        self.assertEqual(search([10, 10, 10, 10, 10, 10, 5, 5, 5, 5, 5]), 5)
+    def test_extreme_large_number_satisfies(self):
+        # Extreme input: A large number is the greatest satisfying value, with other smaller candidates.
+        # 1: freq=1 (1>=1 True), 2-9: freq=1 (1>=x False), 10: freq=10 (10>=10 True)
+        # Greatest satisfying is 10.
+        self.assertEqual(search([10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 1, 2, 3, 4, 5, 6, 7, 8, 9]), 10)
 
-    def test_multiple_candidates_greatest_is_largest_number_in_list(self):
-        self.assertEqual(search([7, 7, 7, 7, 7, 7, 7, 3, 3, 3]), 7)
+    def test_extreme_many_distinct_none_satisfy(self):
+        # Extreme input: Many distinct large numbers, none satisfy the condition.
+        # All numbers have freq=1. Since all are > 1, 1 >= x is always False.
+        self.assertEqual(search([100, 200, 300, 400, 500]), -1)
+
+    def test_logic_mutation_smaller_satisfies_larger_almost(self):
+        # Logic mutation: A smaller number satisfies, but a larger number almost satisfies (freq = value - 1).
+        # Ensures the "greatest" condition is correctly applied.
+        # 1: freq=3 (3>=1 True), 2: freq=2 (2>=2 True), 3: freq=2 (2>=3 False)
+        # Greatest satisfying is 2.
+        self.assertEqual(search([2, 2, 1, 1, 1, 3, 3]), 2)

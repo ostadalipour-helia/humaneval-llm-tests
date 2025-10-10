@@ -34,16 +34,17 @@ class TestRightAngleTriangle(unittest.TestCase):
         self.assertEqual(right_angle_triangle(10, 11, 12), False)
 
     def test_zero_side_length(self):
-        # This test case provides a side length of zero,
-        # which will trigger the condition `a <= 0` on line 12
-        # and execute the `return False` statement on line 13.
+        # Test case where one side is zero, which should not form a triangle.
         result = right_angle_triangle(0, 4, 5)
-        self.assertEqual(result, False)
+        self.assertFalse(result)
 
     def test_negative_side_length(self):
-        # This test case provides a negative side length,
-        # which will trigger the condition `a <= 0` on line 12
-        # and execute the `return False` statement on line 13.
-        result = right_angle_triangle(-3, 4, 5)
-        self.assertEqual(result, False)
+        # Test case where one side is negative, which is invalid for a triangle.
+        result = right_angle_triangle(3, -4, 5)
+        self.assertFalse(result)
+
+    def test_all_sides_non_positive(self):
+        # Test case where all sides are non-positive.
+        result = right_angle_triangle(-1, 0, -2)
+        self.assertFalse(result)
 

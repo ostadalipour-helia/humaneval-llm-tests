@@ -3,36 +3,52 @@ from sut_llm.problem_HumanEval_154 import cycpattern_check
 
 class TestCycpatternCheck(unittest.TestCase):
 
-    def test_1_docstring_example_1(self):
-        self.assertFalse(cycpattern_check("abcd", "abd"))
+    def test_docstring_example_hello_ell(self):
+        # Typical case: 'ell' is a substring of 'hello'.
+        self.assertEqual(cycpattern_check("hello", "ell"), True)
 
-    def test_2_docstring_example_2(self):
-        self.assertTrue(cycpattern_check("hello", "ell"))
+    def test_docstring_example_abcd_abd(self):
+        # Typical case: 'abd' is not a substring, nor any rotation.
+        self.assertEqual(cycpattern_check("abcd", "abd"), False)
 
-    def test_3_docstring_example_3(self):
-        self.assertFalse(cycpattern_check("whassup", "psus"))
+    def test_edge_case_empty_strings(self):
+        # Edge case: Both strings are empty. An empty string is a substring of itself.
+        self.assertEqual(cycpattern_check("", ""), True)
 
-    def test_4_docstring_example_4(self):
-        self.assertTrue(cycpattern_check("abab", "baa"))
+    def test_edge_case_empty_pattern(self):
+        # Edge case: Pattern is empty. An empty string is always a substring of any string.
+        self.assertEqual(cycpattern_check("abc", ""), True)
 
-    def test_5_docstring_example_5(self):
-        self.assertFalse(cycpattern_check("efef", "eeff"))
+    def test_boundary_pattern_longer_than_main(self):
+        # Boundary case: Pattern is longer than the main string. Should always be False.
+        self.assertEqual(cycpattern_check("abc", "abcd"), False)
 
-    def test_6_docstring_example_6(self):
-        self.assertTrue(cycpattern_check("himenss", "simen"))
+    def test_boundary_pattern_same_length_and_rotation(self):
+        # Boundary case: Pattern has same length as main string and is a rotation.
+        self.assertEqual(cycpattern_check("abc", "bca"), True)
 
-    def test_7_direct_substring(self):
-        # b is a direct substring of a, no rotation needed
-        self.assertTrue(cycpattern_check("programming", "gram"))
+    def test_boundary_pattern_same_length_but_not_rotation(self):
+        # Boundary case: Pattern has same length as main string but is not a rotation.
+        self.assertEqual(cycpattern_check("abc", "abd"), False)
 
-    def test_8_rotation_is_substring(self):
-        # A rotation of b is a substring of a
-        self.assertTrue(cycpattern_check("applepie", "pleap")) # "pleap" is a rotation of "apple"
+    def test_logic_mutation_multiple_rotations_one_match(self):
+        # Logic mutation: 'nana' rotations are 'nana', 'anan'. 'anan' is in 'banana'.
+        # Ensures all rotations are checked and not just the original pattern.
+        self.assertEqual(cycpattern_check("banana", "nana"), True)
 
-    def test_9_b_longer_than_a(self):
-        # b is longer than a, so it cannot be a substring
-        self.assertFalse(cycpattern_check("short", "longerword"))
+    def test_extreme_long_strings_no_match(self):
+        # Extreme case: Long strings, no match found after checking all rotations.
+        self.assertEqual(cycpattern_check("abcdefghijklmnopqrstuvwxyz", "zyxw"), False)
 
-    def test_10_empty_b(self):
-        # An empty string is always considered a substring of any string
-        self.assertTrue(cycpattern_check("anytext", ""))
+    def test_extreme_long_strings_match_at_end_via_rotation(self):
+        # Extreme case: Long strings, match found via rotation that wraps around.
+        # The original comment was misleading.
+        # For b = "abcza", its rotations are:
+        # "abcza"
+        # "bczaa"
+        # "czaab"
+        # "zaabc"
+        # "aabcz"
+        # None of these rotations are substrings of "abcdefghijklmnopqrstuvwxyz".
+        # Therefore, the expected result is False.
+        self.assertEqual(cycpattern_check("abcdefghijklmnopqrstuvwxyz", "abcza"), False)

@@ -3,45 +3,55 @@ from sut_llm.problem_HumanEval_85 import add
 
 class TestAddFunction(unittest.TestCase):
 
-    def test_example_case(self):
+    def test_example_from_docstring(self):
+        # Test the example provided in the docstring
         self.assertEqual(add([4, 2, 6, 7]), 2)
 
     def test_single_element_list(self):
-        # Single element list, index 0 is even, so no elements at odd indices.
+        # Edge case: a list with a single element. Index 0 is even, so no addition.
         self.assertEqual(add([10]), 0)
 
-    def test_two_elements_second_even(self):
-        # Index 1 (odd) has value 2 (even).
-        self.assertEqual(add([1, 2]), 2)
+    def test_no_matching_elements_all_odd_indices_odd_elements(self):
+        # Logic mutation: odd index, but element is also odd. Should sum to 0.
+        self.assertEqual(add([1, 3, 5, 7]), 0)
 
-    def test_two_elements_second_odd(self):
-        # Index 1 (odd) has value 3 (odd).
-        self.assertEqual(add([1, 3]), 0)
+    def test_no_matching_elements_all_even_indices_even_elements(self):
+        # Logic mutation: element is even, but index is even. Should sum to 0.
+        # Changed input to ensure no even elements are at odd indices,
+        # thus correctly resulting in a sum of 0.
+        self.assertEqual(add([2, 3, 6, 7]), 0)
 
-    def test_all_even_some_at_odd_indices(self):
-        # Index 1 (20), Index 3 (40) contribute.
-        self.assertEqual(add([10, 20, 30, 40, 50]), 60)
+    def test_mixed_elements_and_indices_positive_sum(self):
+        # Typical input with multiple elements contributing to a positive sum.
+        # Indices: 0, 1, 2, 3, 4, 5
+        # Elements: 1, 2, 3, 4, 5, 6
+        # Odd indices with even elements: lst[1]=2, lst[3]=4, lst[5]=6
+        self.assertEqual(add([1, 2, 3, 4, 5, 6]), 12)
 
-    def test_all_odd_no_contribution(self):
-        # All elements are odd, so none contribute even if at odd indices.
-        self.assertEqual(add([1, 3, 5, 7, 9]), 0)
+    def test_negative_even_elements(self):
+        # Sign testing: Test with negative even numbers at odd indices.
+        # Odd indices with even elements: lst[1]=-2, lst[3]=-4, lst[5]=-6
+        self.assertEqual(add([1, -2, 3, -4, 5, -6]), -12)
 
-    def test_negative_numbers(self):
-        # Index 1 (-2), Index 3 (-4) contribute.
-        self.assertEqual(add([-1, -2, -3, -4, -5]), -6)
+    def test_zero_as_even_element(self):
+        # Sign testing: Test with zero as an even element at odd indices.
+        # Odd indices with even elements: lst[1]=0, lst[3]=4, lst[5]=0
+        self.assertEqual(add([1, 0, 3, 4, 5, 0]), 4)
 
-    def test_list_with_zeros(self):
-        # Index 1 (0), Index 3 (0) contribute.
-        self.assertEqual(add([0, 0, 0, 0]), 0)
+    def test_boundary_last_element_is_target(self):
+        # Boundary condition: The last element is at an odd index and is even.
+        # Odd indices with even elements: lst[1]=2, lst[3]=4, lst[5]=8
+        self.assertEqual(add([1, 2, 3, 4, 5, 8]), 14)
 
-    def test_longer_mixed_list(self):
-        # Index 1 (1, odd), Index 3 (2, even), Index 5 (3, odd), Index 7 (4, even), Index 9 (5, odd)
-        # Only 2 and 4 contribute.
-        self.assertEqual(add([100, 1, 200, 2, 300, 3, 400, 4, 500, 5]), 6)
+    def test_boundary_last_element_not_target(self):
+        # Boundary condition: The last element is at an odd index but is odd.
+        # Odd indices with even elements: lst[1]=2, lst[3]=4
+        self.assertEqual(add([1, 2, 3, 4, 5, 7]), 6)
 
-    def test_list_with_only_odd_indices_contributing(self):
-        # Only elements at odd indices are even.
-        self.assertEqual(add([1, 10, 3, 20, 5, 30]), 60)
+    def test_long_list_with_duplicates_and_zeros(self):
+        # Extreme input: A longer list with various numbers, including duplicates and zeros.
+        # Odd indices with even elements: lst[1]=20, lst[3]=40, lst[5]=60, lst[7]=80, lst[9]=100, lst[11]=-2
+        self.assertEqual(add([10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 0, -2]), 298)
 
 if __name__ == '__main__':
     unittest.main()

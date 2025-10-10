@@ -3,32 +3,72 @@ from sut_llm.problem_HumanEval_93 import encode
 
 class TestEncodeFunction(unittest.TestCase):
 
-    def test_01_example_one(self):
+    def test_example_one(self):
+        """
+        Test case from the docstring: 'test' -> 'TGST'.
+        Covers: lowercase input, mix of vowel/consonant, case swap, vowel replacement.
+        """
         self.assertEqual(encode('test'), 'TGST')
 
-    def test_02_example_two(self):
+    def test_example_two(self):
+        """
+        Test case from the docstring: 'This is a message' -> 'tHKS KS C MGSSCGG'.
+        Covers: mixed case input, spaces, multiple words, multiple vowels, multiple consonants.
+        """
         self.assertEqual(encode('This is a message'), 'tHKS KS C MGSSCGG')
 
-    def test_03_all_lowercase_vowels(self):
+    def test_all_lowercase_vowels(self):
+        """
+        Boundary test: Input with all lowercase vowels.
+        Covers: all lowercase vowels, boundary for vowel replacement (a, u).
+        """
         self.assertEqual(encode('aeiou'), 'CGKQW')
 
-    def test_04_all_uppercase_vowels(self):
+    def test_all_uppercase_vowels(self):
+        """
+        Boundary test: Input with all uppercase vowels.
+        Covers: all uppercase vowels, boundary for vowel replacement (A, U).
+        """
         self.assertEqual(encode('AEIOU'), 'CGKQW')
 
-    def test_05_mixed_case_with_spaces(self):
-        self.assertEqual(encode('Hello World'), 'hGLLQ wQRLD')
+    def test_all_lowercase_consonants(self):
+        """
+        Extreme input test: Input with only lowercase consonants.
+        Covers: only consonants, case swap, checks non-vowel logic.
+        """
+        self.assertEqual(encode('bcdfghjklmnpqrstvwxyz'), 'BCDFGHJKLMNPQRSTVWXYZ')
 
-    def test_06_only_consonants(self):
-        self.assertEqual(encode('rhythm'), 'RHYTHM')
+    def test_all_uppercase_consonants(self):
+        """
+        Extreme input test: Input with only uppercase consonants.
+        Covers: only consonants, case swap, checks non-vowel logic.
+        """
+        self.assertEqual(encode('BCDFGHJKLMNPQRSTVWXYZ'), 'bcdfghjklmnpqrstvwxyz')
 
-    def test_07_empty_string(self):
+    def test_empty_string(self):
+        """
+        Edge case: Empty input string.
+        Covers: empty collection.
+        """
         self.assertEqual(encode(''), '')
 
-    def test_08_single_lowercase_vowel(self):
+    def test_single_character_vowel(self):
+        """
+        Edge case: Single character input, a vowel.
+        Covers: single element, vowel replacement.
+        """
         self.assertEqual(encode('a'), 'C')
 
-    def test_09_single_uppercase_consonant(self):
-        self.assertEqual(encode('B'), 'b')
+    def test_single_character_consonant(self):
+        """
+        Edge case: Single character input, a consonant.
+        Covers: single element, consonant case swap.
+        """
+        self.assertEqual(encode('b'), 'B')
 
-    def test_10_longer_mixed_string(self):
-        self.assertEqual(encode('Python is Fun'), 'pYTHQN KS fWN')
+    def test_mixed_case_and_spaces(self):
+        """
+        Typical/Unusual input test: A more complex string with mixed case, spaces, and various vowels/consonants.
+        Covers: mixed case, spaces, multiple words, different vowel/consonant positions.
+        """
+        self.assertEqual(encode('PyThOn Is FuN'), 'pYtHQN KS fWn')

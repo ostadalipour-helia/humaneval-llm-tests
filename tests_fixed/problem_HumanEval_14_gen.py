@@ -1,39 +1,44 @@
 import unittest
 from sut_llm.problem_HumanEval_14 import all_prefixes
 
-
 class TestAllPrefixes(unittest.TestCase):
 
     def test_empty_string(self):
-        self.assertEqual(all_prefixes(""), [])
+        # Boundary: empty string, edge case
+        self.assertListEqual(all_prefixes(""), [])
 
     def test_single_character_string(self):
-        self.assertEqual(all_prefixes("a"), ["a"])
+        # Boundary: single character string, edge case, off-by-one (loop for 1 iteration)
+        self.assertListEqual(all_prefixes("a"), ["a"])
 
     def test_two_character_string(self):
-        self.assertEqual(all_prefixes("ab"), ["a", "ab"])
+        # Off-by-one: loop for 2 iterations
+        self.assertListEqual(all_prefixes("ab"), ["a", "ab"])
 
-    def test_three_character_string_from_docstring(self):
-        self.assertEqual(all_prefixes("abc"), ["a", "ab", "abc"])
-
-    def test_string_with_spaces(self):
-        self.assertEqual(all_prefixes("hello world"), ["h", "he", "hel", "hell", "hello", "hello ", "hello w", "hello wo", "hello wor", "hello worl", "hello world"])
-
-    def test_string_with_numbers(self):
-        self.assertEqual(all_prefixes("123"), ["1", "12", "123"])
-
-    def test_string_with_special_characters(self):
-        self.assertEqual(all_prefixes("!@#"), ["!", "!@", "!@#"])
-
-    def test_longer_string(self):
-        self.assertEqual(all_prefixes("python"), ["p", "py", "pyt", "pyth", "pytho", "python"])
-
-    def test_string_with_repeated_characters(self):
-        self.assertEqual(all_prefixes("aaa"), ["a", "aa", "aaa"])
+    def test_docstring_example(self):
+        # Typical input, verifies example from docstring
+        self.assertListEqual(all_prefixes("abc"), ["a", "ab", "abc"])
 
     def test_medium_length_string(self):
-        self.assertEqual(all_prefixes("test"), ["t", "te", "tes", "test"])
+        # Typical input, general case
+        self.assertListEqual(all_prefixes("hello"), ["h", "he", "hel", "hell", "hello"])
 
+    def test_string_with_spaces(self):
+        # Extreme/unusual input: string containing spaces
+        self.assertListEqual(all_prefixes("hi there"), ["h", "hi", "hi ", "hi t", "hi th", "hi the", "hi ther", "hi there"])
 
-if __name__ == '__main__':
-    unittest.main()
+    def test_string_with_digits_and_symbols(self):
+        # Extreme/unusual input: string with numbers and special characters
+        self.assertListEqual(all_prefixes("123!"), ["1", "12", "123", "123!"])
+
+    def test_string_with_all_same_characters(self):
+        # Edge case: string with all identical characters, duplicate values
+        self.assertListEqual(all_prefixes("aaaa"), ["a", "aa", "aaa", "aaaa"])
+
+    def test_string_with_mixed_case(self):
+        # Typical input: string with mixed upper and lower case characters
+        self.assertListEqual(all_prefixes("PyThOn"), ["P", "Py", "PyT", "PyTh", "PyThO", "PyThOn"])
+
+    def test_string_with_unicode_characters(self):
+        # Extreme/unusual input: string with multi-byte unicode characters
+        self.assertListEqual(all_prefixes("你好世界"), ["你", "你好", "你好世", "你好世界"])

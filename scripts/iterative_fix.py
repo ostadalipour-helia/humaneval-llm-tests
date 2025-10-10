@@ -105,45 +105,51 @@ def load_problem_ids():
 
 
 def run_single_test(test_file, test_method):
-    """Run a single test method and capture output."""
+    """
+    Run a single test method from an isolated temporary file.
+    Returns (passed: bool, output: str)
+    """
     try:
-        # Get the test class name from the file
-        with open(test_file, 'r') as f:
-            content = f.read()
-        
-        # Find the test class name
-        class_match = re.search(r'class (\w+)\(unittest\.TestCase\):', content)
-        if not class_match:
-            return False, "No TestCase class found in test file"
-        
-        test_class_name = class_match.group(1)
-        
-        # Get the module path relative to tests_fixed directory
+        test_class_name = "TempTest"
         test_module = f"tests_fixed.{test_file.stem}"
-        
-        # DEBUG: Print test execution details
         full_test_path = f"{test_module}.{test_class_name}.{test_method}"
-        print(f"      DEBUG: Running test: {full_test_path}")
-        
+
         result = subprocess.run(
-            [sys.executable, "-m", "unittest", full_test_path],
+            [sys.executable, "-m", "unittest", full_test_path, "-v"],
             capture_output=True,
             text=True,
             timeout=10,
-            cwd=Path.cwd()  # Run from project root
+            cwd=Path.cwd(),
         )
-        
-        output = result.stderr + result.stdout
+
         passed = result.returncode == 0
-        
-        return passed, output
-        
+        combined_output = result.stderr + "\n" + result.stdout
+
+        if not passed:
+            error_msg = f"""
+=== TEST FAILURE ===
+Return Code: {result.returncode}
+
+--- STDERR ---
+{result.stderr}
+
+--- STDOUT ---
+{result.stdout}
+
+--- COMBINED OUTPUT ---
+{combined_output}
+===================
+"""
+        else:
+            error_msg = "Test passed"
+
+        return passed, error_msg
+
     except subprocess.TimeoutExpired:
-        return False, "Test execution timeout after 10 seconds"
-    except FileNotFoundError:
-        return False, "Test file or module not found"
+        return False, "Test execution timeout after 10 seconds (possible infinite loop)"
     except Exception as e:
-        return False, f"Test execution error: {str(e)}"
+        import traceback
+        return False, f"Test execution error: {str(e)}\n\nTraceback:\n{traceback.format_exc()}"
 
 
 def extract_test_methods(test_file_path):
@@ -335,11 +341,13 @@ def update_test_in_file(test_file_content, old_test_code, new_test_code):
     
     return test_file_content
 
-
 def fix_tests_for_problem(problem_id):
-    """Fix all failing tests for a single problem."""
+    """
+    Fix all failing tests for a single HumanEval problem.
+    Each test method is handled in isolation — if one fails, only it is retried/fixed.
+    """
     test_file = TEST_DIR / f"problem_{problem_id}_gen.py"
-    
+
     if not test_file.exists():
         return {
             "problem_id": problem_id,
@@ -347,21 +355,22 @@ def fix_tests_for_problem(problem_id):
             "total_tests": 0,
             "fixed": 0,
             "discarded": 0,
-            "passed_initially": 0
+            "passed_initially": 0,
+            "test_details": [],
         }
-    
-    # Read original test file 
+
+    # Read and sanitize test content (update imports to sut_llm)
     original_content = test_file.read_text()
-    # Update imports from sut to sut_llm
-    original_content = original_content.replace(f"from sut.problem_{problem_id}", f"from sut_llm.problem_{problem_id}")
-    current_content = original_content
-    
-    # Extract test methods
+    original_content = original_content.replace(
+        f"from sut.problem_{problem_id}",
+        f"from sut_llm.problem_{problem_id}"
+    )
+
+    # Extract all individual test methods
     test_methods = extract_test_methods(test_file)
-    
-    # Read function code
+
+    # Read the function (solution) code
     function_code = read_function_code(problem_id)
-    
     if not function_code:
         return {
             "problem_id": problem_id,
@@ -369,107 +378,146 @@ def fix_tests_for_problem(problem_id):
             "total_tests": len(test_methods),
             "fixed": 0,
             "discarded": 0,
-            "passed_initially": 0
+            "passed_initially": 0,
+            "test_details": [],
         }
-    
+
     stats = {
         "problem_id": problem_id,
         "total_tests": len(test_methods),
         "fixed": 0,
         "discarded": 0,
         "passed_initially": 0,
-        "test_details": []
+        "test_details": [],
     }
-    
-    # Create temp test file in tests_fixed directory
-    temp_test_file = FIXED_TEST_DIR / f"problem_{problem_id}_gen_temp.py"
-    
+
+    fixed_test_file = FIXED_TEST_DIR / f"problem_{problem_id}_gen.py"
+    current_content = original_content
+
+    # Iterate through all test methods
     for method_name, test_code in test_methods.items():
-        print(f"    Testing: {method_name}")
-        
-        # Write current content to temp file in tests_fixed - UPDATE IMPORTS
-        updated_temp_content = current_content.replace(
-            f"from sut.problem_{problem_id}",
-            f"from sut_llm.problem_{problem_id}"
-        )
-        temp_test_file.write_text(updated_temp_content)
-        
-        # Run the test
-        passed, output = run_single_test(temp_test_file, method_name)
-        
+        print(f"    ▶ Running {method_name}...")
+
+        # Create a temporary isolated test file for this test
+        single_test_temp = FIXED_TEST_DIR / f"temp_single_{problem_id}_{method_name}.py"
+
+        # Properly indent test code
+        indented_test_code = re.sub(r"(?m)^", "    ", test_code)
+
+        # Write minimal test file
+        single_test_content = f"""import unittest
+from sut_llm.problem_{problem_id} import *
+
+class TempTest(unittest.TestCase):
+{indented_test_code}
+"""
+        single_test_temp.write_text(single_test_content)
+
+        # Run test against current solution
+        passed, output = run_single_test(single_test_temp, method_name)
+
+        # Remove the temp file after execution
+        try:
+            single_test_temp.unlink()
+        except Exception:
+            pass
+
+        # Record test result
         if passed:
-            print(f"      ✅ Passed")
+            print(f"        ✅ Passed initially")
             stats["passed_initially"] += 1
             stats["test_details"].append({
                 "test_name": method_name,
                 "status": "passed_initially"
             })
             continue
-        
-        # Test failed, try to fix
-        print(f"      ❌ Failed, attempting to fix...")
-        
+
+        # Otherwise, attempt LLM fix
+        print(f"        ❌ Failed, attempting to fix...")
+        initial_error = output
+        fix_attempts = []
         fixed = False
+
         for attempt in range(1, MAX_FIX_ATTEMPTS + 1):
-            print(f"        Attempt {attempt}/{MAX_FIX_ATTEMPTS}")
-            
+            print(f"          Attempt {attempt}/{MAX_FIX_ATTEMPTS}")
+
+            # Prepare prompt
+            prompt = FIX_PROMPT_TEMPLATE.format(
+                function_code=function_code,
+                test_code=test_code,
+                error_message=output
+            )
+
             # Get fixed test code from LLM
             fixed_test_code = fix_test_with_llm(function_code, test_code, output)
-            
+
+            # Record attempt details
+            attempt_record = {
+                "attempt_number": attempt,
+                "prompt": prompt,
+                "error_message": output,
+                "generated_code": fixed_test_code if fixed_test_code else None,
+            }
+
             if not fixed_test_code:
+                attempt_record["result"] = "llm_failed"
+                fix_attempts.append(attempt_record)
                 break
-            
-            # Update test in content
-            new_content = update_test_in_file(current_content, test_code, fixed_test_code)
-            # Update imports when writing
-            updated_new_content = new_content.replace(
-                f"from sut.problem_{problem_id}",
-                f"from sut_llm.problem_{problem_id}"
-            )
-            temp_test_file.write_text(updated_new_content)
-            
+
+            # Build a new isolated test file with the fixed code
+            indented_fixed_code = re.sub(r"(?m)^", "    ", fixed_test_code)
+            fixed_test_content = f"""import unittest
+from sut_llm.problem_{problem_id} import *
+
+class TempTest(unittest.TestCase):
+{indented_fixed_code}
+"""
+            single_test_temp.write_text(fixed_test_content)
+
             # Run again
-            passed, output = run_single_test(temp_test_file, method_name)
-            
+            passed, output = run_single_test(single_test_temp, method_name)
+
+            attempt_record["test_passed"] = passed
+            attempt_record["new_error_message"] = output if not passed else None
+            attempt_record["result"] = "success" if passed else "still_failing"
+            fix_attempts.append(attempt_record)
+
+            try:
+                single_test_temp.unlink()
+            except Exception:
+                pass
+
             if passed:
-                print(f"        ✅ Fixed on attempt {attempt}")
-                current_content = new_content
-                test_code = fixed_test_code  # Update for next iteration
+                print(f"          ✅ Fixed on attempt {attempt}")
+                # Update the main content with the corrected test
+                current_content = update_test_in_file(current_content, test_code, fixed_test_code)
+                test_code = fixed_test_code
                 stats["fixed"] += 1
                 stats["test_details"].append({
                     "test_name": method_name,
                     "status": "fixed",
-                    "attempts": attempt
+                    "attempts": attempt,
+                    "initial_error": initial_error,
+                    "fix_attempts": fix_attempts
                 })
                 fixed = True
                 break
-        
+
         if not fixed:
-            print(f"        ❌ Could not fix, discarding test")
-            # Remove the test from content
+            print(f"          ❌ Could not fix, discarding test.")
+            # Remove from current content (don't break the file)
             pattern = rf'    def {method_name}\(self\):.*?(?=\n    def |\nif __name__|$)'
             current_content = re.sub(pattern, '', current_content, flags=re.DOTALL)
             stats["discarded"] += 1
             stats["test_details"].append({
                 "test_name": method_name,
-                "status": "discarded"
+                "status": "discarded",
+                "initial_error": initial_error,
+                "fix_attempts": fix_attempts
             })
-    
-    # Save fixed test file - UPDATE IMPORTS
-    fixed_test_file = FIXED_TEST_DIR / f"problem_{problem_id}_gen.py"
 
-    # Update import statements from sut to sut_llm
-    updated_content = current_content.replace(
-        f"from sut.problem_{problem_id}",
-        f"from sut_llm.problem_{problem_id}"
-    )
-
-    fixed_test_file.write_text(updated_content)
-    
-    # Clean up temp file
-    if temp_test_file.exists():
-        temp_test_file.unlink()
-    
+    # Save final corrected test file
+    fixed_test_file.write_text(current_content)
     stats["status"] = "completed"
     return stats
 

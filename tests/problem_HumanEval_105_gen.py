@@ -3,55 +3,66 @@ from sut.problem_HumanEval_105 import by_length
 
 class TestByLength(unittest.TestCase):
 
-    def test_empty_array(self):
-        arr = []
-        expected_output = []
-        self.assertEqual(by_length(arr), expected_output)
-
-    def test_docstring_example_1(self):
+    def test_example_from_docstring_1(self):
+        # Typical input with duplicates and mixed order, covering multiple steps
         arr = [2, 1, 1, 4, 5, 8, 2, 3]
-        expected_output = ["Eight", "Five", "Four", "Three", "Two", "Two", "One", "One"]
-        self.assertEqual(by_length(arr), expected_output)
+        expected = ["Eight", "Five", "Four", "Three", "Two", "Two", "One", "One"]
+        self.assertListEqual(by_length(arr), expected)
 
-    def test_docstring_example_2_with_invalid_numbers(self):
+    def test_example_from_docstring_2_mixed_invalid(self):
+        # Input with valid, negative, and large invalid numbers.
+        # Tests filtering logic and handling of non-relevant numbers.
         arr = [1, -1, 55]
-        expected_output = ['One']
-        self.assertEqual(by_length(arr), expected_output)
+        expected = ['One']
+        self.assertListEqual(by_length(arr), expected)
 
-    def test_all_valid_unique_numbers_unsorted(self):
-        arr = [9, 2, 7, 4, 1]
-        expected_output = ["Nine", "Seven", "Four", "Two", "One"]
-        self.assertEqual(by_length(arr), expected_output)
+    def test_empty_array(self):
+        # Edge case: empty input array.
+        arr = []
+        expected = []
+        self.assertListEqual(by_length(arr), expected)
 
-    def test_valid_numbers_with_duplicates(self):
-        arr = [3, 3, 1, 5, 1, 3]
-        expected_output = ["Five", "Three", "Three", "Three", "One", "One"]
-        self.assertEqual(by_length(arr), expected_output)
+    def test_single_valid_element(self):
+        # Edge case: single valid element.
+        arr = [5]
+        expected = ['Five']
+        self.assertListEqual(by_length(arr), expected)
 
-    def test_numbers_outside_range_zero_and_ten(self):
-        arr = [0, 10, 5, -2, 9]
-        expected_output = ["Nine", "Five"]
-        self.assertEqual(by_length(arr), expected_output)
+    def test_single_invalid_element_below_boundary(self):
+        # Boundary test: single element just below the valid range (0).
+        # Catches off-by-one errors like '<=' instead of '<' for lower bound.
+        arr = [0]
+        expected = []
+        self.assertListEqual(by_length(arr), expected)
 
-    def test_single_valid_number(self):
-        arr = [7]
-        expected_output = ["Seven"]
-        self.assertEqual(by_length(arr), expected_output)
+    def test_single_invalid_element_above_boundary(self):
+        # Boundary test: single element just above the valid range (10).
+        # Catches off-by-one errors like '>=' instead of '>' for upper bound.
+        arr = [10]
+        expected = []
+        self.assertListEqual(by_length(arr), expected)
 
-    def test_single_invalid_number(self):
-        arr = [100]
-        expected_output = []
-        self.assertEqual(by_length(arr), expected_output)
+    def test_all_valid_boundary_values(self):
+        # Boundary test: array containing only the exact boundary values (1 and 9).
+        arr = [1, 9]
+        expected = ['Nine', 'One']
+        self.assertListEqual(by_length(arr), expected)
 
-    def test_all_numbers_are_same_valid_number(self):
-        arr = [6, 6, 6]
-        expected_output = ["Six", "Six", "Six"]
-        self.assertEqual(by_length(arr), expected_output)
+    def test_all_invalid_values_mixed(self):
+        # Extreme input: array with only invalid numbers, including negative, zero, and large.
+        # Tests robust filtering and ensures an empty list is returned.
+        arr = [0, -5, 10, 100, -100]
+        expected = []
+        self.assertListEqual(by_length(arr), expected)
 
-    def test_mixed_valid_invalid_and_edge_range_numbers(self):
-        arr = [9, 0, 1, 10, 5, -3, 2, 8]
-        expected_output = ["Nine", "Eight", "Five", "Two", "One"]
-        self.assertEqual(by_length(arr), expected_output)
+    def test_duplicates_and_boundary_values(self):
+        # Input with duplicates and boundary values, testing sorting and mapping.
+        arr = [1, 1, 9, 9, 5, 2]
+        expected = ['Nine', 'Nine', 'Five', 'Two', 'One', 'One']
+        self.assertListEqual(by_length(arr), expected)
 
-if __name__ == '__main__':
-    unittest.main()
+    def test_sorted_input_all_valid(self):
+        # Typical input that is already sorted, primarily testing the reverse and mapping steps.
+        arr = [3, 4, 5]
+        expected = ['Five', 'Four', 'Three']
+        self.assertListEqual(by_length(arr), expected)

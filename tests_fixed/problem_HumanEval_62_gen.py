@@ -3,46 +3,47 @@ from sut_llm.problem_HumanEval_62 import derivative
 
 class TestDerivative(unittest.TestCase):
 
-    def test_01_docstring_example_1(self):
-        self.assertEqual(derivative([3, 1, 2, 4, 5]), [1, 4, 12, 20])
+    def test_docstring_example_1(self):
+        # Typical case from docstring, verifies general functionality
+        self.assertListEqual(derivative([3, 1, 2, 4, 5]), [1, 4, 12, 20])
 
-    def test_02_docstring_example_2(self):
-        self.assertEqual(derivative([1, 2, 3]), [2, 6])
+    def test_docstring_example_2(self):
+        # Another typical case from docstring, verifies general functionality
+        self.assertListEqual(derivative([1, 2, 3]), [2, 6])
 
-    def test_03_constant_polynomial(self):
-        # Derivative of a constant (e.g., 5) is 0.
-        # Based on examples, the output list length is len(input) - 1.
-        # So for [5], len=1, output len=0, which is [].
-        self.assertEqual(derivative([5]), [])
+    def test_edge_case_empty_list(self):
+        # Boundary condition: Empty polynomial (no coefficients)
+        self.assertListEqual(derivative([]), [])
 
-    def test_04_linear_polynomial(self):
-        # Derivative of 2 + 3x is 3.
-        self.assertEqual(derivative([2, 3]), [3])
+    def test_edge_case_single_element_list(self):
+        # Boundary condition: Constant polynomial (e.g., P(x) = 7), derivative is 0
+        self.assertListEqual(derivative([7]), [])
 
-    def test_05_polynomial_with_zero_middle_coefficient(self):
-        # Derivative of 1 + 0x + 2x^2 is 0 + 4x, represented as [0, 4].
-        self.assertEqual(derivative([1, 0, 2]), [0, 4])
+    def test_boundary_two_elements_linear_polynomial(self):
+        # Boundary condition: Linear polynomial (e.g., P(x) = 10 - 3x)
+        # Tests the smallest input that yields a non-empty derivative
+        self.assertListEqual(derivative([10, -3]), [-3])
 
-    def test_06_polynomial_with_negative_coefficients(self):
-        # Derivative of 1 - 2x + 3x^2 is -2 + 6x.
-        self.assertEqual(derivative([1, -2, 3]), [-2, 6])
+    def test_negative_coefficients(self):
+        # Sign testing: Polynomial with all negative coefficients
+        self.assertListEqual(derivative([-1, -2, -3, -4]), [-2, -6, -12])
 
-    def test_07_polynomial_with_fractional_coefficients(self):
-        # Derivative of 0.5 + 1.5x + 2.5x^2 is 1.5 + 5.0x.
-        self.assertEqual(derivative([0.5, 1.5, 2.5]), [1.5, 5.0])
+    def test_zero_coefficients(self):
+        # Sign testing: Polynomial with some zero coefficients, including the constant term
+        # Catches issues with multiplication by zero or incorrect index handling
+        self.assertListEqual(derivative([5, 0, 3, 0, 1]), [0, 6, 0, 4])
 
-    def test_08_empty_polynomial(self):
-        # An empty list represents a polynomial with no terms (effectively 0).
-        # Its derivative should also be represented as an empty list.
-        self.assertEqual(derivative([]), [])
+    def test_large_coefficients(self):
+        # Extreme input: Polynomial with large coefficients
+        # Verifies correct arithmetic with larger numbers
+        self.assertListEqual(derivative([1000, 2000, 3000]), [2000, 6000])
 
-    def test_09_polynomial_with_leading_zero_coefficients(self):
-        # Derivative of 0 + 0x + 5x^2 is 0 + 10x, represented as [0, 10].
-        self.assertEqual(derivative([0, 0, 5]), [0, 10])
+    def test_mixed_coefficients(self):
+        # Logic mutation: Polynomial with a mix of positive, negative, and zero coefficients
+        # Ensures the derivative logic handles all types of coefficients correctly
+        self.assertListEqual(derivative([1, -2, 0, 4, -5]), [-2, 0, 12, -20])
 
-    def test_10_polynomial_with_multiple_zero_coefficients(self):
-        # Derivative of 1 + 0x + 0x^2 + 4x^3 is 0 + 0x + 12x^2, represented as [0, 0, 12].
-        self.assertEqual(derivative([1, 0, 0, 4]), [0, 0, 12])
-
-if __name__ == '__main__':
-    unittest.main()
+    def test_all_same_non_zero_coefficients(self):
+        # Edge case: All coefficients are the same non-zero value (e.g., P(x) = 7 + 7x + 7x^2 + 7x^3)
+        # Checks if the multiplication by index (k) is correctly applied for each term
+        self.assertListEqual(derivative([7, 7, 7, 7]), [7, 14, 21])

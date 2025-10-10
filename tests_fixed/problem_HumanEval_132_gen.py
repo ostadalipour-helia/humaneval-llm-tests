@@ -3,35 +3,32 @@ from sut_llm.problem_HumanEval_132 import is_nested
 
 class TestIsNested(unittest.TestCase):
 
-    def test_example_simple_nested(self):
-        self.assertTrue(is_nested('[[]]'))
+    def test_1_empty_string(self):
+        self.assertFalse(is_nested(""))
 
-    def test_example_unbalanced_no_nested(self):
-        self.assertFalse(is_nested('[]]]]]]][[[[[]'))
+    def test_2_simple_non_nested_pair(self):
+        self.assertFalse(is_nested("[]"))
 
-    def test_example_valid_not_nested_multiple(self):
-        self.assertFalse(is_nested('[][]'))
+    def test_3_multiple_non_nested_pairs(self):
+        self.assertFalse(is_nested("[][]"))
 
-    def test_example_valid_not_nested_single(self):
-        self.assertFalse(is_nested('[]'))
+    def test_4_simple_nested_pair(self):
+        self.assertTrue(is_nested("[[]]"))
 
-    def test_example_mixed_nested_and_not(self):
-        self.assertTrue(is_nested('[[][]]'))
+    def test_5_nested_with_inner_sequence(self):
+        self.assertTrue(is_nested("[[][]]"))
 
-    def test_example_nested_followed_by_unclosed(self):
-        self.assertTrue(is_nested('[[]][['))
+    def test_6_long_string_no_nested(self):
+        self.assertFalse(is_nested("[]]]]]]][[[[[]"))
 
-    def test_empty_string(self):
-        self.assertFalse(is_nested(''))
+    def test_7_only_opening_brackets(self):
+        self.assertFalse(is_nested("[[[[["))
 
-    def test_single_opening_bracket(self):
-        self.assertFalse(is_nested('['))
+    def test_8_only_closing_brackets(self):
+        self.assertFalse(is_nested("]]]]]"))
 
-    def test_deeply_nested(self):
-        self.assertTrue(is_nested('[[[[]]]]'))
+    def test_9_nested_at_start_with_extra_closing(self):
+        self.assertTrue(is_nested("[[]]]]]]]"))
 
-    def test_non_nested_then_nested(self):
-        self.assertTrue(is_nested('[]][[]]'))
-
-if __name__ == '__main__':
-    unittest.main()
+    def test_10_nested_in_middle_surrounded_by_non_nested(self):
+        self.assertTrue(is_nested("[][[]][]"))

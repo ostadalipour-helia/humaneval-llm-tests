@@ -1,0 +1,104 @@
+================================================================================
+COVERAGE ENHANCEMENT LOG
+================================================================================
+Problem ID: HumanEval_143
+Timestamp: 2025-10-09T13:59:53.973479
+Status: success
+================================================================================
+
+================================================================================
+PROMPT
+================================================================================
+You are a Python developer writing unit tests to improve code coverage.
+
+The following code has some lines that are not covered by existing tests:
+
+def words_in_sentence(sentence):
+    """
+    You are given a string representing a sentence,
+    the sentence contains some words separated by a space,
+    and you have to return a string that contains the words from the original sentence,
+    whose lengths are prime numbers,
+    the order of the words in the new string should be the same as the original one.
+
+    Example 1:
+        Input: sentence = "This is a test"
+        Output: "is"
+
+    Example 2:
+        Input: sentence = "lets go for swimming"
+        Output: "go for"
+
+    Constraints:
+        * 1 <= len(sentence) <= 100
+        * sentence contains only letters
+    """
+
+    def is_prime(n):
+        """
+        Checks if a number is prime.
+        A prime number is a natural number greater than 1 that has no positive divisors other than 1 and itself.
+        """
+        if n < 2:
+            return False
+        if n == 2:
+            return True
+        if n % 2 == 0:
+            return False
+        i = 3
+        while i * i <= n:
+            if n % i == 0:
+                return False
+            i += 2
+        return True
+
+    words = sentence.split()
+    prime_length_words = []
+
+    for word in words:
+        if is_prime(len(word)):
+            prime_length_words.append(word)
+
+    return " ".join(prime_length_words)
+
+**Uncovered line numbers:** [35, 36, 37]
+
+**Actual uncovered lines:**
+Line 35:             if n % i == 0:
+Line 36:                 return False
+Line 37:             i += 2
+
+Generate ONLY test method definitions (def test_xxx) that will execute these uncovered lines.
+- Generate 1-3 test methods
+- Each method should be a standalone unittest method
+- Use proper 4-space indentation for method body
+- DO NOT include: class definitions, import statements, or if __name__ blocks
+- Return ONLY the method definitions
+
+Example format:
+    def test_edge_case(self):
+        result = words_in_sentence(test_input)
+        self.assertEqual(result, expected)
+
+Now generate the test methods:
+
+
+================================================================================
+RESPONSE
+================================================================================
+def test_composite_word_length_covers_lines_35_36(self):
+        # This test uses a word whose length is a composite odd number (e.g., 9).
+        # For n=9, the is_prime function will execute 'if n % i == 0' (line 35)
+        # and 'return False' (line 36) when i=3.
+        sentence = "composite" # Length 9
+        result = words_in_sentence(sentence)
+        self.assertEqual(result, "")
+
+    def test_prime_word_length_increments_i_covers_line_37(self):
+        # This test uses a word whose length is a prime number that requires 'i' to increment
+        # within the while loop (e.g., 13).
+        # For n=13, the is_prime function will execute 'i += 2' (line 37) when i=3.
+        sentence = "averylongword" # Length 13
+        result = words_in_sentence(sentence)
+        self.assertEqual(result, "averylongword")
+

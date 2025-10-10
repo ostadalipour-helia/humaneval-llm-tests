@@ -3,58 +3,75 @@ from sut_llm.problem_HumanEval_81 import numerical_letter_grade
 
 class TestNumericalLetterGrade(unittest.TestCase):
 
-    def test_01_example_case(self):
+    def test_example_from_docstring(self):
+        # Verifies the example provided in the docstring, which clarifies the interpretation of GPA ranges.
+        # This test is crucial for establishing the correct logic for boundary conditions (e.g., 3.0 -> 'B', 1.7 -> 'C-').
         grades = [4.0, 3, 1.7, 2, 3.5]
-        expected = ['A+', 'B', 'C-', 'C', 'A-']
-        self.assertEqual(numerical_letter_grade(grades), expected)
+        expected_grades = ['A+', 'B', 'C-', 'C', 'A-']
+        self.assertListEqual(numerical_letter_grade(grades), expected_grades)
 
-    def test_02_all_a_grades_and_boundaries(self):
-        # 4.0 (A+), 3.9 (A), 3.7 (A-), 3.5 (A-), 3.31 (A-)
-        grades = [4.0, 3.9, 3.7, 3.5, 3.31]
-        expected = ['A+', 'A', 'A-', 'A-', 'A-']
-        self.assertEqual(numerical_letter_grade(grades), expected)
-
-    def test_03_all_b_grades_and_boundaries(self):
-        # 3.3 (B+), 3.1 (B+), 3.0 (B), 2.8 (B), 2.71 (B)
-        grades = [3.3, 3.1, 3.0, 2.8, 2.71]
-        expected = ['B+', 'B+', 'B', 'B', 'B']
-        self.assertEqual(numerical_letter_grade(grades), expected)
-
-    def test_04_all_c_grades_and_boundaries(self):
-        # 2.7 (B-), 2.5 (B-), 2.3 (C+), 2.1 (C+), 2.0 (C), 1.8 (C), 1.71 (C)
-        grades = [2.7, 2.5, 2.3, 2.1, 2.0, 1.8, 1.71]
-        expected = ['B-', 'B-', 'C+', 'C+', 'C', 'C', 'C']
-        self.assertEqual(numerical_letter_grade(grades), expected)
-
-    def test_05_all_d_grades_and_boundaries(self):
-        # 1.7 (C-), 1.5 (C-), 1.3 (D+), 1.1 (D+), 1.0 (D), 0.8 (D), 0.71 (D)
-        grades = [1.7, 1.5, 1.3, 1.1, 1.0, 0.8, 0.71]
-        expected = ['C-', 'C-', 'D+', 'D+', 'D', 'D', 'D']
-        self.assertEqual(numerical_letter_grade(grades), expected)
-
-    def test_06_all_e_and_d_minus_grades_and_boundaries(self):
-        # 0.7 (D-), 0.5 (D-), 0.1 (D-), 0.0 (E)
-        grades = [0.7, 0.5, 0.1, 0.0]
-        expected = ['D-', 'D-', 'D-', 'E']
-        self.assertEqual(numerical_letter_grade(grades), expected)
-
-    def test_07_empty_list(self):
+    def test_empty_list(self):
+        # Edge case: Tests the function's behavior with an empty list of GPAs.
+        # Ensures the function handles empty input gracefully, returning an empty list.
         grades = []
-        expected = []
-        self.assertEqual(numerical_letter_grade(grades), expected)
+        expected_grades = []
+        self.assertListEqual(numerical_letter_grade(grades), expected_grades)
 
-    def test_08_single_grade_a_plus(self):
+    def test_single_gpa_a_plus(self):
+        # Edge case and Boundary Test: Tests a single GPA that hits the highest exact boundary (4.0).
+        # Verifies the 'A+' grade is correctly assigned.
         grades = [4.0]
-        expected = ['A+']
-        self.assertEqual(numerical_letter_grade(grades), expected)
+        expected_grades = ['A+']
+        self.assertListEqual(numerical_letter_grade(grades), expected_grades)
 
-    def test_09_single_grade_e(self):
+    def test_single_gpa_e(self):
+        # Edge case and Boundary Test: Tests a single GPA that hits the lowest exact boundary (0.0).
+        # Verifies the 'E' grade is correctly assigned.
         grades = [0.0]
-        expected = ['E']
-        self.assertEqual(numerical_letter_grade(grades), expected)
+        expected_grades = ['E']
+        self.assertListEqual(numerical_letter_grade(grades), expected_grades)
 
-    def test_10_comprehensive_mixed_grades(self):
-        # Covering all grade categories with various values
-        grades = [4.0, 3.8, 3.4, 3.1, 2.8, 2.4, 2.1, 1.8, 1.4, 1.1, 0.8, 0.1, 0.0]
-        expected = ['A+', 'A', 'A-', 'B+', 'B', 'B-', 'C+', 'C', 'C-', 'D+', 'D', 'D-', 'E']
-        self.assertEqual(numerical_letter_grade(grades), expected)
+    def test_all_grade_upper_boundaries(self):
+        # Boundary Test: Tests GPAs that are exactly the upper limit of each grade range (e.g., 3.7 for A-, 3.0 for B).
+        # This is critical for catching off-by-one errors if comparison operators (>, >=) are misused.
+        grades = [4.0, 3.7, 3.3, 3.0, 2.7, 2.3, 2.0, 1.7, 1.3, 1.0, 0.7, 0.0]
+        expected_grades = ['A+', 'A-', 'B+', 'B', 'B-', 'C+', 'C', 'C-', 'D+', 'D', 'D-', 'E']
+        self.assertListEqual(numerical_letter_grade(grades), expected_grades)
+
+    def test_all_grade_lower_boundaries_plus_epsilon(self):
+        # Boundary Test: Tests GPAs just above the lower limit of each grade range (e.g., 3.7 + epsilon for A).
+        # This ensures strict inequality ('>') is correctly applied and differentiates from inclusive boundaries.
+        epsilon = 1e-12 # A very small number to test just above the boundary
+        grades = [3.7 + epsilon, 3.3 + epsilon, 3.0 + epsilon, 2.7 + epsilon,
+                  2.3 + epsilon, 2.0 + epsilon, 1.7 + epsilon, 1.3 + epsilon,
+                  1.0 + epsilon, 0.7 + epsilon, 0.0 + epsilon]
+        expected_grades = ['A', 'A-', 'B+', 'B', 'B-', 'C+', 'C', 'C-', 'D+', 'D', 'D-']
+        self.assertListEqual(numerical_letter_grade(grades), expected_grades)
+
+    def test_typical_mixed_grades(self):
+        # Typical Input Test: A mix of GPAs that fall into various grade ranges, not necessarily on boundaries.
+        # Verifies correct grading for common, non-edge-case inputs.
+        grades = [3.9, 2.5, 1.5, 0.5, 3.1]
+        expected_grades = ['A', 'B-', 'C-', 'D-', 'B+']
+        self.assertListEqual(numerical_letter_grade(grades), expected_grades)
+
+    def test_all_same_grade_value(self):
+        # Edge Case: Tests a list where all GPAs are identical, verifying consistent grading.
+        # Catches potential issues with loop logic or state management.
+        grades = [2.8, 2.8, 2.8]
+        expected_grades = ['B', 'B', 'B']
+        self.assertListEqual(numerical_letter_grade(grades), expected_grades)
+
+    def test_extreme_values_near_zero_and_max(self):
+        # Extreme Input Test: Includes very small positive GPAs and GPAs just below the highest grade.
+        # Ensures robustness for values close to critical thresholds.
+        grades = [0.001, 3.999, 0.701, 1.001]
+        expected_grades = ['D-', 'A', 'D', 'D+']
+        self.assertListEqual(numerical_letter_grade(grades), expected_grades)
+
+    def test_mixed_grades_with_duplicates(self):
+        # Typical Input Test: A mix of GPAs including duplicates, covering various ranges.
+        # Ensures each GPA is processed independently and correctly.
+        grades = [3.5, 2.1, 1.8, 3.5, 0.8]
+        expected_grades = ['A-', 'C+', 'C', 'A-', 'D']
+        self.assertListEqual(numerical_letter_grade(grades), expected_grades)

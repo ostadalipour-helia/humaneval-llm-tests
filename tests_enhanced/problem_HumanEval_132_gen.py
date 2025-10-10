@@ -33,11 +33,11 @@ class TestIsNested(unittest.TestCase):
     def test_non_nested_then_nested(self):
         self.assertTrue(is_nested('[]][[]]'))
 
-    def test_missing_final_closing_bracket(self):
-        # This input has two opening brackets and one closing bracket,
-        # but lacks a second closing bracket to form the '[[]]' subsequence.
-        # This specifically targets the condition where idx4 is -1.
-        result = is_nested('[[]')
+    def test_no_closing_bracket_after_second_open(self):
+        # This input provides two opening brackets but no closing bracket
+        # after the second opening bracket, leading to idx3 being -1.
+        # This will execute the uncovered line 40.
+        result = is_nested('[[')
         self.assertFalse(result)
 
 if __name__ == '__main__':

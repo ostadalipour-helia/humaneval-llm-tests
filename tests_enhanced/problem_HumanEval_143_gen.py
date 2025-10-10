@@ -67,18 +67,21 @@ class TestWordsInSentence(unittest.TestCase):
         expected_output = "bb ccc eeeee ggggggg"
         self.assertEqual(words_in_sentence(sentence), expected_output)
 
-    def test_prime_check_even_and_odd_lengths(self):
-        # This test aims to cover:
-        # - Line 35: `if n % 2 == 0:` (by passing an even number > 2, e.g., 6)
-        # - Line 36: `return False` (by passing an even number > 2, e.g., 6)
-        # - Line 37: `i = 3` (by passing an odd number > 2, e.g., 5)
-        sentence = "apple banana orange grape"
-        # "apple" has length 5 (prime) -> is_prime(5) will execute line 37
-        # "banana" has length 6 (not prime) -> is_prime(6) will execute lines 35 and 36
-        # "orange" has length 6 (not prime) -> is_prime(6) will execute lines 35 and 36
-        # "grape" has length 5 (prime) -> is_prime(5) will execute line 37
+    def test_composite_word_length_covers_lines_35_36(self):
+        # This test uses a word whose length is a composite odd number (e.g., 9).
+        # For n=9, the is_prime function will execute 'if n % i == 0' (line 35)
+        # and 'return False' (line 36) when i=3.
+        sentence = "composite" # Length 9
         result = words_in_sentence(sentence)
-        self.assertEqual(result, "apple grape")
+        self.assertEqual(result, "")
+
+    def test_prime_word_length_increments_i_covers_line_37(self):
+        # This test uses a word whose length is a prime number that requires 'i' to increment
+        # within the while loop (e.g., 13).
+        # For n=13, the is_prime function will execute 'i += 2' (line 37) when i=3.
+        sentence = "averylongword" # Length 13
+        result = words_in_sentence(sentence)
+        self.assertEqual(result, "averylongword")
 
 if __name__ == '__main__':
     unittest.main()

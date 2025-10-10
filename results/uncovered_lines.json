@@ -21,10 +21,8 @@
   },
   {
     "problem_id": "HumanEval_4",
-    "coverage_before_enhancement": 89.0,
-    "uncovered_lines": [
-      14
-    ]
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
   },
   {
     "problem_id": "HumanEval_5",
@@ -93,8 +91,10 @@
   },
   {
     "problem_id": "HumanEval_18",
-    "coverage_before_enhancement": 100.0,
-    "uncovered_lines": []
+    "coverage_before_enhancement": 90.0,
+    "uncovered_lines": [
+      19
+    ]
   },
   {
     "problem_id": "HumanEval_19",
@@ -165,10 +165,11 @@
   },
   {
     "problem_id": "HumanEval_32",
-    "coverage_before_enhancement": 88.0,
+    "coverage_before_enhancement": 85.0,
     "uncovered_lines": [
       42,
       44,
+      61,
       76
     ]
   },
@@ -654,12 +655,13 @@
   },
   {
     "problem_id": "HumanEval_124",
-    "coverage_before_enhancement": 87.0,
+    "coverage_before_enhancement": 84.0,
     "uncovered_lines": [
       40,
       46,
       53,
-      54
+      54,
+      65
     ]
   },
   {
@@ -702,10 +704,8 @@
   },
   {
     "problem_id": "HumanEval_132",
-    "coverage_before_enhancement": 93.0,
-    "uncovered_lines": [
-      40
-    ]
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
   },
   {
     "problem_id": "HumanEval_133",
@@ -767,12 +767,8 @@
   },
   {
     "problem_id": "HumanEval_143",
-    "coverage_before_enhancement": 85.0,
-    "uncovered_lines": [
-      35,
-      36,
-      37
-    ]
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
   },
   {
     "problem_id": "HumanEval_144",
@@ -786,7 +782,7 @@
   },
   {
     "problem_id": "HumanEval_146",
-    "coverage_before_enhancement": 0.0,
+    "coverage_before_enhancement": 100.0,
     "uncovered_lines": []
   },
   {
@@ -843,17 +839,13 @@
   },
   {
     "problem_id": "HumanEval_157",
-    "coverage_before_enhancement": 86.0,
-    "uncovered_lines": [
-      13
-    ]
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
   },
   {
     "problem_id": "HumanEval_158",
-    "coverage_before_enhancement": 93.0,
-    "uncovered_lines": [
-      12
-    ]
+    "coverage_before_enhancement": 100.0,
+    "uncovered_lines": []
   },
   {
     "problem_id": "HumanEval_159",
@@ -872,7 +864,7 @@
   },
   {
     "problem_id": "HumanEval_162",
-    "coverage_before_enhancement": 100.0,
+    "coverage_before_enhancement": 0.0,
     "uncovered_lines": []
   },
   {

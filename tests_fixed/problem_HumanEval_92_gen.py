@@ -3,46 +3,42 @@ from sut_llm.problem_HumanEval_92 import any_int
 
 class TestAnyInt(unittest.TestCase):
 
-    def test_positive_sum_x_y_eq_z(self):
-        # Example case: 5 + 2 = 7
-        self.assertTrue(any_int(5, 2, 7))
+    def test_01_basic_true_case_x_is_sum_of_y_z(self):
+        # Test case from docstring: x = y + z, all integers
+        self.assertEqual(any_int(5, 2, 7), True)
 
-    def test_positive_sum_y_z_eq_x(self):
-        # Permutation: 2 + 7 = 9, but 7 + 2 = 9, so 9, 2, 7
-        self.assertTrue(any_int(9, 2, 7))
+    def test_02_basic_false_case_one_float_number(self):
+        # Test case from docstring: one number is a float
+        self.assertEqual(any_int(3.6, -2.2, 2), False)
 
-    def test_positive_sum_x_z_eq_y(self):
-        # Permutation: 5 + 7 = 12, so 5, 12, 7
-        self.assertTrue(any_int(5, 12, 7))
+    def test_03_sum_condition_fails_off_by_one_positive(self):
+        # All integers, but no number is the sum of the other two (off-by-one)
+        self.assertEqual(any_int(5, 2, 6), False)
 
-    def test_negative_and_positive_sum(self):
-        # Example case: 3 + (-2) = 1
-        self.assertTrue(any_int(3, -2, 1))
+    def test_04_sum_condition_fails_off_by_one_negative(self):
+        # All integers, but no number is the sum of the other two (off-by-one)
+        self.assertEqual(any_int(5, 3, 1), False)
 
-    def test_sum_with_zero(self):
-        # One number is zero, sum of others equals a third
-        self.assertTrue(any_int(0, 5, 5))
+    def test_05_true_case_y_is_sum_of_x_z(self):
+        # Test where y = x + z, all integers
+        self.assertEqual(any_int(2, 7, 5), True)
 
-    def test_no_sum_match_all_integers(self):
-        # Example case: 3, 2, 2 -> no sum matches
-        self.assertFalse(any_int(3, 2, 2))
+    def test_06_true_case_z_is_sum_of_x_y(self):
+        # Test where z = x + y, all integers
+        self.assertEqual(any_int(7, 5, 2), True)
 
-    def test_no_sum_match_all_integers_different_values(self):
-        # All integers, but no sum matches
-        self.assertFalse(any_int(1, 2, 4))
+    def test_07_false_case_duplicate_numbers_sum_fails(self):
+        # Test case from docstring: duplicate numbers, sum condition fails
+        self.assertEqual(any_int(3, 2, 2), False)
 
-    def test_float_present_sum_would_match(self):
-        # Example case: 3.6, -2.2, 2 -> float present, sum would be 1.4 != 2
-        # The docstring example implies that if any number is not an integer, it's false.
-        self.assertFalse(any_int(3.6, -2.2, 2))
+    def test_08_true_case_with_negative_numbers(self):
+        # Test case from docstring: negative numbers, sum condition holds
+        self.assertEqual(any_int(3, -2, 1), True)
 
-    def test_one_float_sum_would_match(self):
-        # One float, even if it's a whole number like 2.0, it's not an int
-        self.assertFalse(any_int(5, 2.0, 7))
+    def test_09_true_case_with_all_zero_values(self):
+        # Edge case: all numbers are zero, sum condition holds (0 = 0 + 0)
+        self.assertEqual(any_int(0, 0, 0), True)
 
-    def test_another_float_sum_would_match(self):
-        # Another float case, sum would match if all were integers
-        self.assertFalse(any_int(1, 2, 3.0))
-
-if __name__ == '__main__':
-    unittest.main()
+    def test_10_extreme_values_large_numbers(self):
+        # Test with very large numbers where sum condition holds
+        self.assertEqual(any_int(10**9, 1, 10**9 + 1), True)

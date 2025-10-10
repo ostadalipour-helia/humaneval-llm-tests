@@ -3,45 +3,55 @@ from sut.problem_HumanEval_59 import largest_prime_factor
 
 class TestLargestPrimeFactor(unittest.TestCase):
 
-    def test_example_one(self):
-        # Test case from the docstring
-        self.assertEqual(largest_prime_factor(13195), 29)
-
-    def test_example_two(self):
-        # Test case from the docstring (power of 2)
-        self.assertEqual(largest_prime_factor(2048), 2)
-
-    def test_smallest_composite(self):
-        # Test with the smallest composite number
+    def test_smallest_composite_number(self):
+        # Boundary test: Smallest n > 1 that is not prime (n=4)
+        # Catches issues with initial divisor (2) and loop termination.
         self.assertEqual(largest_prime_factor(4), 2)
 
-    def test_product_of_two_primes(self):
-        # Test with a product of two distinct primes
+    def test_smallest_composite_with_odd_largest_factor(self):
+        # Boundary test: Smallest n with an odd largest prime factor (n=9)
+        # Catches issues with handling odd divisors.
+        self.assertEqual(largest_prime_factor(9), 3)
+
+    def test_product_of_two_distinct_small_primes(self):
+        # Typical input, boundary for number of distinct factors (n=6)
+        # Catches issues with tracking the largest factor among multiple.
         self.assertEqual(largest_prime_factor(6), 3)
 
-    def test_product_of_two_odd_primes(self):
-        # Test with a product of two distinct odd primes
-        self.assertEqual(largest_prime_factor(15), 5)
+    def test_docstring_example_1(self):
+        # Typical input, verifies example behavior
+        self.assertEqual(largest_prime_factor(13195), 29)
 
-    def test_product_of_three_primes(self):
-        # Test with a product of three distinct primes
-        self.assertEqual(largest_prime_factor(30), 5)
+    def test_docstring_example_2_power_of_two(self):
+        # Edge case: n is a power of a single prime (n=2048 = 2^11)
+        # Catches off-by-one errors in division loops for single prime factors.
+        self.assertEqual(largest_prime_factor(2048), 2)
 
-    def test_number_with_repeated_factors(self):
-        # Test with a number having repeated prime factors (e.g., 2^2 * 5^2)
-        self.assertEqual(largest_prime_factor(100), 5)
+    def test_number_with_moderately_large_prime_factor(self):
+        # Typical/Extreme input: n = 7 * 11 = 77
+        # Ensures the algorithm correctly identifies a larger prime factor after a smaller one.
+        self.assertEqual(largest_prime_factor(77), 11)
 
-    def test_larger_number_with_larger_prime_factor(self):
-        # Test with a larger number and a larger prime factor
-        self.assertEqual(largest_prime_factor(999), 37) # 3^3 * 37
+    def test_product_of_many_small_distinct_primes(self):
+        # Logic mutation test: n = 2 * 3 * 5 * 7 = 210
+        # Verifies that the largest factor is correctly identified when many small factors exist.
+        self.assertEqual(largest_prime_factor(210), 7)
 
-    def test_number_with_repeated_odd_factors(self):
-        # Test with a number having repeated odd prime factors (e.g., 3 * 5^2)
-        self.assertEqual(largest_prime_factor(75), 5)
+    def test_large_number_with_large_prime_factor(self):
+        # Extreme input: n = 2^2 * 5^2 * 97 = 4 * 25 * 97 = 100 * 97 = 9700
+        # Tests performance and correctness for larger numbers and larger prime factors.
+        self.assertEqual(largest_prime_factor(9700), 97)
 
     def test_product_of_two_larger_primes(self):
-        # Test with a product of two relatively larger primes
-        self.assertEqual(largest_prime_factor(143), 13) # 11 * 13
+        # Boundary/Extreme input: n = 17 * 19 = 323
+        # Tests handling of larger prime factors without many small initial divisions.
+        self.assertEqual(largest_prime_factor(323), 19)
+
+    def test_number_with_repeated_small_factors_then_a_larger_one(self):
+        # Off-by-one/Logic test: n = 2^3 * 3^2 * 17 = 8 * 9 * 17 = 1224
+        # Ensures the algorithm fully divides by smaller primes before checking larger ones,
+        # and correctly identifies the largest remaining factor.
+        self.assertEqual(largest_prime_factor(1224), 17)
 
 if __name__ == '__main__':
     unittest.main()

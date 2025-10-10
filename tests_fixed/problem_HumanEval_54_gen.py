@@ -3,35 +3,52 @@ from sut_llm.problem_HumanEval_54 import same_chars
 
 class TestSameChars(unittest.TestCase):
 
-    def test_01_example_true_complex(self):
-        self.assertTrue(same_chars('eabcdzzzz', 'dddzzzzzzzddeddabc'))
+    # Test 1: Docstring example - typical case, expected True.
+    # Covers: Typical input, exact output verification.
+    def test_docstring_example_1(self):
+        self.assertEqual(same_chars('eabcdzzzz', 'dddzzzzzzzddeddabc'), True)
 
-    def test_02_example_true_simple(self):
-        self.assertTrue(same_chars('abcd', 'dddddddabc'))
+    # Test 2: Docstring example - typical case, expected True, different order/duplicates.
+    # Covers: Typical input, exact output verification.
+    def test_docstring_example_2(self):
+        self.assertEqual(same_chars('abcd', 'dddddddabc'), True)
 
-    def test_03_example_true_reversed(self):
-        self.assertTrue(same_chars('dddddddabc', 'abcd'))
+    # Test 3: Docstring example - expected False, s0 has an extra character.
+    # Covers: Boundary condition (one set has an extra element), logic mutation (if 'and'/'or' were swapped in a complex condition).
+    def test_docstring_example_3_s0_has_extra_char(self):
+        self.assertEqual(same_chars('eabcd', 'dddddddabc'), False)
 
-    def test_04_example_false_s0_extra(self):
-        self.assertFalse(same_chars('eabcd', 'dddddddabc'))
+    # Test 4: Docstring example - expected False, s1 has an extra character.
+    # Covers: Boundary condition (one set has an extra element, opposite of test 3), off-by-one (in terms of set elements).
+    def test_docstring_example_4_s1_has_extra_char(self):
+        self.assertEqual(same_chars('abcd', 'dddddddabce'), False)
 
-    def test_05_example_false_s1_extra(self):
-        self.assertFalse(same_chars('abcd', 'dddddddabce'))
+    # Test 5: Edge case - both strings are empty.
+    # Covers: Empty collections, return value testing (True).
+    def test_empty_strings(self):
+        self.assertEqual(same_chars('', ''), True)
 
-    def test_06_example_false_different_sets(self):
-        self.assertFalse(same_chars('eabcdzzzz', 'dddzzzzzzzddddabc'))
+    # Test 6: Edge case - one string is empty, the other is not.
+    # Covers: Empty collection vs non-empty, return value testing (False).
+    def test_one_empty_string_one_non_empty(self):
+        self.assertEqual(same_chars('', 'a'), False)
 
-    def test_07_empty_strings(self):
-        self.assertTrue(same_chars('', ''))
+    # Test 7: Edge case - single character strings, same character.
+    # Covers: Single element collections, return value testing (True).
+    def test_single_char_same(self):
+        self.assertEqual(same_chars('a', 'a'), True)
 
-    def test_08_one_empty_one_non_empty(self):
-        self.assertFalse(same_chars('a', ''))
+    # Test 8: Edge case - single character strings, different characters.
+    # Covers: Single element collections, different values, return value testing (False).
+    def test_single_char_different(self):
+        self.assertEqual(same_chars('a', 'b'), False)
 
-    def test_09_single_character_repeated(self):
-        self.assertTrue(same_chars('a', 'aaa'))
+    # Test 9: Boundary/Logic Mutation - s0 is a proper subset of s1.
+    # Catches mutations like changing '==' to 'issubset' or 'issuperset' incorrectly.
+    def test_s0_proper_subset_of_s1(self):
+        self.assertEqual(same_chars('abc', 'abce'), False)
 
-    def test_10_different_order_same_chars(self):
-        self.assertTrue(same_chars('abc', 'cba'))
-
-if __name__ == '__main__':
-    unittest.main()
+    # Test 10: Boundary/Logic Mutation - s1 is a proper subset of s0.
+    # Catches mutations like changing '==' to 'issubset' or 'issuperset' incorrectly (opposite direction).
+    def test_s1_proper_subset_of_s0(self):
+        self.assertEqual(same_chars('abce', 'abc'), False)

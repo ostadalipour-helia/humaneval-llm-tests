@@ -1,0 +1,8 @@
+{
+  "timestamp": "2025-10-09T23:47:20.522658",
+  "problem_id": "HumanEval_55",
+  "status": "success",
+  "prompt": "You are a Python developer writing unit tests to improve code coverage.\n\nThe following code has some lines that are not covered by existing tests:\n\ndef fib(n: int):\n    \"\"\"Return n-th Fibonacci number.\n    >>> fib(10)\n    55\n    >>> fib(1)\n    1\n    >>> fib(8)\n    21\n    \"\"\"\n    if n < 0:\n        raise ValueError(\"Input must be a non-negative integer.\")\n    elif n == 0:\n        return 0\n    elif n == 1:\n        return 1\n    else:\n        a, b = 0, 1\n        for _ in range(2, n + 1):\n            a, b = b, a + b\n        return b\n\n**Uncovered line numbers:** [11]\n\n**Actual uncovered lines:**\nLine 11:         raise ValueError(\"Input must be a non-negative integer.\")\n\nGenerate ONLY test method definitions (def test_xxx) that will execute these uncovered lines.\n- Generate 1-3 test methods\n- Each method should be a standalone unittest method\n- Use proper 4-space indentation for method body\n- DO NOT include: class definitions, import statements, or if __name__ blocks\n- Return ONLY the method definitions\n\nExample format:\n    def test_edge_case(self):\n        result = fib(test_input)\n        self.assertEqual(result, expected)\n\nNow generate the test methods:\n",
+  "response": "def test_fib_negative_input_raises_value_error(self):\n        with self.assertRaises(ValueError) as cm:\n            fib(-1)\n        self.assertEqual(str(cm.exception), \"Input must be a non-negative integer.\")",
+  "response_length": 208
+}

@@ -4,41 +4,55 @@ from sut_llm.problem_HumanEval_74 import total_match
 class TestTotalMatch(unittest.TestCase):
 
     def test_1_empty_lists(self):
-        # Test case: Both lists are empty, total chars are 0, should return the first list.
-        self.assertEqual(total_match([], []), [])
+        # Edge Case: Both lists are empty. Total chars are 0 for both.
+        # Boundary: Equal counts, should return the first list (which is empty).
+        self.assertListEqual(total_match([], []), [])
 
-    def test_2_lst2_has_fewer_chars_example_1(self):
-        # Test case from docstring: lst1 (7 chars) vs lst2 (4 chars), should return lst2.
-        self.assertEqual(total_match(['hi', 'admin'], ['hI', 'Hi']), ['hI', 'Hi'])
+    def test_2_first_list_has_fewer_chars(self):
+        # Boundary: lst1_chars < lst2_chars.
+        # Typical Input: lst1 total chars = 7, lst2 total chars = 18.
+        self.assertListEqual(total_match(['hi', 'admin'], ['hi', 'hi', 'admin', 'project']), ['hi', 'admin'])
 
-    def test_3_lst1_has_fewer_chars_example_1(self):
-        # Test case from docstring: lst1 (7 chars) vs lst2 (16 chars), should return lst1.
-        self.assertEqual(total_match(['hi', 'admin'], ['hi', 'hi', 'admin', 'project']), ['hi', 'admin'])
+    def test_3_second_list_has_fewer_chars(self):
+        # Boundary: lst2_chars < lst1_chars.
+        # Typical Input: lst1 total chars = 7, lst2 total chars = 4.
+        self.assertListEqual(total_match(['hi', 'admin'], ['hI', 'Hi']), ['hI', 'Hi'])
 
-    def test_4_lst2_has_fewer_chars_example_2(self):
-        # Test case from docstring: lst1 (7 chars) vs lst2 (6 chars), should return lst2.
-        self.assertEqual(total_match(['hi', 'admin'], ['hI', 'hi', 'hi']), ['hI', 'hi', 'hi'])
+    def test_4_equal_char_counts_return_first_list(self):
+        # Boundary: lst1_chars == lst2_chars.
+        # Logic Mutation: Catches if the function incorrectly returns lst2 or a different list on equality.
+        # Off-by-one: Simple case with equal small counts.
+        self.assertListEqual(total_match(['a', 'b'], ['c', 'd']), ['a', 'b'])
 
-    def test_5_lst1_has_fewer_chars_single_vs_multiple(self):
-        # Test case from docstring: lst1 (1 char) vs lst2 (5 chars), should return lst1.
-        self.assertEqual(total_match(['4'], ['1', '2', '3', '4', '5']), ['4'])
+    def test_5_first_list_empty_second_not(self):
+        # Edge Case: One list is empty, the other is not.
+        # Boundary: lst1_chars < lst2_chars (0 < 3).
+        self.assertListEqual(total_match([], ['a', 'b', 'c']), [])
 
-    def test_6_equal_chars_non_empty_lists(self):
-        # Test case: Both lists have non-empty strings and equal total chars (2 vs 2), should return lst1.
-        self.assertEqual(total_match(['a', 'b'], ['cc']), ['a', 'b'])
+    def test_6_second_list_empty_first_not(self):
+        # Edge Case: One list is not empty, the other is empty.
+        # Boundary: lst2_chars < lst1_chars (0 < 3).
+        self.assertListEqual(total_match(['a', 'b', 'c'], []), [])
 
-    def test_7_lst1_empty_lst2_not_empty(self):
-        # Test case: lst1 is empty (0 chars), lst2 has chars (10 chars), should return lst1.
-        self.assertEqual(total_match([], ['hello', 'world']), [])
+    def test_7_single_element_lists_first_smaller(self):
+        # Edge Case: Single element lists.
+        # Off-by-one: Char counts are 1 vs 2.
+        # Boundary: lst1_chars < lst2_chars.
+        self.assertListEqual(total_match(['a'], ['b', 'c']), ['a'])
 
-    def test_8_lst2_empty_lst1_not_empty(self):
-        # Test case: lst1 has chars (10 chars), lst2 is empty (0 chars), should return lst2.
-        self.assertEqual(total_match(['hello', 'world'], []), [])
+    def test_8_single_element_lists_second_smaller(self):
+        # Edge Case: Single element lists.
+        # Off-by-one: Char counts are 2 vs 1.
+        # Boundary: lst2_chars < lst1_chars.
+        self.assertListEqual(total_match(['a', 'b'], ['c']), ['c'])
 
-    def test_9_lst1_fewer_chars_different_list_lengths(self):
-        # Test case: lst1 (3 chars) vs lst2 (4 chars), different number of elements, should return lst1.
-        self.assertEqual(total_match(['a', 'b', 'c'], ['dddd']), ['a', 'b', 'c'])
+    def test_9_lists_with_empty_strings_equal_counts(self):
+        # Extreme/Unusual Input: Lists containing empty strings.
+        # Zero Testing: Ensures empty strings contribute 0 to total char count.
+        # Boundary: Equal counts (1 vs 1), should return the first list.
+        self.assertListEqual(total_match(['', 'a'], ['', '', 'b']), ['', 'a'])
 
-    def test_10_lst2_fewer_chars_different_list_lengths(self):
-        # Test case: lst1 (4 chars) vs lst2 (3 chars), different number of elements, should return lst2.
-        self.assertEqual(total_match(['dddd'], ['a', 'b', 'c']), ['a', 'b', 'c'])
+    def test_10_long_strings_many_elements_second_smaller(self):
+        # Extreme/Unusual Input: Lists with longer strings and multiple elements.
+        # Boundary: lst2_chars < lst1_chars (39 vs 13).
+        self.assertListEqual(total_match(['longstringone', 'longstringtwo', 'longstringthree'], ['short', 'strings']), ['short', 'strings'])

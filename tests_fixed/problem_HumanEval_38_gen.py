@@ -6,37 +6,36 @@ class TestDecodeCyclic(unittest.TestCase):
     def test_empty_string(self):
         self.assertEqual(decode_cyclic(""), "")
 
-    def test_single_character_string(self):
+    def test_single_char_string(self):
         self.assertEqual(decode_cyclic("a"), "a")
 
-    def test_two_character_string(self):
+    def test_two_char_string(self):
         self.assertEqual(decode_cyclic("ab"), "ab")
 
-    def test_three_character_string_perfect_group(self):
-        # 'abc' encoded is 'bca'
+    def test_exact_three_chars(self):
+        # Encoded "abc" is "bca"
         self.assertEqual(decode_cyclic("bca"), "abc")
 
-    def test_four_character_string_one_perfect_one_partial(self):
-        # 'abcd' encoded is 'bcad' (abc -> bca, d -> d)
-        self.assertEqual(decode_cyclic("bcad"), "abcd")
+    def test_four_chars_one_full_one_partial(self):
+        # Encoded "abce" is "bcae"
+        self.assertEqual(decode_cyclic("bcae"), "abce")
 
-    def test_five_character_string_one_perfect_one_partial(self):
-        # 'abcde' encoded is 'bcade' (abc -> bca, de -> de)
-        self.assertEqual(decode_cyclic("bcade"), "abcde")
+    def test_five_chars_one_full_one_partial(self):
+        # Encoded "abcef" is "bcaef"
+        self.assertEqual(decode_cyclic("bcaef"), "abcef")
 
-    def test_six_character_string_two_perfect_groups(self):
-        # 'abcdef' encoded is 'bcaefd' (abc -> bca, def -> efd)
+    def test_six_chars_two_full_groups(self):
+        # Encoded "abcdef" is "bcaefd"
         self.assertEqual(decode_cyclic("bcaefd"), "abcdef")
 
-    def test_string_with_mixed_characters(self):
-        # '123!@#' encoded is '231@#!' (123 -> 231, !@# -> @#!)
-        self.assertEqual(decode_cyclic("231@#!"), "123!@#")
+    def test_long_string_mixed_groups(self):
+        # Encoded "abcdefghij" is "bcaefdhigj" (as per encode_cyclic function logic)
+        self.assertEqual(decode_cyclic("bcaefdhigj"), "abcdefghij")
 
+    def test_string_with_all_same_chars(self):
+        # Encoded "aaaaaa" is "aaaaaa"
+        self.assertEqual(decode_cyclic("aaaaaa"), "aaaaaa")
 
-    def test_string_with_spaces(self):
-        # 'hello world' encoded is 'elho lorwld'
-        # (hel->elh, lo ->o l, wor->orw, ld->ld)
-        self.assertEqual(decode_cyclic("elho lorwld"), "hello world")
-
-if __name__ == '__main__':
-    unittest.main()
+    def test_string_with_special_chars_and_numbers(self):
+        # Encoded "!@#$12" is "@#!12$"
+        self.assertEqual(decode_cyclic("@#!12$"), "!@#$12")

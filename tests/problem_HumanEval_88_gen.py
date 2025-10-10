@@ -4,46 +4,94 @@ from sut.problem_HumanEval_88 import sort_array
 class TestSortArray(unittest.TestCase):
 
     def test_empty_array(self):
-        self.assertEqual(sort_array([]), [])
+        """
+        Test case for an empty input array.
+        Edge Case: Empty collection.
+        """
+        arr = []
+        expected = []
+        self.assertListEqual(sort_array(arr), expected)
 
     def test_single_element_array(self):
-        self.assertEqual(sort_array([5]), [5])
+        """
+        Test case for an array with a single element.
+        Edge Case: Single element collection.
+        """
+        arr = [5]
+        expected = [5]
+        self.assertListEqual(sort_array(arr), expected)
 
     def test_ascending_sort_example(self):
-        # Example from docstring: first=2, last=5, sum=7 (odd) -> ascending
-        self.assertEqual(sort_array([2, 4, 3, 0, 1, 5]), [0, 1, 2, 3, 4, 5])
+        """
+        Test case for an array that should be sorted in ascending order.
+        (First + Last) sum is odd. Typical/Expected input.
+        Example from docstring.
+        """
+        arr = [2, 4, 3, 0, 1, 5] # first=2, last=5, sum=7 (odd)
+        expected = [0, 1, 2, 3, 4, 5]
+        self.assertListEqual(sort_array(arr), expected)
 
     def test_descending_sort_example(self):
-        # Example from docstring: first=2, last=6, sum=8 (even) -> descending
-        self.assertEqual(sort_array([2, 4, 3, 0, 1, 5, 6]), [6, 5, 4, 3, 2, 1, 0])
+        """
+        Test case for an array that should be sorted in descending order.
+        (First + Last) sum is even. Typical/Expected input.
+        Example from docstring.
+        """
+        arr = [2, 4, 3, 0, 1, 5, 6] # first=2, last=6, sum=8 (even)
+        expected = [6, 5, 4, 3, 2, 1, 0]
+        self.assertListEqual(sort_array(arr), expected)
 
-    def test_ascending_sort_simple(self):
-        # Simple case: first=1, last=2, sum=3 (odd) -> ascending
-        self.assertEqual(sort_array([1, 0, 2]), [0, 1, 2])
+    def test_boundary_two_elements_sum_odd(self):
+        """
+        Test case for a two-element array where (First + Last) sum is odd.
+        Boundary Test: Smallest non-trivial array, odd sum.
+        """
+        arr = [1, 0] # first=1, last=0, sum=1 (odd)
+        expected = [0, 1]
+        self.assertListEqual(sort_array(arr), expected)
 
-    def test_descending_sort_simple(self):
-        # Simple case: first=10, last=0, sum=10 (even) -> descending
-        self.assertEqual(sort_array([10, 5, 0]), [10, 5, 0])
+    def test_boundary_two_elements_sum_even(self):
+        """
+        Test case for a two-element array where (First + Last) sum is even.
+        Boundary Test: Smallest non-trivial array, even sum.
+        """
+        arr = [0, 2] # first=0, last=2, sum=2 (even)
+        expected = [2, 0]
+        self.assertListEqual(sort_array(arr), expected)
 
-    def test_ascending_sort_with_duplicates(self):
-        # Array with duplicates: first=3, last=6, sum=9 (odd) -> ascending
-        self.assertEqual(sort_array([3, 1, 4, 1, 5, 9, 2, 6]), [1, 1, 2, 3, 4, 5, 6, 9])
+    def test_array_not_modified(self):
+        """
+        Test to ensure the original array is not modified.
+        Critical Requirement: Immutability.
+        """
+        original_arr = [2, 4, 3, 0, 1, 5]
+        arr_copy = list(original_arr) # Create a copy to pass
+        sort_array(arr_copy)
+        self.assertListEqual(original_arr, [2, 4, 3, 0, 1, 5]) # Assert original remains unchanged
 
-    def test_descending_sort_with_zero_and_duplicates(self):
-        # Array with zero and duplicates: first=10, last=0, sum=10 (even) -> descending
-        self.assertEqual(sort_array([10, 10, 20, 0, 0]), [20, 10, 10, 0, 0])
+    def test_all_same_elements_sum_even(self):
+        """
+        Test case with all identical elements, resulting in an even sum.
+        Edge Case: All same values.
+        """
+        arr = [7, 7, 7, 7] # first=7, last=7, sum=14 (even)
+        expected = [7, 7, 7, 7] # Should be descending, but already sorted
+        self.assertListEqual(sort_array(arr), expected)
 
-    def test_ascending_sort_longer_array(self):
-        # Longer array: first=10, last=5, sum=15 (odd) -> ascending
-        self.assertEqual(sort_array([10, 1, 8, 2, 7, 3, 6, 4, 5]), [1, 2, 3, 4, 5, 6, 7, 8, 10])
+    def test_duplicates_and_zeros_sum_odd(self):
+        """
+        Test case with duplicate values and zeros, where (First + Last) sum is odd.
+        Extreme/Unusual Input: Duplicates, zeros, longer array.
+        """
+        arr = [0, 3, 1, 4, 1, 5, 9, 2, 7] # first=0, last=7, sum=7 (odd)
+        expected = [0, 1, 1, 2, 3, 4, 5, 7, 9]
+        self.assertListEqual(sort_array(arr), expected)
 
-    def test_array_immutability(self):
-        # Test that the original array is not modified
-        original_array = [3, 1, 2]
-        original_array_copy = list(original_array) # Create a true copy for comparison
-        
-        # For this array: first=3, last=2, sum=5 (odd) -> ascending
-        result = sort_array(original_array)
-        
-        self.assertEqual(original_array, original_array_copy) # Assert original array is unchanged
-        self.assertEqual(result, [1, 2, 3]) # Assert the result is correct
+    def test_large_numbers_sum_even_unsorted(self):
+        """
+        Test case with large numbers and an even sum, requiring descending sort.
+        Extreme/Unusual Input: Large numbers, unsorted.
+        """
+        arr = [100000, 500, 20000, 10] # first=100000, last=10, sum=100010 (even)
+        expected = [100000, 20000, 500, 10]
+        self.assertListEqual(sort_array(arr), expected)

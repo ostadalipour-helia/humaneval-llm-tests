@@ -53,26 +53,10 @@ class TestMeanAbsoluteDeviation(unittest.TestCase):
         expected_mad = 0.0
         self.assertAlmostEqual(mean_absolute_deviation(numbers), expected_mad, places=7)
 
-    def test_mad_with_two_elements(self):
-        # This test provides a non-empty list, ensuring line 14 (mean calculation) is executed.
-        numbers = [0.0, 2.0]
-        expected_mad = 1.0
-        result = mean_absolute_deviation(numbers)
-        self.assertAlmostEqual(result, expected_mad)
-
-    def test_mad_with_mixed_numbers(self):
-        # This test also provides a non-empty list, covering line 14 with mixed positive/negative values.
-        numbers = [1.0, -1.0]
-        expected_mad = 1.0
-        result = mean_absolute_deviation(numbers)
-        self.assertAlmostEqual(result, expected_mad)
-
-    def test_mad_with_float_numbers(self):
-        # Another test with a non-empty list of floats, executing line 14.
-        numbers = [1.5, 2.5, 3.5]
-        expected_mad = 2.0 / 3.0
-        result = mean_absolute_deviation(numbers)
-        self.assertAlmostEqual(result, expected_mad)
+    def test_empty_list_raises_value_error(self):
+        with self.assertRaises(ValueError) as cm:
+            mean_absolute_deviation([])
+        self.assertEqual(str(cm.exception), "Input list 'numbers' cannot be empty.")
 
 if __name__ == '__main__':
     unittest.main()

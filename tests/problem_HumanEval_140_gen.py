@@ -4,35 +4,53 @@ from sut.problem_HumanEval_140 import fix_spaces
 class TestFixSpaces(unittest.TestCase):
 
     def test_no_spaces(self):
-        self.assertEqual(fix_spaces("Example"), "Example")
+        # Test case: String with no spaces.
+        # Expected: Should remain unchanged.
+        self.assertEqual(fix_spaces("HelloWorld"), "HelloWorld")
 
     def test_single_space(self):
+        # Test case: String with a single space.
+        # Expected: Single space replaced by underscore. (Boundary: 1 space)
         self.assertEqual(fix_spaces("Example 1"), "Example_1")
 
-    def test_leading_single_space(self):
-        self.assertEqual(fix_spaces(" Example 2"), "_Example_2")
-
-    def test_trailing_single_space(self):
-        self.assertEqual(fix_spaces("Example 4 "), "Example_4_")
-
-    def test_multiple_single_spaces(self):
-        self.assertEqual(fix_spaces("Hello world again"), "Hello_world_again")
-
-    def test_exactly_two_consecutive_spaces(self):
-        # "more than 2 consecutive spaces" implies 2 spaces become two underscores
-        self.assertEqual(fix_spaces("Two  spaces"), "Two__spaces")
+    def test_two_consecutive_spaces(self):
+        # Test case: String with exactly two consecutive spaces.
+        # Expected: Each space replaced by an underscore. (Boundary: 2 spaces)
+        # Crucial for catching off-by-one errors like changing '>' to '>='
+        self.assertEqual(fix_spaces("Two  Spaces"), "Two__Spaces")
 
     def test_three_consecutive_spaces(self):
-        self.assertEqual(fix_spaces("Three   spaces"), "Three-spaces")
+        # Test case: String with exactly three consecutive spaces.
+        # Expected: All three spaces replaced by a single hyphen. (Boundary: 3 spaces)
+        # Crucial for catching off-by-one errors like changing '>' to '>='
+        self.assertEqual(fix_spaces("Three   Spaces"), "Three-Spaces")
 
-    def test_four_consecutive_spaces(self):
-        self.assertEqual(fix_spaces("Four    spaces"), "Four-spaces")
+    def test_mixed_space_patterns(self):
+        # Test case: String with a mix of single, two, and three consecutive spaces.
+        # Expected: Correct replacement for each pattern. (Logic Mutation)
+        self.assertEqual(fix_spaces("A B  C   D"), "A_B__C-D")
 
-    def test_mixed_single_and_consecutive_spaces(self):
-        self.assertEqual(fix_spaces("Mix 1   2  3"), "Mix_1-2__3")
+    def test_string_starts_and_ends_with_spaces(self):
+        # Test case: String starting and ending with different space patterns.
+        # Expected: Correct replacement at boundaries. (Edge Case)
+        self.assertEqual(fix_spaces("  Example   3 "), "__Example-3_")
 
-    def test_only_consecutive_spaces_more_than_two(self):
-        self.assertEqual(fix_spaces("     "), "-") # Five spaces
+    def test_empty_string(self):
+        # Test case: An empty input string.
+        # Expected: Should return an empty string. (Edge Case)
+        self.assertEqual(fix_spaces(""), "")
 
-if __name__ == '__main__':
-    unittest.main()
+    def test_string_with_only_many_consecutive_spaces(self):
+        # Test case: String consisting only of more than 2 consecutive spaces.
+        # Expected: Replaced by a single hyphen. (Extreme Input)
+        self.assertEqual(fix_spaces("     "), "-") # 5 spaces
+
+    def test_string_with_only_two_consecutive_spaces(self):
+        # Test case: String consisting only of exactly two consecutive spaces.
+        # Expected: Replaced by two underscores. (Extreme Input / Edge Case)
+        self.assertEqual(fix_spaces("  "), "__")
+
+    def test_long_string_complex_patterns(self):
+        # Test case: A longer string with various complex space patterns.
+        # Expected: All patterns correctly handled. (Logic Mutation / Extreme Input)
+        self.assertEqual(fix_spaces("  Start   Middle  End    Final"), "__Start-Middle__End-Final")

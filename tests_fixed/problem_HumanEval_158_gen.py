@@ -3,45 +3,43 @@ from sut_llm.problem_HumanEval_158 import find_max
 
 class TestFindMax(unittest.TestCase):
 
-    def test_example_one(self):
-        # Docstring example: basic max unique characters
+    def test_example_one_clear_winner(self):
+        # Docstring example: clear winner by unique character count
         self.assertEqual(find_max(["name", "of", "string"]), "string")
 
-    def test_example_two(self):
-        # Docstring example: tie-breaker by lexicographical order
+    def test_example_two_lexicographical_tie_break(self):
+        # Docstring example: multiple words with max unique, tie-break by lexicographical order
         self.assertEqual(find_max(["name", "enam", "game"]), "enam")
 
-    def test_example_three(self):
-        # Docstring example: all words have 1 unique char, tie-breaker
-        self.assertEqual(find_max(["aaaaaaa", "bb" ,"cc"]), "aaaaaaa")
+    def test_example_three_all_same_unique_count_tie_break(self):
+        # Docstring example: all words have same (minimal) unique count, tie-break by lexicographical order
+        self.assertEqual(find_max(["aaaaaaa", "bb", "cc"]), "aaaaaaa")
 
-    def test_single_word_list(self):
-        # Test with a list containing only one word
+    def test_edge_case_empty_list(self):
+        # Edge case: empty input list. Assumes an empty string is returned.
+        self.assertEqual(find_max([]), "")
+
+    def test_edge_case_single_element_list(self):
+        # Edge case: list with a single word.
         self.assertEqual(find_max(["hello"]), "hello")
 
-    def test_different_lengths_clear_max(self):
-        # Words with varying lengths and clear maximum unique characters
-        self.assertEqual(find_max(["apple", "apply", "apricot"]), "apricot")
+    def test_boundary_two_elements_clear_winner(self):
+        # Boundary: list with two elements, one clearly has more unique characters.
+        self.assertEqual(find_max(["a", "abc"]), "abc")
 
-    def test_case_sensitivity_tie_breaker(self):
-        # Test case sensitivity and lexicographical tie-breaker
-        self.assertEqual(find_max(["Apple", "apple"]), "Apple")
+    def test_boundary_two_elements_lexicographical_tie_break(self):
+        # Boundary: list with two elements, same unique count, tie-break by lexicographical order.
+        self.assertEqual(find_max(["b", "a"]), "a")
 
-    def test_all_one_unique_char_tie_breaker(self):
-        # All words have one unique character, tie-breaker applies
-        self.assertEqual(find_max(["z", "a", "b"]), "a")
+    def test_logic_mutation_different_lengths_same_unique_tie_break(self):
+        # Logic mutation: words with different lengths but same max unique count, requiring lexicographical tie-break.
+        # "apple": 4 unique, "banana": 3 unique, "aple": 4 unique. "aple" comes before "apple".
+        self.assertEqual(find_max(["apple", "banana", "aple"]), "aple")
 
-    def test_clear_max_unique_different_lengths(self):
-        # Clear maximum unique characters with words of different lengths
-        self.assertEqual(find_max(["cat", "dog", "elephant"]), "elephant")
+    def test_extreme_input_all_unique_chars_word(self):
+        # Extreme input: a word with many unique characters vs others with fewer.
+        self.assertEqual(find_max(["abcdefg", "hello", "world", "python"]), "abcdefg")
 
-    def test_multiple_words_with_clear_max(self):
-        # Multiple words, one clearly has the most unique characters
-        self.assertEqual(find_max(["python", "java", "javascript", "csharp"]), "javascript")
-
-    def test_all_same_unique_count_tie_breaker(self):
-        # All words have the same number of unique characters, tie-breaker applies
-        self.assertEqual(find_max(["abc", "bca", "cab"]), "abc")
-
-if __name__ == '__main__':
-    unittest.main()
+    def test_boundary_all_one_unique_char_lexicographical_tie_break(self):
+        # Boundary: all words have only one unique character, requiring lexicographical tie-break.
+        self.assertEqual(find_max(["zzzz", "aaaa", "bbbb"]), "aaaa")

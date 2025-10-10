@@ -3,45 +3,48 @@ from sut.problem_HumanEval_40 import triples_sum_to_zero
 
 class TestTriplesSumToZero(unittest.TestCase):
 
-    def test_docstring_example_true_repeated_value(self):
-        # Test case from docstring: [1, 3, -2, 1] -> True (1 + (-2) + 1 = 0, using elements at different indices)
-        self.assertTrue(triples_sum_to_zero([1, 3, -2, 1]))
+    def test_01_empty_list(self):
+        # Edge case: Empty list, cannot form any triple.
+        self.assertEqual(triples_sum_to_zero([]), False)
 
-    def test_docstring_example_false_no_triplet(self):
-        # Test case from docstring: [1, 3, 5, 0] -> False
-        self.assertFalse(triples_sum_to_zero([1, 3, 5, 0]))
+    def test_02_single_element_list(self):
+        # Edge case: List with only one element, cannot form any triple.
+        self.assertEqual(triples_sum_to_zero([1]), False)
 
-    def test_docstring_example_true_mixed_numbers(self):
-        # Test case from docstring: [2, 4, -5, 3, 9, 7] -> True (e.g., 2 + 3 + (-5) = 0)
-        self.assertTrue(triples_sum_to_zero([2, 4, -5, 3, 9, 7]))
+    def test_03_two_element_list(self):
+        # Edge case: List with two elements, cannot form any triple.
+        self.assertEqual(triples_sum_to_zero([1, -1]), False)
 
-    def test_smallest_true_case(self):
-        # Smallest possible list with three distinct elements that sum to zero
-        self.assertTrue(triples_sum_to_zero([-1, 0, 1]))
+    def test_04_basic_true_case(self):
+        # Typical input: Smallest list with a triple summing to zero.
+        # Covers: Positive, negative, and zero elements.
+        self.assertEqual(triples_sum_to_zero([1, -1, 0]), True)
 
-    def test_smallest_false_case(self):
-        # Smallest possible list with three elements that do not sum to zero
-        self.assertFalse(triples_sum_to_zero([1, 2, 3]))
+    def test_05_basic_false_case(self):
+        # Typical input: Smallest list where no triple sums to zero.
+        # Covers: All positive numbers.
+        self.assertEqual(triples_sum_to_zero([1, 2, 3]), False)
 
-    def test_list_with_two_elements(self):
-        # List with fewer than three elements should always return False
-        self.assertFalse(triples_sum_to_zero([1, -1]))
+    def test_06_distinctness_with_duplicates_no_solution(self):
+        # Logic mutation: Test distinctness requirement with duplicates.
+        # [0, 0, 0] would sum to zero, but elements must be distinct.
+        self.assertEqual(triples_sum_to_zero([0, 0, 0, 1, 2]), False)
 
-    def test_list_with_one_element(self):
-        # List with fewer than three elements should always return False
-        self.assertFalse(triples_sum_to_zero([0]))
+    def test_07_distinctness_with_duplicates_with_solution(self):
+        # Logic mutation: Test distinctness requirement with duplicates, but a valid distinct triple exists.
+        # (1, 2, -3) sums to zero, despite duplicate '1'.
+        self.assertEqual(triples_sum_to_zero([1, 2, -3, 1, 5]), True)
 
-    def test_empty_list(self):
-        # An empty list should always return False
-        self.assertFalse(triples_sum_to_zero([]))
+    def test_08_boundary_mixed_values_with_solution(self):
+        # Boundary testing: List with mixed positive and negative numbers, where a solution exists.
+        # (2, 3, -5) sums to zero.
+        self.assertEqual(triples_sum_to_zero([1, 2, 3, -4, -5]), True)
 
-    def test_multiple_zeros_form_triplet(self):
-        # Test case with multiple zeros, where three zeros sum to zero
-        self.assertTrue(triples_sum_to_zero([0, 0, 0, 5]))
+    def test_09_extreme_large_numbers_no_solution(self):
+        # Extreme input: Large numbers, no triple sums to zero.
+        self.assertEqual(triples_sum_to_zero([1000, 2000, 3000, -1, -2]), False)
 
-    def test_mixed_numbers_with_duplicates_no_sum_to_zero(self):
-        # Test case with mixed numbers and duplicates, but no three distinct elements sum to zero
-        self.assertFalse(triples_sum_to_zero([1, 1, 1, -1, -1, -1]))
-
-if __name__ == '__main__':
-    unittest.main()
+    def test_10_extreme_large_numbers_with_solution(self):
+        # Extreme input: Large numbers, where a triple sums to zero.
+        # (1000, 2000, -3000) sums to zero.
+        self.assertEqual(triples_sum_to_zero([1000, 2000, -3000, 5, 6]), True)

@@ -1,49 +1,50 @@
 import unittest
 from sut_llm.problem_HumanEval_7 import filter_by_substring
 
-
 class TestFilterBySubstring(unittest.TestCase):
 
-    def test_empty_list(self):
-        # Test with an empty list of strings
-        self.assertEqual(filter_by_substring([], 'a'), [])
+    def test_empty_input_list(self):
+        # CRITICAL: Edge Case (empty collection), Return Value (empty list)
+        # Docstring example 1
+        self.assertListEqual(filter_by_substring([], 'a'), [])
 
-    def test_no_match(self):
-        # Test when no string contains the substring
-        self.assertEqual(filter_by_substring(['abc', 'def', 'ghi'], 'xyz'), [])
+    def test_typical_multiple_matches(self):
+        # CRITICAL: Typical Input, Return Value (multiple elements)
+        # Docstring example 2
+        self.assertListEqual(filter_by_substring(['abc', 'bacd', 'cde', 'array'], 'a'), ['abc', 'bacd', 'array'])
 
-    def test_all_match(self):
-        # Test when all strings contain the substring
-        self.assertEqual(filter_by_substring(['apple', 'banana', 'apricot'], 'a'), ['apple', 'banana', 'apricot'])
+    def test_no_matches_found(self):
+        # CRITICAL: Logic Mutation (all conditions false), Return Value (empty list)
+        self.assertListEqual(filter_by_substring(['apple', 'banana', 'cherry'], 'x'), [])
 
-    def test_partial_match_mixed(self):
-        # Test with a mix of matching and non-matching strings
-        self.assertEqual(filter_by_substring(['abc', 'bacd', 'cde', 'array'], 'a'), ['abc', 'bacd', 'array'])
+    def test_all_strings_contain_substring(self):
+        # CRITICAL: Logic Mutation (all conditions true), Return Value (all elements returned)
+        self.assertListEqual(filter_by_substring(['apple', 'pineapple', 'grape'], 'p'), ['apple', 'pineapple', 'grape'])
 
-    def test_case_sensitivity(self):
-        # Test for case sensitivity (Python's 'in' operator is case-sensitive)
-        self.assertEqual(filter_by_substring(['Apple', 'apple', 'Banana', 'orange'], 'a'), ['apple', 'Banana', 'orange'])
+    def test_single_element_list_match(self):
+        # CRITICAL: Edge Case (single element collection), Boundary (substring at end)
+        self.assertListEqual(filter_by_substring(['hello world'], 'world'), ['hello world'])
 
-    def test_substring_at_beginning(self):
-        # Test when the substring is at the beginning of the string
-        self.assertEqual(filter_by_substring(['apple', 'banana', 'apricot'], 'app'), ['apple'])
-
-    def test_substring_at_end(self):
-        # Test when the substring is at the end of the string
-        self.assertEqual(filter_by_substring(['apple', 'banana', 'grape'], 'ana'), ['banana'])
-
-    def test_substring_in_middle(self):
-        # Test when the substring is in the middle of the string
-        self.assertEqual(filter_by_substring(['beautiful', 'ugly', 'pretty'], 'eau'), ['beautiful'])
+    def test_single_element_list_no_match(self):
+        # CRITICAL: Edge Case (single element collection), Return Value (empty list)
+        self.assertListEqual(filter_by_substring(['hello world'], 'python'), [])
 
     def test_empty_substring(self):
-        # Test with an empty substring (should match all strings, including empty ones)
-        self.assertEqual(filter_by_substring(['abc', 'def', ''], ''), ['abc', 'def', ''])
+        # CRITICAL: Edge Case (empty substring), Logic Mutation (all conditions true)
+        # An empty string is considered a substring of every string.
+        self.assertListEqual(filter_by_substring(['abc', 'def', 'ghi'], ''), ['abc', 'def', 'ghi'])
 
-    def test_list_with_empty_strings(self):
-        # Test with a list containing empty strings and other strings
-        self.assertEqual(filter_by_substring(['', 'hello', '', 'world'], 'o'), ['hello', 'world'])
+    def test_substring_is_entire_string(self):
+        # CRITICAL: Boundary (substring is entire string), Off-by-One (exact match)
+        self.assertListEqual(filter_by_substring(['exact', 'match', 'example'], 'match'), ['match'])
 
+    def test_case_sensitivity(self):
+        # CRITICAL: Logic Mutation (only one condition true), Boundary (case sensitivity)
+        self.assertListEqual(filter_by_substring(['Apple', 'apple', 'Banana'], 'apple'), ['apple'])
+
+    def test_substring_at_various_positions(self):
+        # CRITICAL: Boundary (substring at start, middle, end), Off-by-One (various positions)
+        self.assertListEqual(filter_by_substring(['_start', 'in_the_middle', 'end_'], '_'), ['_start', 'in_the_middle', 'end_'])
 
 if __name__ == '__main__':
     unittest.main()
