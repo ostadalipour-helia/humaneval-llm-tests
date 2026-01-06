@@ -1,0 +1,153 @@
+{
+  "task_id": "HumanEval_124",
+  "entry_point": "valid_date",
+  "preconditions": [
+    "The input `date` is expected to be a string."
+  ],
+  "postconditions": [
+    "The function returns a boolean value (`True` or `False`).",
+    "If the input `date` string is valid according to all specified rules, the function returns `True`.",
+    "Otherwise (if the input is not a string, is empty, or violates any format or range rule), the function returns `False`."
+  ],
+  "invariants": [
+    "For a date string to be considered valid, it must strictly adhere to the 'mm-dd-yyyy' format.",
+    "The month part (mm) must always be a two-digit number between '01' and '12' (inclusive).",
+    "The day part (dd) must always be a two-digit number between '01' and '31' (inclusive), respecting the specific maximums for each month.",
+    "The year part (yyyy) must always be a four-digit number."
+  ],
+  "normal_cases": [
+    {
+      "input": "'03-11-2000'",
+      "output": "True",
+      "reason": "Valid date: month 03 (31 days), day 11 is within range."
+    },
+    {
+      "input": "'06-04-2020'",
+      "output": "True",
+      "reason": "Valid date: month 06 (30 days), day 04 is within range."
+    },
+    {
+      "input": "'01-15-2023'",
+      "output": "True",
+      "reason": "Valid date: month 01 (31 days), day 15 is within range."
+    },
+    {
+      "input": "'12-25-2024'",
+      "output": "True",
+      "reason": "Valid date: month 12 (31 days), day 25 is within range."
+    },
+    {
+      "input": "'02-15-2020'",
+      "output": "True",
+      "reason": "Valid date: month 02 (max 29 days), day 15 is within range."
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": "''",
+      "output": "False",
+      "reason": "Empty date string, violates rule 1."
+    },
+    {
+      "input": "'01-01-1900'",
+      "output": "True",
+      "reason": "Minimum valid day and month."
+    },
+    {
+      "input": "'12-31-2099'",
+      "output": "True",
+      "reason": "Maximum valid day and month for a 31-day month."
+    },
+    {
+      "input": "'04-30-2023'",
+      "output": "True",
+      "reason": "Maximum valid day for a 30-day month."
+    },
+    {
+      "input": "'02-29-2024'",
+      "output": "True",
+      "reason": "Maximum valid day for February (as per rule, up to 29 days)."
+    },
+    {
+      "input": "'15-01-2012'",
+      "output": "False",
+      "reason": "Invalid month (15), violates rule 3."
+    },
+    {
+      "input": "'04-0-2040'",
+      "output": "False",
+      "reason": "Invalid day (0) and incorrect day format (not 'dd'), violates rule 2 and 4."
+    },
+    {
+      "input": "'06/04/2020'",
+      "output": "False",
+      "reason": "Incorrect date format (uses '/' instead of '-'), violates rule 4."
+    },
+    {
+      "input": "'01-00-2023'",
+      "output": "False",
+      "reason": "Day less than 1, violates rule 2."
+    },
+    {
+      "input": "'01-32-2023'",
+      "output": "False",
+      "reason": "Day greater than 31 for a 31-day month, violates rule 2."
+    },
+    {
+      "input": "'04-31-2023'",
+      "output": "False",
+      "reason": "Day greater than 30 for a 30-day month, violates rule 2."
+    },
+    {
+      "input": "'02-30-2023'",
+      "output": "False",
+      "reason": "Day greater than 29 for February, violates rule 2."
+    },
+    {
+      "input": "'00-10-2023'",
+      "output": "False",
+      "reason": "Month less than 1, violates rule 3."
+    },
+    {
+      "input": "'13-10-2023'",
+      "output": "False",
+      "reason": "Month greater than 12, violates rule 3."
+    },
+    {
+      "input": "'1-1-2023'",
+      "output": "False",
+      "reason": "Incorrect format (single digit month and day), violates rule 4."
+    },
+    {
+      "input": "'01-01-23'",
+      "output": "False",
+      "reason": "Incorrect year format (not 'yyyy'), violates rule 4."
+    },
+    {
+      "input": "'01-01-20230'",
+      "output": "False",
+      "reason": "Incorrect year format (more than 4 digits), violates rule 4."
+    },
+    {
+      "input": "'AA-BB-CCCC'",
+      "output": "False",
+      "reason": "Non-numeric parts, violates rule 4 (implicitly, as parts must be numbers)."
+    },
+    {
+      "input": "None",
+      "output": "False",
+      "reason": "Input is not a string."
+    },
+    {
+      "input": "12345",
+      "output": "False",
+      "reason": "Input is not a string."
+    },
+    {
+      "input": "[]",
+      "output": "False",
+      "reason": "Input is not a string."
+    }
+  ],
+  "error_conditions": []
+}

@@ -1,0 +1,123 @@
+{
+  "task_id": "HumanEval_11",
+  "entry_point": "string_xor",
+  "preconditions": [
+    "a is a string.",
+    "b is a string.",
+    "a consists only of characters '0' and '1'.",
+    "b consists only of characters '0' and '1'.",
+    "The length of string a must be equal to the length of string b (len(a) == len(b))."
+  ],
+  "postconditions": [
+    "The function returns a string.",
+    "The returned string consists only of characters '0' and '1'.",
+    "The length of the returned string is equal to the length of input strings a and b.",
+    "For each index i, the character result[i] is the binary XOR of a[i] and b[i]. Specifically, if a[i] == b[i], then result[i] == '0'; otherwise, result[i] == '1'."
+  ],
+  "invariants": [
+    "The character set of the input strings ('0', '1') is preserved in the output string.",
+    "The operation is performed character-wise, maintaining the positional correspondence between input and output characters."
+  ],
+  "normal_cases": [
+    {
+      "input": {
+        "a": "010",
+        "b": "110"
+      },
+      "output": "100",
+      "description": "Example from docstring: standard XOR operation."
+    },
+    {
+      "input": {
+        "a": "1111",
+        "b": "0000"
+      },
+      "output": "1111",
+      "description": "XORing with all zeros."
+    },
+    {
+      "input": {
+        "a": "10101",
+        "b": "10101"
+      },
+      "output": "00000",
+      "description": "XORing identical strings."
+    },
+    {
+      "input": {
+        "a": "000",
+        "b": "000"
+      },
+      "output": "000",
+      "description": "XORing all zeros."
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": {
+        "a": "",
+        "b": ""
+      },
+      "output": "",
+      "description": "Empty strings as input."
+    },
+    {
+      "input": {
+        "a": "0",
+        "b": "1"
+      },
+      "output": "1",
+      "description": "Single character strings, different."
+    },
+    {
+      "input": {
+        "a": "1",
+        "b": "1"
+      },
+      "output": "0",
+      "description": "Single character strings, same."
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": {
+        "a": "010",
+        "b": "1100"
+      },
+      "expected_behavior": "Raise an error (e.g., ValueError or AssertionError) due to unequal input string lengths.",
+      "description": "Input strings have different lengths."
+    },
+    {
+      "input": {
+        "a": "012",
+        "b": "110"
+      },
+      "expected_behavior": "Raise an error (e.g., ValueError) because 'a' contains invalid characters.",
+      "description": "Input string 'a' contains characters other than '0' or '1'."
+    },
+    {
+      "input": {
+        "a": "010",
+        "b": "1X0"
+      },
+      "expected_behavior": "Raise an error (e.g., ValueError) because 'b' contains invalid characters.",
+      "description": "Input string 'b' contains characters other than '0' or '1'."
+    },
+    {
+      "input": {
+        "a": 123,
+        "b": "110"
+      },
+      "expected_behavior": "Raise a TypeError because 'a' is not a string.",
+      "description": "Input 'a' is not a string."
+    },
+    {
+      "input": {
+        "a": "010",
+        "b": null
+      },
+      "expected_behavior": "Raise a TypeError because 'b' is not a string.",
+      "description": "Input 'b' is not a string."
+    }
+  ]
+}

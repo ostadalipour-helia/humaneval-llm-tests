@@ -1,0 +1,298 @@
+{
+  "task_id": "HumanEval_120",
+  "entry_point": "maximum",
+  "preconditions": [
+    "arr is a list of integers.",
+    "k is an integer.",
+    "The length of arr is in the range [1, 1000].",
+    "Each element in arr is an integer in the range [-1000, 1000].",
+    "0 <= k <= len(arr)."
+  ],
+  "postconditions": [
+    "The function returns a list of integers.",
+    "The length of the returned list is k.",
+    "The returned list contains the k largest numbers from arr, considering multiplicity.",
+    "The returned list is sorted in ascending order."
+  ],
+  "invariants": [
+    "All elements in the output list must be present in the input array 'arr' (considering multiplicity).",
+    "The output list, if not empty, will always be sorted in non-decreasing order."
+  ],
+  "normal_cases": [
+    {
+      "input": {
+        "arr": [
+          -3,
+          -4,
+          5
+        ],
+        "k": 3
+      },
+      "output": [
+        -4,
+        -3,
+        5
+      ],
+      "description": "Example 1: k equals array length, mixed positive/negative."
+    },
+    {
+      "input": {
+        "arr": [
+          4,
+          -4,
+          4
+        ],
+        "k": 2
+      },
+      "output": [
+        4,
+        4
+      ],
+      "description": "Example 2: k less than array length, duplicate maximums."
+    },
+    {
+      "input": {
+        "arr": [
+          -3,
+          2,
+          1,
+          2,
+          -1,
+          -2,
+          1
+        ],
+        "k": 1
+      },
+      "output": [
+        2
+      ],
+      "description": "Example 3: k is 1, single maximum."
+    },
+    {
+      "input": {
+        "arr": [
+          10,
+          20,
+          5,
+          15,
+          25
+        ],
+        "k": 3
+      },
+      "output": [
+        15,
+        20,
+        25
+      ],
+      "description": "General case with distinct positive numbers."
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": {
+        "arr": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "k": 0
+      },
+      "output": [],
+      "description": "k is 0, should return an empty list."
+    },
+    {
+      "input": {
+        "arr": [
+          1000,
+          -1000,
+          0,
+          500
+        ],
+        "k": 4
+      },
+      "output": [
+        -1000,
+        0,
+        500,
+        1000
+      ],
+      "description": "k equals array length, elements at min/max range, includes zero."
+    },
+    {
+      "input": {
+        "arr": [
+          7
+        ],
+        "k": 1
+      },
+      "output": [
+        7
+      ],
+      "description": "Array with minimum length 1, k is 1."
+    },
+    {
+      "input": {
+        "arr": [
+          -5,
+          -1,
+          -10,
+          -2
+        ],
+        "k": 2
+      },
+      "output": [
+        -2,
+        -1
+      ],
+      "description": "Array contains only negative numbers."
+    },
+    {
+      "input": {
+        "arr": [
+          5,
+          5,
+          5,
+          5,
+          5
+        ],
+        "k": 3
+      },
+      "output": [
+        5,
+        5,
+        5
+      ],
+      "description": "Array contains all identical elements."
+    },
+    {
+      "input": {
+        "arr": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ],
+        "k": 5
+      },
+      "output": [
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "description": "Array already sorted, k is half length."
+    },
+    {
+      "input": {
+        "arr": [
+          10,
+          9,
+          8,
+          7,
+          6,
+          5,
+          4,
+          3,
+          2,
+          1
+        ],
+        "k": 5
+      },
+      "output": [
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "description": "Array sorted in descending order, k is half length."
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": {
+        "arr": [],
+        "k": 0
+      },
+      "expected_error": "ValueError or AssertionError",
+      "description": "Input array is empty (violates len(arr) >= 1)."
+    },
+    {
+      "input": {
+        "arr": [
+          1,
+          2,
+          3
+        ],
+        "k": -1
+      },
+      "expected_error": "ValueError or AssertionError",
+      "description": "k is negative (violates k >= 0)."
+    },
+    {
+      "input": {
+        "arr": [
+          1,
+          2,
+          3
+        ],
+        "k": 4
+      },
+      "expected_error": "ValueError or AssertionError",
+      "description": "k is greater than len(arr) (violates k <= len(arr))."
+    },
+    {
+      "input": {
+        "arr": [
+          1,
+          "a",
+          3
+        ],
+        "k": 2
+      },
+      "expected_error": "TypeError or ValueError",
+      "description": "Array contains non-integer elements."
+    },
+    {
+      "input": {
+        "arr": [
+          1,
+          2,
+          3
+        ],
+        "k": "2"
+      },
+      "expected_error": "TypeError or ValueError",
+      "description": "k is not an integer."
+    },
+    {
+      "input": {
+        "arr": [
+          1001
+        ],
+        "k": 1
+      },
+      "expected_error": "ValueError or AssertionError",
+      "description": "Array element out of range (violates element <= 1000)."
+    },
+    {
+      "input": {
+        "arr": [
+          -1001
+        ],
+        "k": 1
+      },
+      "expected_error": "ValueError or AssertionError",
+      "description": "Array element out of range (violates element >= -1000)."
+    }
+  ]
+}

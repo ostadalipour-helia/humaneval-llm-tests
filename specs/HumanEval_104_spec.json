@@ -1,0 +1,210 @@
+{
+  "task_id": "HumanEval_104",
+  "entry_point": "unique_digits",
+  "preconditions": [
+    "The input `x` must be a list.",
+    "All elements in the list `x` must be integers.",
+    "All integers in the list `x` must be positive (i.e., greater than 0)."
+  ],
+  "postconditions": [
+    "The function must return a list.",
+    "All elements in the returned list must be present in the input list `x`.",
+    "Each element `n` in the returned list must satisfy the condition that all digits of `n` are odd (i.e., 1, 3, 5, 7, 9).",
+    "The returned list must be sorted in strictly increasing order.",
+    "The returned list should include all qualifying elements from the input, preserving their multiplicity if they appear multiple times and satisfy the condition."
+  ],
+  "invariants": [
+    "The type of elements in the input list `x` (integers) is maintained for the elements considered for the output.",
+    "The positivity of elements in `x` is maintained for the elements considered for the output."
+  ],
+  "normal_cases": [
+    {
+      "input": {
+        "x": [
+          15,
+          33,
+          1422,
+          1
+        ]
+      },
+      "output": [
+        1,
+        15,
+        33
+      ]
+    },
+    {
+      "input": {
+        "x": [
+          152,
+          323,
+          1422,
+          10
+        ]
+      },
+      "output": []
+    },
+    {
+      "input": {
+        "x": [
+          1,
+          3,
+          5,
+          7,
+          9
+        ]
+      },
+      "output": [
+        1,
+        3,
+        5,
+        7,
+        9
+      ]
+    },
+    {
+      "input": {
+        "x": [
+          135,
+          246,
+          791,
+          802
+        ]
+      },
+      "output": [
+        135,
+        791
+      ]
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": {
+        "x": []
+      },
+      "output": []
+    },
+    {
+      "input": {
+        "x": [
+          1
+        ]
+      },
+      "output": [
+        1
+      ]
+    },
+    {
+      "input": {
+        "x": [
+          2
+        ]
+      },
+      "output": []
+    },
+    {
+      "input": {
+        "x": [
+          11111
+        ]
+      },
+      "output": [
+        11111
+      ]
+    },
+    {
+      "input": {
+        "x": [
+          22222
+        ]
+      },
+      "output": []
+    },
+    {
+      "input": {
+        "x": [
+          15,
+          1,
+          33,
+          15
+        ]
+      },
+      "output": [
+        1,
+        15,
+        15,
+        33
+      ]
+    },
+    {
+      "input": {
+        "x": [
+          999999999
+        ]
+      },
+      "output": [
+        999999999
+      ]
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": {
+        "x": null
+      },
+      "description": "Input `x` is not a list."
+    },
+    {
+      "input": {
+        "x": 123
+      },
+      "description": "Input `x` is not a list."
+    },
+    {
+      "input": {
+        "x": "hello"
+      },
+      "description": "Input `x` is not a list."
+    },
+    {
+      "input": {
+        "x": [
+          1,
+          2.5,
+          3
+        ]
+      },
+      "description": "List `x` contains non-integer elements."
+    },
+    {
+      "input": {
+        "x": [
+          1,
+          "a",
+          3
+        ]
+      },
+      "description": "List `x` contains non-integer elements."
+    },
+    {
+      "input": {
+        "x": [
+          1,
+          -5,
+          3
+        ]
+      },
+      "description": "List `x` contains non-positive integers."
+    },
+    {
+      "input": {
+        "x": [
+          1,
+          0,
+          3
+        ]
+      },
+      "description": "List `x` contains non-positive integers (0 is not positive)."
+    }
+  ]
+}

@@ -1,0 +1,99 @@
+{
+  "task_id": "HumanEval_116",
+  "entry_point": "sort_array",
+  "preconditions": [
+    "The input `arr` must be a list.",
+    "All elements within `arr` must be integers (positive, negative, or zero)."
+  ],
+  "postconditions": [
+    "The function must return a new list.",
+    "The returned list must contain the same elements as the input list `arr`.",
+    "The elements in the returned list must be sorted in ascending order based on their decimal value.",
+    "The original input list `arr` must not be modified."
+  ],
+  "invariants": [
+    "The length of the returned list must be equal to the length of the input list `arr`.",
+    "The returned list must be a permutation of the input list `arr` (i.e., contain the same elements with the same frequencies)."
+  ],
+  "normal_cases": [
+    {
+      "input": "[1, 5, 2, 3, 4]",
+      "output": "[1, 2, 3, 4, 5]",
+      "description": "Sorts an array of positive integers in ascending decimal order, as per example."
+    },
+    {
+      "input": "[-2, -3, -4, -5, -6]",
+      "output": "[-6, -5, -4, -3, -2]",
+      "description": "Sorts an array of negative integers in ascending decimal order, as per example."
+    },
+    {
+      "input": "[1, 0, 2, 3, 4]",
+      "output": "[0, 1, 2, 3, 4]",
+      "description": "Sorts an array including zero and positive integers in ascending decimal order, as per example."
+    },
+    {
+      "input": "[10, -5, 0, 3, -8, 7]",
+      "output": "[-8, -5, 0, 3, 7, 10]",
+      "description": "Sorts an array with mixed positive, negative, and zero integers."
+    },
+    {
+      "input": "[7, 2, 7, 1, 4, 2]",
+      "output": "[1, 2, 2, 4, 7, 7]",
+      "description": "Sorts an array with duplicate integers."
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": "[]",
+      "output": "[]",
+      "description": "Handles an empty input list."
+    },
+    {
+      "input": "[42]",
+      "output": "[42]",
+      "description": "Handles a list with a single element."
+    },
+    {
+      "input": "[5, 5, 5, 5]",
+      "output": "[5, 5, 5, 5]",
+      "description": "Handles a list where all elements are identical."
+    },
+    {
+      "input": "[1, 2, 3, 4, 5]",
+      "output": "[1, 2, 3, 4, 5]",
+      "description": "Handles an already sorted list."
+    },
+    {
+      "input": "[5, 4, 3, 2, 1]",
+      "output": "[1, 2, 3, 4, 5]",
+      "description": "Handles a list sorted in reverse order."
+    },
+    {
+      "input": "[0]",
+      "output": "[0]",
+      "description": "Handles a list containing only zero."
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": "null",
+      "exception": "TypeError",
+      "description": "Input `arr` is not a list (e.g., None)."
+    },
+    {
+      "input": "123",
+      "exception": "TypeError",
+      "description": "Input `arr` is not a list (e.g., an integer)."
+    },
+    {
+      "input": "[1, 2.5, 3]",
+      "exception": "TypeError",
+      "description": "Input `arr` contains non-integer elements (e.g., floats)."
+    },
+    {
+      "input": "[1, 'a', 3]",
+      "exception": "TypeError",
+      "description": "Input `arr` contains non-integer elements (e.g., strings)."
+    }
+  ]
+}

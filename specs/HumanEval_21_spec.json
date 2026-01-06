@@ -1,0 +1,177 @@
+{
+  "task_id": "HumanEval_21",
+  "entry_point": "rescale_to_unit",
+  "preconditions": [
+    "The input `numbers` must be a list of floating-point numbers (List[float]).",
+    "The input list `numbers` must contain at least two elements (len(numbers) >= 2)."
+  ],
+  "postconditions": [
+    "The function must return a list of floating-point numbers (List[float]).",
+    "The returned list must have the same length as the input list.",
+    "If all numbers in the input list are identical (i.e., min_val == max_val), all elements in the returned list must be 0.0.",
+    "If the numbers in the input list are not all identical (i.e., min_val < max_val), the smallest number in the input list must be transformed to 0.0 in the output list.",
+    "If the numbers in the input list are not all identical (i.e., min_val < max_val), the largest number in the input list must be transformed to 1.0 in the output list.",
+    "For any number `x` in the input list, if `min_val` is the minimum and `max_val` is the maximum of the input list, and `max_val > min_val`, its corresponding transformed value `y` in the output list must satisfy `y = (x - min_val) / (max_val - min_val)`."
+  ],
+  "invariants": [
+    "The transformation applied is linear.",
+    "The relative order of elements is preserved: if numbers[i] <= numbers[j], then result[i] <= result[j]."
+  ],
+  "normal_cases": [
+    {
+      "input": {
+        "numbers": [
+          1.0,
+          2.0,
+          3.0,
+          4.0,
+          5.0
+        ]
+      },
+      "expected_output": [
+        0.0,
+        0.25,
+        0.5,
+        0.75,
+        1.0
+      ],
+      "description": "Standard case with increasing positive floats."
+    },
+    {
+      "input": {
+        "numbers": [
+          -10.0,
+          0.0,
+          10.0
+        ]
+      },
+      "expected_output": [
+        0.0,
+        0.5,
+        1.0
+      ],
+      "description": "Numbers spanning negative, zero, and positive values."
+    },
+    {
+      "input": {
+        "numbers": [
+          5.0,
+          4.0,
+          3.0,
+          2.0,
+          1.0
+        ]
+      },
+      "expected_output": [
+        1.0,
+        0.75,
+        0.5,
+        0.25,
+        0.0
+      ],
+      "description": "Numbers in decreasing order."
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": {
+        "numbers": [
+          10.0,
+          20.0
+        ]
+      },
+      "expected_output": [
+        0.0,
+        1.0
+      ],
+      "description": "List with exactly two elements."
+    },
+    {
+      "input": {
+        "numbers": [
+          5.0,
+          5.0,
+          5.0
+        ]
+      },
+      "expected_output": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "description": "All elements in the list are identical."
+    },
+    {
+      "input": {
+        "numbers": [
+          0.0,
+          0.5,
+          1.0
+        ]
+      },
+      "expected_output": [
+        0.0,
+        0.5,
+        1.0
+      ],
+      "description": "Numbers are already in the unit range [0, 1]."
+    },
+    {
+      "input": {
+        "numbers": [
+          1.234,
+          1.234,
+          1.234,
+          1.234
+        ]
+      },
+      "expected_output": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "description": "All elements are identical, non-zero floats."
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": {
+        "numbers": []
+      },
+      "expected_behavior": "Raise an error (e.g., ValueError or IndexError) due to the list having fewer than two elements.",
+      "description": "Input list is empty."
+    },
+    {
+      "input": {
+        "numbers": [
+          1.0
+        ]
+      },
+      "expected_behavior": "Raise an error (e.g., ValueError or IndexError) due to the list having fewer than two elements.",
+      "description": "Input list has only one element."
+    },
+    {
+      "input": {
+        "numbers": [
+          1,
+          2,
+          3
+        ]
+      },
+      "expected_behavior": "Raise a TypeError or behave unexpectedly if type hints are strictly enforced, as elements are integers, not floats.",
+      "description": "Input list contains integers instead of floats."
+    },
+    {
+      "input": {
+        "numbers": [
+          "a",
+          "b",
+          "c"
+        ]
+      },
+      "expected_behavior": "Raise a TypeError or behave unexpectedly, as elements are strings, not floats.",
+      "description": "Input list contains non-numeric types."
+    }
+  ]
+}

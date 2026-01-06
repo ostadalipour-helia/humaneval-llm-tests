@@ -1,0 +1,144 @@
+{
+  "task_id": "HumanEval_44",
+  "entry_point": "change_base",
+  "preconditions": [
+    "x must be an integer.",
+    "base must be an integer.",
+    "x must be a non-negative integer (x >= 0).",
+    "base must be an integer greater than 1 and less than 10 (2 <= base < 10)."
+  ],
+  "postconditions": [
+    "The function must return a string.",
+    "The returned string must be the representation of the input number x in the specified base.",
+    "The string must only contain digits valid for the given base (i.e., '0' through 'base-1').",
+    "If x is 0, the returned string must be '0'.",
+    "For x > 0, the returned string must not have leading zeros."
+  ],
+  "invariants": [
+    "The numerical value represented by the output string in the given base must be equal to the input integer x."
+  ],
+  "normal_cases": [
+    {
+      "input": {
+        "x": 8,
+        "base": 3
+      },
+      "output": "'22'"
+    },
+    {
+      "input": {
+        "x": 8,
+        "base": 2
+      },
+      "output": "'1000'"
+    },
+    {
+      "input": {
+        "x": 7,
+        "base": 2
+      },
+      "output": "'111'"
+    },
+    {
+      "input": {
+        "x": 15,
+        "base": 8
+      },
+      "output": "'17'"
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": {
+        "x": 0,
+        "base": 2
+      },
+      "output": "'0'"
+    },
+    {
+      "input": {
+        "x": 0,
+        "base": 9
+      },
+      "output": "'0'"
+    },
+    {
+      "input": {
+        "x": 1,
+        "base": 2
+      },
+      "output": "'1'"
+    },
+    {
+      "input": {
+        "x": 9,
+        "base": 9
+      },
+      "output": "'10'"
+    },
+    {
+      "input": {
+        "x": 10,
+        "base": 9
+      },
+      "output": "'11'"
+    },
+    {
+      "input": {
+        "x": 5,
+        "base": 7
+      },
+      "output": "'5'"
+    }
+  ],
+  "error_conditions": [
+    {
+      "description": "base is less than 2",
+      "input": {
+        "x": 10,
+        "base": 1
+      },
+      "expected_behavior": "Raise ValueError or similar, as base 1 is not a standard numerical base."
+    },
+    {
+      "description": "base is 0 or negative",
+      "input": {
+        "x": 10,
+        "base": 0
+      },
+      "expected_behavior": "Raise ValueError or similar."
+    },
+    {
+      "description": "base is 10 or greater (violates 'base numbers are less than 10')",
+      "input": {
+        "x": 10,
+        "base": 10
+      },
+      "expected_behavior": "Raise ValueError or similar, or return an incorrect result based on strict interpretation of the docstring."
+    },
+    {
+      "description": "x is negative",
+      "input": {
+        "x": -5,
+        "base": 2
+      },
+      "expected_behavior": "Raise ValueError or similar, as base conversion is typically defined for non-negative numbers."
+    },
+    {
+      "description": "x is not an integer",
+      "input": {
+        "x": 8.5,
+        "base": 3
+      },
+      "expected_behavior": "Raise TypeError."
+    },
+    {
+      "description": "base is not an integer",
+      "input": {
+        "x": 8,
+        "base": 2.5
+      },
+      "expected_behavior": "Raise TypeError."
+    }
+  ]
+}

@@ -1,0 +1,142 @@
+{
+  "task_id": "HumanEval_35",
+  "entry_point": "max_element",
+  "preconditions": [
+    "The input `l` must be a list.",
+    "The list `l` must not be empty.",
+    "All elements in the list `l` must be of comparable types (e.g., all numbers, all strings)."
+  ],
+  "postconditions": [
+    "The function must return a single element from the input list `l`.",
+    "The returned element must be greater than or equal to every other element in the list `l`.",
+    "The type of the returned element must be the same as the type of elements in `l`."
+  ],
+  "invariants": [
+    "During the execution, any candidate for the maximum element found so far must always be an element that has been processed from the input list `l`."
+  ],
+  "normal_cases": [
+    {
+      "input": {
+        "l": [
+          1,
+          2,
+          3
+        ]
+      },
+      "output": 3,
+      "description": "List with positive integers in ascending order."
+    },
+    {
+      "input": {
+        "l": [
+          5,
+          3,
+          -5,
+          2,
+          -3,
+          3,
+          9,
+          0,
+          123,
+          1,
+          -10
+        ]
+      },
+      "output": 123,
+      "description": "List with mixed positive, negative, and zero integers."
+    },
+    {
+      "input": {
+        "l": [
+          -10,
+          -5,
+          -1,
+          -20
+        ]
+      },
+      "output": -1,
+      "description": "List with only negative integers."
+    },
+    {
+      "input": {
+        "l": [
+          7,
+          7,
+          7,
+          1,
+          7
+        ]
+      },
+      "output": 7,
+      "description": "List with duplicate maximums and other elements."
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": {
+        "l": [
+          42
+        ]
+      },
+      "output": 42,
+      "description": "List with a single element."
+    },
+    {
+      "input": {
+        "l": [
+          5,
+          5,
+          5,
+          5
+        ]
+      },
+      "output": 5,
+      "description": "List where all elements are identical."
+    },
+    {
+      "input": {
+        "l": [
+          0,
+          0,
+          0
+        ]
+      },
+      "output": 0,
+      "description": "List with only zero elements."
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": {
+        "l": []
+      },
+      "exception": "ValueError",
+      "description": "Input list is empty. A maximum cannot be determined."
+    },
+    {
+      "input": {
+        "l": null
+      },
+      "exception": "TypeError",
+      "description": "Input is not a list (e.g., None)."
+    },
+    {
+      "input": {
+        "l": "not_a_list"
+      },
+      "exception": "TypeError",
+      "description": "Input is a string, not a list."
+    },
+    {
+      "input": {
+        "l": [
+          1,
+          "a",
+          3
+        ]
+      },
+      "exception": "TypeError",
+      "description": "Input list contains non-comparable elements (e.g., int and str)."
+    }
+  ]
+}

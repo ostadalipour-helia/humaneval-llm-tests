@@ -1,0 +1,185 @@
+{
+  "task_id": "HumanEval_117",
+  "entry_point": "select_words",
+  "preconditions": [
+    "The input 's' must be a string.",
+    "The input 'n' must be a natural number (an integer greater than or equal to 0).",
+    "The input string 's' is assumed to contain only letters (a-z, A-Z) and spaces."
+  ],
+  "postconditions": [
+    "The function must return a list of strings.",
+    "Each string in the returned list must be a word from the input string 's'.",
+    "Each word in the returned list must contain exactly 'n' consonants.",
+    "The order of words in the returned list must be the same as their order of appearance in the input string 's'.",
+    "If the input string 's' is empty, the function must return an empty list.",
+    "The definition of consonants includes 'b', 'c', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 'n', 'p', 'q', 'r', 's', 't', 'v', 'w', 'x', 'y', 'z' (case-insensitive)."
+  ],
+  "invariants": [
+    "The definition of a 'word' is a sequence of non-space characters.",
+    "The set of characters considered consonants (b, c, d, f, g, h, j, k, l, m, n, p, q, r, s, t, v, w, x, y, z, case-insensitive) remains consistent throughout the function's execution."
+  ],
+  "normal_cases": [
+    {
+      "input": {
+        "s": "Mary had a little lamb",
+        "n": 4
+      },
+      "expected_output": [
+        "little"
+      ],
+      "description": "Standard case with one matching word."
+    },
+    {
+      "input": {
+        "s": "Mary had a little lamb",
+        "n": 3
+      },
+      "expected_output": [
+        "Mary",
+        "lamb"
+      ],
+      "description": "Standard case with multiple matching words."
+    },
+    {
+      "input": {
+        "s": "Hello world",
+        "n": 4
+      },
+      "expected_output": [
+        "world"
+      ],
+      "description": "Standard case with a common word."
+    },
+    {
+      "input": {
+        "s": "Uncle sam",
+        "n": 3
+      },
+      "expected_output": [
+        "Uncle"
+      ],
+      "description": "Standard case with a capitalized word."
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": {
+        "s": "",
+        "n": 0
+      },
+      "expected_output": [],
+      "description": "Empty input string 's'."
+    },
+    {
+      "input": {
+        "s": "",
+        "n": 5
+      },
+      "expected_output": [],
+      "description": "Empty input string 's' with non-zero 'n'."
+    },
+    {
+      "input": {
+        "s": "simple white space",
+        "n": 2
+      },
+      "expected_output": [],
+      "description": "No words match the consonant count 'n'."
+    },
+    {
+      "input": {
+        "s": "a e i o u",
+        "n": 0
+      },
+      "expected_output": [
+        "a",
+        "e",
+        "i",
+        "o",
+        "u"
+      ],
+      "description": "Words consisting only of vowels, 'n' is 0."
+    },
+    {
+      "input": {
+        "s": "rhythm",
+        "n": 6
+      },
+      "expected_output": [
+        "rhythm"
+      ],
+      "description": "Word consisting only of consonants, 'n' matches."
+    },
+    {
+      "input": {
+        "s": "   ",
+        "n": 1
+      },
+      "expected_output": [],
+      "description": "String containing only spaces."
+    },
+    {
+      "input": {
+        "s": "apple",
+        "n": 3
+      },
+      "expected_output": [
+        "apple"
+      ],
+      "description": "Single word input, 'n' matches."
+    },
+    {
+      "input": {
+        "s": "apple",
+        "n": 2
+      },
+      "expected_output": [],
+      "description": "Single word input, 'n' does not match."
+    },
+    {
+      "input": {
+        "s": "Python Programming Language",
+        "n": 5
+      },
+      "expected_output": [
+        "Python",
+        "Language"
+      ],
+      "description": "Multiple words, some matching, some not."
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": {
+        "s": 123,
+        "n": 1
+      },
+      "expected_behavior": "Raise a TypeError or similar, as 's' is not a string.",
+      "description": "Input 's' is not a string."
+    },
+    {
+      "input": {
+        "s": "hello",
+        "n": -1
+      },
+      "expected_behavior": "Raise a ValueError or similar, as 'n' is not a natural number.",
+      "description": "Input 'n' is a negative integer."
+    },
+    {
+      "input": {
+        "s": "hello",
+        "n": "two"
+      },
+      "expected_behavior": "Raise a TypeError or similar, as 'n' is not an integer.",
+      "description": "Input 'n' is not an integer."
+    },
+    {
+      "input": {
+        "s": "word123",
+        "n": 3
+      },
+      "expected_behavior": "Undefined behavior or raise an error, as 's' contains non-letter/space characters, violating preconditions.",
+      "description": "Input 's' contains characters other than letters and spaces."
+    }
+  ]
+}

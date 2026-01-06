@@ -1,0 +1,116 @@
+{
+  "task_id": "HumanEval_84",
+  "entry_point": "solve",
+  "preconditions": [
+    "N is an integer.",
+    "0 <= N <= 10000."
+  ],
+  "postconditions": [
+    "The function returns a string.",
+    "The returned string consists only of '0' and '1' characters.",
+    "The returned string represents the binary equivalent of the sum of the decimal digits of N.",
+    "If the sum of digits is 0, the output is '0'.",
+    "The returned string does not have leading zeros unless the sum of digits is 0 (e.g., '0' is valid, '01' is not)."
+  ],
+  "invariants": [
+    "The output string will always be a valid binary representation.",
+    "The value represented by the output string will always be non-negative."
+  ],
+  "normal_cases": [
+    {
+      "input": {
+        "N": 1000
+      },
+      "output": "1",
+      "description": "Sum of digits is 1, binary is '1'."
+    },
+    {
+      "input": {
+        "N": 150
+      },
+      "output": "110",
+      "description": "Sum of digits is 6, binary is '110'."
+    },
+    {
+      "input": {
+        "N": 147
+      },
+      "output": "1100",
+      "description": "Sum of digits is 12, binary is '1100'."
+    },
+    {
+      "input": {
+        "N": 12345
+      },
+      "output": "10101",
+      "description": "Sum of digits is 1+2+3+4+5=15, binary is '1111'."
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": {
+        "N": 0
+      },
+      "output": "0",
+      "description": "Minimum N, sum of digits is 0, binary is '0'."
+    },
+    {
+      "input": {
+        "N": 10000
+      },
+      "output": "1",
+      "description": "Maximum N, sum of digits is 1, binary is '1'."
+    },
+    {
+      "input": {
+        "N": 9
+      },
+      "output": "1001",
+      "description": "Single digit N, sum is 9, binary is '1001'."
+    },
+    {
+      "input": {
+        "N": 9999
+      },
+      "output": "100100",
+      "description": "Largest sum of digits (36), binary is '100100'."
+    },
+    {
+      "input": {
+        "N": 1
+      },
+      "output": "1",
+      "description": "N is 1, sum is 1, binary is '1'."
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": {
+        "N": -1
+      },
+      "expected_error": "ValueError",
+      "description": "N is less than 0, violating the constraint."
+    },
+    {
+      "input": {
+        "N": 10001
+      },
+      "expected_error": "ValueError",
+      "description": "N is greater than 10000, violating the constraint."
+    },
+    {
+      "input": {
+        "N": "abc"
+      },
+      "expected_error": "TypeError",
+      "description": "N is not an integer."
+    },
+    {
+      "input": {
+        "N": 5.5
+      },
+      "expected_error": "TypeError",
+      "description": "N is a float, not an integer."
+    }
+  ]
+}

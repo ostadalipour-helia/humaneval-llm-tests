@@ -1,0 +1,117 @@
+{
+  "task_id": "HumanEval_161",
+  "entry_point": "solve",
+  "preconditions": [
+    "The input `s` must be a string."
+  ],
+  "postconditions": [
+    "The function must return a string.",
+    "The length of the returned string must be equal to the length of the input string `s`.",
+    "If the input string `s` contains no letters (a-z, A-Z):",
+    "  The returned string must be the reverse of `s`.",
+    "If the input string `s` contains at least one letter:",
+    "  For each character at index `i` in `s`:",
+    "    If `s[i]` is an English letter (a-z or A-Z):",
+    "      Its case must be reversed in the output string (lowercase to uppercase, uppercase to lowercase).",
+    "    If `s[i]` is not an English letter:",
+    "      It must remain unchanged in the output string.",
+    "  The order of characters (after potential case reversal) must be preserved from the input string."
+  ],
+  "invariants": [
+    "The type of the output is always a string.",
+    "The length of the output string is always identical to the length of the input string."
+  ],
+  "normal_cases": [
+    {
+      "input": {
+        "s": "ab"
+      },
+      "output": "AB",
+      "description": "String with all lowercase letters, all cases reversed."
+    },
+    {
+      "input": {
+        "s": "#a@C"
+      },
+      "output": "#A@c",
+      "description": "String with mixed letters and non-letters, cases reversed for letters."
+    },
+    {
+      "input": {
+        "s": "Hello World!"
+      },
+      "output": "hELLO wORLD!",
+      "description": "String with mixed case letters, spaces, and punctuation."
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": {
+        "s": "1234"
+      },
+      "output": "4321",
+      "description": "String containing no letters, should be entirely reversed."
+    },
+    {
+      "input": {
+        "s": ""
+      },
+      "output": "",
+      "description": "Empty string, contains no letters, reversed is itself."
+    },
+    {
+      "input": {
+        "s": "A"
+      },
+      "output": "a",
+      "description": "Single uppercase letter."
+    },
+    {
+      "input": {
+        "s": "z"
+      },
+      "output": "Z",
+      "description": "Single lowercase letter."
+    },
+    {
+      "input": {
+        "s": "!"
+      },
+      "output": "!",
+      "description": "Single non-letter character, contains no letters, reversed is itself."
+    },
+    {
+      "input": {
+        "s": "aB cD"
+      },
+      "output": "Ab Cd",
+      "description": "String with mixed case letters and spaces."
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": {
+        "s": null
+      },
+      "expected_behavior": "Raise a TypeError or AttributeError, as `s` is expected to be a string.",
+      "description": "Input `s` is not a string (e.g., None)."
+    },
+    {
+      "input": {
+        "s": 123
+      },
+      "expected_behavior": "Raise a TypeError or AttributeError, as `s` is expected to be a string.",
+      "description": "Input `s` is not a string (e.g., integer)."
+    },
+    {
+      "input": {
+        "s": [
+          "a",
+          "b"
+        ]
+      },
+      "expected_behavior": "Raise a TypeError or AttributeError, as `s` is expected to be a string.",
+      "description": "Input `s` is not a string (e.g., list)."
+    }
+  ]
+}

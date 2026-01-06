@@ -1,0 +1,160 @@
+{
+  "task_id": "HumanEval_0",
+  "entry_point": "has_close_elements",
+  "preconditions": [
+    "The 'numbers' argument must be a list.",
+    "All elements in the 'numbers' list must be of type float.",
+    "The 'threshold' argument must be of type float."
+  ],
+  "postconditions": [
+    "The function must return a boolean value.",
+    "If there exist at least two distinct indices 'i' and 'j' in the 'numbers' list such that the absolute difference between 'numbers[i]' and 'numbers[j]' is strictly less than 'threshold', the function must return True.",
+    "Otherwise (if no such pair of numbers exists), the function must return False."
+  ],
+  "invariants": [
+    "The input list 'numbers' must not be modified by the function.",
+    "The input 'threshold' value must not be modified by the function."
+  ],
+  "normal_cases": [
+    {
+      "input": {
+        "numbers": [
+          1.0,
+          2.0,
+          3.0
+        ],
+        "threshold": 0.5
+      },
+      "output": false,
+      "description": "No two numbers are closer than the threshold."
+    },
+    {
+      "input": {
+        "numbers": [
+          1.0,
+          2.8,
+          3.0,
+          4.0,
+          5.0,
+          2.0
+        ],
+        "threshold": 0.3
+      },
+      "output": true,
+      "description": "Two numbers (2.8 and 3.0) are closer than the threshold (abs(2.8-3.0) = 0.2 < 0.3)."
+    },
+    {
+      "input": {
+        "numbers": [
+          10.0,
+          10.05,
+          10.1,
+          10.2
+        ],
+        "threshold": 0.06
+      },
+      "output": true,
+      "description": "Two numbers (10.0 and 10.05) are closer than the threshold (abs(10.0-10.05) = 0.05 < 0.06)."
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": {
+        "numbers": [],
+        "threshold": 0.5
+      },
+      "output": false,
+      "description": "Empty list of numbers, no pairs to compare."
+    },
+    {
+      "input": {
+        "numbers": [
+          1.0
+        ],
+        "threshold": 0.5
+      },
+      "output": false,
+      "description": "List with a single number, no pairs to compare."
+    },
+    {
+      "input": {
+        "numbers": [
+          1.0,
+          1.0,
+          2.0
+        ],
+        "threshold": 0.1
+      },
+      "output": true,
+      "description": "List contains identical numbers at different indices, their difference is 0 which is less than a positive threshold."
+    },
+    {
+      "input": {
+        "numbers": [
+          1.0,
+          2.0,
+          3.0
+        ],
+        "threshold": 0.0
+      },
+      "output": false,
+      "description": "Threshold is zero, so no absolute difference can be strictly less than it."
+    },
+    {
+      "input": {
+        "numbers": [
+          1.0,
+          100.0
+        ],
+        "threshold": 200.0
+      },
+      "output": true,
+      "description": "Threshold is very large, making most differences fall below it."
+    },
+    {
+      "input": {
+        "numbers": [
+          -1.0,
+          -1.2,
+          0.0
+        ],
+        "threshold": 0.3
+      },
+      "output": true,
+      "description": "List contains negative numbers, abs(-1.0 - -1.2) = 0.2 < 0.3."
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": {
+        "numbers": "not a list",
+        "threshold": 0.5
+      },
+      "expected_error": "TypeError",
+      "description": "'numbers' is not a list."
+    },
+    {
+      "input": {
+        "numbers": [
+          1,
+          2,
+          3
+        ],
+        "threshold": 0.5
+      },
+      "expected_error": "TypeError",
+      "description": "'numbers' contains non-float elements (integers)."
+    },
+    {
+      "input": {
+        "numbers": [
+          1.0,
+          2.0
+        ],
+        "threshold": "not a float"
+      },
+      "expected_error": "TypeError",
+      "description": "'threshold' is not a float."
+    }
+  ]
+}

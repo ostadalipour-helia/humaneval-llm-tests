@@ -1,0 +1,81 @@
+{
+  "task_id": "HumanEval_109",
+  "entry_point": "move_one_ball",
+  "preconditions": [
+    "The input 'arr' must be a list.",
+    "All elements in 'arr' must be integers.",
+    "All elements in 'arr' are guaranteed to be unique."
+  ],
+  "postconditions": [
+    "The function returns a boolean value (True or False).",
+    "If the return value is True, it indicates that the original array 'arr' can be transformed into a non-decreasingly sorted array by applying zero or more right shift operations.",
+    "If the return value is False, it indicates that no number of right shift operations can transform 'arr' into a non-decreasingly sorted array.",
+    "The input array 'arr' must not be modified by the function (pure function)."
+  ],
+  "invariants": [
+    "The length of the array remains constant throughout any number of right shift operations.",
+    "The set of elements in the array remains the same; only their positions change during right shift operations.",
+    "The uniqueness of elements in the array is preserved across right shift operations."
+  ],
+  "normal_cases": [
+    {
+      "input": "[3, 4, 5, 1, 2]",
+      "output": "True",
+      "description": "Array can be sorted by 2 right shift operations to become [1, 2, 3, 4, 5]."
+    },
+    {
+      "input": "[3, 5, 4, 1, 2]",
+      "output": "False",
+      "description": "Array cannot be sorted into non-decreasing order by any number of right shift operations."
+    },
+    {
+      "input": "[1, 2, 3, 4, 5]",
+      "output": "True",
+      "description": "Array is already sorted (0 right shift operations)."
+    },
+    {
+      "input": "[2, 3, 4, 5, 1]",
+      "output": "True",
+      "description": "Array can be sorted by 1 right shift operation to become [1, 2, 3, 4, 5]."
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": "[]",
+      "output": "True",
+      "description": "An empty array is considered sorted."
+    },
+    {
+      "input": "[7]",
+      "output": "True",
+      "description": "An array with a single element is always sorted."
+    },
+    {
+      "input": "[2, 1]",
+      "output": "True",
+      "description": "An array with two elements, one right shift sorts it to [1, 2]."
+    },
+    {
+      "input": "[1, 2]",
+      "output": "True",
+      "description": "An array with two elements, already sorted."
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": "None",
+      "behavior": "TypeError or AttributeError",
+      "description": "Input is not a list, preventing iteration or length check."
+    },
+    {
+      "input": "123",
+      "behavior": "TypeError or AttributeError",
+      "description": "Input is not a list, preventing iteration or length check."
+    },
+    {
+      "input": "[1, 'a', 3]",
+      "behavior": "TypeError or ValueError",
+      "description": "List contains non-integer elements, which would prevent comparison for sorting."
+    }
+  ]
+}

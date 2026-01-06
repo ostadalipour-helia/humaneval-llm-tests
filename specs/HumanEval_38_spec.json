@@ -1,0 +1,89 @@
+{
+  "task_id": "HumanEval_38",
+  "entry_point": "decode_cyclic",
+  "preconditions": [
+    "The input `s` must be a string.",
+    "The input `s` is assumed to be a string that was previously encoded by the `encode_cyclic` function. This implies its structure: groups of three characters (when `s` is split into chunks of 3) are cyclic permutations of their original form, and groups of one or two characters are unchanged from their original form."
+  ],
+  "postconditions": [
+    "The function returns a string.",
+    "The returned string `decoded_s` is the original string before it was encoded by `encode_cyclic`.",
+    "Specifically, `encode_cyclic(decode_cyclic(s))` should be equal to `s`.",
+    "The length of the returned string `decoded_s` must be equal to the length of the input string `s`.",
+    "The characters in the returned string `decoded_s` are a permutation of the characters in the input string `s`."
+  ],
+  "invariants": [
+    "The length of the string remains constant throughout the encoding and decoding process.",
+    "The set of characters in the string remains the same, only their order changes for groups of three."
+  ],
+  "normal_cases": [
+    {
+      "input": "bcaefdhig",
+      "output": "abcdefghi",
+      "description": "Input string consists of multiple full groups of three characters."
+    },
+    {
+      "input": "bcaefdgh",
+      "output": "abcdefgh",
+      "description": "Input string consists of multiple full groups and one partial group of two characters at the end."
+    },
+    {
+      "input": "bcaefdg",
+      "output": "abcdefg",
+      "description": "Input string consists of multiple full groups and one partial group of one character at the end."
+    },
+    {
+      "input": "bca",
+      "output": "abc",
+      "description": "Input string consists of a single full group of three characters."
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": "",
+      "output": "",
+      "description": "Empty input string."
+    },
+    {
+      "input": "ab",
+      "output": "ab",
+      "description": "Input string consists of a single partial group of two characters (unchanged by encode/decode)."
+    },
+    {
+      "input": "a",
+      "output": "a",
+      "description": "Input string consists of a single partial group of one character (unchanged by encode/decode)."
+    },
+    {
+      "input": "bcade",
+      "output": "abcde",
+      "description": "Input string consists of one full group and one partial group of two characters."
+    },
+    {
+      "input": "bcad",
+      "output": "abcd",
+      "description": "Input string consists of one full group and one partial group of one character."
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": 123,
+      "exception": "TypeError",
+      "description": "Input is not a string."
+    },
+    {
+      "input": null,
+      "exception": "TypeError",
+      "description": "Input is None."
+    },
+    {
+      "input": [
+        "a",
+        "b",
+        "c"
+      ],
+      "exception": "TypeError",
+      "description": "Input is a list, not a string."
+    }
+  ]
+}

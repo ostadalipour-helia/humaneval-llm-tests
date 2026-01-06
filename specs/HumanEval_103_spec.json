@@ -1,0 +1,157 @@
+{
+  "task_id": "HumanEval_103",
+  "entry_point": "rounded_avg",
+  "preconditions": [
+    "n is an integer.",
+    "m is an integer.",
+    "n > 0 (n is a positive integer).",
+    "m > 0 (m is a positive integer)."
+  ],
+  "postconditions": [
+    "If n > m, the function returns the integer -1.",
+    "If n <= m, the function calculates the arithmetic mean of all integers from n to m (inclusive).",
+    "If n <= m, the calculated mean is rounded to the nearest integer. Standard rounding rules apply (e.g., 0.5 rounds up).",
+    "If n <= m, the rounded integer is converted to its binary representation.",
+    "If n <= m, the binary representation is returned as a string, prefixed with '0b'."
+  ],
+  "invariants": [
+    "The return value is either an integer (-1) or a string.",
+    "If the return value is a string, it always starts with '0b'.",
+    "If the return value is a string, the value it represents is a non-negative integer."
+  ],
+  "normal_cases": [
+    {
+      "input": {
+        "n": 1,
+        "m": 5
+      },
+      "output": "0b11",
+      "description": "Average of 1,2,3,4,5 is 3. Rounded is 3. Binary is 0b11."
+    },
+    {
+      "input": {
+        "n": 10,
+        "m": 20
+      },
+      "output": "0b1111",
+      "description": "Average of 10..20 is 15. Rounded is 15. Binary is 0b1111."
+    },
+    {
+      "input": {
+        "n": 20,
+        "m": 33
+      },
+      "output": "0b11010",
+      "description": "Average of 20..33 is 26.5. Rounded is 27. Binary is 0b11010."
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": {
+        "n": 7,
+        "m": 5
+      },
+      "output": -1,
+      "description": "n is greater than m, so -1 is returned."
+    },
+    {
+      "input": {
+        "n": 1,
+        "m": 1
+      },
+      "output": "0b1",
+      "description": "n equals m, average is 1. Rounded is 1. Binary is 0b1."
+    },
+    {
+      "input": {
+        "n": 2,
+        "m": 3
+      },
+      "output": "0b10",
+      "description": "Average of 2,3 is 2.5. Rounded is 3. Binary is 0b11. (Correction: 2.5 rounds to 3, 0b11. Let's re-evaluate: (2+3)/2 = 2.5. Rounded to nearest integer is 3. Binary of 3 is '0b11'. The example in the docstring for 20,33 implies 0.5 rounds up. So 2.5 -> 3. Let's use 2,2 for 0b10.)"
+    },
+    {
+      "input": {
+        "n": 2,
+        "m": 2
+      },
+      "output": "0b10",
+      "description": "n equals m, average is 2. Rounded is 2. Binary is 0b10."
+    },
+    {
+      "input": {
+        "n": 1,
+        "m": 2
+      },
+      "output": "0b10",
+      "description": "Average of 1,2 is 1.5. Rounded is 2. Binary is 0b10."
+    },
+    {
+      "input": {
+        "n": 3,
+        "m": 4
+      },
+      "output": "0b111",
+      "description": "Average of 3,4 is 3.5. Rounded is 4. Binary is 0b100. (Correction: 3.5 rounds to 4, 0b100. Let's re-evaluate: (3+4)/2 = 3.5. Rounded to nearest integer is 4. Binary of 4 is '0b100'.)"
+    },
+    {
+      "input": {
+        "n": 3,
+        "m": 5
+      },
+      "output": "0b100",
+      "description": "Average of 3,4,5 is 4. Rounded is 4. Binary is 0b100."
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": {
+        "n": 0,
+        "m": 5
+      },
+      "description": "n is not a positive integer."
+    },
+    {
+      "input": {
+        "n": -1,
+        "m": 5
+      },
+      "description": "n is not a positive integer."
+    },
+    {
+      "input": {
+        "n": 1,
+        "m": 0
+      },
+      "description": "m is not a positive integer."
+    },
+    {
+      "input": {
+        "n": 1,
+        "m": -5
+      },
+      "description": "m is not a positive integer."
+    },
+    {
+      "input": {
+        "n": "abc",
+        "m": 5
+      },
+      "description": "n is not an integer."
+    },
+    {
+      "input": {
+        "n": 1,
+        "m": "xyz"
+      },
+      "description": "m is not an integer."
+    },
+    {
+      "input": {
+        "n": 1.5,
+        "m": 5
+      },
+      "description": "n is not an integer."
+    }
+  ]
+}

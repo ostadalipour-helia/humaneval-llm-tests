@@ -1,0 +1,110 @@
+{
+  "task_id": "HumanEval_14",
+  "entry_point": "all_prefixes",
+  "preconditions": [
+    "The input `string` must be of type `str`."
+  ],
+  "postconditions": [
+    "The return value is a `List[str]`.",
+    "The length of the returned list is equal to the length of the input `string`.",
+    "For each `i` from `0` to `len(string) - 1`, the element `result[i]` is equal to `string[0:i+1]`.",
+    "The elements in the returned list are ordered by their length, from shortest to longest."
+  ],
+  "invariants": [
+    "All elements in the returned list are non-empty strings.",
+    "Each element `p` in the returned list is a prefix of the input `string`.",
+    "The length of the `i`-th element (0-indexed) in the result list is `i + 1`."
+  ],
+  "normal_cases": [
+    {
+      "input": {
+        "string": "abc"
+      },
+      "expected_output": [
+        "a",
+        "ab",
+        "abc"
+      ],
+      "description": "Standard case with a multi-character string."
+    },
+    {
+      "input": {
+        "string": "hello"
+      },
+      "expected_output": [
+        "h",
+        "he",
+        "hel",
+        "hell",
+        "hello"
+      ],
+      "description": "A longer multi-character string."
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": {
+        "string": ""
+      },
+      "expected_output": [],
+      "description": "Empty input string should return an empty list."
+    },
+    {
+      "input": {
+        "string": "a"
+      },
+      "expected_output": [
+        "a"
+      ],
+      "description": "Single character input string."
+    },
+    {
+      "input": {
+        "string": "123!"
+      },
+      "expected_output": [
+        "1",
+        "12",
+        "123",
+        "123!"
+      ],
+      "description": "String containing numbers and special characters."
+    },
+    {
+      "input": {
+        "string": "  "
+      },
+      "expected_output": [
+        " ",
+        "  "
+      ],
+      "description": "String containing only whitespace characters."
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": {
+        "string": 123
+      },
+      "expected_exception": "TypeError",
+      "description": "Input is not a string (e.g., an integer)."
+    },
+    {
+      "input": {
+        "string": null
+      },
+      "expected_exception": "TypeError",
+      "description": "Input is not a string (e.g., None)."
+    },
+    {
+      "input": {
+        "string": [
+          "a",
+          "b"
+        ]
+      },
+      "expected_exception": "TypeError",
+      "description": "Input is not a string (e.g., a list)."
+    }
+  ]
+}

@@ -1,0 +1,146 @@
+{
+  "task_id": "HumanEval_65",
+  "entry_point": "circular_shift",
+  "preconditions": [
+    "x must be an integer.",
+    "shift must be an integer.",
+    "x must be a non-negative integer (x >= 0).",
+    "shift must be a non-negative integer (shift >= 0)."
+  ],
+  "postconditions": [
+    "The function must return a string.",
+    "The length of the returned string must be equal to the number of digits in x (i.e., len(str(x))).",
+    "If 'shift' is strictly greater than the number of digits in x (shift > len(str(x))), the returned string must be the reverse of str(x).",
+    "Otherwise (shift <= len(str(x))), the returned string must be str(x) circularly shifted right by 'shift' positions. The effective shift amount for this operation is 'shift % len(str(x))'."
+  ],
+  "invariants": [
+    "The returned string must consist only of digit characters.",
+    "The multiset of digits in the returned string must be identical to the multiset of digits in the input integer x."
+  ],
+  "normal_cases": [
+    {
+      "input": {
+        "x": 12345,
+        "shift": 1
+      },
+      "output": "51234",
+      "description": "Single right shift for a multi-digit number."
+    },
+    {
+      "input": {
+        "x": 12345,
+        "shift": 3
+      },
+      "output": "34512",
+      "description": "Multiple right shifts for a multi-digit number, shift < num_digits."
+    },
+    {
+      "input": {
+        "x": 123,
+        "shift": 3
+      },
+      "output": "123",
+      "description": "Shift equals number of digits, resulting in the original number after a full cycle."
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": {
+        "x": 12,
+        "shift": 1
+      },
+      "output": "21",
+      "description": "Example from docstring: x=12, shift=1."
+    },
+    {
+      "input": {
+        "x": 12,
+        "shift": 2
+      },
+      "output": "12",
+      "description": "Example from docstring: x=12, shift=2."
+    },
+    {
+      "input": {
+        "x": 123,
+        "shift": 0
+      },
+      "output": "123",
+      "description": "Shift is zero, no change."
+    },
+    {
+      "input": {
+        "x": 5,
+        "shift": 1
+      },
+      "output": "5",
+      "description": "Single digit number, shift <= num_digits."
+    },
+    {
+      "input": {
+        "x": 0,
+        "shift": 1
+      },
+      "output": "0",
+      "description": "Input is zero, shift <= num_digits."
+    },
+    {
+      "input": {
+        "x": 123,
+        "shift": 4
+      },
+      "output": "321",
+      "description": "Shift is strictly greater than number of digits, result is reversed."
+    },
+    {
+      "input": {
+        "x": 123,
+        "shift": 10
+      },
+      "output": "321",
+      "description": "Shift is much greater than number of digits, result is reversed."
+    },
+    {
+      "input": {
+        "x": 5,
+        "shift": 2
+      },
+      "output": "5",
+      "description": "Single digit number, shift > num_digits (1), result is reversed (which is itself)."
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": {
+        "x": "123",
+        "shift": 1
+      },
+      "expected_error": "TypeError",
+      "description": "x is not an integer."
+    },
+    {
+      "input": {
+        "x": 123,
+        "shift": "1"
+      },
+      "expected_error": "TypeError",
+      "description": "shift is not an integer."
+    },
+    {
+      "input": {
+        "x": -123,
+        "shift": 1
+      },
+      "expected_error": "ValueError",
+      "description": "x is a negative integer, violating the precondition x >= 0."
+    },
+    {
+      "input": {
+        "x": 123,
+        "shift": -1
+      },
+      "expected_error": "ValueError",
+      "description": "shift is a negative integer, violating the precondition shift >= 0."
+    }
+  ]
+}

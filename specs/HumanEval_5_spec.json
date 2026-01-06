@@ -1,0 +1,138 @@
+{
+  "task_id": "HumanEval_5",
+  "entry_point": "intersperse",
+  "preconditions": [
+    "The 'numbers' argument must be a list of integers (List[int]).",
+    "The 'delimeter' argument must be an integer (int)."
+  ],
+  "postconditions": [
+    "The function returns a list of integers (List[int]).",
+    "If the input 'numbers' list is empty, the output list is also empty.",
+    "If the input 'numbers' list contains 'n' elements (n > 0), the output list contains '2n - 1' elements.",
+    "The elements from the original 'numbers' list appear in the output list in their original order.",
+    "The 'delimeter' integer is inserted exactly once between every two consecutive elements from the original 'numbers' list."
+  ],
+  "invariants": [
+    "The relative order of elements from the original 'numbers' list is preserved in the output list.",
+    "The 'delimeter' value only appears at odd indices (0-indexed) in the output list, provided the output list is not empty and has more than one element.",
+    "Elements from the original 'numbers' list only appear at even indices (0-indexed) in the output list."
+  ],
+  "normal_cases": [
+    {
+      "input": {
+        "numbers": [
+          1,
+          2,
+          3
+        ],
+        "delimeter": 4
+      },
+      "output": [
+        1,
+        4,
+        2,
+        4,
+        3
+      ]
+    },
+    {
+      "input": {
+        "numbers": [
+          10,
+          20,
+          30,
+          40
+        ],
+        "delimeter": 0
+      },
+      "output": [
+        10,
+        0,
+        20,
+        0,
+        30,
+        0,
+        40
+      ]
+    },
+    {
+      "input": {
+        "numbers": [
+          -1,
+          -2
+        ],
+        "delimeter": 99
+      },
+      "output": [
+        -1,
+        99,
+        -2
+      ]
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": {
+        "numbers": [],
+        "delimeter": 4
+      },
+      "output": []
+    },
+    {
+      "input": {
+        "numbers": [
+          1
+        ],
+        "delimeter": 4
+      },
+      "output": [
+        1
+      ]
+    },
+    {
+      "input": {
+        "numbers": [
+          7
+        ],
+        "delimeter": -1
+      },
+      "output": [
+        7
+      ]
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": {
+        "numbers": null,
+        "delimeter": 4
+      },
+      "expected_error": "TypeError",
+      "description": "Input 'numbers' is not a list."
+    },
+    {
+      "input": {
+        "numbers": [
+          1,
+          "a",
+          3
+        ],
+        "delimeter": 4
+      },
+      "expected_error": "TypeError",
+      "description": "Input 'numbers' contains non-integer elements."
+    },
+    {
+      "input": {
+        "numbers": [
+          1,
+          2,
+          3
+        ],
+        "delimeter": "x"
+      },
+      "expected_error": "TypeError",
+      "description": "Input 'delimeter' is not an integer."
+    }
+  ]
+}

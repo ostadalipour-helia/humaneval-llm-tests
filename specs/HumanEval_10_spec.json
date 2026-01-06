@@ -1,0 +1,99 @@
+{
+  "task_id": "HumanEval_10",
+  "entry_point": "make_palindrome",
+  "preconditions": [
+    "The input 'string' must be a Python string (str)."
+  ],
+  "postconditions": [
+    "The returned string 'result' must be a palindrome.",
+    "The returned string 'result' must begin with the input 'string'.",
+    "The returned string 'result' must be the shortest possible string that satisfies the above two conditions."
+  ],
+  "invariants": [],
+  "normal_cases": [
+    {
+      "input": {
+        "string": "cat"
+      },
+      "output": "catac",
+      "description": "Standard case where a suffix needs to be added to form the shortest palindrome that begins with 'cat'."
+    },
+    {
+      "input": {
+        "string": "race"
+      },
+      "output": "racecar",
+      "description": "Another standard case, demonstrating the construction of a common palindrome."
+    },
+    {
+      "input": {
+        "string": "google"
+      },
+      "output": "googleelgoog",
+      "description": "Example with a longer prefix to reverse and append."
+    },
+    {
+      "input": {
+        "string": "cata"
+      },
+      "output": "catatac",
+      "description": "Case demonstrating the algorithm: longest palindromic postfix is 'a', prefix is 'cat', reverse of prefix is 'tac', so 'cata' + 'tac' = 'catatac'. (Note: The example in the docstring 'cata' -> 'catac' is inconsistent with the problem description 'begins with a supplied string' and the provided algorithm.)"
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": {
+        "string": ""
+      },
+      "output": "",
+      "description": "Empty string input, should return an empty string as it's already a palindrome and begins with itself."
+    },
+    {
+      "input": {
+        "string": "a"
+      },
+      "output": "a",
+      "description": "Single character string, which is already a palindrome."
+    },
+    {
+      "input": {
+        "string": "aba"
+      },
+      "output": "aba",
+      "description": "Input string is already a palindrome, so no characters need to be appended."
+    },
+    {
+      "input": {
+        "string": "ab"
+      },
+      "output": "aba",
+      "description": "Two-character string requiring one character to be appended to form the shortest palindrome."
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": {
+        "string": null
+      },
+      "expected_behavior": "Raises a TypeError or AttributeError, as 'string' is expected to be a str.",
+      "description": "Input is not a string (e.g., None)."
+    },
+    {
+      "input": {
+        "string": 123
+      },
+      "expected_behavior": "Raises a TypeError or AttributeError, as 'string' is expected to be a str.",
+      "description": "Input is not a string (e.g., an integer)."
+    },
+    {
+      "input": {
+        "string": [
+          "a",
+          "b"
+        ]
+      },
+      "expected_behavior": "Raises a TypeError or AttributeError, as 'string' is expected to be a str.",
+      "description": "Input is not a string (e.g., a list)."
+    }
+  ]
+}

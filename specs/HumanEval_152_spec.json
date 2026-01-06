@@ -1,0 +1,302 @@
+{
+  "task_id": "HumanEval_152",
+  "entry_point": "compare",
+  "preconditions": [
+    "The 'game' parameter must be a list.",
+    "The 'guess' parameter must be a list.",
+    "All elements in the 'game' list must be numbers (integers or floats).",
+    "All elements in the 'guess' list must be numbers (integers or floats).",
+    "The 'game' and 'guess' lists must have the same length."
+  ],
+  "postconditions": [
+    "The function must return a list.",
+    "The returned list must have the same length as the input 'game' and 'guess' lists.",
+    "For each index 'i' in the input lists, if 'game[i]' is equal to 'guess[i]', the corresponding element in the returned list at index 'i' must be 0.",
+    "For each index 'i' in the input lists, if 'game[i]' is not equal to 'guess[i]', the corresponding element in the returned list at index 'i' must be the absolute difference between 'game[i]' and 'guess[i]' (i.e., abs(game[i] - guess[i])).",
+    "All elements in the returned list must be non-negative numbers (integers if inputs are integers)."
+  ],
+  "invariants": [
+    "The length of the output list is always equal to the length of the input lists.",
+    "Each element in the output list is always non-negative."
+  ],
+  "normal_cases": [
+    {
+      "input": {
+        "game": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          1
+        ],
+        "guess": [
+          1,
+          2,
+          3,
+          4,
+          2,
+          -2
+        ]
+      },
+      "output": [
+        0,
+        0,
+        0,
+        0,
+        3,
+        3
+      ],
+      "description": "Mixed matches and mismatches, including negative guess."
+    },
+    {
+      "input": {
+        "game": [
+          0,
+          5,
+          0,
+          0,
+          0,
+          4
+        ],
+        "guess": [
+          4,
+          1,
+          1,
+          0,
+          0,
+          -2
+        ]
+      },
+      "output": [
+        4,
+        4,
+        1,
+        0,
+        0,
+        6
+      ],
+      "description": "Mixed matches and mismatches, including zeros and negative guess."
+    },
+    {
+      "input": {
+        "game": [
+          10,
+          20,
+          30
+        ],
+        "guess": [
+          10,
+          15,
+          35
+        ]
+      },
+      "output": [
+        0,
+        5,
+        5
+      ],
+      "description": "One match, two mismatches with positive differences."
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": {
+        "game": [],
+        "guess": []
+      },
+      "output": [],
+      "description": "Empty input lists."
+    },
+    {
+      "input": {
+        "game": [
+          7
+        ],
+        "guess": [
+          7
+        ]
+      },
+      "output": [
+        0
+      ],
+      "description": "Single element lists, perfect match."
+    },
+    {
+      "input": {
+        "game": [
+          7
+        ],
+        "guess": [
+          10
+        ]
+      },
+      "output": [
+        3
+      ],
+      "description": "Single element lists, mismatch."
+    },
+    {
+      "input": {
+        "game": [
+          1,
+          2,
+          3
+        ],
+        "guess": [
+          1,
+          2,
+          3
+        ]
+      },
+      "output": [
+        0,
+        0,
+        0
+      ],
+      "description": "All elements match."
+    },
+    {
+      "input": {
+        "game": [
+          1,
+          2,
+          3
+        ],
+        "guess": [
+          4,
+          5,
+          6
+        ]
+      },
+      "output": [
+        3,
+        3,
+        3
+      ],
+      "description": "No elements match."
+    },
+    {
+      "input": {
+        "game": [
+          0,
+          0,
+          0
+        ],
+        "guess": [
+          0,
+          0,
+          0
+        ]
+      },
+      "output": [
+        0,
+        0,
+        0
+      ],
+      "description": "All elements are zero and match."
+    },
+    {
+      "input": {
+        "game": [
+          100,
+          -50,
+          0
+        ],
+        "guess": [
+          -100,
+          50,
+          0
+        ]
+      },
+      "output": [
+        200,
+        100,
+        0
+      ],
+      "description": "Large differences and mixed positive/negative numbers."
+    },
+    {
+      "input": {
+        "game": [
+          1.5,
+          2.0
+        ],
+        "guess": [
+          1.0,
+          2.0
+        ]
+      },
+      "output": [
+        0.5,
+        0.0
+      ],
+      "description": "Input lists contain floating-point numbers."
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": {
+        "game": "not a list",
+        "guess": [
+          1,
+          2
+        ]
+      },
+      "expected_error": "TypeError",
+      "description": "'game' is not a list."
+    },
+    {
+      "input": {
+        "game": [
+          1,
+          2
+        ],
+        "guess": "not a list"
+      },
+      "expected_error": "TypeError",
+      "description": "'guess' is not a list."
+    },
+    {
+      "input": {
+        "game": [
+          1,
+          2
+        ],
+        "guess": [
+          1
+        ]
+      },
+      "expected_error": "ValueError or IndexError",
+      "description": "Input lists have different lengths."
+    },
+    {
+      "input": {
+        "game": [
+          1,
+          "a"
+        ],
+        "guess": [
+          1,
+          2
+        ]
+      },
+      "expected_error": "TypeError",
+      "description": "Elements in 'game' are not numbers."
+    },
+    {
+      "input": {
+        "game": [
+          1,
+          2
+        ],
+        "guess": [
+          1,
+          null
+        ]
+      },
+      "expected_error": "TypeError",
+      "description": "Elements in 'guess' are not numbers (e.g., None)."
+    }
+  ]
+}

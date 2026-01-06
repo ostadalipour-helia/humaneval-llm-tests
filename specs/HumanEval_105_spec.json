@@ -1,0 +1,160 @@
+{
+  "task_id": "HumanEval_105",
+  "entry_point": "by_length",
+  "preconditions": [
+    "The input `arr` must be a list.",
+    "All elements in `arr` must be integers."
+  ],
+  "postconditions": [
+    "The function returns a list of strings.",
+    "Each string in the output list is the English word representation of a digit (e.g., 'One', 'Two').",
+    "The output list contains only elements corresponding to numbers from the input `arr` that were strictly between 1 and 9 inclusive.",
+    "The numbers (1-9) from the input `arr` are first filtered, then sorted in ascending numerical order, then reversed, and finally converted to their word representations.",
+    "If the input `arr` is empty, the output list is empty.",
+    "Numbers outside the range [1, 9] are ignored and do not appear in the output."
+  ],
+  "invariants": [
+    "All elements in the returned list will be one of the strings: 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine'.",
+    "The length of the output list is less than or equal to the length of the input list.",
+    "The order of elements in the output list corresponds to the descending order of the filtered and sorted numerical values from the input."
+  ],
+  "normal_cases": [
+    {
+      "input": {
+        "arr": [
+          2,
+          1,
+          1,
+          4,
+          5,
+          8,
+          2,
+          3
+        ]
+      },
+      "output": [
+        "Eight",
+        "Five",
+        "Four",
+        "Three",
+        "Two",
+        "Two",
+        "One",
+        "One"
+      ]
+    },
+    {
+      "input": {
+        "arr": [
+          9,
+          7,
+          3,
+          6
+        ]
+      },
+      "output": [
+        "Nine",
+        "Seven",
+        "Six",
+        "Three"
+      ]
+    },
+    {
+      "input": {
+        "arr": [
+          5,
+          5,
+          5
+        ]
+      },
+      "output": [
+        "Five",
+        "Five",
+        "Five"
+      ]
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": {
+        "arr": []
+      },
+      "output": []
+    },
+    {
+      "input": {
+        "arr": [
+          1,
+          -1,
+          55
+        ]
+      },
+      "output": [
+        "One"
+      ]
+    },
+    {
+      "input": {
+        "arr": [
+          -10,
+          0,
+          10,
+          100
+        ]
+      },
+      "output": []
+    },
+    {
+      "input": {
+        "arr": [
+          1
+        ]
+      },
+      "output": [
+        "One"
+      ]
+    },
+    {
+      "input": {
+        "arr": [
+          9
+        ]
+      },
+      "output": [
+        "Nine"
+      ]
+    },
+    {
+      "input": {
+        "arr": [
+          1,
+          9
+        ]
+      },
+      "output": [
+        "Nine",
+        "One"
+      ]
+    }
+  ],
+  "error_conditions": [
+    {
+      "description": "Input `arr` is not a list.",
+      "input": {
+        "arr": "not_a_list"
+      },
+      "expected_behavior": "Raise TypeError or similar, or lead to undefined behavior."
+    },
+    {
+      "description": "Input `arr` contains non-integer elements.",
+      "input": {
+        "arr": [
+          1,
+          2.5,
+          "three"
+        ]
+      },
+      "expected_behavior": "Raise TypeError or similar, or lead to undefined behavior during filtering/sorting."
+    }
+  ]
+}

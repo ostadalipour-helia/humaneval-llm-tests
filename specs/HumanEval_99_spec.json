@@ -1,0 +1,148 @@
+{
+  "task_id": "HumanEval_99",
+  "entry_point": "closest_integer",
+  "preconditions": [
+    "The input `value` must be a string.",
+    "The string `value` must represent a valid numerical value (integer or float).",
+    "The numerical value can be positive, negative, or zero."
+  ],
+  "postconditions": [
+    "The function must return an integer.",
+    "The returned integer must be the closest integer to the numerical value represented by `value`.",
+    "If the numerical value is equidistant from two integers (i.e., its fractional part is exactly 0.5), the returned integer must be the one with the larger absolute value (rounding away from zero)."
+  ],
+  "invariants": [
+    "The output type will always be an integer."
+  ],
+  "normal_cases": [
+    {
+      "input": "10",
+      "output": 10,
+      "description": "Integer string, no rounding needed."
+    },
+    {
+      "input": "15.3",
+      "output": 15,
+      "description": "Positive float, rounds down to the closest integer."
+    },
+    {
+      "input": "15.7",
+      "output": 16,
+      "description": "Positive float, rounds up to the closest integer."
+    },
+    {
+      "input": "-15.3",
+      "output": -15,
+      "description": "Negative float, rounds up (towards zero) to the closest integer."
+    },
+    {
+      "input": "-15.7",
+      "output": -16,
+      "description": "Negative float, rounds down (away from zero) to the closest integer."
+    },
+    {
+      "input": "14.5",
+      "output": 15,
+      "description": "Positive float, equidistant, rounds away from zero."
+    },
+    {
+      "input": "-14.5",
+      "output": -15,
+      "description": "Negative float, equidistant, rounds away from zero."
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": "0",
+      "output": 0,
+      "description": "Input is zero."
+    },
+    {
+      "input": "0.0",
+      "output": 0,
+      "description": "Input is zero as a float string."
+    },
+    {
+      "input": "0.1",
+      "output": 0,
+      "description": "Small positive float, rounds to zero."
+    },
+    {
+      "input": "-0.1",
+      "output": 0,
+      "description": "Small negative float, rounds to zero."
+    },
+    {
+      "input": "0.5",
+      "output": 1,
+      "description": "Equidistant positive, rounds away from zero."
+    },
+    {
+      "input": "-0.5",
+      "output": -1,
+      "description": "Equidistant negative, rounds away from zero."
+    },
+    {
+      "input": "1234567890.123",
+      "output": 1234567890,
+      "description": "Large positive number, rounds down."
+    },
+    {
+      "input": "-987654321.876",
+      "output": -987654322,
+      "description": "Large negative number, rounds down (away from zero)."
+    },
+    {
+      "input": "3.000000000000001",
+      "output": 3,
+      "description": "Number very close to an integer, rounds to that integer."
+    },
+    {
+      "input": "2.999999999999999",
+      "output": 3,
+      "description": "Number very close to an integer, rounds to that integer."
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": "None",
+      "exception": "TypeError",
+      "description": "Input is not a string."
+    },
+    {
+      "input": "123",
+      "exception": "TypeError",
+      "description": "Input is an integer, not a string."
+    },
+    {
+      "input": "3.14",
+      "exception": "TypeError",
+      "description": "Input is a float, not a string."
+    },
+    {
+      "input": "\"\"",
+      "exception": "ValueError",
+      "description": "Input string is empty, cannot be converted to a number."
+    },
+    {
+      "input": "\"abc\"",
+      "exception": "ValueError",
+      "description": "Input string is not a valid numerical representation."
+    },
+    {
+      "input": "\"1.2.3\"",
+      "exception": "ValueError",
+      "description": "Input string is malformed as a number."
+    },
+    {
+      "input": "\"inf\"",
+      "exception": "ValueError",
+      "description": "Input string represents infinity (behavior for non-finite numbers is not specified and typically raises ValueError if not handled)."
+    },
+    {
+      "input": "\"nan\"",
+      "exception": "ValueError",
+      "description": "Input string represents Not-a-Number (behavior for non-finite numbers is not specified and typically raises ValueError if not handled)."
+    }
+  ]
+}

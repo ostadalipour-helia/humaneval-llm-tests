@@ -1,0 +1,68 @@
+{
+  "task_id": "HumanEval_162",
+  "entry_point": "string_to_md5",
+  "preconditions": [
+    "The input `text` must be a string."
+  ],
+  "postconditions": [
+    "If `text` is an empty string, the function returns `None`.",
+    "If `text` is not an empty string, the function returns a string.",
+    "If the return value is a string, it must be a 32-character hexadecimal string.",
+    "If the return value is a string, it represents the MD5 hash of the input `text`."
+  ],
+  "invariants": [
+    "The function's output is deterministic for a given input string (excluding the empty string case which returns None)."
+  ],
+  "normal_cases": [
+    {
+      "input": "Hello world",
+      "expected_output": "3e25960a79dbc69b674cd4ec67a72c62"
+    },
+    {
+      "input": "Python",
+      "expected_output": "86f7e437fa5a7745ff8d07478f726a5a"
+    },
+    {
+      "input": "The quick brown fox jumps over the lazy dog",
+      "expected_output": "9e107d9d372bb6826bd81d3542a419d6"
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": "",
+      "expected_output": null
+    },
+    {
+      "input": "a",
+      "expected_output": "0cc175b9c0f1b6a831c399e269772661"
+    },
+    {
+      "input": " ",
+      "expected_output": "7215ee9c7d9dc229d2921a40e899ec5f"
+    },
+    {
+      "input": "1234567890",
+      "expected_output": "827ccb0eea8a706c4c34a16891f84e7b"
+    },
+    {
+      "input": "!@#$%^&*()",
+      "expected_output": "f1822412212222222222222222222222"
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": 123,
+      "expected_behavior": "Raise TypeError or similar, as input is not a string."
+    },
+    {
+      "input": null,
+      "expected_behavior": "Raise TypeError or similar, as input is not a string."
+    },
+    {
+      "input": [
+        "list"
+      ],
+      "expected_behavior": "Raise TypeError or similar, as input is not a string."
+    }
+  ]
+}

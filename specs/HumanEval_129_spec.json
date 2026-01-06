@@ -1,0 +1,291 @@
+{
+  "task_id": "HumanEval_129",
+  "entry_point": "minPath",
+  "preconditions": [
+    "The input 'grid' must be a list of lists of integers, representing an N x N square grid.",
+    "The dimension N must be an integer and N >= 2.",
+    "Each cell of the 'grid' must contain an integer value.",
+    "Every integer in the range [1, N*N] inclusive must appear exactly once on the cells of the grid.",
+    "The input 'k' must be a positive integer (k >= 1), representing the desired path length."
+  ],
+  "postconditions": [
+    "The function must return an ordered list of integers, representing the values on the cells of the minimum path.",
+    "The length of the returned list must be exactly 'k'.",
+    "Each value in the returned list must correspond to a value present in the input 'grid'.",
+    "The returned path must be the lexicographically smallest path of length 'k' among all possible paths.",
+    "A path is defined by visiting 'k' cells, where each subsequent cell is a neighbor (shares an edge) with the current cell.",
+    "The path must not go off the grid boundaries.",
+    "The problem guarantees that the answer (the minimum path) is unique."
+  ],
+  "invariants": [
+    "During the search for the minimum path, all intermediate path segments must consist of valid moves between adjacent cells within the grid boundaries.",
+    "The values considered for path construction must always be the actual values from the grid cells."
+  ],
+  "normal_cases": [
+    {
+      "input": {
+        "grid": [
+          [
+            1,
+            2,
+            3
+          ],
+          [
+            4,
+            5,
+            6
+          ],
+          [
+            7,
+            8,
+            9
+          ]
+        ],
+        "k": 3
+      },
+      "output": [
+        1,
+        2,
+        1
+      ],
+      "description": "A 3x3 grid where the minimum path of length 3 involves moving from 1 to 2 and then back to 1."
+    },
+    {
+      "input": {
+        "grid": [
+          [
+            5,
+            9,
+            3
+          ],
+          [
+            4,
+            1,
+            6
+          ],
+          [
+            7,
+            8,
+            2
+          ]
+        ],
+        "k": 1
+      },
+      "output": [
+        1
+      ],
+      "description": "A 3x3 grid where the minimum path of length 1 is simply the smallest value in the grid."
+    },
+    {
+      "input": {
+        "grid": [
+          [
+            10,
+            20,
+            30
+          ],
+          [
+            40,
+            1,
+            50
+          ],
+          [
+            60,
+            70,
+            80
+          ]
+        ],
+        "k": 4
+      },
+      "output": [
+        1,
+        40,
+        1,
+        50
+      ],
+      "description": "A 3x3 grid where the smallest value is in the middle, and the path extends from it."
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": {
+        "grid": [
+          [
+            1,
+            2
+          ],
+          [
+            3,
+            4
+          ]
+        ],
+        "k": 2
+      },
+      "output": [
+        1,
+        2
+      ],
+      "description": "Smallest possible grid (N=2) and a short path length."
+    },
+    {
+      "input": {
+        "grid": [
+          [
+            4,
+            3
+          ],
+          [
+            2,
+            1
+          ]
+        ],
+        "k": 5
+      },
+      "output": [
+        1,
+        2,
+        1,
+        2,
+        1
+      ],
+      "description": "A 2x2 grid with values in descending order, requiring a longer path that revisits cells."
+    },
+    {
+      "input": {
+        "grid": [
+          [
+            1,
+            5,
+            9
+          ],
+          [
+            2,
+            6,
+            10
+          ],
+          [
+            3,
+            7,
+            8
+          ]
+        ],
+        "k": 6
+      },
+      "output": [
+        1,
+        2,
+        3,
+        2,
+        1,
+        5
+      ],
+      "description": "A 3x3 grid where the minimum path involves moving through multiple cells and potentially backtracking."
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": {
+        "grid": [],
+        "k": 3
+      },
+      "exception": "ValueError",
+      "description": "Grid is empty, violating N >= 2."
+    },
+    {
+      "input": {
+        "grid": [
+          [
+            1,
+            2
+          ],
+          [
+            3
+          ]
+        ],
+        "k": 2
+      },
+      "exception": "ValueError",
+      "description": "Grid is not square (rows have inconsistent lengths)."
+    },
+    {
+      "input": {
+        "grid": [
+          [
+            1
+          ]
+        ],
+        "k": 1
+      },
+      "exception": "ValueError",
+      "description": "Grid dimension N < 2."
+    },
+    {
+      "input": {
+        "grid": [
+          [
+            1,
+            2
+          ],
+          [
+            3,
+            4
+          ]
+        ],
+        "k": 0
+      },
+      "exception": "ValueError",
+      "description": "Path length k is not a positive integer (k <= 0)."
+    },
+    {
+      "input": {
+        "grid": [
+          [
+            1,
+            2
+          ],
+          [
+            3,
+            3
+          ]
+        ],
+        "k": 2
+      },
+      "exception": "ValueError",
+      "description": "Grid values are not unique (3 appears twice)."
+    },
+    {
+      "input": {
+        "grid": [
+          [
+            1,
+            2
+          ],
+          [
+            3,
+            5
+          ]
+        ],
+        "k": 2
+      },
+      "exception": "ValueError",
+      "description": "Grid values do not cover the range [1, N*N] (4 is missing)."
+    },
+    {
+      "input": {
+        "grid": [
+          [
+            1,
+            "a"
+          ],
+          [
+            3,
+            4
+          ]
+        ],
+        "k": 2
+      },
+      "exception": "TypeError",
+      "description": "Grid contains non-integer values."
+    }
+  ]
+}

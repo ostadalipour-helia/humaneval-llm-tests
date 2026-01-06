@@ -1,0 +1,129 @@
+{
+  "task_id": "HumanEval_49",
+  "entry_point": "modp",
+  "preconditions": [
+    "n is an integer.",
+    "p is an integer.",
+    "n >= 0 (n must be a non-negative exponent).",
+    "p > 1 (p must be a positive integer greater than 1 for a meaningful modulo operation)."
+  ],
+  "postconditions": [
+    "The function returns an integer `r`.",
+    "The returned value `r` satisfies `0 <= r < p`.",
+    "The returned value `r` is congruent to `2^n` modulo `p` (i.e., `(2^n - r)` is divisible by `p`)."
+  ],
+  "invariants": [
+    "The mathematical relationship `result == (2**n) % p` holds, even if `2**n` itself is too large to compute directly.",
+    "Intermediate calculations in an efficient implementation (e.g., modular exponentiation) should maintain values within the range `[0, p-1]` to prevent overflow."
+  ],
+  "normal_cases": [
+    {
+      "input": {
+        "n": 3,
+        "p": 5
+      },
+      "output": 3,
+      "description": "2^3 mod 5 = 8 mod 5 = 3"
+    },
+    {
+      "input": {
+        "n": 1101,
+        "p": 101
+      },
+      "output": 2,
+      "description": "2^1101 mod 101 = 2 (large exponent)"
+    },
+    {
+      "input": {
+        "n": 3,
+        "p": 11
+      },
+      "output": 8,
+      "description": "2^3 mod 11 = 8 mod 11 = 8"
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": {
+        "n": 0,
+        "p": 101
+      },
+      "output": 1,
+      "description": "Exponent is zero: 2^0 mod 101 = 1 mod 101 = 1"
+    },
+    {
+      "input": {
+        "n": 100,
+        "p": 101
+      },
+      "output": 1,
+      "description": "Fermat's Little Theorem case: 2^(p-1) mod p = 1 for prime p (101 is prime)"
+    },
+    {
+      "input": {
+        "n": 5,
+        "p": 2
+      },
+      "output": 0,
+      "description": "Modulo by 2: 2^5 mod 2 = 32 mod 2 = 0"
+    },
+    {
+      "input": {
+        "n": 1,
+        "p": 3
+      },
+      "output": 2,
+      "description": "Smallest non-zero exponent and small prime modulus"
+    },
+    {
+      "input": {
+        "n": 2,
+        "p": 5
+      },
+      "output": 4,
+      "description": "2^n < p"
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": {
+        "n": -1,
+        "p": 5
+      },
+      "expected_error": "ValueError",
+      "description": "n must be non-negative. Negative exponents are not supported for this modular exponentiation."
+    },
+    {
+      "input": {
+        "n": 3,
+        "p": 0
+      },
+      "expected_error": "ZeroDivisionError",
+      "description": "p must be greater than 1. Modulo by zero is undefined."
+    },
+    {
+      "input": {
+        "n": 3,
+        "p": 1
+      },
+      "expected_error": "ValueError",
+      "description": "p must be greater than 1. Modulo by 1 always yields 0, but is typically excluded from standard modular exponentiation definitions."
+    },
+    {
+      "input": {
+        "n": "abc",
+        "p": 5
+      },
+      "expected_error": "TypeError",
+      "description": "n must be an integer."
+    },
+    {
+      "input": {
+        "n": 3,
+        "p": "xyz"
+      },
+      "expected_error": "TypeError",
+      "description": "p must be an integer."
+    }
+  ]
+}

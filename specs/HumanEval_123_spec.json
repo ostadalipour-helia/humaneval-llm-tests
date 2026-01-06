@@ -1,0 +1,70 @@
+{
+  "task_id": "HumanEval_123",
+  "entry_point": "get_odd_collatz",
+  "preconditions": [
+    "n must be an integer.",
+    "n must be a positive integer (n >= 1)."
+  ],
+  "postconditions": [
+    "The function must return a list of integers.",
+    "All elements in the returned list must be odd numbers.",
+    "All elements in the returned list must be part of the Collatz sequence starting with n.",
+    "The returned list must be sorted in increasing order.",
+    "The number 1 must always be present in the returned list, as the Collatz sequence always reaches 1 for positive integers."
+  ],
+  "invariants": [
+    "Each element in the returned list `L` satisfies `L[i] % 2 != 0`.",
+    "For any `i < j`, `L[i] < L[j]` holds for the returned list `L`."
+  ],
+  "normal_cases": [
+    {
+      "input": "n = 5",
+      "output": "[1, 5]",
+      "description": "Collatz sequence for 5 is [5, 16, 8, 4, 2, 1]. Odd numbers are 1, 5. Sorted: [1, 5]."
+    },
+    {
+      "input": "n = 6",
+      "output": "[1, 3, 5]",
+      "description": "Collatz sequence for 6 is [6, 3, 10, 5, 16, 8, 4, 2, 1]. Odd numbers are 1, 3, 5. Sorted: [1, 3, 5]."
+    },
+    {
+      "input": "n = 7",
+      "output": "[1, 5, 7, 11]",
+      "description": "Collatz sequence for 7 is [7, 22, 11, 34, 17, 52, 26, 13, 40, 20, 10, 5, 16, 8, 4, 2, 1]. Odd numbers are 1, 5, 7, 11, 13, 17. Sorted: [1, 5, 7, 11, 13, 17]."
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": "n = 1",
+      "output": "[1]",
+      "description": "The smallest positive integer. Collatz sequence for 1 is [1]. Odd numbers are 1. Sorted: [1]."
+    },
+    {
+      "input": "n = 2",
+      "output": "[1]",
+      "description": "An even number that quickly reaches 1. Collatz sequence for 2 is [2, 1]. Odd numbers are 1. Sorted: [1]."
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": "n = 0",
+      "exception": "ValueError",
+      "description": "n must be a positive integer (n >= 1)."
+    },
+    {
+      "input": "n = -5",
+      "exception": "ValueError",
+      "description": "n must be a positive integer (n >= 1)."
+    },
+    {
+      "input": "n = 3.14",
+      "exception": "TypeError",
+      "description": "n must be an integer."
+    },
+    {
+      "input": "n = 'abc'",
+      "exception": "TypeError",
+      "description": "n must be an integer."
+    }
+  ]
+}

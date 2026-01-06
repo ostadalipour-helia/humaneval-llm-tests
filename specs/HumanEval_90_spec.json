@@ -1,0 +1,117 @@
+{
+  "task_id": "HumanEval_90",
+  "entry_point": "next_smallest",
+  "preconditions": [
+    "The input `lst` must be a Python list.",
+    "All elements in `lst` must be integers."
+  ],
+  "postconditions": [
+    "If the input list `lst` contains fewer than two distinct integer elements, the function must return `None`.",
+    "If the input list `lst` contains two or more distinct integer elements, the function must return the second smallest distinct integer element from the list.",
+    "The returned value, if not `None`, must be an integer."
+  ],
+  "invariants": [
+    "The input list `lst` must not be modified by the function."
+  ],
+  "normal_cases": [
+    {
+      "input": "[1, 2, 3, 4, 5]",
+      "output": "2",
+      "description": "A list with distinct elements in ascending order."
+    },
+    {
+      "input": "[5, 1, 4, 3, 2]",
+      "output": "2",
+      "description": "A list with distinct elements in mixed order."
+    },
+    {
+      "input": "[10, 20, 30, 40, 50]",
+      "output": "20",
+      "description": "Another list with distinct elements."
+    },
+    {
+      "input": "[-5, -1, -10, 0, 5]",
+      "output": "-1",
+      "description": "A list containing negative and positive integers."
+    },
+    {
+      "input": "[100, 10, 20, 30, 100]",
+      "output": "20",
+      "description": "A list with duplicate elements, but a clear second smallest distinct element."
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": "[]",
+      "output": "None",
+      "description": "An empty list."
+    },
+    {
+      "input": "[1]",
+      "output": "None",
+      "description": "A list with a single element."
+    },
+    {
+      "input": "[1, 1]",
+      "output": "None",
+      "description": "A list with two identical elements (only one distinct element)."
+    },
+    {
+      "input": "[1, 2]",
+      "output": "2",
+      "description": "A list with exactly two distinct elements."
+    },
+    {
+      "input": "[2, 1]",
+      "output": "2",
+      "description": "A list with exactly two distinct elements, unsorted."
+    },
+    {
+      "input": "[1, 1, 1, 1]",
+      "output": "None",
+      "description": "A list with multiple identical elements (only one distinct element)."
+    },
+    {
+      "input": "[1, 2, 2, 2]",
+      "output": "2",
+      "description": "A list with two distinct elements, where the second smallest is duplicated."
+    },
+    {
+      "input": "[2, 2, 1, 1]",
+      "output": "2",
+      "description": "A list with two distinct elements, unsorted and duplicated."
+    },
+    {
+      "input": "[0, 0, 1, 1, 2, 2]",
+      "output": "1",
+      "description": "A list with multiple distinct elements, all duplicated."
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": "null",
+      "exception": "TypeError",
+      "description": "Input is not a list."
+    },
+    {
+      "input": "123",
+      "exception": "TypeError",
+      "description": "Input is an integer, not a list."
+    },
+    {
+      "input": "[1, 2, 'a', 4]",
+      "exception": "TypeError",
+      "description": "List contains non-integer elements (string)."
+    },
+    {
+      "input": "[1, 2.5, 3]",
+      "exception": "TypeError",
+      "description": "List contains non-integer elements (float)."
+    },
+    {
+      "input": "[1, None, 3]",
+      "exception": "TypeError",
+      "description": "List contains non-integer elements (None)."
+    }
+  ]
+}

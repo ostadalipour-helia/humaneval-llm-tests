@@ -1,0 +1,147 @@
+{
+  "task_id": "HumanEval_125",
+  "entry_point": "split_words",
+  "preconditions": [
+    "The input `txt` must be a string."
+  ],
+  "postconditions": [
+    "If `txt` contains any whitespace characters (e.g., ' ', '\\t', '\\n'), the function must return a list of strings.",
+    "In the whitespace-split case, the returned list must be equivalent to `txt.split()` (splitting by any whitespace and handling multiple spaces and leading/trailing spaces).",
+    "If `txt` contains no whitespace but contains one or more comma characters (','), the function must return a list of strings.",
+    "In the comma-split case, the returned list must be equivalent to `txt.split(',')` (splitting by commas and handling multiple commas).",
+    "If `txt` contains neither whitespace nor commas, the function must return an integer.",
+    "In the integer-return case, the integer must represent the count of lowercase English letters in `txt` whose 0-indexed alphabetical order is odd (e.g., 'b' is 1, 'd' is 3, 'f' is 5, ..., 'z' is 25). Uppercase letters and non-alphabetic characters are ignored for this count."
+  ],
+  "invariants": [
+    "The function's behavior is deterministic for a given input `txt`.",
+    "The type of the return value (list or int) is determined by the content of `txt` based on the specified priority rules."
+  ],
+  "normal_cases": [
+    {
+      "input": "Hello world!",
+      "expected_output": [
+        "Hello",
+        "world!"
+      ]
+    },
+    {
+      "input": "This is a test string.",
+      "expected_output": [
+        "This",
+        "is",
+        "a",
+        "test",
+        "string."
+      ]
+    },
+    {
+      "input": "one,two,three",
+      "expected_output": [
+        "one",
+        "two",
+        "three"
+      ]
+    },
+    {
+      "input": "abcdef",
+      "expected_output": 3
+    },
+    {
+      "input": "Python",
+      "expected_output": 3
+    },
+    {
+      "input": "Programming",
+      "expected_output": 3
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": "",
+      "expected_output": 0
+    },
+    {
+      "input": " ",
+      "expected_output": []
+    },
+    {
+      "input": "   ",
+      "expected_output": []
+    },
+    {
+      "input": ",",
+      "expected_output": [
+        "",
+        ""
+      ]
+    },
+    {
+      "input": ",,,",
+      "expected_output": [
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "input": "  hello  world  ",
+      "expected_output": [
+        "hello",
+        "world"
+      ]
+    },
+    {
+      "input": "hello,,world",
+      "expected_output": [
+        "hello",
+        "",
+        "world"
+      ]
+    },
+    {
+      "input": "a",
+      "expected_output": 0
+    },
+    {
+      "input": "b",
+      "expected_output": 1
+    },
+    {
+      "input": "A",
+      "expected_output": 0
+    },
+    {
+      "input": "123!@#",
+      "expected_output": 0
+    },
+    {
+      "input": "Hello, World!",
+      "expected_output": [
+        "Hello,",
+        "World!"
+      ]
+    },
+    {
+      "input": "xyz",
+      "expected_output": 2
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": null,
+      "expected_exception": "TypeError"
+    },
+    {
+      "input": 123,
+      "expected_exception": "TypeError"
+    },
+    {
+      "input": [
+        "a",
+        "b"
+      ],
+      "expected_exception": "TypeError"
+    }
+  ]
+}

@@ -1,0 +1,175 @@
+{
+  "task_id": "HumanEval_70",
+  "entry_point": "strange_sort_list",
+  "preconditions": [
+    "The input `lst` must be a Python list.",
+    "All elements in `lst` must be integers."
+  ],
+  "postconditions": [
+    "The function must return a new list.",
+    "The returned list must have the same length as the input list `lst`.",
+    "The returned list must be a permutation of the input list `lst` (i.e., it contains the same elements with the same frequencies, but potentially in a different order).",
+    "The elements in the returned list must follow the 'strange sort' order: the first element is the minimum of the original list, the second is the maximum of the remaining elements, the third is the minimum of the then-remaining elements, and so on, alternating between minimum and maximum of the currently remaining elements until all elements are placed."
+  ],
+  "invariants": [
+    "During the sorting process, at each step, the chosen element is removed from the set of available elements.",
+    "The union of elements in the partially constructed result list and the elements remaining to be chosen always equals the initial set of elements from the input list."
+  ],
+  "normal_cases": [
+    {
+      "input": {
+        "lst": [
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      "expected_output": [
+        1,
+        4,
+        2,
+        3
+      ],
+      "description": "Alternating min/max for a sorted list."
+    },
+    {
+      "input": {
+        "lst": [
+          5,
+          5,
+          5,
+          5
+        ]
+      },
+      "expected_output": [
+        5,
+        5,
+        5,
+        5
+      ],
+      "description": "List with all identical elements."
+    },
+    {
+      "input": {
+        "lst": [
+          10,
+          1,
+          8,
+          3,
+          6
+        ]
+      },
+      "expected_output": [
+        1,
+        10,
+        3,
+        8,
+        6
+      ],
+      "description": "Unsorted list with odd number of elements."
+    },
+    {
+      "input": {
+        "lst": [
+          -5,
+          0,
+          5,
+          -10
+        ]
+      },
+      "expected_output": [
+        -10,
+        5,
+        -5,
+        0
+      ],
+      "description": "List with negative, zero, and positive integers."
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": {
+        "lst": []
+      },
+      "expected_output": [],
+      "description": "Empty list."
+    },
+    {
+      "input": {
+        "lst": [
+          7
+        ]
+      },
+      "expected_output": [
+        7
+      ],
+      "description": "Single element list."
+    },
+    {
+      "input": {
+        "lst": [
+          10,
+          20
+        ]
+      },
+      "expected_output": [
+        10,
+        20
+      ],
+      "description": "Two element list."
+    },
+    {
+      "input": {
+        "lst": [
+          20,
+          10
+        ]
+      },
+      "expected_output": [
+        10,
+        20
+      ],
+      "description": "Two element list, reverse sorted."
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": {
+        "lst": null
+      },
+      "expected_behavior": "Raise TypeError or AttributeError",
+      "description": "Input is not a list."
+    },
+    {
+      "input": {
+        "lst": "not a list"
+      },
+      "expected_behavior": "Raise TypeError or AttributeError",
+      "description": "Input is a string, not a list."
+    },
+    {
+      "input": {
+        "lst": [
+          1,
+          2,
+          "three",
+          4
+        ]
+      },
+      "expected_behavior": "Raise TypeError or ValueError (due to comparison of int and str)",
+      "description": "List contains non-integer elements (string)."
+    },
+    {
+      "input": {
+        "lst": [
+          1,
+          2.5,
+          3
+        ]
+      },
+      "expected_behavior": "Raise TypeError (due to comparison of int and float if not handled gracefully)",
+      "description": "List contains non-integer elements (float)."
+    }
+  ]
+}

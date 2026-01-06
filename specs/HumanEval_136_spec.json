@@ -1,0 +1,95 @@
+{
+  "task_id": "HumanEval_136",
+  "entry_point": "largest_smallest_integers",
+  "preconditions": [
+    "The input `lst` must be a Python list.",
+    "All elements in `lst` must be integers."
+  ],
+  "postconditions": [
+    "The function must return a tuple `(a, b)`.",
+    "The first element `a` must be the largest negative integer found in `lst`.",
+    "If no negative integers are present in `lst`, `a` must be `None`.",
+    "The second element `b` must be the smallest positive integer found in `lst`.",
+    "If no positive integers are present in `lst`, `b` must be `None`."
+  ],
+  "invariants": [
+    "The returned value is always a tuple of length 2.",
+    "The first element of the returned tuple, if not `None`, is always a negative integer.",
+    "The second element of the returned tuple, if not `None`, is always a positive integer."
+  ],
+  "normal_cases": [
+    {
+      "input": "[1, 2, 3, -1, -2, -3]",
+      "output": "(-1, 1)"
+    },
+    {
+      "input": "[-10, -5, -1, 1, 5, 10]",
+      "output": "(-1, 1)"
+    },
+    {
+      "input": "[2, 4, 1, 3, 5, 7]",
+      "output": "(None, 1)"
+    },
+    {
+      "input": "[-1, -5, -10, -2]",
+      "output": "(-1, None)"
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": "[]",
+      "output": "(None, None)"
+    },
+    {
+      "input": "[0]",
+      "output": "(None, None)"
+    },
+    {
+      "input": "[0, 0, 0]",
+      "output": "(None, None)"
+    },
+    {
+      "input": "[-1]",
+      "output": "(-1, None)"
+    },
+    {
+      "input": "[1]",
+      "output": "(None, 1)"
+    },
+    {
+      "input": "[-5, 0, 5]",
+      "output": "(-5, 5)"
+    },
+    {
+      "input": "[-1, 1]",
+      "output": "(-1, 1)"
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": "null",
+      "exception": "TypeError",
+      "description": "Input is not a list."
+    },
+    {
+      "input": "123",
+      "exception": "TypeError",
+      "description": "Input is not a list."
+    },
+    {
+      "input": "\"hello\"",
+      "exception": "TypeError",
+      "description": "Input is not a list."
+    },
+    {
+      "input": "[1, 2.5, 3]",
+      "exception": "TypeError",
+      "description": "List contains non-integer elements."
+    },
+    {
+      "input": "[1, \"a\", 3]",
+      "exception": "TypeError",
+      "description": "List contains non-integer elements."
+    }
+  ]
+}

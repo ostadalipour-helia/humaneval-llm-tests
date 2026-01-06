@@ -1,0 +1,85 @@
+{
+  "task_id": "HumanEval_151",
+  "entry_point": "double_the_difference",
+  "preconditions": [
+    "The input `lst` must be a Python list."
+  ],
+  "postconditions": [
+    "The function must return an integer.",
+    "The returned integer must be non-negative.",
+    "The returned value is the sum of squares of numbers from the input list `lst` that satisfy all of the following conditions:",
+    "  - The number is an integer.",
+    "  - The number is positive (greater than 0).",
+    "  - The number is odd.",
+    "Numbers that are negative, not integers (e.g., floats), or even are ignored and do not contribute to the sum."
+  ],
+  "invariants": [
+    "The input list `lst` remains unchanged during the execution of the function."
+  ],
+  "normal_cases": [
+    {
+      "input": "[1, 3, 2, 0]",
+      "output": "10",
+      "reason": "1 is positive odd (1^2=1), 3 is positive odd (3^2=9). 2 is even, 0 is even. Sum = 1+9=10."
+    },
+    {
+      "input": "[9, -2]",
+      "output": "81",
+      "reason": "9 is positive odd (9^2=81). -2 is negative, so ignored. Sum = 81."
+    },
+    {
+      "input": "[5, 7, 10, 11]",
+      "output": "195",
+      "reason": "5 is positive odd (5^2=25), 7 is positive odd (7^2=49), 11 is positive odd (11^2=121). 10 is even. Sum = 25+49+121=195."
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": "[]",
+      "output": "0",
+      "reason": "An empty list should return 0 as per the docstring."
+    },
+    {
+      "input": "[-1, -2, 0]",
+      "output": "0",
+      "reason": "-1 and -2 are negative, 0 is even. All are ignored. Sum = 0."
+    },
+    {
+      "input": "[2, 4, 6]",
+      "output": "0",
+      "reason": "All numbers are even, so ignored. Sum = 0."
+    },
+    {
+      "input": "[0]",
+      "output": "0",
+      "reason": "0 is even, so ignored. Sum = 0."
+    },
+    {
+      "input": "[7]",
+      "output": "49",
+      "reason": "Only one positive odd number. 7^2 = 49."
+    },
+    {
+      "input": "[1.5, 3, 'a', 5, -3.0]",
+      "output": "34",
+      "reason": "1.5 is not an integer, 'a' is not an integer, -3.0 is negative. 3 is positive odd (3^2=9), 5 is positive odd (5^2=25). Sum = 9+25=34."
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": "None",
+      "exception": "TypeError",
+      "reason": "The input is not a list."
+    },
+    {
+      "input": "123",
+      "exception": "TypeError",
+      "reason": "The input is not a list."
+    },
+    {
+      "input": "\"hello\"",
+      "exception": "TypeError",
+      "reason": "The input is not a list."
+    }
+  ]
+}

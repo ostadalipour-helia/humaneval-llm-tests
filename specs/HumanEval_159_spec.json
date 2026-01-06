@@ -1,0 +1,165 @@
+{
+  "task_id": "HumanEval_159",
+  "entry_point": "eat",
+  "preconditions": [
+    "The input 'number' must be an integer.",
+    "The input 'need' must be an integer.",
+    "The input 'remaining' must be an integer.",
+    "The input 'number' must satisfy 0 <= number <= 1000.",
+    "The input 'need' must satisfy 0 <= need <= 1000.",
+    "The input 'remaining' must satisfy 0 <= remaining <= 1000."
+  ],
+  "postconditions": [
+    "The function must return a list containing exactly two integers: [total_eaten_carrots, carrots_left].",
+    "The first element of the returned list, 'total_eaten_carrots', represents the sum of 'number' and the actual amount of carrots eaten during the meal.",
+    "The second element of the returned list, 'carrots_left', represents the number of carrots remaining after the meal.",
+    "If 'need' is less than or equal to 'remaining':",
+    "  'total_eaten_carrots' must be equal to 'number' + 'need'.",
+    "  'carrots_left' must be equal to 'remaining' - 'need'.",
+    "If 'need' is greater than 'remaining':",
+    "  'total_eaten_carrots' must be equal to 'number' + 'remaining'.",
+    "  'carrots_left' must be equal to 0."
+  ],
+  "invariants": [
+    "The returned list always contains two non-negative integers.",
+    "The second element of the returned list (carrots_left) is always non-negative."
+  ],
+  "normal_cases": [
+    {
+      "input": {
+        "number": 5,
+        "need": 6,
+        "remaining": 10
+      },
+      "output": [
+        11,
+        4
+      ],
+      "description": "Enough carrots are available to satisfy the need."
+    },
+    {
+      "input": {
+        "number": 4,
+        "need": 8,
+        "remaining": 9
+      },
+      "output": [
+        12,
+        1
+      ],
+      "description": "Enough carrots are available, with some left over."
+    },
+    {
+      "input": {
+        "number": 0,
+        "need": 5,
+        "remaining": 10
+      },
+      "output": [
+        5,
+        5
+      ],
+      "description": "Initial eaten carrots is zero, enough remaining."
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": {
+        "number": 1,
+        "need": 10,
+        "remaining": 10
+      },
+      "output": [
+        11,
+        0
+      ],
+      "description": "Exactly enough carrots are available to satisfy the need, leaving zero."
+    },
+    {
+      "input": {
+        "number": 2,
+        "need": 11,
+        "remaining": 5
+      },
+      "output": [
+        7,
+        0
+      ],
+      "description": "Not enough carrots are available; all remaining carrots are eaten, leaving zero."
+    },
+    {
+      "input": {
+        "number": 0,
+        "need": 0,
+        "remaining": 0
+      },
+      "output": [
+        0,
+        0
+      ],
+      "description": "All input parameters are zero."
+    },
+    {
+      "input": {
+        "number": 1000,
+        "need": 1000,
+        "remaining": 1000
+      },
+      "output": [
+        2000,
+        0
+      ],
+      "description": "All input parameters are at their maximum allowed value, exactly enough remaining."
+    },
+    {
+      "input": {
+        "number": 10,
+        "need": 0,
+        "remaining": 5
+      },
+      "output": [
+        10,
+        5
+      ],
+      "description": "The rabbit needs to eat zero additional carrots."
+    },
+    {
+      "input": {
+        "number": 10,
+        "need": 5,
+        "remaining": 0
+      },
+      "output": [
+        10,
+        0
+      ],
+      "description": "There are zero remaining carrots."
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": {
+        "number": -1,
+        "need": 5,
+        "remaining": 10
+      },
+      "description": "Input 'number' is negative, violating constraints."
+    },
+    {
+      "input": {
+        "number": 5,
+        "need": 1001,
+        "remaining": 10
+      },
+      "description": "Input 'need' exceeds the maximum allowed value, violating constraints."
+    },
+    {
+      "input": {
+        "number": 5,
+        "need": 5,
+        "remaining": "ten"
+      },
+      "description": "Input 'remaining' is not an integer, violating type constraints."
+    }
+  ]
+}

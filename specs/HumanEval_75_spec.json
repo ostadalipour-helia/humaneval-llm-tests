@@ -1,0 +1,110 @@
+{
+  "task_id": "HumanEval_75",
+  "entry_point": "is_multiply_prime",
+  "preconditions": [
+    "Input `a` must be an integer.",
+    "Input `a` must be greater than or equal to 0 (as prime numbers are positive, their product must be positive).",
+    "Input `a` must be strictly less than 100 (i.e., `a < 100`)."
+  ],
+  "postconditions": [
+    "The function must return a boolean value (`True` or `False`).",
+    "If the function returns `True`, then `a` can be expressed as the product of exactly three distinct prime numbers (p1 * p2 * p3, where p1, p2, p3 are distinct primes).",
+    "If the function returns `False`, then `a` cannot be expressed as the product of exactly three distinct prime numbers."
+  ],
+  "invariants": [
+    "The primality of any factor considered must be correctly determined.",
+    "The count of prime factors must be exactly three for a `True` return.",
+    "All prime factors must be positive integers."
+  ],
+  "normal_cases": [
+    {
+      "input": 30,
+      "expected_output": true,
+      "reason": "30 = 2 * 3 * 5 (product of 3 distinct primes)"
+    },
+    {
+      "input": 42,
+      "expected_output": true,
+      "reason": "42 = 2 * 3 * 7 (product of 3 distinct primes)"
+    },
+    {
+      "input": 66,
+      "expected_output": true,
+      "reason": "66 = 2 * 3 * 11 (product of 3 distinct primes)"
+    },
+    {
+      "input": 70,
+      "expected_output": true,
+      "reason": "70 = 2 * 5 * 7 (product of 3 distinct primes)"
+    },
+    {
+      "input": 10,
+      "expected_output": false,
+      "reason": "10 = 2 * 5 (product of only 2 primes)"
+    },
+    {
+      "input": 12,
+      "expected_output": false,
+      "reason": "12 = 2 * 2 * 3 (product of 3 primes, but not distinct as 2 is repeated)"
+    },
+    {
+      "input": 60,
+      "expected_output": false,
+      "reason": "60 = 2 * 2 * 3 * 5 (product of 4 prime factors, not exactly 3 distinct primes)"
+    },
+    {
+      "input": 97,
+      "expected_output": false,
+      "reason": "97 is a prime number, not a product of 3 primes."
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": 0,
+      "expected_output": false,
+      "reason": "0 is not a product of prime numbers."
+    },
+    {
+      "input": 1,
+      "expected_output": false,
+      "reason": "1 is not a product of prime numbers."
+    },
+    {
+      "input": 29,
+      "expected_output": false,
+      "reason": "Smallest product of 3 distinct primes is 30. 29 is prime and less than 30."
+    },
+    {
+      "input": 78,
+      "expected_output": true,
+      "reason": "78 = 2 * 3 * 13 (largest number < 100 that is a product of 3 distinct primes)"
+    },
+    {
+      "input": 79,
+      "expected_output": false,
+      "reason": "79 is a prime number, and greater than 78."
+    },
+    {
+      "input": 99,
+      "expected_output": false,
+      "reason": "99 = 3 * 3 * 11 (product of 3 primes, but not distinct; also not 3 distinct primes)"
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": "abc",
+      "expected_behavior": "Raise TypeError or similar, as input is not an integer.",
+      "reason": "Input `a` must be an integer."
+    },
+    {
+      "input": 100,
+      "expected_behavior": "Return False (or handle according to problem's strictness on 'less than 100').",
+      "reason": "Input `a` must be strictly less than 100."
+    },
+    {
+      "input": -5,
+      "expected_behavior": "Return False (or raise ValueError if negative numbers are strictly disallowed).",
+      "reason": "Prime numbers are positive, so their product must be positive. Negative numbers cannot be a product of primes."
+    }
+  ]
+}

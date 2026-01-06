@@ -1,0 +1,93 @@
+{
+  "task_id": "HumanEval_114",
+  "entry_point": "minSubArraySum",
+  "preconditions": [
+    "The input `nums` must be a list (or array-like structure) of integers.",
+    "The input list `nums` must not be empty. It must contain at least one integer."
+  ],
+  "postconditions": [
+    "The function must return an integer.",
+    "The returned integer must represent the minimum sum among all possible non-empty contiguous sub-arrays of `nums`.",
+    "The returned value `R` must satisfy: for any non-empty sub-array `S` of `nums`, `R <= sum(S)`."
+  ],
+  "invariants": [
+    "The input list `nums` must not be modified during the execution of the function.",
+    "All intermediate sums computed must be within the representable range of integers."
+  ],
+  "normal_cases": [
+    {
+      "input": "[2, 3, 4, 1, 2, 4]",
+      "output": 1,
+      "description": "Example from docstring: minimum sum is a single positive element."
+    },
+    {
+      "input": "[-1, -2, -3]",
+      "output": -6,
+      "description": "Example from docstring: minimum sum is the sum of all negative elements."
+    },
+    {
+      "input": "[1, -2, 3, -4, 5]",
+      "output": -4,
+      "description": "Mixed positive and negative numbers, minimum is a single negative element."
+    },
+    {
+      "input": "[10, -1, -2, 5, -3, 8]",
+      "output": -3,
+      "description": "Mixed numbers, minimum is a sub-array sum that includes negative numbers."
+    },
+    {
+      "input": "[5, 4, 3, 2, 1]",
+      "output": 1,
+      "description": "All positive numbers, minimum is the smallest single element."
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": "[7]",
+      "output": 7,
+      "description": "Single element array."
+    },
+    {
+      "input": "[-5]",
+      "output": -5,
+      "description": "Single negative element array."
+    },
+    {
+      "input": "[0, 0, 0]",
+      "output": 0,
+      "description": "Array with all zeros."
+    },
+    {
+      "input": "[100, -1, -2, -3, 200]",
+      "output": -6,
+      "description": "Minimum sum is a contiguous block of negative numbers surrounded by large positive numbers."
+    },
+    {
+      "input": "[-10, 5, -20, 1]",
+      "output": -20,
+      "description": "Minimum sum is a single negative element, even with other negative numbers present."
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": "[]",
+      "exception": "ValueError",
+      "description": "Input list is empty, no non-empty sub-array can be formed."
+    },
+    {
+      "input": "[1, 'a', 3]",
+      "exception": "TypeError",
+      "description": "Input list contains non-integer elements."
+    },
+    {
+      "input": "null",
+      "exception": "TypeError",
+      "description": "Input is not a list (e.g., None)."
+    },
+    {
+      "input": "123",
+      "exception": "TypeError",
+      "description": "Input is not a list (e.g., an integer)."
+    }
+  ]
+}

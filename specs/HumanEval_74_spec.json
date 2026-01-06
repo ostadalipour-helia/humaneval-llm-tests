@@ -1,0 +1,184 @@
+{
+  "task_id": "HumanEval_74",
+  "entry_point": "total_match",
+  "preconditions": [
+    "lst1 is a list.",
+    "lst2 is a list.",
+    "All elements in lst1 are strings.",
+    "All elements in lst2 are strings."
+  ],
+  "postconditions": [
+    "The function returns a list.",
+    "The returned list is either lst1 or lst2.",
+    "Let char_count(lst) be the sum of the lengths of all strings in lst.",
+    "If char_count(lst1) < char_count(lst2), the function returns lst1.",
+    "If char_count(lst2) < char_count(lst1), the function returns lst2.",
+    "If char_count(lst1) == char_count(lst2), the function returns lst1."
+  ],
+  "invariants": [
+    "The input lists lst1 and lst2 are not modified.",
+    "The order of elements within the returned list is preserved from the original input list it represents."
+  ],
+  "normal_cases": [
+    {
+      "input": {
+        "lst1": [
+          "hi",
+          "admin"
+        ],
+        "lst2": [
+          "hI",
+          "Hi"
+        ]
+      },
+      "expected_output": [
+        "hI",
+        "Hi"
+      ],
+      "reason": "Total chars in lst1 (2+5=7) > total chars in lst2 (2+2=4), so lst2 is returned."
+    },
+    {
+      "input": {
+        "lst1": [
+          "hi",
+          "admin"
+        ],
+        "lst2": [
+          "hi",
+          "hi",
+          "admin",
+          "project"
+        ]
+      },
+      "expected_output": [
+        "hi",
+        "admin"
+      ],
+      "reason": "Total chars in lst1 (2+5=7) < total chars in lst2 (2+2+5+7=16), so lst1 is returned."
+    },
+    {
+      "input": {
+        "lst1": [
+          "hi",
+          "admin"
+        ],
+        "lst2": [
+          "hI",
+          "hi",
+          "hi"
+        ]
+      },
+      "expected_output": [
+        "hI",
+        "hi",
+        "hi"
+      ],
+      "reason": "Total chars in lst1 (2+5=7) > total chars in lst2 (2+2+2=6), so lst2 is returned."
+    },
+    {
+      "input": {
+        "lst1": [
+          "4"
+        ],
+        "lst2": [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+        ]
+      },
+      "expected_output": [
+        "4"
+      ],
+      "reason": "Total chars in lst1 (1) < total chars in lst2 (1+1+1+1+1=5), so lst1 is returned."
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": {
+        "lst1": [],
+        "lst2": []
+      },
+      "expected_output": [],
+      "reason": "Both lists are empty, total chars are 0 for both. According to the rule, the first list (lst1) is returned."
+    },
+    {
+      "input": {
+        "lst1": [
+          "a"
+        ],
+        "lst2": [
+          "b"
+        ]
+      },
+      "expected_output": [
+        "a"
+      ],
+      "reason": "Both lists have 1 total char. According to the rule, the first list (lst1) is returned."
+    },
+    {
+      "input": {
+        "lst1": [
+          "longstring"
+        ],
+        "lst2": [
+          "short"
+        ]
+      },
+      "expected_output": [
+        "short"
+      ],
+      "reason": "Total chars in lst1 (10) > total chars in lst2 (5), so lst2 is returned."
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": {
+        "lst1": null,
+        "lst2": [
+          "a"
+        ]
+      },
+      "expected_behavior": "Raises TypeError or AttributeError",
+      "reason": "lst1 is not a list."
+    },
+    {
+      "input": {
+        "lst1": [
+          "a"
+        ],
+        "lst2": 123
+      },
+      "expected_behavior": "Raises TypeError or AttributeError",
+      "reason": "lst2 is not a list."
+    },
+    {
+      "input": {
+        "lst1": [
+          "a",
+          1,
+          "b"
+        ],
+        "lst2": [
+          "c"
+        ]
+      },
+      "expected_behavior": "Raises TypeError",
+      "reason": "lst1 contains a non-string element (integer), which would cause an error when calculating string length."
+    },
+    {
+      "input": {
+        "lst1": [
+          "a"
+        ],
+        "lst2": [
+          "b",
+          null
+        ]
+      },
+      "expected_behavior": "Raises TypeError",
+      "reason": "lst2 contains a non-string element (None), which would cause an error when calculating string length."
+    }
+  ]
+}

@@ -1,0 +1,214 @@
+{
+  "task_id": "HumanEval_112",
+  "entry_point": "reverse_delete",
+  "preconditions": [
+    "s must be a string.",
+    "c must be a string."
+  ],
+  "postconditions": [
+    "The function must return a tuple (result_string, is_palindrome_boolean).",
+    "The first element of the tuple, result_string, must be a string.",
+    "The second element of the tuple, is_palindrome_boolean, must be a boolean (True or False).",
+    "result_string must contain only characters from s that are not present in c.",
+    "The order of characters from s that are not in c must be preserved in result_string.",
+    "is_palindrome_boolean must be True if result_string reads the same forwards and backwards, and False otherwise."
+  ],
+  "invariants": [
+    "The characters in result_string are a subset of the characters in s.",
+    "No character in result_string is present in c."
+  ],
+  "normal_cases": [
+    {
+      "input": {
+        "s": "abcde",
+        "c": "ae"
+      },
+      "output": [
+        "bcd",
+        false
+      ]
+    },
+    {
+      "input": {
+        "s": "abcdef",
+        "c": "b"
+      },
+      "output": [
+        "acdef",
+        false
+      ]
+    },
+    {
+      "input": {
+        "s": "abcdedcba",
+        "c": "ab"
+      },
+      "output": [
+        "cdedc",
+        true
+      ]
+    },
+    {
+      "input": {
+        "s": "hello world",
+        "c": "o"
+      },
+      "output": [
+        "hell wrld",
+        false
+      ]
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": {
+        "s": "",
+        "c": "abc"
+      },
+      "output": [
+        "",
+        true
+      ],
+      "description": "s is an empty string."
+    },
+    {
+      "input": {
+        "s": "abc",
+        "c": ""
+      },
+      "output": [
+        "abc",
+        false
+      ],
+      "description": "c is an empty string."
+    },
+    {
+      "input": {
+        "s": "racecar",
+        "c": "r"
+      },
+      "output": [
+        "aceca",
+        true
+      ],
+      "description": "s is a palindrome, and deletion maintains palindrome property."
+    },
+    {
+      "input": {
+        "s": "madam",
+        "c": "a"
+      },
+      "output": [
+        "mdm",
+        true
+      ],
+      "description": "s is a palindrome, and deletion maintains palindrome property with different characters."
+    },
+    {
+      "input": {
+        "s": "level",
+        "c": "l"
+      },
+      "output": [
+        "eve",
+        true
+      ],
+      "description": "s is a palindrome, and deletion maintains palindrome property with different characters."
+    },
+    {
+      "input": {
+        "s": "racecar",
+        "c": "e"
+      },
+      "output": [
+        "raccar",
+        false
+      ],
+      "description": "s is a palindrome, but deletion breaks palindrome property."
+    },
+    {
+      "input": {
+        "s": "abc",
+        "c": "abc"
+      },
+      "output": [
+        "",
+        true
+      ],
+      "description": "All characters in s are deleted, resulting in an empty string."
+    },
+    {
+      "input": {
+        "s": "aaaaa",
+        "c": "a"
+      },
+      "output": [
+        "",
+        true
+      ],
+      "description": "All characters in s are the same and are deleted."
+    },
+    {
+      "input": {
+        "s": "a",
+        "c": "b"
+      },
+      "output": [
+        "a",
+        true
+      ],
+      "description": "s has one character, not in c."
+    },
+    {
+      "input": {
+        "s": "a",
+        "c": "a"
+      },
+      "output": [
+        "",
+        true
+      ],
+      "description": "s has one character, which is deleted."
+    },
+    {
+      "input": {
+        "s": "banana",
+        "c": "a"
+      },
+      "output": [
+        "bnn",
+        false
+      ],
+      "description": "s contains duplicate characters, some are deleted."
+    },
+    {
+      "input": {
+        "s": "abacaba",
+        "c": "b"
+      },
+      "output": [
+        "aac",
+        false
+      ],
+      "description": "s is a palindrome, deletion breaks it."
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": {
+        "s": 123,
+        "c": "a"
+      },
+      "expected_error": "TypeError",
+      "description": "s is not a string."
+    },
+    {
+      "input": {
+        "s": "abc",
+        "c": null
+      },
+      "expected_error": "TypeError",
+      "description": "c is not a string."
+    }
+  ]
+}

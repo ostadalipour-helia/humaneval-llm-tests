@@ -1,0 +1,90 @@
+{
+  "task_id": "HumanEval_45",
+  "entry_point": "triangle_area",
+  "preconditions": [
+    "a is a number (integer or float).",
+    "h is a number (integer or float).",
+    "a > 0 (side length must be positive).",
+    "h > 0 (height must be positive)."
+  ],
+  "postconditions": [
+    "The function returns a number (float).",
+    "The returned value is the product of 'a' and 'h' divided by 2.",
+    "The returned value is always positive."
+  ],
+  "invariants": [
+    "The mathematical formula 'area = (a * h) / 2' is consistently applied.",
+    "The type of the returned value is always a float, even if 'a * h' is an even number."
+  ],
+  "normal_cases": [
+    {
+      "input": "a=5, h=3",
+      "output": 7.5,
+      "description": "Example from docstring with integer inputs."
+    },
+    {
+      "input": "a=10.0, h=4.0",
+      "output": 20.0,
+      "description": "Inputs are floats."
+    },
+    {
+      "input": "a=7, h=2.5",
+      "output": 8.75,
+      "description": "Mixed integer and float inputs."
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": "a=1, h=1",
+      "output": 0.5,
+      "description": "Smallest positive integer inputs."
+    },
+    {
+      "input": "a=0.1, h=0.1",
+      "output": 0.005,
+      "description": "Smallest positive float inputs."
+    },
+    {
+      "input": "a=1000000, h=1000000",
+      "output": 500000000000.0,
+      "description": "Large integer inputs."
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": "a=0, h=5",
+      "expected_behavior": "Raise ValueError or return 0.0 (depending on interpretation of 'valid triangle')",
+      "description": "Side length is zero."
+    },
+    {
+      "input": "a=5, h=0",
+      "expected_behavior": "Raise ValueError or return 0.0 (depending on interpretation of 'valid triangle')",
+      "description": "Height is zero."
+    },
+    {
+      "input": "a=-5, h=3",
+      "expected_behavior": "Raise ValueError",
+      "description": "Side length is negative."
+    },
+    {
+      "input": "a=5, h=-3",
+      "expected_behavior": "Raise ValueError",
+      "description": "Height is negative."
+    },
+    {
+      "input": "a='abc', h=3",
+      "expected_behavior": "Raise TypeError",
+      "description": "Side length is not a number."
+    },
+    {
+      "input": "a=5, h='xyz'",
+      "expected_behavior": "Raise TypeError",
+      "description": "Height is not a number."
+    },
+    {
+      "input": "a=None, h=3",
+      "expected_behavior": "Raise TypeError",
+      "description": "Side length is None."
+    }
+  ]
+}

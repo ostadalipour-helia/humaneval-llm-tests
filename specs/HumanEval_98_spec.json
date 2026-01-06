@@ -1,0 +1,112 @@
+{
+  "task_id": "HumanEval_98",
+  "entry_point": "count_upper",
+  "preconditions": [
+    "The input `s` must be a string."
+  ],
+  "postconditions": [
+    "The function must return an integer.",
+    "The returned integer must be non-negative.",
+    "The returned integer represents the count of characters in `s` that satisfy two conditions:",
+    "  1. The character is an uppercase vowel ('A', 'E', 'I', 'O', 'U').",
+    "  2. The character's index in the string `s` is an even number (0, 2, 4, ...)."
+  ],
+  "invariants": [
+    "The set of uppercase vowels ('A', 'E', 'I', 'O', 'U') remains constant throughout the counting process.",
+    "The index check `i % 2 == 0` is consistently applied for all characters in the string."
+  ],
+  "normal_cases": [
+    {
+      "input": "aBCdEf",
+      "output": 1,
+      "reason": "E at index 4 is an uppercase vowel and at an even index."
+    },
+    {
+      "input": "abcdefg",
+      "output": 0,
+      "reason": "No uppercase vowels at any index."
+    },
+    {
+      "input": "dBBE",
+      "output": 0,
+      "reason": "B at index 2 is not a vowel. E at index 3 is not at an even index."
+    },
+    {
+      "input": "AEIOU",
+      "output": 3,
+      "reason": "A at index 0, I at index 2, U at index 4 are uppercase vowels at even indices."
+    },
+    {
+      "input": "Python",
+      "output": 0,
+      "reason": "No uppercase vowels at even indices."
+    },
+    {
+      "input": "HELLOworld",
+      "output": 1,
+      "reason": "O at index 4 is an uppercase vowel at an even index. E at index 1 is not at an even index."
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": "",
+      "output": 0,
+      "reason": "Empty string contains no characters, so count is 0."
+    },
+    {
+      "input": "A",
+      "output": 1,
+      "reason": "A at index 0 is an uppercase vowel at an even index."
+    },
+    {
+      "input": "a",
+      "output": 0,
+      "reason": "a at index 0 is not an uppercase vowel."
+    },
+    {
+      "input": "B",
+      "output": 0,
+      "reason": "B at index 0 is not a vowel."
+    },
+    {
+      "input": "123!@#",
+      "output": 0,
+      "reason": "String contains no alphabetic characters, thus no vowels."
+    },
+    {
+      "input": "aeiou",
+      "output": 0,
+      "reason": "All vowels are lowercase, even if at even indices."
+    },
+    {
+      "input": "bAeIoU",
+      "output": 0,
+      "reason": "Uppercase vowels are only at odd indices (A at 1, I at 3, U at 5)."
+    },
+    {
+      "input": "AbCdEf",
+      "output": 0,
+      "reason": "No uppercase vowels at even indices."
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": 123,
+      "exception": "TypeError",
+      "reason": "Input is not a string."
+    },
+    {
+      "input": null,
+      "exception": "TypeError",
+      "reason": "Input is not a string."
+    },
+    {
+      "input": [
+        "A",
+        "B"
+      ],
+      "exception": "TypeError",
+      "reason": "Input is not a string."
+    }
+  ]
+}

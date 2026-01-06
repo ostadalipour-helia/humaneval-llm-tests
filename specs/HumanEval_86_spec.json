@@ -1,0 +1,102 @@
+{
+  "task_id": "HumanEval_86",
+  "entry_point": "anti_shuffle",
+  "preconditions": [
+    "The input `s` must be a string."
+  ],
+  "postconditions": [
+    "The function must return a string.",
+    "The returned string must have the same length as the input string `s`.",
+    "The order and number of space characters in the returned string must be identical to those in the input string `s`.",
+    "Each sequence of non-space characters (word) in the returned string must be a reordering of the corresponding word in the input string `s`.",
+    "For each word, its characters in the returned string must be arranged in ascending order based on their ASCII values."
+  ],
+  "invariants": [
+    "The set of characters within each word (sequence of non-space characters) remains the same, only their order changes.",
+    "The overall structure of words and spaces in the sentence is preserved."
+  ],
+  "normal_cases": [
+    {
+      "input": "hello",
+      "output": "ehllo",
+      "description": "A single word with characters needing reordering."
+    },
+    {
+      "input": "Hello World!!!",
+      "output": "Hello !!!Wdlor",
+      "description": "Multiple words, some already sorted, some needing reordering, with special characters."
+    },
+    {
+      "input": "Python is fun",
+      "output": "P h n o t y is fnu",
+      "description": "Multiple words, all needing reordering."
+    },
+    {
+      "input": "aBcDeFg",
+      "output": "BDacefg",
+      "description": "Mixed case characters in a single word."
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": "",
+      "output": "",
+      "description": "Empty string input."
+    },
+    {
+      "input": "Hi",
+      "output": "Hi",
+      "description": "A single word that is already sorted."
+    },
+    {
+      "input": "   ",
+      "output": "   ",
+      "description": "String containing only spaces."
+    },
+    {
+      "input": "a",
+      "output": "a",
+      "description": "Single character string."
+    },
+    {
+      "input": "  test  ",
+      "output": "  estt  ",
+      "description": "String with leading and trailing spaces."
+    },
+    {
+      "input": "one   two",
+      "output": "eno   otw",
+      "description": "String with multiple spaces between words."
+    },
+    {
+      "input": "!@#$",
+      "output": "!$#@",
+      "description": "String with only special characters."
+    },
+    {
+      "input": "123abc",
+      "output": "123abc",
+      "description": "String with numbers and letters, already sorted."
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": 123,
+      "exception": "TypeError",
+      "description": "Input is an integer instead of a string."
+    },
+    {
+      "input": null,
+      "exception": "TypeError",
+      "description": "Input is None instead of a string."
+    },
+    {
+      "input": [
+        "hello",
+        "world"
+      ],
+      "exception": "TypeError",
+      "description": "Input is a list instead of a string."
+    }
+  ]
+}

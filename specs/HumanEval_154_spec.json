@@ -1,0 +1,170 @@
+{
+  "task_id": "HumanEval_154",
+  "entry_point": "cycpattern_check",
+  "preconditions": [
+    "The input 'a' must be a string.",
+    "The input 'b' must be a string."
+  ],
+  "postconditions": [
+    "The function must return a boolean value (True or False).",
+    "If the function returns True, it implies that 'b' or at least one of its cyclic rotations is a substring of 'a'.",
+    "If the function returns False, it implies that neither 'b' nor any of its cyclic rotations is a substring of 'a'."
+  ],
+  "invariants": [
+    "The length of 'b' and all its cyclic rotations remains constant.",
+    "The set of characters in 'b' and all its cyclic rotations remains the same, only their order changes."
+  ],
+  "normal_cases": [
+    {
+      "input": {
+        "a": "abcd",
+        "b": "abd"
+      },
+      "output": false,
+      "description": "Second word is not a substring, nor are its rotations."
+    },
+    {
+      "input": {
+        "a": "hello",
+        "b": "ell"
+      },
+      "output": true,
+      "description": "Second word is a direct substring."
+    },
+    {
+      "input": {
+        "a": "whassup",
+        "b": "psus"
+      },
+      "output": false,
+      "description": "No rotation of the second word is a substring."
+    },
+    {
+      "input": {
+        "a": "abab",
+        "b": "baa"
+      },
+      "output": true,
+      "description": "A rotation of the second word ('aab') is a substring of the first word."
+    },
+    {
+      "input": {
+        "a": "efef",
+        "b": "eeff"
+      },
+      "output": false,
+      "description": "No rotation of the second word is a substring."
+    },
+    {
+      "input": {
+        "a": "himenss",
+        "b": "simen"
+      },
+      "output": true,
+      "description": "A rotation of the second word ('imens') is a substring of the first word."
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": {
+        "a": "abc",
+        "b": "abcd"
+      },
+      "output": false,
+      "description": "Second word is longer than the first word."
+    },
+    {
+      "input": {
+        "a": "test",
+        "b": ""
+      },
+      "output": true,
+      "description": "Second word is an empty string (empty string is a substring of any string)."
+    },
+    {
+      "input": {
+        "a": "",
+        "b": "abc"
+      },
+      "output": false,
+      "description": "First word is an empty string, second word is not empty."
+    },
+    {
+      "input": {
+        "a": "",
+        "b": ""
+      },
+      "output": true,
+      "description": "Both words are empty strings."
+    },
+    {
+      "input": {
+        "a": "abc",
+        "b": "abc"
+      },
+      "output": true,
+      "description": "Both words are identical."
+    },
+    {
+      "input": {
+        "a": "abc",
+        "b": "bca"
+      },
+      "output": true,
+      "description": "Second word is a rotation of the first word, and they have the same length."
+    },
+    {
+      "input": {
+        "a": "aaaaa",
+        "b": "aa"
+      },
+      "output": true,
+      "description": "Both words consist of repeating characters."
+    },
+    {
+      "input": {
+        "a": "xyz",
+        "b": "z"
+      },
+      "output": true,
+      "description": "Second word is a single character and is present in the first word."
+    },
+    {
+      "input": {
+        "a": "xyz",
+        "b": "p"
+      },
+      "output": false,
+      "description": "Second word is a single character and is not present in the first word."
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": {
+        "a": 123,
+        "b": "test"
+      },
+      "expected_error": "TypeError",
+      "description": "First input is not a string."
+    },
+    {
+      "input": {
+        "a": "test",
+        "b": null
+      },
+      "expected_error": "TypeError",
+      "description": "Second input is not a string."
+    },
+    {
+      "input": {
+        "a": [
+          1,
+          2
+        ],
+        "b": "test"
+      },
+      "expected_error": "TypeError",
+      "description": "First input is a list."
+    }
+  ]
+}

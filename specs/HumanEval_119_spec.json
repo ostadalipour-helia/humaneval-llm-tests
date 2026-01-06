@@ -1,0 +1,120 @@
+{
+  "task_id": "HumanEval_119",
+  "entry_point": "match_parens",
+  "preconditions": [
+    "The input `lst` must be a Python list.",
+    "The list `lst` must contain exactly two elements.",
+    "Each element in `lst` must be a string.",
+    "Each character within these two strings must be either an open parenthesis '(' or a close parenthesis ')'.",
+    "The strings can be empty."
+  ],
+  "postconditions": [
+    "The function returns a string, which is either 'Yes' or 'No'.",
+    "The function returns 'Yes' if it is possible to concatenate the two input strings in *any* order (i.e., `lst[0] + lst[1]` or `lst[1] + lst[0]`) such that the resulting concatenated string is a 'good' (balanced) parentheses string.",
+    "The function returns 'No' otherwise.",
+    "A string S is considered 'good' (balanced) if and only if:",
+    "  1. The total number of open parentheses '(' in S is equal to the total number of close parentheses ')' in S.",
+    "  2. For any prefix of S, the number of open parentheses '(' is greater than or equal to the number of close parentheses ')'. (This implies that a balance counter, starting at 0, incrementing for '(' and decrementing for ')', never drops below zero and ends at zero)."
+  ],
+  "invariants": [
+    "The total count of '(' characters across both input strings remains constant regardless of concatenation order.",
+    "The total count of ')' characters across both input strings remains constant regardless of concatenation order.",
+    "The total length of the concatenated string (sum of lengths of the two input strings) remains constant."
+  ],
+  "normal_cases": [
+    {
+      "input": "['()(', ')']",
+      "output": "'Yes'",
+      "reason": "Concatenating as '()()' results in a good string."
+    },
+    {
+      "input": "['(', ')']",
+      "output": "'Yes'",
+      "reason": "Concatenating as '()' results in a good string."
+    },
+    {
+      "input": "['((', '))']",
+      "output": "'Yes'",
+      "reason": "Concatenating as '(())' results in a good string."
+    },
+    {
+      "input": "['()', '()']",
+      "output": "'Yes'",
+      "reason": "Concatenating as '()()' results in a good string."
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": "['', '']",
+      "output": "'Yes'",
+      "reason": "An empty string is considered good/balanced."
+    },
+    {
+      "input": "['()', '']",
+      "output": "'Yes'",
+      "reason": "Concatenating as '()' results in a good string."
+    },
+    {
+      "input": "['', '()']",
+      "output": "'Yes'",
+      "reason": "Concatenating as '()' results in a good string."
+    },
+    {
+      "input": "[')))', '(((']",
+      "output": "'No'",
+      "reason": "Neither ')))(((' nor '((()))' is good. The latter has a balance counter drop below zero immediately."
+    },
+    {
+      "input": "['()', ')(']",
+      "output": "'No'",
+      "reason": "Neither '())(' nor ')()(' is good."
+    },
+    {
+      "input": "[')))((', '()']",
+      "output": "'No'",
+      "reason": "Neither ')))((()' nor '())))(((' is good."
+    },
+    {
+      "input": "['))))))))))', '(((((((((((']",
+      "output": "'No'",
+      "reason": "The total count of '(' does not equal ')'."
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": "[]",
+      "behavior": "Raises an error (e.g., IndexError or ValueError) because the list does not contain exactly two elements.",
+      "reason": "Violates 'lst must contain exactly two elements'."
+    },
+    {
+      "input": "['()']",
+      "behavior": "Raises an error (e.g., IndexError or ValueError) because the list does not contain exactly two elements.",
+      "reason": "Violates 'lst must contain exactly two elements'."
+    },
+    {
+      "input": "['()', '(', ')']",
+      "behavior": "Raises an error (e.g., IndexError or ValueError) because the list does not contain exactly two elements.",
+      "reason": "Violates 'lst must contain exactly two elements'."
+    },
+    {
+      "input": "['()', 123]",
+      "behavior": "Raises a TypeError because the second element is not a string.",
+      "reason": "Violates 'Each element in `lst` must be a string'."
+    },
+    {
+      "input": "[None, '()']",
+      "behavior": "Raises a TypeError because the first element is not a string.",
+      "reason": "Violates 'Each element in `lst` must be a string'."
+    },
+    {
+      "input": "['()', 'a(b)']",
+      "behavior": "Raises a ValueError or similar error, or leads to incorrect behavior, because the string contains invalid characters.",
+      "reason": "Violates 'Each character within these two strings must be either an open parenthesis '(' or a close parenthesis ')'."
+    },
+    {
+      "input": "123",
+      "behavior": "Raises a TypeError because the input is not a list.",
+      "reason": "Violates 'The input `lst` must be a Python list'."
+    }
+  ]
+}

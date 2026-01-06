@@ -1,0 +1,75 @@
+{
+  "task_id": "HumanEval_79",
+  "entry_point": "decimal_to_binary",
+  "preconditions": [
+    "The input `decimal` must be an integer.",
+    "The input `decimal` must be a non-negative integer (decimal >= 0)."
+  ],
+  "postconditions": [
+    "The function must return a string.",
+    "The returned string must start with the characters 'db'.",
+    "The returned string must end with the characters 'db'.",
+    "The substring between the leading 'db' and trailing 'db' must be the binary representation of the input `decimal`.",
+    "Each character in the binary representation part of the string must be either '0' or '1'."
+  ],
+  "invariants": [
+    "The length of the returned string will always be at least 3 (for 'db' + '0' + 'db').",
+    "The binary representation part of the string will not have leading zeros unless the number itself is 0 (e.g., '0' for 0, not '00')."
+  ],
+  "normal_cases": [
+    {
+      "input": 15,
+      "output": "db1111db",
+      "description": "A typical positive integer."
+    },
+    {
+      "input": 32,
+      "output": "db100000db",
+      "description": "A power of two."
+    },
+    {
+      "input": 10,
+      "output": "db1010db",
+      "description": "Another typical positive integer."
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": 0,
+      "output": "db0db",
+      "description": "The smallest non-negative integer."
+    },
+    {
+      "input": 1,
+      "output": "db1db",
+      "description": "The integer one."
+    },
+    {
+      "input": 2,
+      "output": "db10db",
+      "description": "The integer two."
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": -5,
+      "behavior": "Undefined behavior or raise an error (e.g., ValueError) as binary conversion typically applies to non-negative numbers.",
+      "description": "Input is a negative integer."
+    },
+    {
+      "input": 15.5,
+      "behavior": "Raise a TypeError or similar error, as the input is not an integer.",
+      "description": "Input is a float."
+    },
+    {
+      "input": "abc",
+      "behavior": "Raise a TypeError or similar error, as the input is not a number.",
+      "description": "Input is a string."
+    },
+    {
+      "input": null,
+      "behavior": "Raise a TypeError or similar error, as the input is not a number.",
+      "description": "Input is null/None."
+    }
+  ]
+}

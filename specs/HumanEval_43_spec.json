@@ -1,0 +1,176 @@
+{
+  "task_id": "HumanEval_43",
+  "entry_point": "pairs_sum_to_zero",
+  "preconditions": [
+    "The input `l` must be an instance of `list`.",
+    "All elements `x` in `l` must be an instance of `int`."
+  ],
+  "postconditions": [
+    "The function returns a boolean value (`True` or `False`).",
+    "If the return value is `True`, then there exist at least two distinct indices `i` and `j` in `l` (i.e., `i != j`) such that `l[i] + l[j] == 0`.",
+    "If the return value is `False`, then for all distinct indices `i` and `j` in `l` (i.e., `i != j`), `l[i] + l[j] != 0`."
+  ],
+  "invariants": [
+    "The input list `l` must not be modified by the function."
+  ],
+  "normal_cases": [
+    {
+      "input": {
+        "l": [
+          2,
+          4,
+          -5,
+          3,
+          5,
+          7
+        ]
+      },
+      "expected_output": true,
+      "description": "List contains a pair (5, -5) that sums to zero."
+    },
+    {
+      "input": {
+        "l": [
+          1,
+          3,
+          5,
+          0
+        ]
+      },
+      "expected_output": false,
+      "description": "List contains no pair that sums to zero."
+    },
+    {
+      "input": {
+        "l": [
+          1,
+          3,
+          -2,
+          1
+        ]
+      },
+      "expected_output": false,
+      "description": "List with duplicate elements but no pair summing to zero."
+    },
+    {
+      "input": {
+        "l": [
+          1,
+          -1,
+          2,
+          -2
+        ]
+      },
+      "expected_output": true,
+      "description": "List with multiple pairs summing to zero."
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": {
+        "l": []
+      },
+      "expected_output": false,
+      "description": "Empty list, no pairs possible."
+    },
+    {
+      "input": {
+        "l": [
+          1
+        ]
+      },
+      "expected_output": false,
+      "description": "List with a single element, no pairs possible."
+    },
+    {
+      "input": {
+        "l": [
+          0,
+          0
+        ]
+      },
+      "expected_output": true,
+      "description": "List with two zeros, which are distinct elements by index and sum to zero."
+    },
+    {
+      "input": {
+        "l": [
+          0
+        ]
+      },
+      "expected_output": false,
+      "description": "List with a single zero, no pairs possible."
+    },
+    {
+      "input": {
+        "l": [
+          1,
+          -1
+        ]
+      },
+      "expected_output": true,
+      "description": "List with exactly two elements that sum to zero."
+    },
+    {
+      "input": {
+        "l": [
+          1,
+          2
+        ]
+      },
+      "expected_output": false,
+      "description": "List with exactly two elements that do not sum to zero."
+    },
+    {
+      "input": {
+        "l": [
+          5,
+          -5,
+          5
+        ]
+      },
+      "expected_output": true,
+      "description": "List with a pair summing to zero and a duplicate of one element."
+    },
+    {
+      "input": {
+        "l": [
+          -1000000,
+          1000000
+        ]
+      },
+      "expected_output": true,
+      "description": "List with large numbers summing to zero."
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": {
+        "l": "not a list"
+      },
+      "expected_exception": "TypeError",
+      "description": "Input `l` is not a list."
+    },
+    {
+      "input": {
+        "l": [
+          1,
+          2,
+          "three"
+        ]
+      },
+      "expected_exception": "TypeError",
+      "description": "List contains non-integer elements (string)."
+    },
+    {
+      "input": {
+        "l": [
+          1,
+          2.5
+        ]
+      },
+      "expected_exception": "TypeError",
+      "description": "List contains non-integer elements (float)."
+    }
+  ]
+}

@@ -1,0 +1,101 @@
+{
+  "task_id": "HumanEval_80",
+  "entry_point": "is_happy",
+  "preconditions": [
+    "s must be a string."
+  ],
+  "postconditions": [
+    "The function returns a boolean value.",
+    "If the length of 's' is less than 3, the function returns False.",
+    "If the length of 's' is at least 3, the function returns True if and only if every sequence of 3 consecutive characters in 's' consists of distinct characters. Otherwise, it returns False."
+  ],
+  "invariants": [
+    "The input string 's' is not modified by the function.",
+    "The return value is always a boolean."
+  ],
+  "normal_cases": [
+    {
+      "input": "abcd",
+      "expected_output": true,
+      "reason": "Length is 4 (>=3). 'abc' are distinct, 'bcd' are distinct."
+    },
+    {
+      "input": "adb",
+      "expected_output": true,
+      "reason": "Length is 3 (>=3). 'adb' are distinct."
+    },
+    {
+      "input": "abcde",
+      "expected_output": true,
+      "reason": "Length is 5 (>=3). 'abc', 'bcd', 'cde' are all distinct."
+    },
+    {
+      "input": "xyzabc",
+      "expected_output": true,
+      "reason": "Length is 6 (>=3). All 3-consecutive substrings ('xyz', 'yza', 'zab', 'abc') have distinct characters."
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": "a",
+      "expected_output": false,
+      "reason": "Length is 1, which is less than 3."
+    },
+    {
+      "input": "aa",
+      "expected_output": false,
+      "reason": "Length is 2, which is less than 3."
+    },
+    {
+      "input": "",
+      "expected_output": false,
+      "reason": "Length is 0, which is less than 3."
+    },
+    {
+      "input": "aabb",
+      "expected_output": false,
+      "reason": "Length is 4 (>=3). The substring 'aab' does not have distinct characters ('a' repeats)."
+    },
+    {
+      "input": "xyy",
+      "expected_output": false,
+      "reason": "Length is 3 (>=3). The substring 'xyy' does not have distinct characters ('y' repeats)."
+    },
+    {
+      "input": "aaa",
+      "expected_output": false,
+      "reason": "Length is 3 (>=3). The substring 'aaa' does not have distinct characters ('a' repeats)."
+    },
+    {
+      "input": "abacaba",
+      "expected_output": false,
+      "reason": "Length is 7 (>=3). The substring 'aba' (at index 0, 2, 4) does not have distinct characters."
+    },
+    {
+      "input": "abccde",
+      "expected_output": false,
+      "reason": "Length is 6 (>=3). The substring 'bcc' (at index 1) does not have distinct characters."
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": 123,
+      "expected_behavior": "Raise TypeError",
+      "reason": "Input is not a string."
+    },
+    {
+      "input": null,
+      "expected_behavior": "Raise TypeError",
+      "reason": "Input is not a string."
+    },
+    {
+      "input": [
+        "a",
+        "b",
+        "c"
+      ],
+      "expected_behavior": "Raise TypeError",
+      "reason": "Input is not a string."
+    }
+  ]
+}

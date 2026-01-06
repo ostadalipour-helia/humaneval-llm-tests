@@ -1,0 +1,125 @@
+{
+  "task_id": "HumanEval_134",
+  "entry_point": "check_if_last_char_is_a_letter",
+  "preconditions": [
+    "The input `txt` must be a string."
+  ],
+  "postconditions": [
+    "The function returns a boolean value (`True` or `False`).",
+    "The function returns `True` if and only if all of the following conditions are met:",
+    "  1. The string `txt` has a length of at least 2 characters.",
+    "  2. The last character of `txt` (`txt[-1]`) is an alphabetical character (a-z or A-Z).",
+    "  3. The second to last character of `txt` (`txt[-2]`) is a space character (' ').",
+    "Otherwise, the function returns `False`."
+  ],
+  "invariants": [],
+  "normal_cases": [
+    {
+      "input": "apple pi e",
+      "output": true,
+      "description": "Last character is a letter preceded by a space."
+    },
+    {
+      "input": "hello world a",
+      "output": true,
+      "description": "Last character is a letter preceded by a space in a longer string."
+    },
+    {
+      "input": "apple pie",
+      "output": false,
+      "description": "Last character is a letter but not preceded by a space."
+    },
+    {
+      "input": "test string",
+      "output": false,
+      "description": "Last character is a letter but part of a multi-character word."
+    },
+    {
+      "input": "test string ",
+      "output": false,
+      "description": "Last character is a space, not a letter."
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": "",
+      "output": false,
+      "description": "Empty string."
+    },
+    {
+      "input": "a",
+      "output": false,
+      "description": "Single character string (letter), length < 2."
+    },
+    {
+      "input": " ",
+      "output": false,
+      "description": "Single character string (space), length < 2."
+    },
+    {
+      "input": " a",
+      "output": true,
+      "description": "Two-character string, last is letter preceded by space."
+    },
+    {
+      "input": "ab",
+      "output": false,
+      "description": "Two-character string, both letters, no space."
+    },
+    {
+      "input": "a b",
+      "output": true,
+      "description": "Multiple words, last is single letter preceded by space."
+    },
+    {
+      "input": "1",
+      "output": false,
+      "description": "Single character string (digit), not a letter."
+    },
+    {
+      "input": " 1",
+      "output": false,
+      "description": "Last character is a digit, not a letter."
+    },
+    {
+      "input": "a.",
+      "output": false,
+      "description": "Last character is a non-alphabetical symbol."
+    },
+    {
+      "input": "a .",
+      "output": false,
+      "description": "Last character is a non-alphabetical symbol, preceded by space."
+    },
+    {
+      "input": "A",
+      "output": false,
+      "description": "Single uppercase letter, length < 2."
+    },
+    {
+      "input": " A",
+      "output": true,
+      "description": "Uppercase letter preceded by space."
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": 123,
+      "exception": "TypeError",
+      "description": "Input is an integer, not a string."
+    },
+    {
+      "input": null,
+      "exception": "TypeError",
+      "description": "Input is None, not a string."
+    },
+    {
+      "input": [
+        "a",
+        "b"
+      ],
+      "exception": "TypeError",
+      "description": "Input is a list, not a string."
+    }
+  ]
+}

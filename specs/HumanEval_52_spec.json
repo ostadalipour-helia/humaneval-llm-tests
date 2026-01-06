@@ -1,0 +1,170 @@
+{
+  "task_id": "HumanEval_52",
+  "entry_point": "below_threshold",
+  "preconditions": [
+    "l must be a list.",
+    "t must be an integer.",
+    "All elements in l must be numbers (integers or floats) that can be compared to t."
+  ],
+  "postconditions": [
+    "The function returns a boolean value.",
+    "If the function returns True, then for every element 'x' in the input list 'l', the condition 'x < t' must hold.",
+    "If the function returns False, then there must exist at least one element 'x' in the input list 'l' such that the condition 'x >= t' holds."
+  ],
+  "invariants": [
+    "The input list 'l' must not be modified by the function.",
+    "The input threshold 't' must not be modified by the function."
+  ],
+  "normal_cases": [
+    {
+      "input": {
+        "l": [
+          1,
+          2,
+          4,
+          10
+        ],
+        "t": 100
+      },
+      "output": true,
+      "description": "All numbers are strictly below the threshold."
+    },
+    {
+      "input": {
+        "l": [
+          1,
+          20,
+          4,
+          10
+        ],
+        "t": 5
+      },
+      "output": false,
+      "description": "At least one number is not below the threshold."
+    },
+    {
+      "input": {
+        "l": [
+          -5,
+          0,
+          3
+        ],
+        "t": 10
+      },
+      "output": true,
+      "description": "List with negative numbers, all below threshold."
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": {
+        "l": [],
+        "t": 5
+      },
+      "output": true,
+      "description": "Empty list (vacuously true)."
+    },
+    {
+      "input": {
+        "l": [
+          5,
+          5,
+          5
+        ],
+        "t": 5
+      },
+      "output": false,
+      "description": "All numbers are equal to the threshold (not strictly below)."
+    },
+    {
+      "input": {
+        "l": [
+          4.9,
+          4.99,
+          4.999
+        ],
+        "t": 5
+      },
+      "output": true,
+      "description": "Numbers are very close to but still below the threshold."
+    },
+    {
+      "input": {
+        "l": [
+          5.0,
+          5.1,
+          6
+        ],
+        "t": 5
+      },
+      "output": false,
+      "description": "Numbers are equal to or above the threshold, including floats."
+    },
+    {
+      "input": {
+        "l": [
+          10
+        ],
+        "t": 10
+      },
+      "output": false,
+      "description": "Single element equal to threshold."
+    },
+    {
+      "input": {
+        "l": [
+          9
+        ],
+        "t": 10
+      },
+      "output": true,
+      "description": "Single element below threshold."
+    },
+    {
+      "input": {
+        "l": [
+          1,
+          2,
+          3
+        ],
+        "t": -1
+      },
+      "output": false,
+      "description": "Positive numbers with a negative threshold."
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": {
+        "l": "not a list",
+        "t": 5
+      },
+      "expected_error": "TypeError",
+      "description": "Input 'l' is not a list."
+    },
+    {
+      "input": {
+        "l": [
+          1,
+          2,
+          3
+        ],
+        "t": "not an int"
+      },
+      "expected_error": "TypeError",
+      "description": "Input 't' is not an integer."
+    },
+    {
+      "input": {
+        "l": [
+          1,
+          "a",
+          3
+        ],
+        "t": 5
+      },
+      "expected_error": "TypeError",
+      "description": "List contains non-numeric elements that cannot be compared to 't'."
+    }
+  ]
+}

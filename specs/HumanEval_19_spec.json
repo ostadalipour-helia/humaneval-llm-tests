@@ -1,0 +1,92 @@
+{
+  "task_id": "HumanEval_19",
+  "entry_point": "sort_numbers",
+  "preconditions": [
+    "The input `numbers` must be a string.",
+    "The string `numbers` must consist of words representing numerals from 'zero' to 'nine'.",
+    "Valid numeral words are 'zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'.",
+    "Words in the input string must be space-delimited."
+  ],
+  "postconditions": [
+    "The function must return a string.",
+    "The returned string must contain the same numeral words as the input string.",
+    "The numeral words in the returned string must be sorted in ascending order based on their numerical value (e.g., 'one' comes before 'two').",
+    "The words in the returned string must be space-delimited.",
+    "If the input string is empty, the output string must also be empty."
+  ],
+  "invariants": [
+    "The count of each specific numeral word (e.g., 'one', 'two') in the output string must be identical to its count in the input string.",
+    "All words in the output string must be valid numeral words ('zero' through 'nine')."
+  ],
+  "normal_cases": [
+    {
+      "input": "three one five",
+      "expected_output": "one three five",
+      "description": "Typical case with multiple unsorted numbers."
+    },
+    {
+      "input": "one two three",
+      "expected_output": "one two three",
+      "description": "Input is already sorted."
+    },
+    {
+      "input": "seven four seven one",
+      "expected_output": "one four seven seven",
+      "description": "Input with duplicate numbers."
+    },
+    {
+      "input": "nine eight seven six five four three two one zero",
+      "expected_output": "zero one two three four five six seven eight nine",
+      "description": "All numbers in reverse order."
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": "",
+      "expected_output": "",
+      "description": "Empty input string."
+    },
+    {
+      "input": "five",
+      "expected_output": "five",
+      "description": "Single number in the input string."
+    },
+    {
+      "input": "two two two",
+      "expected_output": "two two two",
+      "description": "All numbers are identical."
+    },
+    {
+      "input": "zero nine",
+      "expected_output": "zero nine",
+      "description": "Numbers at the extremes of the valid range."
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": "one ten three",
+      "expected_behavior": "Raise an error or handle invalid numeral word.",
+      "description": "Input string contains a word that is not a valid numeral ('ten')."
+    },
+    {
+      "input": "one,two,three",
+      "expected_behavior": "Raise an error or handle incorrect delimiter.",
+      "description": "Input string uses an invalid delimiter (comma instead of space)."
+    },
+    {
+      "input": "one two fourty",
+      "expected_behavior": "Raise an error or handle invalid numeral word.",
+      "description": "Input string contains a non-numeral word."
+    },
+    {
+      "input": 123,
+      "expected_behavior": "Raise a TypeError.",
+      "description": "Input is not a string."
+    },
+    {
+      "input": null,
+      "expected_behavior": "Raise a TypeError.",
+      "description": "Input is null."
+    }
+  ]
+}

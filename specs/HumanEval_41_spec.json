@@ -1,0 +1,81 @@
+{
+  "task_id": "HumanEval_41",
+  "entry_point": "car_race_collision",
+  "preconditions": [
+    "The input `n` must be an integer.",
+    "The input `n` must be non-negative (n >= 0), representing a count of cars."
+  ],
+  "postconditions": [
+    "The function must return an integer.",
+    "The returned value must be non-negative.",
+    "The returned value represents the total number of collisions.",
+    "The returned value is equal to `n * n`."
+  ],
+  "invariants": [
+    "There are always `n` cars moving left-to-right and `n` cars moving right-to-left.",
+    "All cars move at the same constant speed.",
+    "Cars are infinitely sturdy and pass through each other without changing their trajectory or speed upon 'collision'."
+  ],
+  "normal_cases": [
+    {
+      "input": {
+        "n": 1
+      },
+      "output": 1,
+      "description": "One car moving left-to-right collides with one car moving right-to-left."
+    },
+    {
+      "input": {
+        "n": 2
+      },
+      "output": 4,
+      "description": "Two cars moving left-to-right each collide with two cars moving right-to-left, resulting in 2*2=4 collisions."
+    },
+    {
+      "input": {
+        "n": 5
+      },
+      "output": 25,
+      "description": "Five cars moving left-to-right each collide with five cars moving right-to-left, resulting in 5*5=25 collisions."
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": {
+        "n": 0
+      },
+      "output": 0,
+      "description": "No cars are present, so no collisions occur."
+    },
+    {
+      "input": {
+        "n": 100
+      },
+      "output": 10000,
+      "description": "A large number of cars, demonstrating the quadratic relationship."
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": {
+        "n": -1
+      },
+      "expected_behavior": "Raise an error (e.g., ValueError or AssertionError) or return an undefined result, as a negative number of cars is invalid.",
+      "description": "Input `n` is negative."
+    },
+    {
+      "input": {
+        "n": 3.14
+      },
+      "expected_behavior": "Raise a TypeError, as `n` must be an integer.",
+      "description": "Input `n` is a float instead of an integer."
+    },
+    {
+      "input": {
+        "n": "abc"
+      },
+      "expected_behavior": "Raise a TypeError, as `n` must be an integer.",
+      "description": "Input `n` is a string instead of an integer."
+    }
+  ]
+}

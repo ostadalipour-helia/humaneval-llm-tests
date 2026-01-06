@@ -1,0 +1,82 @@
+{
+  "task_id": "HumanEval_25",
+  "entry_point": "factorize",
+  "preconditions": [
+    "The input `n` must be an integer.",
+    "The input `n` must be greater than or equal to 1."
+  ],
+  "postconditions": [
+    "The return value is a list of integers.",
+    "All elements in the returned list are prime numbers.",
+    "The returned list is sorted in non-decreasing (smallest to largest) order.",
+    "The product of all elements in the returned list must be equal to the input `n`.",
+    "If `n` is 1, the returned list is empty.",
+    "If `n` is greater than 1, all elements in the returned list are greater than 1."
+  ],
+  "invariants": [
+    "Throughout the execution, if the input `n` is positive, any factor found must be positive.",
+    "The intermediate product of factors found so far should always be a divisor of `n`."
+  ],
+  "normal_cases": [
+    {
+      "input": "factorize(8)",
+      "output": "[2, 2, 2]"
+    },
+    {
+      "input": "factorize(25)",
+      "output": "[5, 5]"
+    },
+    {
+      "input": "factorize(70)",
+      "output": "[2, 5, 7]"
+    },
+    {
+      "input": "factorize(12)",
+      "output": "[2, 2, 3]"
+    },
+    {
+      "input": "factorize(60)",
+      "output": "[2, 2, 3, 5]"
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": "factorize(1)",
+      "output": "[]"
+    },
+    {
+      "input": "factorize(2)",
+      "output": "[2]"
+    },
+    {
+      "input": "factorize(17)",
+      "output": "[17]"
+    },
+    {
+      "input": "factorize(4)",
+      "output": "[2, 2]"
+    },
+    {
+      "input": "factorize(997)",
+      "output": "[997]"
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": "factorize(0)",
+      "expected_behavior": "Raise an error (e.g., ValueError) or return an empty list if the function is designed to handle it, but typically prime factorization is not defined for 0."
+    },
+    {
+      "input": "factorize(-5)",
+      "expected_behavior": "Raise an error (e.g., ValueError) as prime factorization is not defined for negative integers."
+    },
+    {
+      "input": "factorize(3.14)",
+      "expected_behavior": "Raise a TypeError as the input must be an integer."
+    },
+    {
+      "input": "factorize(\"abc\")",
+      "expected_behavior": "Raise a TypeError as the input must be an integer."
+    }
+  ]
+}

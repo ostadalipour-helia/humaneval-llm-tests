@@ -1,0 +1,82 @@
+{
+  "task_id": "HumanEval_50",
+  "entry_point": "decode_shift",
+  "preconditions": [
+    "The input `s` must be a string.",
+    "The input `s` must consist solely of lowercase English alphabet characters ('a' through 'z').",
+    "The input `s` is assumed to be a string that was previously encoded using the `encode_shift` function."
+  ],
+  "postconditions": [
+    "The function returns a string.",
+    "The returned string is the original string before it was encoded by `encode_shift`.",
+    "Each character in the returned string is the corresponding character from the input `s` shifted backward by 5 positions in the alphabet.",
+    "The shift operation wraps around, meaning 'a' shifted backward by 5 becomes 'v', 'b' becomes 'w', and so on.",
+    "The returned string will also consist solely of lowercase English alphabet characters ('a' through 'z').",
+    "For any valid input `original_s` (a string of lowercase English letters), `decode_shift(encode_shift(original_s))` should yield `original_s`."
+  ],
+  "invariants": [
+    "The length of the returned string is always equal to the length of the input string `s`.",
+    "All characters in the output string remain within the lowercase English alphabet range ('a'-'z')."
+  ],
+  "normal_cases": [
+    {
+      "input": "fghij",
+      "output": "abcde",
+      "description": "A typical string where characters are shifted back without wrapping."
+    },
+    {
+      "input": "klmno",
+      "output": "fghij",
+      "description": "Another typical string where characters are shifted back without wrapping."
+    },
+    {
+      "input": "cdefg",
+      "output": "xyzab",
+      "description": "A string where characters wrap around from 'c' to 'x', 'd' to 'y', etc."
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": "",
+      "output": "",
+      "description": "Decoding an empty string should result in an empty string."
+    },
+    {
+      "input": "f",
+      "output": "a",
+      "description": "Decoding a single character that shifts back to 'a'."
+    },
+    {
+      "input": "abcde",
+      "output": "vwxyz",
+      "description": "Decoding a string where all characters wrap around from 'a' to 'v', 'b' to 'w', etc."
+    },
+    {
+      "input": "vwxyz",
+      "output": "qrstu",
+      "description": "Decoding a string where characters are in the middle of the alphabet."
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": "123",
+      "expected_error": "TypeError or ValueError",
+      "description": "Input contains non-alphabetic characters."
+    },
+    {
+      "input": "Hello",
+      "expected_error": "TypeError or ValueError",
+      "description": "Input contains uppercase characters (violates precondition that it's from `encode_shift`)."
+    },
+    {
+      "input": null,
+      "expected_error": "TypeError",
+      "description": "Input is not a string."
+    },
+    {
+      "input": 123,
+      "expected_error": "TypeError",
+      "description": "Input is an integer instead of a string."
+    }
+  ]
+}

@@ -1,0 +1,109 @@
+{
+  "task_id": "HumanEval_93",
+  "entry_point": "encode",
+  "preconditions": [
+    "The input `message` must be a string."
+  ],
+  "postconditions": [
+    "The function returns a string.",
+    "The length of the returned string is equal to the length of the input `message`.",
+    "For each character in the input `message`:",
+    "- If the character is an English alphabet letter (a-z, A-Z):",
+    "  - First, its case is swapped (lowercase becomes uppercase, uppercase becomes lowercase).",
+    "  - Second, if the *result of the case swap* is a vowel (A, E, I, O, U, a, e, i, o, u), it is then replaced by the letter that appears two places ahead in the English alphabet (e.g., 'A' becomes 'C', 'e' becomes 'g').",
+    "- If the character is not an English alphabet letter (e.g., space, punctuation, digit), it remains unchanged in the output string."
+  ],
+  "invariants": [
+    "The length of the output string is always identical to the length of the input string.",
+    "The order of characters in the output string corresponds to their order in the input string.",
+    "Non-alphabetic characters (e.g., spaces, digits, symbols) are preserved without modification."
+  ],
+  "normal_cases": [
+    {
+      "input": "test",
+      "output": "TGST",
+      "description": "Example from docstring: a word with mixed case, vowels and consonants."
+    },
+    {
+      "input": "This is a message",
+      "output": "tHKS KS C MGSSCGG",
+      "description": "Example from docstring: a sentence with spaces, mixed case, vowels and consonants."
+    },
+    {
+      "input": "Hello World",
+      "output": "hGLLQ WQRLL",
+      "description": "A common phrase with mixed letters and spaces, demonstrating vowel and consonant transformations."
+    },
+    {
+      "input": "Python",
+      "output": "pYTHQN",
+      "description": "A word with mixed vowels and consonants, demonstrating transformations."
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": "",
+      "output": "",
+      "description": "Empty string input should result in an empty string output."
+    },
+    {
+      "input": "aeiouAEIOU",
+      "output": "CGKPWcgkpw",
+      "description": "String containing only vowels (mixed case), demonstrating all vowel transformations."
+    },
+    {
+      "input": "bcdfghjklmnpqrstvwxyzBCDFGHJKLMNPQRSTVWXYZ",
+      "output": "BCDFGHJKLMNPQRSTVWXYZbcdfghjklmnpqrstvwxyz",
+      "description": "String containing only consonants (mixed case), demonstrating only case swaps."
+    },
+    {
+      "input": "   ",
+      "output": "   ",
+      "description": "String containing only spaces, which should remain unchanged."
+    },
+    {
+      "input": "a",
+      "output": "C",
+      "description": "Single lowercase vowel input."
+    },
+    {
+      "input": "Z",
+      "output": "z",
+      "description": "Single uppercase consonant input."
+    },
+    {
+      "input": "TEST",
+      "output": "TGST",
+      "description": "All uppercase input string."
+    },
+    {
+      "input": "test",
+      "output": "TGST",
+      "description": "All lowercase input string."
+    },
+    {
+      "input": "123!@#",
+      "output": "123!@#",
+      "description": "String containing only non-alphabetic characters, which should remain unchanged."
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": 123,
+      "expected_behavior": "Raise a TypeError, as the input is not a string.",
+      "description": "Input is an integer instead of a string."
+    },
+    {
+      "input": [
+        "hello"
+      ],
+      "expected_behavior": "Raise a TypeError, as the input is not a string.",
+      "description": "Input is a list instead of a string."
+    },
+    {
+      "input": null,
+      "expected_behavior": "Raise a TypeError, as the input is not a string.",
+      "description": "Input is None instead of a string."
+    }
+  ]
+}

@@ -1,0 +1,145 @@
+{
+  "task_id": "HumanEval_118",
+  "entry_point": "get_closest_vowel",
+  "preconditions": [
+    "The input `word` must be a string.",
+    "The input `word` must contain only English letters (a-z, A-Z)."
+  ],
+  "postconditions": [
+    "The return value is a string.",
+    "If a vowel `v` is returned, `v` is a single character, `v` is a vowel (case-sensitive), and there exists an index `i` in the original `word` such that `word[i] == v`, `word[i-1]` is a consonant, `word[i+1]` is a consonant, `i > 0`, and `i < len(word) - 1`. Furthermore, `v` is the rightmost such vowel in `word`.",
+    "If no such vowel is found, an empty string `\"\"` is returned."
+  ],
+  "invariants": [
+    "The set of vowels is {a, e, i, o, u, A, E, I, O, U}.",
+    "The set of consonants includes all English letters that are not vowels.",
+    "The input `word` is not modified."
+  ],
+  "normal_cases": [
+    {
+      "input": {
+        "word": "yogurt"
+      },
+      "expected_output": "u",
+      "description": "Typical case with a vowel between two consonants."
+    },
+    {
+      "input": {
+        "word": "FULL"
+      },
+      "expected_output": "U",
+      "description": "Typical case with an uppercase vowel between two consonants."
+    },
+    {
+      "input": {
+        "word": "strength"
+      },
+      "expected_output": "e",
+      "description": "Vowel 'e' is between 'r' and 'n'."
+    },
+    {
+      "input": {
+        "word": "bacon"
+      },
+      "expected_output": "o",
+      "description": "Vowel 'o' is between 'c' and 'n'."
+    },
+    {
+      "input": {
+        "word": "zzzaUzzzzAzzzz"
+      },
+      "expected_output": "A",
+      "description": "Multiple valid vowels, returns the rightmost one."
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": {
+        "word": "quick"
+      },
+      "expected_output": "",
+      "description": "Vowels are present but not between two consonants."
+    },
+    {
+      "input": {
+        "word": "ab"
+      },
+      "expected_output": "",
+      "description": "Vowel at the beginning, not counted."
+    },
+    {
+      "input": {
+        "word": "apple"
+      },
+      "expected_output": "",
+      "description": "Vowel at the end, not counted."
+    },
+    {
+      "input": {
+        "word": "a"
+      },
+      "expected_output": "",
+      "description": "Single character vowel, not counted."
+    },
+    {
+      "input": {
+        "word": "b"
+      },
+      "expected_output": "",
+      "description": "Single character consonant, no vowel."
+    },
+    {
+      "input": {
+        "word": ""
+      },
+      "expected_output": "",
+      "description": "Empty string input."
+    },
+    {
+      "input": {
+        "word": "aeiou"
+      },
+      "expected_output": "",
+      "description": "String composed entirely of vowels."
+    },
+    {
+      "input": {
+        "word": "rhythm"
+      },
+      "expected_output": "",
+      "description": "String with no vowels."
+    },
+    {
+      "input": {
+        "word": "zzzaeizzz"
+      },
+      "expected_output": "",
+      "description": "Vowels present, but none meet the 'between two consonants' criteria."
+    },
+    {
+      "input": {
+        "word": "zzzaUzzzz"
+      },
+      "expected_output": "U",
+      "description": "Vowel 'U' is between two 'z' consonants."
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": {
+        "word": 123
+      },
+      "expected_exception": "TypeError",
+      "description": "Input 'word' is not a string."
+    },
+    {
+      "input": {
+        "word": [
+          "hello"
+        ]
+      },
+      "expected_exception": "TypeError",
+      "description": "Input 'word' is not a string."
+    }
+  ]
+}

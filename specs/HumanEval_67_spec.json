@@ -1,0 +1,139 @@
+{
+  "task_id": "HumanEval_67",
+  "entry_point": "fruit_distribution",
+  "preconditions": [
+    "s must be a string.",
+    "s must conform to the format 'X apples and Y oranges', where X and Y are non-negative integers.",
+    "n must be an integer.",
+    "n must be non-negative.",
+    "The sum of apples (X) and oranges (Y) extracted from 's' must be less than or equal to n."
+  ],
+  "postconditions": [
+    "The function must return an integer.",
+    "The returned integer must represent the number of mango fruits.",
+    "The returned integer must be non-negative.",
+    "The returned integer must be equal to n - (number_of_apples + number_of_oranges)."
+  ],
+  "invariants": [
+    "The number of apples and oranges extracted from 's' will always be non-negative.",
+    "The total number of fruits 'n' will always be non-negative."
+  ],
+  "normal_cases": [
+    {
+      "input": {
+        "s": "5 apples and 6 oranges",
+        "n": 19
+      },
+      "output": 8,
+      "description": "Typical case with positive counts for all fruits."
+    },
+    {
+      "input": {
+        "s": "0 apples and 1 oranges",
+        "n": 3
+      },
+      "output": 2,
+      "description": "Case with zero apples."
+    },
+    {
+      "input": {
+        "s": "2 apples and 3 oranges",
+        "n": 100
+      },
+      "output": 95,
+      "description": "Case with a larger total number of fruits."
+    },
+    {
+      "input": {
+        "s": "100 apples and 1 oranges",
+        "n": 120
+      },
+      "output": 19,
+      "description": "Case with a large number of apples."
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": {
+        "s": "0 apples and 0 oranges",
+        "n": 5
+      },
+      "output": 5,
+      "description": "No apples and no oranges specified."
+    },
+    {
+      "input": {
+        "s": "10 apples and 20 oranges",
+        "n": 30
+      },
+      "output": 0,
+      "description": "Total fruits equals the sum of apples and oranges, resulting in zero mangoes."
+    },
+    {
+      "input": {
+        "s": "1 apples and 0 oranges",
+        "n": 1
+      },
+      "output": 0,
+      "description": "Only one type of fruit specified, and total matches."
+    },
+    {
+      "input": {
+        "s": "999999 apples and 1 oranges",
+        "n": 1000001
+      },
+      "output": 1,
+      "description": "Large numbers for fruit counts."
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": {
+        "s": "5 bananas and 6 oranges",
+        "n": 19
+      },
+      "expected_error": "ValueError",
+      "description": "String 's' does not contain 'apples' keyword."
+    },
+    {
+      "input": {
+        "s": "5 apples and six oranges",
+        "n": 19
+      },
+      "expected_error": "ValueError",
+      "description": "String 's' contains non-integer count for oranges."
+    },
+    {
+      "input": {
+        "s": "apples and 6 oranges",
+        "n": 19
+      },
+      "expected_error": "ValueError",
+      "description": "String 's' is missing count for apples."
+    },
+    {
+      "input": {
+        "s": "5 apples and 6 oranges",
+        "n": "twenty"
+      },
+      "expected_error": "TypeError",
+      "description": "Input 'n' is not an integer."
+    },
+    {
+      "input": {
+        "s": "5 apples and 6 oranges",
+        "n": 10
+      },
+      "expected_error": "ValueError",
+      "description": "Total fruits 'n' is less than the sum of apples and oranges, leading to a negative mango count."
+    },
+    {
+      "input": {
+        "s": "5 apples and 6 oranges",
+        "n": -5
+      },
+      "expected_error": "ValueError",
+      "description": "Total fruits 'n' is negative."
+    }
+  ]
+}

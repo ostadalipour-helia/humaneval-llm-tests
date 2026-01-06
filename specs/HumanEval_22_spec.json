@@ -1,0 +1,80 @@
+{
+  "task_id": "HumanEval_22",
+  "entry_point": "filter_integers",
+  "preconditions": [
+    "The input 'values' must be a Python list.",
+    "The elements within the 'values' list can be of any Python type."
+  ],
+  "postconditions": [
+    "The function must return a new list.",
+    "The returned list must contain only elements that are integers.",
+    "All elements in the returned list must have been present in the input 'values' list.",
+    "The relative order of the integer elements from the input list must be preserved in the returned list.",
+    "The returned list must not contain any non-integer elements from the input list."
+  ],
+  "invariants": [
+    "The type of every element in the output list is 'int'.",
+    "The length of the output list is less than or equal to the length of the input list."
+  ],
+  "normal_cases": [
+    {
+      "input": "['a', 3.14, 5]",
+      "output": "[5]",
+      "description": "Mixed list with strings, floats, and integers."
+    },
+    {
+      "input": "[1, 2, 3, 'abc', {}, []]",
+      "output": "[1, 2, 3]",
+      "description": "Mixed list with integers, strings, dictionaries, and lists."
+    },
+    {
+      "input": "[10, 'hello', 20, 30.5, 40]",
+      "output": "[10, 20, 40]",
+      "description": "Mixed list with integers, strings, and floats."
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": "[]",
+      "output": "[]",
+      "description": "An empty input list."
+    },
+    {
+      "input": "['a', 3.14, 'b', None]",
+      "output": "[]",
+      "description": "A list containing no integers."
+    },
+    {
+      "input": "[1, 2, 3, 4]",
+      "output": "[1, 2, 3, 4]",
+      "description": "A list containing only integers."
+    },
+    {
+      "input": "[True, False, 10]",
+      "output": "[True, False, 10]",
+      "description": "A list containing booleans (which are subclasses of int) and an integer."
+    },
+    {
+      "input": "[0, -5, 100]",
+      "output": "[0, -5, 100]",
+      "description": "A list containing zero and negative integers."
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": "None",
+      "exception": "TypeError",
+      "description": "Input 'values' is not a list (e.g., None)."
+    },
+    {
+      "input": "\"not a list\"",
+      "exception": "TypeError",
+      "description": "Input 'values' is not a list (e.g., a string)."
+    },
+    {
+      "input": "123",
+      "exception": "TypeError",
+      "description": "Input 'values' is not a list (e.g., an integer)."
+    }
+  ]
+}

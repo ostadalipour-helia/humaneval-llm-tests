@@ -1,0 +1,71 @@
+{
+  "task_id": "HumanEval_147",
+  "entry_point": "get_max_triples",
+  "preconditions": [
+    "The input `n` must be an integer.",
+    "The input `n` must be positive (`n >= 1`)."
+  ],
+  "postconditions": [
+    "The function must return a single integer, `count`.",
+    "The returned `count` must be non-negative (`count >= 0`).",
+    "The `count` represents the number of unique triples `(a[i], a[j], a[k])` such that `1 <= i < j < k <= n`.",
+    "For each such triple, the sum `a[i] + a[j] + a[k]` must be a multiple of 3.",
+    "The array `a` is constructed such that for each `x` (1-indexed, `1 <= x <= n`), `a[x] = x*x - x + 1`.",
+    "Based on the property `a[x] % 3`: `a[x] % 3 == 0` if `x % 3 == 2`, and `a[x] % 3 == 1` if `x % 3 == 0` or `x % 3 == 1`.",
+    "Therefore, a triple `(a[i], a[j], a[k])` satisfies the condition if and only if either all three indices `i, j, k` are congruent to 2 modulo 3, OR all three indices `i, j, k` are NOT congruent to 2 modulo 3."
+  ],
+  "invariants": [
+    "For any `x` in the range `1 <= x <= n`, the value `a[x]` is always `x*x - x + 1`.",
+    "The indices `i, j, k` for any valid triple must always satisfy the strict inequality `1 <= i < j < k <= n`.",
+    "The remainder `a[x] % 3` is `0` if `x % 3 == 2`, and `1` otherwise (i.e., if `x % 3 == 0` or `x % 3 == 1`)."
+  ],
+  "normal_cases": [
+    {
+      "input": {
+        "n": 5
+      },
+      "output": 1,
+      "explanation": "a = [1, 3, 7, 13, 21]. a_mod_3 = [1, 0, 1, 1, 0] for indices 1 to 5. Indices `x` where `a[x]%3==0`: {2, 5}. Indices `x` where `a[x]%3==1`: {1, 3, 4}. The only valid triple (1, 7, 13) corresponds to indices (1, 3, 4), where all `a[x]%3==1`. Sum = 21, which is a multiple of 3."
+    },
+    {
+      "input": {
+        "n": 8
+      },
+      "output": 11,
+      "explanation": "a_mod_3 for i=1..8: [1, 0, 1, 1, 0, 1, 1, 0]. Indices `x` where `a[x]%3==0`: {2, 5, 8}. Indices `x` where `a[x]%3==1`: {1, 3, 4, 6, 7}. Triples with all `a[x]%3==0`: (2, 5, 8) (1 triple). Triples with all `a[x]%3==1`: C(5,3) = 10 triples. Total = 1 + 10 = 11."
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": {
+        "n": 1
+      },
+      "output": 0,
+      "explanation": "n is too small to form any triple (requires at least 3 elements)."
+    },
+    {
+      "input": {
+        "n": 2
+      },
+      "output": 0,
+      "explanation": "n is too small to form any triple (requires at least 3 elements)."
+    },
+    {
+      "input": {
+        "n": 3
+      },
+      "output": 0,
+      "explanation": "a = [1, 3, 7]. a_mod_3 = [1, 0, 1]. No three indices exist where all `a[x]%3` are 0 or all are 1."
+    },
+    {
+      "input": {
+        "n": 4
+      },
+      "output": 1,
+      "explanation": "a = [1, 3, 7, 13]. a_mod_3 = [1, 0, 1, 1]. Indices `x` where `a[x]%3==0`: {2}. Indices `x` where `a[x]%3==1`: {1, 3, 4}. Only one triple (1, 3, 4) where all `a[x]%3==1`. Sum = 21."
+    }
+  ],
+  "error_conditions": [
+    "If `n` is not an integer (e.g., `n = 5.5`, `n = 'abc'`), the behavior is undefined, as the problem statement specifies `n` as a 'positive integer'."
+  ]
+}

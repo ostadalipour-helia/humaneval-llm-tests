@@ -1,0 +1,111 @@
+{
+  "task_id": "HumanEval_78",
+  "entry_point": "hex_key",
+  "preconditions": [
+    "The input `num` must be a string.",
+    "The string `num` represents a hexadecimal number.",
+    "Each character in `num` must be a valid hexadecimal digit (0-9, A-F).",
+    "Hexadecimal digits A, B, C, D, E, F are always uppercase.",
+    "The input is guaranteed to be a correct hexadecimal string or an empty string."
+  ],
+  "postconditions": [
+    "The function must return an integer.",
+    "The returned integer must be non-negative.",
+    "The returned integer represents the total count of prime hexadecimal digits found within the input string `num`.",
+    "The prime hexadecimal digits are defined as: '2', '3', '5', '7', 'B' (decimal 11), 'D' (decimal 13)."
+  ],
+  "invariants": [
+    "The set of prime hexadecimal digits (2, 3, 5, 7, B, D) remains constant throughout the execution.",
+    "Each character in the input string `num` is evaluated exactly once for primality."
+  ],
+  "normal_cases": [
+    {
+      "input": {
+        "num": "AB"
+      },
+      "output": 1,
+      "description": "Contains one prime hex digit 'B'."
+    },
+    {
+      "input": {
+        "num": "1077E"
+      },
+      "output": 2,
+      "description": "Contains two prime hex digits '7' and '7'."
+    },
+    {
+      "input": {
+        "num": "ABED1A33"
+      },
+      "output": 4,
+      "description": "Contains four prime hex digits 'B', 'D', '3', '3'."
+    },
+    {
+      "input": {
+        "num": "123456789ABCDEF0"
+      },
+      "output": 6,
+      "description": "Contains six prime hex digits '2', '3', '5', '7', 'B', 'D'."
+    },
+    {
+      "input": {
+        "num": "2020"
+      },
+      "output": 2,
+      "description": "Contains two prime hex digits '2', '2'."
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": {
+        "num": ""
+      },
+      "output": 0,
+      "description": "Empty input string should result in zero prime digits."
+    },
+    {
+      "input": {
+        "num": "01468ACEF"
+      },
+      "output": 0,
+      "description": "String containing no prime hexadecimal digits."
+    },
+    {
+      "input": {
+        "num": "2357BD"
+      },
+      "output": 6,
+      "description": "String containing only prime hexadecimal digits."
+    },
+    {
+      "input": {
+        "num": "2"
+      },
+      "output": 1,
+      "description": "Single prime hexadecimal digit."
+    },
+    {
+      "input": {
+        "num": "0"
+      },
+      "output": 0,
+      "description": "Single non-prime hexadecimal digit."
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": {
+        "num": 123
+      },
+      "expected_error": "TypeError",
+      "description": "Input `num` is not a string."
+    },
+    {
+      "input": {
+        "num": null
+      },
+      "expected_error": "TypeError",
+      "description": "Input `num` is null."
+    }
+  ]
+}

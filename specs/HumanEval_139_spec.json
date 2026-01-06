@@ -1,0 +1,63 @@
+{
+  "task_id": "HumanEval_139",
+  "entry_point": "special_factorial",
+  "preconditions": [
+    "n must be an integer.",
+    "n must be greater than 0 (n > 0)."
+  ],
+  "postconditions": [
+    "The function must return an integer.",
+    "The returned value must be the 'Brazilian factorial' of n, defined as the product of factorials from n! down to 1! (n! * (n-1)! * ... * 1!).",
+    "The returned value must be positive."
+  ],
+  "invariants": [
+    "All intermediate factorial calculations (k!) for k from 1 to n will be positive integers.",
+    "The product accumulated during the calculation will always be a positive integer."
+  ],
+  "normal_cases": [
+    {
+      "input": "n = 4",
+      "output": "288",
+      "reason": "4! * 3! * 2! * 1! = 24 * 6 * 2 * 1 = 288 (from docstring example)"
+    },
+    {
+      "input": "n = 3",
+      "output": "12",
+      "reason": "3! * 2! * 1! = 6 * 2 * 1 = 12"
+    },
+    {
+      "input": "n = 5",
+      "output": "69120",
+      "reason": "5! * 4! * 3! * 2! * 1! = 120 * 24 * 6 * 2 * 1 = 69120"
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": "n = 1",
+      "output": "1",
+      "reason": "The smallest valid input. special_factorial(1) = 1! = 1"
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": "n = 0",
+      "exception": "ValueError or AssertionError",
+      "reason": "n must be greater than 0 as per the definition."
+    },
+    {
+      "input": "n = -5",
+      "exception": "ValueError or AssertionError",
+      "reason": "n must be greater than 0."
+    },
+    {
+      "input": "n = 3.5",
+      "exception": "TypeError",
+      "reason": "n must be an integer."
+    },
+    {
+      "input": "n = 'abc'",
+      "exception": "TypeError",
+      "reason": "n must be an integer."
+    }
+  ]
+}

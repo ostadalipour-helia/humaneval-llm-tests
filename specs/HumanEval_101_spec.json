@@ -1,0 +1,133 @@
+{
+  "task_id": "HumanEval_101",
+  "entry_point": "words_string",
+  "preconditions": [
+    "The input `s` must be a string."
+  ],
+  "postconditions": [
+    "The function returns a list of strings.",
+    "Each element in the returned list is a 'word' from the input string `s`.",
+    "Words are defined as sequences of characters that are not commas (',') or spaces (' ').",
+    "The order of words in the output list must preserve their original order in the input string.",
+    "The returned list must not contain any empty strings.",
+    "Multiple consecutive separators (commas or spaces) are treated as a single separator.",
+    "Leading or trailing separators in the input string do not result in empty strings in the output list."
+  ],
+  "invariants": [
+    "All characters in the input string `s` that are not commas or spaces must appear in exactly one word in the output list.",
+    "Each word in the output list is a non-empty substring of the input string `s`."
+  ],
+  "normal_cases": [
+    {
+      "input": "Hi, my name is John",
+      "output": [
+        "Hi",
+        "my",
+        "name",
+        "is",
+        "John"
+      ]
+    },
+    {
+      "input": "One, two, three, four, five, six",
+      "output": [
+        "One",
+        "two",
+        "three",
+        "four",
+        "five",
+        "six"
+      ]
+    },
+    {
+      "input": "hello world",
+      "output": [
+        "hello",
+        "world"
+      ]
+    },
+    {
+      "input": "apple,banana,cherry",
+      "output": [
+        "apple",
+        "banana",
+        "cherry"
+      ]
+    },
+    {
+      "input": "first second,third",
+      "output": [
+        "first",
+        "second",
+        "third"
+      ]
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": "",
+      "output": []
+    },
+    {
+      "input": "   ",
+      "output": []
+    },
+    {
+      "input": ",,,",
+      "output": []
+    },
+    {
+      "input": " , , ",
+      "output": []
+    },
+    {
+      "input": "singleword",
+      "output": [
+        "singleword"
+      ]
+    },
+    {
+      "input": "  singleword  ",
+      "output": [
+        "singleword"
+      ]
+    },
+    {
+      "input": "word1,,word2   word3",
+      "output": [
+        "word1",
+        "word2",
+        "word3"
+      ]
+    },
+    {
+      "input": "  word1,  word2 ,word3  ",
+      "output": [
+        "word1",
+        "word2",
+        "word3"
+      ]
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": 123,
+      "exception": "TypeError",
+      "description": "Input is not a string."
+    },
+    {
+      "input": null,
+      "exception": "TypeError",
+      "description": "Input is not a string."
+    },
+    {
+      "input": [
+        "list",
+        "of",
+        "strings"
+      ],
+      "exception": "TypeError",
+      "description": "Input is not a string."
+    }
+  ]
+}

@@ -1,0 +1,61 @@
+{
+  "task_id": "HumanEval_15",
+  "entry_point": "string_sequence",
+  "preconditions": [
+    "n must be an integer.",
+    "n must be a non-negative integer (n >= 0)."
+  ],
+  "postconditions": [
+    "The function returns a string.",
+    "The returned string contains space-delimited numbers.",
+    "The numbers in the string start from 0 and go up to n, inclusive.",
+    "Each number in the sequence is represented as its string form.",
+    "Numbers are separated by a single space character.",
+    "If n is 0, the string contains only '0'."
+  ],
+  "invariants": [
+    "The numbers in the sequence are always in ascending order.",
+    "All characters in the output string are digits or spaces."
+  ],
+  "normal_cases": [
+    {
+      "input": "n = 5",
+      "output": "'0 1 2 3 4 5'",
+      "description": "A typical sequence of numbers."
+    },
+    {
+      "input": "n = 3",
+      "output": "'0 1 2 3'",
+      "description": "Another typical sequence."
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": "n = 0",
+      "output": "'0'",
+      "description": "The smallest valid input, sequence contains only 0."
+    },
+    {
+      "input": "n = 1",
+      "output": "'0 1'",
+      "description": "A minimal sequence with a single space delimiter."
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": "n = -1",
+      "exception": "ValueError or similar",
+      "description": "Input n is negative, which is outside the specified range [0, n]."
+    },
+    {
+      "input": "n = 2.5",
+      "exception": "TypeError or similar",
+      "description": "Input n is not an integer."
+    },
+    {
+      "input": "n = 'abc'",
+      "exception": "TypeError or similar",
+      "description": "Input n is not an integer."
+    }
+  ]
+}

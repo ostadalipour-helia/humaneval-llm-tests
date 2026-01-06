@@ -1,0 +1,149 @@
+{
+  "task_id": "HumanEval_155",
+  "entry_point": "even_odd_count",
+  "preconditions": [
+    "The input `num` must be an integer."
+  ],
+  "postconditions": [
+    "The function returns a tuple `(even_count, odd_count)`.",
+    "`even_count` is an integer representing the total number of even digits in the absolute value of `num`.",
+    "`odd_count` is an integer representing the total number of odd digits in the absolute value of `num`.",
+    "Both `even_count` and `odd_count` must be non-negative.",
+    "The sum `even_count + odd_count` must equal the total number of digits in the absolute value of `num` (e.g., `abs(num)` converted to string length). For `num = 0`, the count of digits is 1."
+  ],
+  "invariants": [
+    "During the processing of digits, each digit from the absolute value of `num` is classified as either even or odd.",
+    "The running sum of `even_count` and `odd_count` always equals the number of digits processed so far."
+  ],
+  "normal_cases": [
+    {
+      "input": {
+        "num": 123
+      },
+      "expected_output": [
+        1,
+        2
+      ],
+      "description": "Mixed even and odd digits in a positive number."
+    },
+    {
+      "input": {
+        "num": 45678
+      },
+      "expected_output": [
+        3,
+        2
+      ],
+      "description": "Another positive number with mixed digits."
+    },
+    {
+      "input": {
+        "num": 100
+      },
+      "expected_output": [
+        2,
+        1
+      ],
+      "description": "Number containing zero digits."
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": {
+        "num": -12
+      },
+      "expected_output": [
+        1,
+        1
+      ],
+      "description": "Negative number with mixed digits."
+    },
+    {
+      "input": {
+        "num": 0
+      },
+      "expected_output": [
+        1,
+        0
+      ],
+      "description": "Input is zero (0 is an even digit)."
+    },
+    {
+      "input": {
+        "num": 5
+      },
+      "expected_output": [
+        0,
+        1
+      ],
+      "description": "Single odd digit number."
+    },
+    {
+      "input": {
+        "num": 8
+      },
+      "expected_output": [
+        1,
+        0
+      ],
+      "description": "Single even digit number."
+    },
+    {
+      "input": {
+        "num": 246
+      },
+      "expected_output": [
+        3,
+        0
+      ],
+      "description": "All even digits."
+    },
+    {
+      "input": {
+        "num": 135
+      },
+      "expected_output": [
+        0,
+        3
+      ],
+      "description": "All odd digits."
+    },
+    {
+      "input": {
+        "num": -987654321
+      },
+      "expected_output": [
+        4,
+        5
+      ],
+      "description": "Large negative number with mixed digits."
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": {
+        "num": "123"
+      },
+      "expected_behavior": "Raise a TypeError or similar, as input is not an integer.",
+      "description": "Input is a string instead of an integer."
+    },
+    {
+      "input": {
+        "num": 12.5
+      },
+      "expected_behavior": "Raise a TypeError or similar, as input is not an integer.",
+      "description": "Input is a float instead of an integer."
+    },
+    {
+      "input": {
+        "num": [
+          1,
+          2,
+          3
+        ]
+      },
+      "expected_behavior": "Raise a TypeError or similar, as input is not an integer.",
+      "description": "Input is a list instead of an integer."
+    }
+  ]
+}

@@ -1,0 +1,125 @@
+{
+  "task_id": "HumanEval_121",
+  "entry_point": "solution",
+  "preconditions": [
+    "The input `lst` must be a Python list.",
+    "The input `lst` must be non-empty.",
+    "All elements in `lst` must be integers."
+  ],
+  "postconditions": [
+    "The function must return an integer.",
+    "The returned integer must be the sum of all elements `lst[i]` such that `i` is an even index (0, 2, 4, ...) AND `lst[i]` is an odd number."
+  ],
+  "invariants": [
+    "The input list `lst` must not be modified by the function."
+  ],
+  "normal_cases": [
+    {
+      "input": [
+        5,
+        8,
+        7,
+        1
+      ],
+      "output": 12,
+      "description": "Mixed odd/even numbers, some in even positions are odd."
+    },
+    {
+      "input": [
+        3,
+        3,
+        3,
+        3,
+        3
+      ],
+      "output": 9,
+      "description": "All elements are odd, sum of those in even positions."
+    },
+    {
+      "input": [
+        30,
+        13,
+        24,
+        321
+      ],
+      "output": 0,
+      "description": "No odd elements found in even positions."
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": [
+        7
+      ],
+      "output": 7,
+      "description": "Single element list, element is odd and in an even position."
+    },
+    {
+      "input": [
+        8
+      ],
+      "output": 0,
+      "description": "Single element list, element is even and in an even position."
+    },
+    {
+      "input": [
+        2,
+        4,
+        6,
+        8
+      ],
+      "output": 0,
+      "description": "All elements are even, resulting in a sum of zero."
+    },
+    {
+      "input": [
+        -1,
+        2,
+        -3,
+        4,
+        -5
+      ],
+      "output": -9,
+      "description": "List with negative odd numbers in even positions."
+    },
+    {
+      "input": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "output": 0,
+      "description": "List including zero (which is even), and odd numbers in odd positions."
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": [],
+      "exception": "ValueError",
+      "description": "Input list is empty, violating 'non-empty' precondition."
+    },
+    {
+      "input": [
+        1,
+        2,
+        "a",
+        4
+      ],
+      "exception": "TypeError",
+      "description": "Input list contains non-integer elements, violating 'all elements are integers' precondition."
+    },
+    {
+      "input": null,
+      "exception": "TypeError",
+      "description": "Input is not a list."
+    },
+    {
+      "input": "(1, 2, 3)",
+      "exception": "TypeError",
+      "description": "Input is a tuple instead of a list."
+    }
+  ]
+}

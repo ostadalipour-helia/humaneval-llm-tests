@@ -1,0 +1,84 @@
+{
+  "task_id": "HumanEval_157",
+  "entry_point": "right_angle_triangle",
+  "preconditions": [
+    "a, b, c are numbers (integers or floats).",
+    "a, b, c are positive (a > 0, b > 0, c > 0).",
+    "The three sides a, b, c must satisfy the triangle inequality: a + b > c, a + c > b, and b + c > a. (This ensures they can form a valid triangle)."
+  ],
+  "postconditions": [
+    "The function returns a boolean value (True or False).",
+    "If the return value is True, then the square of one side is equal to the sum of the squares of the other two sides (Pythagorean theorem holds, allowing for floating point precision).",
+    "If the return value is False, then the Pythagorean theorem does not hold for any permutation of the sides (allowing for floating point precision)."
+  ],
+  "invariants": [
+    "The order of a, b, c does not affect the result (commutative property for side lengths).",
+    "The function's behavior is consistent for equivalent inputs."
+  ],
+  "normal_cases": [
+    {
+      "input": "right_angle_triangle(3, 4, 5)",
+      "expected_output": "True",
+      "description": "Classic Pythagorean triple."
+    },
+    {
+      "input": "right_angle_triangle(5, 12, 13)",
+      "expected_output": "True",
+      "description": "Another Pythagorean triple."
+    },
+    {
+      "input": "right_angle_triangle(1, 2, 3)",
+      "expected_output": "False",
+      "description": "Sides do not form a right triangle (and are degenerate)."
+    },
+    {
+      "input": "right_angle_triangle(2, 3, 4)",
+      "expected_output": "False",
+      "description": "Sides form a triangle but not a right-angled one."
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": "right_angle_triangle(0.6, 0.8, 1.0)",
+      "expected_output": "True",
+      "description": "Floating point side lengths forming a right triangle."
+    },
+    {
+      "input": "right_angle_triangle(7, 24, 25)",
+      "expected_output": "True",
+      "description": "Larger integer Pythagorean triple."
+    },
+    {
+      "input": "right_angle_triangle(3.000000000000001, 4, 5)",
+      "expected_output": "False",
+      "description": "Sides very close to a right triangle but slightly off (due to precision, might need tolerance)."
+    },
+    {
+      "input": "right_angle_triangle(4, 3, 5)",
+      "expected_output": "True",
+      "description": "Permutation of a known right triangle."
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": "right_angle_triangle('a', 4, 5)",
+      "expected_behavior": "TypeError",
+      "description": "Non-numeric input for a side length."
+    },
+    {
+      "input": "right_angle_triangle(3, -4, 5)",
+      "expected_behavior": "Undefined behavior or ValueError (violates precondition: side lengths must be positive).",
+      "description": "Negative side length."
+    },
+    {
+      "input": "right_angle_triangle(0, 4, 5)",
+      "expected_behavior": "Undefined behavior or ValueError (violates precondition: side lengths must be positive).",
+      "description": "Zero side length."
+    },
+    {
+      "input": "right_angle_triangle(1, 1, 10)",
+      "expected_behavior": "Undefined behavior or ValueError (violates precondition: triangle inequality).",
+      "description": "Sides that cannot form a triangle (e.g., 1+1 < 10)."
+    }
+  ]
+}

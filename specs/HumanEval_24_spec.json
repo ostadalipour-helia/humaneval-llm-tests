@@ -1,0 +1,84 @@
+{
+  "task_id": "HumanEval_24",
+  "entry_point": "largest_divisor",
+  "preconditions": [
+    "n must be an integer.",
+    "n must be greater than 1 (n > 1). This ensures there is at least one divisor smaller than n (which is 1)."
+  ],
+  "postconditions": [
+    "The function must return an integer, let's call it 'd'.",
+    "The returned value 'd' must be a positive divisor of 'n' (n % d == 0 and d > 0).",
+    "The returned value 'd' must be strictly smaller than 'n' (d < n).",
+    "The returned value 'd' must be the largest such integer. That is, for any integer 'd_prime' such that n % d_prime == 0 and d_prime < n, it must be true that d_prime <= d."
+  ],
+  "invariants": [
+    "The input 'n' remains unchanged during the execution.",
+    "The returned value 'd' will always be a positive integer."
+  ],
+  "normal_cases": [
+    {
+      "input": "n = 15",
+      "output": "5",
+      "description": "A composite number, finding its largest proper divisor."
+    },
+    {
+      "input": "n = 10",
+      "output": "5",
+      "description": "Another composite number."
+    },
+    {
+      "input": "n = 12",
+      "output": "6",
+      "description": "A composite number with multiple divisors."
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": "n = 2",
+      "output": "1",
+      "description": "The smallest valid input number (prime)."
+    },
+    {
+      "input": "n = 7",
+      "output": "1",
+      "description": "A prime number, its only divisor smaller than itself is 1."
+    },
+    {
+      "input": "n = 4",
+      "output": "2",
+      "description": "A perfect square, its largest proper divisor is its square root if it's even, or the largest factor before the square root."
+    },
+    {
+      "input": "n = 8",
+      "output": "4",
+      "description": "A power of 2."
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": "n = 1",
+      "behavior": "Should raise an error (e.g., ValueError) or handle as an undefined case, as there are no divisors strictly smaller than 1.",
+      "description": "Input 'n' is 1, violating the 'n > 1' precondition."
+    },
+    {
+      "input": "n = 0",
+      "behavior": "Should raise an error (e.g., ValueError or ZeroDivisionError if division by zero is attempted), as division by zero is undefined and there are no positive divisors smaller than 0.",
+      "description": "Input 'n' is 0, violating the 'n > 1' precondition."
+    },
+    {
+      "input": "n = -5",
+      "behavior": "Should raise an error (e.g., ValueError), as the problem context implies positive integers and 'largest divisor smaller than n' becomes ambiguous for negative numbers.",
+      "description": "Input 'n' is a negative integer, violating the implicit positive integer assumption."
+    },
+    {
+      "input": "n = 15.5",
+      "behavior": "Should raise a TypeError, as 'n' is not an integer.",
+      "description": "Input 'n' is a float."
+    },
+    {
+      "input": "n = 'abc'",
+      "behavior": "Should raise a TypeError, as 'n' is not an integer.",
+      "description": "Input 'n' is a string."
+    }
+  ]
+}

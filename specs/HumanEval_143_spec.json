@@ -1,0 +1,198 @@
+{
+  "task_id": "HumanEval_143",
+  "entry_point": "words_in_sentence",
+  "preconditions": [
+    "The input `sentence` must be a string.",
+    "The length of `sentence` must be between 1 and 100, inclusive (1 <= len(sentence) <= 100).",
+    "The `sentence` consists of words separated by single spaces.",
+    "Each word in the `sentence` must consist only of alphabetic characters (letters).",
+    "The `sentence` must not have leading or trailing spaces.",
+    "There must not be multiple spaces between words."
+  ],
+  "postconditions": [
+    "The function must return a string.",
+    "The returned string contains only words from the original `sentence`.",
+    "Each word in the returned string must have a length that is a prime number.",
+    "The relative order of words in the returned string must be the same as their order in the original `sentence`.",
+    "If multiple words are returned, they must be separated by a single space.",
+    "If no words in the original `sentence` have prime lengths, the function must return an empty string."
+  ],
+  "invariants": [
+    "The set of words in the output string is a subset of the words in the input string.",
+    "The relative order of words from the input that appear in the output is preserved."
+  ],
+  "normal_cases": [
+    {
+      "input": {
+        "sentence": "This is a test"
+      },
+      "output": "is",
+      "description": "Sentence with words of varying lengths, one prime length word."
+    },
+    {
+      "input": {
+        "sentence": "lets go for swimming"
+      },
+      "output": "go for",
+      "description": "Sentence with multiple prime length words."
+    },
+    {
+      "input": {
+        "sentence": "hello world python programming"
+      },
+      "output": "hello world python",
+      "description": "Multiple prime length words, including 5 and 6 (not prime) and 8 (not prime) and 11 (prime)."
+    },
+    {
+      "input": {
+        "sentence": "a bb ccc dddd eeeee"
+      },
+      "output": "bb ccc eeeee",
+      "description": "Words with lengths 1 (not prime), 2 (prime), 3 (prime), 4 (not prime), 5 (prime)."
+    },
+    {
+      "input": {
+        "sentence": "apple banana cherry"
+      },
+      "output": "cherry",
+      "description": "Words with lengths 5 (prime), 6 (not prime), 6 (not prime)."
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": {
+        "sentence": "two"
+      },
+      "output": "two",
+      "description": "Single word sentence, word length is prime (3)."
+    },
+    {
+      "input": {
+        "sentence": "four"
+      },
+      "output": "",
+      "description": "Single word sentence, word length is not prime (4)."
+    },
+    {
+      "input": {
+        "sentence": "a"
+      },
+      "output": "",
+      "description": "Single word sentence, word length is 1 (not prime)."
+    },
+    {
+      "input": {
+        "sentence": "is"
+      },
+      "output": "is",
+      "description": "Single word sentence, word length is 2 (prime)."
+    },
+    {
+      "input": {
+        "sentence": "longwordwithnonprimelength"
+      },
+      "output": "",
+      "description": "Sentence with one very long word, length 26 (not prime)."
+    },
+    {
+      "input": {
+        "sentence": "a b c d e f g h i j k l m n o p q r s t u v w x y z"
+      },
+      "output": "",
+      "description": "All words have length 1 (not prime), resulting in an empty string."
+    },
+    {
+      "input": {
+        "sentence": "aa bbb ccccc ddddddd"
+      },
+      "output": "aa bbb ccccc ddddddd",
+      "description": "All words have prime lengths (2, 3, 5, 7)."
+    },
+    {
+      "input": {
+        "sentence": "a"
+      },
+      "output": "",
+      "description": "Shortest possible valid sentence (length 1), word length 1 is not prime."
+    },
+    {
+      "input": {
+        "sentence": "a"
+      },
+      "output": "",
+      "description": "Sentence with a single character word, length 1 is not prime."
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": {
+        "sentence": ""
+      },
+      "expected_error": "ValueError or AssertionError",
+      "description": "Empty string input (violates 1 <= len(sentence))."
+    },
+    {
+      "input": {
+        "sentence": "This sentence is way too long for the specified constraint of 100 characters. It exceeds the maximum allowed length significantly."
+      },
+      "expected_error": "ValueError or AssertionError",
+      "description": "Sentence length exceeds 100 characters."
+    },
+    {
+      "input": {
+        "sentence": "hello 123 world"
+      },
+      "expected_error": "ValueError or AssertionError",
+      "description": "Sentence contains non-alphabetic characters (numbers)."
+    },
+    {
+      "input": {
+        "sentence": "hello, world!"
+      },
+      "expected_error": "ValueError or AssertionError",
+      "description": "Sentence contains punctuation."
+    },
+    {
+      "input": {
+        "sentence": "  leading space"
+      },
+      "expected_error": "ValueError or AssertionError",
+      "description": "Sentence has leading spaces."
+    },
+    {
+      "input": {
+        "sentence": "trailing space  "
+      },
+      "expected_error": "ValueError or AssertionError",
+      "description": "Sentence has trailing spaces."
+    },
+    {
+      "input": {
+        "sentence": "multiple   spaces"
+      },
+      "expected_error": "ValueError or AssertionError",
+      "description": "Sentence has multiple spaces between words."
+    },
+    {
+      "input": {
+        "sentence": " "
+      },
+      "expected_error": "ValueError or AssertionError",
+      "description": "Sentence contains only spaces (violates 'words separated by a space' and 'contains only letters' for words)."
+    },
+    {
+      "input": {
+        "sentence": 123
+      },
+      "expected_error": "TypeError",
+      "description": "Input is not a string."
+    },
+    {
+      "input": {
+        "sentence": null
+      },
+      "expected_error": "TypeError",
+      "description": "Input is null."
+    }
+  ]
+}

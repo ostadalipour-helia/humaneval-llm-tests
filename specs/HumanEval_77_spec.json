@@ -1,0 +1,98 @@
+{
+  "task_id": "HumanEval_77",
+  "entry_point": "iscube",
+  "preconditions": [
+    "The input 'a' must be an integer."
+  ],
+  "postconditions": [
+    "The function returns a boolean value (True or False).",
+    "If the return value is True, then there exists an integer 'x' such that x * x * x = a.",
+    "If the return value is False, then there is no integer 'x' such that x * x * x = a."
+  ],
+  "invariants": [
+    "The input integer 'a' remains unchanged during the function execution.",
+    "The function does not produce any side effects."
+  ],
+  "normal_cases": [
+    {
+      "input": {
+        "a": 64
+      },
+      "expected_output": true,
+      "description": "Positive integer that is a perfect cube (4*4*4)."
+    },
+    {
+      "input": {
+        "a": -1
+      },
+      "expected_output": true,
+      "description": "Negative integer that is a perfect cube (-1*-1*-1)."
+    },
+    {
+      "input": {
+        "a": 2
+      },
+      "expected_output": false,
+      "description": "Positive integer that is not a perfect cube."
+    },
+    {
+      "input": {
+        "a": 180
+      },
+      "expected_output": false,
+      "description": "Larger positive integer that is not a perfect cube."
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": {
+        "a": 0
+      },
+      "expected_output": true,
+      "description": "Zero is a perfect cube (0*0*0)."
+    },
+    {
+      "input": {
+        "a": 1
+      },
+      "expected_output": true,
+      "description": "One is a perfect cube (1*1*1)."
+    },
+    {
+      "input": {
+        "a": -8
+      },
+      "expected_output": true,
+      "description": "Another negative perfect cube (-2*-2*-2)."
+    },
+    {
+      "input": {
+        "a": 7
+      },
+      "expected_output": false,
+      "description": "Positive integer just below a perfect cube (8)."
+    },
+    {
+      "input": {
+        "a": 9
+      },
+      "expected_output": false,
+      "description": "Positive integer just above a perfect cube (8)."
+    },
+    {
+      "input": {
+        "a": -7
+      },
+      "expected_output": false,
+      "description": "Negative integer just above a negative perfect cube (-8)."
+    },
+    {
+      "input": {
+        "a": -9
+      },
+      "expected_output": false,
+      "description": "Negative integer just below a negative perfect cube (-8)."
+    }
+  ],
+  "error_conditions": []
+}

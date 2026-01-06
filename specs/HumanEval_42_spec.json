@@ -1,0 +1,142 @@
+{
+  "task_id": "HumanEval_42",
+  "entry_point": "incr_list",
+  "preconditions": [
+    "The input 'l' must be a list.",
+    "All elements in the input list 'l' must be numeric (integers or floats)."
+  ],
+  "postconditions": [
+    "The function must return a list.",
+    "The length of the returned list must be equal to the length of the input list 'l'.",
+    "Each element in the returned list must be the corresponding element from the input list 'l' incremented by 1."
+  ],
+  "invariants": [],
+  "normal_cases": [
+    {
+      "input": {
+        "l": [
+          1,
+          2,
+          3
+        ]
+      },
+      "expected_output": [
+        2,
+        3,
+        4
+      ]
+    },
+    {
+      "input": {
+        "l": [
+          5,
+          3,
+          5,
+          2,
+          3,
+          3,
+          9,
+          0,
+          123
+        ]
+      },
+      "expected_output": [
+        6,
+        4,
+        6,
+        3,
+        4,
+        4,
+        10,
+        1,
+        124
+      ]
+    },
+    {
+      "input": {
+        "l": [
+          0,
+          -1,
+          100
+        ]
+      },
+      "expected_output": [
+        1,
+        0,
+        101
+      ]
+    },
+    {
+      "input": {
+        "l": [
+          1.5,
+          2.0,
+          3.7
+        ]
+      },
+      "expected_output": [
+        2.5,
+        3.0,
+        4.7
+      ]
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": {
+        "l": []
+      },
+      "expected_output": []
+    },
+    {
+      "input": {
+        "l": [
+          7
+        ]
+      },
+      "expected_output": [
+        8
+      ]
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": {
+        "l": "not_a_list"
+      },
+      "expected_exception": "TypeError"
+    },
+    {
+      "input": {
+        "l": 123
+      },
+      "expected_exception": "TypeError"
+    },
+    {
+      "input": {
+        "l": null
+      },
+      "expected_exception": "TypeError"
+    },
+    {
+      "input": {
+        "l": [
+          1,
+          "a",
+          3
+        ]
+      },
+      "expected_exception": "TypeError"
+    },
+    {
+      "input": {
+        "l": [
+          1,
+          null,
+          3
+        ]
+      },
+      "expected_exception": "TypeError"
+    }
+  ]
+}

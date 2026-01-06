@@ -1,0 +1,88 @@
+{
+  "task_id": "HumanEval_138",
+  "entry_point": "is_equal_to_sum_even",
+  "preconditions": [
+    "The input `n` must be an integer."
+  ],
+  "postconditions": [
+    "The function returns a boolean value (`True` or `False`).",
+    "The function returns `True` if `n` can be expressed as the sum of exactly 4 positive even integers.",
+    "The function returns `False` otherwise.",
+    "Specifically, the function returns `True` if and only if `n` is an even integer and `n >= 8`."
+  ],
+  "invariants": [
+    "The return value is always a boolean.",
+    "The input `n` is not modified by the function."
+  ],
+  "normal_cases": [
+    {
+      "input": "n = 8",
+      "output": "True",
+      "reasoning": "8 is an even number and 8 >= 8. It can be written as 2 + 2 + 2 + 2."
+    },
+    {
+      "input": "n = 10",
+      "output": "True",
+      "reasoning": "10 is an even number and 10 >= 8. It can be written as 2 + 2 + 2 + 4."
+    },
+    {
+      "input": "n = 12",
+      "output": "True",
+      "reasoning": "12 is an even number and 12 >= 8. It can be written as 2 + 2 + 4 + 4."
+    },
+    {
+      "input": "n = 20",
+      "output": "True",
+      "reasoning": "20 is an even number and 20 >= 8. It can be written as 2 + 2 + 2 + 14."
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": "n = 4",
+      "output": "False",
+      "reasoning": "4 is an even number but 4 < 8. The minimum sum of 4 positive even numbers is 8."
+    },
+    {
+      "input": "n = 6",
+      "output": "False",
+      "reasoning": "6 is an even number but 6 < 8. The minimum sum of 4 positive even numbers is 8."
+    },
+    {
+      "input": "n = 7",
+      "output": "False",
+      "reasoning": "7 is an odd number. The sum of 4 even numbers must always be even."
+    },
+    {
+      "input": "n = 9",
+      "output": "False",
+      "reasoning": "9 is an odd number. The sum of 4 even numbers must always be even."
+    },
+    {
+      "input": "n = 0",
+      "output": "False",
+      "reasoning": "0 is an even number but 0 < 8. Also, positive even numbers cannot sum to zero."
+    },
+    {
+      "input": "n = -2",
+      "output": "False",
+      "reasoning": "-2 is a negative number. Positive even numbers cannot sum to a negative number."
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": "n = 8.5",
+      "exception": "TypeError",
+      "reasoning": "The input `n` must be an integer, not a float."
+    },
+    {
+      "input": "n = 'hello'",
+      "exception": "TypeError",
+      "reasoning": "The input `n` must be an integer, not a string."
+    },
+    {
+      "input": "n = None",
+      "exception": "TypeError",
+      "reasoning": "The input `n` must be an integer, not None."
+    }
+  ]
+}

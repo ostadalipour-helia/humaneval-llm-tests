@@ -1,0 +1,136 @@
+{
+  "task_id": "HumanEval_64",
+  "entry_point": "vowels_count",
+  "preconditions": [
+    "The input `s` must be a string."
+  ],
+  "postconditions": [
+    "The function must return an integer.",
+    "The returned integer must be non-negative.",
+    "The returned integer represents the total count of vowels in the input string `s`.",
+    "Vowels are defined as 'a', 'e', 'i', 'o', 'u' (case-insensitive).",
+    "Additionally, 'y' is counted as a vowel if and only if it is the last character of the string `s` (case-insensitive).",
+    "Any characters in `s` that are not defined as vowels by these rules (including consonants, numbers, symbols, and 'y's not at the end) are not counted."
+  ],
+  "invariants": [
+    "The set of base vowels ('a', 'e', 'i', 'o', 'u') remains constant.",
+    "The rule for 'y' being a vowel only when it is the last character of the word remains constant.",
+    "Vowel checking is consistently case-insensitive for all specified vowels."
+  ],
+  "normal_cases": [
+    {
+      "input": "abcde",
+      "output": 2,
+      "description": "Standard word with multiple vowels, no 'y' at end."
+    },
+    {
+      "input": "ACEDY",
+      "output": 3,
+      "description": "Mixed case word with 'y' at the end counting as a vowel."
+    },
+    {
+      "input": "hello",
+      "output": 2,
+      "description": "Common word with vowels."
+    },
+    {
+      "input": "mystery",
+      "output": 2,
+      "description": "Word with 'e' and 'y' at the end."
+    },
+    {
+      "input": "Education",
+      "output": 5,
+      "description": "Word with many vowels, mixed case."
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": "",
+      "output": 0,
+      "description": "Empty string should return 0 vowels."
+    },
+    {
+      "input": "a",
+      "output": 1,
+      "description": "Single character string, a vowel."
+    },
+    {
+      "input": "b",
+      "output": 0,
+      "description": "Single character string, a consonant."
+    },
+    {
+      "input": "y",
+      "output": 1,
+      "description": "Single character string, 'y' at the end."
+    },
+    {
+      "input": "Y",
+      "output": 1,
+      "description": "Single character string, 'Y' at the end (case-insensitive)."
+    },
+    {
+      "input": "aeiouAEIOU",
+      "output": 10,
+      "description": "String with all base vowels, mixed case."
+    },
+    {
+      "input": "rhythm",
+      "output": 1,
+      "description": "Word with 'y' at the end as the only vowel."
+    },
+    {
+      "input": "rhythms",
+      "output": 0,
+      "description": "Word with 'y' not at the end, no other vowels."
+    },
+    {
+      "input": "rhythmY",
+      "output": 1,
+      "description": "Word with 'Y' at the end, no other vowels."
+    },
+    {
+      "input": "Python",
+      "output": 1,
+      "description": "Word with 'o' as a vowel, 'y' not at the end."
+    },
+    {
+      "input": "fly",
+      "output": 1,
+      "description": "Short word with 'y' at the end."
+    },
+    {
+      "input": "syzygy",
+      "output": 1,
+      "description": "Word with multiple 'y's, only the last one counts."
+    },
+    {
+      "input": "h3ll0",
+      "output": 2,
+      "description": "String with numbers, only alphabetic vowels are counted."
+    },
+    {
+      "input": "crypt",
+      "output": 0,
+      "description": "Word with no vowels according to the rules."
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": "None",
+      "expected_behavior": "Raise a TypeError or similar, as `s` is not a string.",
+      "description": "Input is `None` instead of a string."
+    },
+    {
+      "input": "123",
+      "expected_behavior": "Raise a TypeError or similar, as `s` is not a string.",
+      "description": "Input is an integer instead of a string."
+    },
+    {
+      "input": "[1, 2, 3]",
+      "expected_behavior": "Raise a TypeError or similar, as `s` is not a string.",
+      "description": "Input is a list instead of a string."
+    }
+  ]
+}

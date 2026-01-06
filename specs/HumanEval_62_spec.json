@@ -1,0 +1,83 @@
+{
+  "task_id": "HumanEval_62",
+  "entry_point": "derivative",
+  "preconditions": [
+    "The input `xs` must be a list.",
+    "All elements in `xs` must be numbers (integers or floats)."
+  ],
+  "postconditions": [
+    "The function must return a list.",
+    "If the input list `xs` represents the polynomial P(x) = xs[0] + xs[1]*x + xs[2]*x^2 + ..., then the returned list `result` must represent its derivative P'(x).",
+    "The length of the returned list `result` must be `max(0, len(xs) - 1)`.",
+    "For each index `i` in the returned list `result`, `result[i]` must be equal to `(i + 1) * xs[i + 1]`."
+  ],
+  "invariants": [
+    "The type of elements in the output list will be consistent with the input (e.g., if input coefficients are integers, output coefficients will be integers; if input includes floats, output may include floats)."
+  ],
+  "normal_cases": [
+    {
+      "input": "[3, 1, 2, 4, 5]",
+      "output": "[1, 4, 12, 20]",
+      "description": "Polynomial 3 + x + 2x^2 + 4x^3 + 5x^4, derivative is 1 + 4x + 12x^2 + 20x^3."
+    },
+    {
+      "input": "[1, 2, 3]",
+      "output": "[2, 6]",
+      "description": "Polynomial 1 + 2x + 3x^2, derivative is 2 + 6x."
+    },
+    {
+      "input": "[0, 0, 0, 0]",
+      "output": "[0, 0, 0]",
+      "description": "Derivative of the zero polynomial (up to x^3) is the zero polynomial (up to x^2)."
+    },
+    {
+      "input": "[1.0, 2.5, 3.0, 0.5]",
+      "output": "[2.5, 6.0, 1.5]",
+      "description": "Polynomial with float coefficients."
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": "[5]",
+      "output": "[]",
+      "description": "Derivative of a constant polynomial (e.g., 5) is 0, represented by an empty list."
+    },
+    {
+      "input": "[0]",
+      "output": "[]",
+      "description": "Derivative of the zero constant polynomial (0) is 0, represented by an empty list."
+    },
+    {
+      "input": "[]",
+      "output": "[]",
+      "description": "Derivative of an empty list (representing the zero polynomial) is an empty list."
+    },
+    {
+      "input": "[1, 0, 0]",
+      "output": "[0, 0]",
+      "description": "Polynomial 1 + 0x + 0x^2, derivative is 0 + 0x."
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": "null",
+      "exception": "TypeError",
+      "description": "Input `xs` is not a list."
+    },
+    {
+      "input": "123",
+      "exception": "TypeError",
+      "description": "Input `xs` is an integer, not a list."
+    },
+    {
+      "input": "[1, 'a', 3]",
+      "exception": "TypeError",
+      "description": "Input list `xs` contains non-numeric elements."
+    },
+    {
+      "input": "[1, None, 3]",
+      "exception": "TypeError",
+      "description": "Input list `xs` contains non-numeric elements (None)."
+    }
+  ]
+}

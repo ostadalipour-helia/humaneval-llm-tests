@@ -1,0 +1,456 @@
+{
+  "task_id": "HumanEval_115",
+  "entry_point": "max_fill",
+  "preconditions": [
+    "The 'grid' parameter must be a list of lists of integers.",
+    "Each inner list (row) in 'grid' must represent a well.",
+    "All inner lists (rows) in 'grid' must have the same length, ensuring a rectangular grid.",
+    "Each element 'grid[i][j]' must be either 0 or 1, where 1 represents a unit of water and 0 represents no water.",
+    "The number of rows in 'grid' must be between 1 and 100, inclusive (1 <= len(grid) <= 100).",
+    "The number of columns in 'grid' (length of each inner list) must be between 1 and 100, inclusive (1 <= len(grid[0]) <= 100).",
+    "The 'capacity' parameter must be an integer.",
+    "The 'capacity' parameter must be between 1 and 10, inclusive (1 <= capacity <= 10)."
+  ],
+  "postconditions": [
+    "The function must return a single integer.",
+    "The returned integer must represent the total minimum number of times buckets were lowered to empty all wells.",
+    "The returned value must be non-negative.",
+    "If all wells are empty (contain no water), the function must return 0."
+  ],
+  "invariants": [
+    "The 'grid' structure (number of rows, number of columns, and the 0/1 nature of its elements) remains conceptually unchanged throughout the calculation.",
+    "The 'capacity' of the bucket remains constant for all wells and all extractions."
+  ],
+  "normal_cases": [
+    {
+      "input": {
+        "grid": [
+          [
+            0,
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            1,
+            0,
+            0
+          ],
+          [
+            1,
+            1,
+            1,
+            1
+          ]
+        ],
+        "capacity": 1
+      },
+      "output": 6,
+      "description": "Multiple wells, varying water levels, capacity 1."
+    },
+    {
+      "input": {
+        "grid": [
+          [
+            0,
+            0,
+            1,
+            1
+          ],
+          [
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            1,
+            1,
+            1,
+            1
+          ],
+          [
+            0,
+            1,
+            1,
+            1
+          ]
+        ],
+        "capacity": 2
+      },
+      "output": 5,
+      "description": "Multiple wells, varying water levels, capacity 2."
+    },
+    {
+      "input": {
+        "grid": [
+          [
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0
+          ]
+        ],
+        "capacity": 5
+      },
+      "output": 0,
+      "description": "All wells are empty, capacity 5."
+    },
+    {
+      "input": {
+        "grid": [
+          [
+            1,
+            1,
+            1
+          ],
+          [
+            1,
+            1,
+            1
+          ]
+        ],
+        "capacity": 3
+      },
+      "output": 2,
+      "description": "All wells full, capacity matches well water exactly."
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": {
+        "grid": [
+          [
+            1
+          ]
+        ],
+        "capacity": 1
+      },
+      "output": 1,
+      "description": "Smallest possible grid (1x1) with water, capacity 1."
+    },
+    {
+      "input": {
+        "grid": [
+          [
+            0
+          ]
+        ],
+        "capacity": 1
+      },
+      "output": 0,
+      "description": "Smallest possible grid (1x1) without water, capacity 1."
+    },
+    {
+      "input": {
+        "grid": [
+          [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ]
+        ],
+        "capacity": 1
+      },
+      "output": 10,
+      "description": "Single well with maximum water, minimum capacity."
+    },
+    {
+      "input": {
+        "grid": [
+          [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ]
+        ],
+        "capacity": 10
+      },
+      "output": 1,
+      "description": "Single well with maximum water, maximum capacity."
+    },
+    {
+      "input": {
+        "grid": [
+          [
+            1,
+            0,
+            1
+          ],
+          [
+            0,
+            1,
+            0
+          ]
+        ],
+        "capacity": 1
+      },
+      "output": 3,
+      "description": "Mixed water levels, minimum capacity."
+    },
+    {
+      "input": {
+        "grid": [
+          [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ]
+        ],
+        "capacity": 10
+      },
+      "output": 10,
+      "description": "Grid with 10x10 full wells, capacity 10."
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": {
+        "grid": "not a list",
+        "capacity": 1
+      },
+      "expected_error": "TypeError",
+      "description": "'grid' is not a list."
+    },
+    {
+      "input": {
+        "grid": [
+          [
+            0,
+            1
+          ],
+          "not a list"
+        ],
+        "capacity": 1
+      },
+      "expected_error": "TypeError",
+      "description": "An element in 'grid' is not a list."
+    },
+    {
+      "input": {
+        "grid": [
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            "a"
+          ]
+        ],
+        "capacity": 1
+      },
+      "expected_error": "ValueError",
+      "description": "An element in 'grid' is not 0 or 1 (not an integer)."
+    },
+    {
+      "input": {
+        "grid": [
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            1,
+            1
+          ]
+        ],
+        "capacity": 1
+      },
+      "expected_error": "ValueError",
+      "description": "'grid' is not rectangular (rows have different lengths)."
+    },
+    {
+      "input": {
+        "grid": [],
+        "capacity": 1
+      },
+      "expected_error": "ValueError",
+      "description": "'grid' is empty (violates 1 <= len(grid))."
+    },
+    {
+      "input": {
+        "grid": [
+          []
+        ],
+        "capacity": 1
+      },
+      "expected_error": "ValueError",
+      "description": "Rows in 'grid' are empty (violates 1 <= len(grid[0]))."
+    },
+    {
+      "input": {
+        "grid": [
+          [
+            0,
+            1
+          ]
+        ],
+        "capacity": "not an int"
+      },
+      "expected_error": "TypeError",
+      "description": "'capacity' is not an integer."
+    },
+    {
+      "input": {
+        "grid": [
+          [
+            0,
+            1
+          ]
+        ],
+        "capacity": 0
+      },
+      "expected_error": "ValueError",
+      "description": "'capacity' is less than 1."
+    },
+    {
+      "input": {
+        "grid": [
+          [
+            0,
+            1
+          ]
+        ],
+        "capacity": 11
+      },
+      "expected_error": "ValueError",
+      "description": "'capacity' is greater than 10."
+    }
+  ]
+}

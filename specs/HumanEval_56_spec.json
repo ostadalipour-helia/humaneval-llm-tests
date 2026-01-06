@@ -1,0 +1,112 @@
+{
+  "task_id": "HumanEval_56",
+  "entry_point": "correct_bracketing",
+  "preconditions": [
+    "The input `brackets` must be a string.",
+    "The string `brackets` must only contain the characters '<' and '>'. No other characters are allowed."
+  ],
+  "postconditions": [
+    "The function returns a boolean value.",
+    "If the string `brackets` represents a correctly balanced sequence of brackets (where every opening bracket '<' has a corresponding closing bracket '>' in the correct order), the function returns `True`.",
+    "Otherwise, if the sequence is not balanced (e.g., unmatched brackets, incorrect order), the function returns `False`."
+  ],
+  "invariants": [
+    "During any left-to-right traversal of the `brackets` string, the running count of opening brackets ('<') encountered so far must always be greater than or equal to the running count of closing brackets ('>') encountered so far.",
+    "For the function to return `True`, the final total count of opening brackets ('<') in the string must be equal to the final total count of closing brackets ('>')."
+  ],
+  "normal_cases": [
+    {
+      "input": {
+        "brackets": "<>"
+      },
+      "expected_output": true
+    },
+    {
+      "input": {
+        "brackets": "<<><>>"
+      },
+      "expected_output": true
+    },
+    {
+      "input": {
+        "brackets": "<<<>>>"
+      },
+      "expected_output": true
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": {
+        "brackets": ""
+      },
+      "expected_output": true
+    },
+    {
+      "input": {
+        "brackets": "<"
+      },
+      "expected_output": false
+    },
+    {
+      "input": {
+        "brackets": ">"
+      },
+      "expected_output": false
+    },
+    {
+      "input": {
+        "brackets": "><<>"
+      },
+      "expected_output": false
+    },
+    {
+      "input": {
+        "brackets": ">>"
+      },
+      "expected_output": false
+    },
+    {
+      "input": {
+        "brackets": "<<<"
+      },
+      "expected_output": false
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": {
+        "brackets": null
+      },
+      "description": "Input `brackets` is not a string."
+    },
+    {
+      "input": {
+        "brackets": 123
+      },
+      "description": "Input `brackets` is not a string."
+    },
+    {
+      "input": {
+        "brackets": [
+          "<",
+          ">"
+        ]
+      },
+      "description": "Input `brackets` is not a string."
+    },
+    {
+      "input": {
+        "brackets": "<abc>"
+      },
+      "description": "Input `brackets` contains characters other than '<' or '>'.",
+      "expected_exception": "ValueError"
+    },
+    {
+      "input": {
+        "brackets": "<{}>"
+      },
+      "description": "Input `brackets` contains characters other than '<' or '>'.",
+      "expected_exception": "ValueError"
+    }
+  ]
+}

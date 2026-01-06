@@ -1,0 +1,92 @@
+{
+  "task_id": "HumanEval_51",
+  "entry_point": "remove_vowels",
+  "preconditions": [
+    "The input `text` must be a string."
+  ],
+  "postconditions": [
+    "The function must return a string.",
+    "The returned string must contain only characters from the input string that are not vowels (case-insensitive: 'a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U').",
+    "The relative order of the non-vowel characters in the returned string must be preserved from the input string.",
+    "The length of the returned string must be less than or equal to the length of the input string."
+  ],
+  "invariants": [
+    "The type of the output is always a string if the input is a string.",
+    "All characters in the output string are present in the input string."
+  ],
+  "normal_cases": [
+    {
+      "input": "abcdef\nghijklm",
+      "output": "bcdf\nghjklm",
+      "description": "String with mixed case, vowels, consonants, and a newline character."
+    },
+    {
+      "input": "abcdef",
+      "output": "bcdf",
+      "description": "Standard string with both vowels and consonants."
+    },
+    {
+      "input": "zbcd",
+      "output": "zbcd",
+      "description": "String containing only consonants."
+    },
+    {
+      "input": "Hello World!",
+      "output": "Hll Wrld!",
+      "description": "String with mixed case, spaces, and punctuation."
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": "",
+      "output": "",
+      "description": "Empty string input."
+    },
+    {
+      "input": "aaaaa",
+      "output": "",
+      "description": "String containing only vowels."
+    },
+    {
+      "input": "aaBAA",
+      "output": "B",
+      "description": "String with mixed case vowels and a single consonant."
+    },
+    {
+      "input": "AEIOUaeiou",
+      "output": "",
+      "description": "String containing all vowels, mixed case."
+    },
+    {
+      "input": "BCDFG",
+      "output": "BCDFG",
+      "description": "String containing only uppercase consonants."
+    },
+    {
+      "input": "12345!@#$",
+      "output": "12345!@#$",
+      "description": "String containing only non-alphabetic characters."
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": 123,
+      "exception": "TypeError",
+      "description": "Input is an integer, not a string."
+    },
+    {
+      "input": null,
+      "exception": "TypeError",
+      "description": "Input is None, not a string."
+    },
+    {
+      "input": [
+        "a",
+        "b",
+        "c"
+      ],
+      "exception": "TypeError",
+      "description": "Input is a list, not a string."
+    }
+  ]
+}

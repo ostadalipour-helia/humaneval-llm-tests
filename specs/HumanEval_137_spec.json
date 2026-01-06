@@ -1,0 +1,100 @@
+{
+  "task_id": "HumanEval_137",
+  "entry_point": "compare_one",
+  "preconditions": [
+    "Input 'a' must be an integer, a float, or a string.",
+    "Input 'b' must be an integer, a float, or a string.",
+    "If 'a' is a string, it must represent a valid real number, allowing either '.' or ',' as a decimal separator.",
+    "If 'b' is a string, it must represent a valid real number, allowing either '.' or ',' as a decimal separator."
+  ],
+  "postconditions": [
+    "The function returns None if the numerical values represented by 'a' and 'b' are equal.",
+    "If the numerical values are not equal, the function returns the input variable (either 'a' or 'b') that represents the larger numerical value.",
+    "The returned value (if not None) must retain its original variable type (int, float, or string) as it was passed into the function."
+  ],
+  "invariants": [
+    "The comparison is based on the real numerical values of 'a' and 'b', regardless of their original types.",
+    "The function does not modify the input variables 'a' or 'b'."
+  ],
+  "normal_cases": [
+    {
+      "input": "a = 1, b = 2.5",
+      "output": "2.5",
+      "reason": "2.5 is numerically larger than 1, and 2.5 is a float."
+    },
+    {
+      "input": "a = 1, b = \"2,3\"",
+      "output": "\"2,3\"",
+      "reason": "2.3 (from '2,3') is numerically larger than 1, and '2,3' is a string."
+    },
+    {
+      "input": "a = \"5,1\", b = \"6\"",
+      "output": "\"6\"",
+      "reason": "6 (from '6') is numerically larger than 5.1 (from '5,1'), and '6' is a string."
+    },
+    {
+      "input": "a = 10, b = 5",
+      "output": "10",
+      "reason": "10 is numerically larger than 5, and 10 is an integer."
+    },
+    {
+      "input": "a = 3.14, b = 2.71",
+      "output": "3.14",
+      "reason": "3.14 is numerically larger than 2.71, and 3.14 is a float."
+    },
+    {
+      "input": "a = \"10.5\", b = \"9.2\"",
+      "output": "\"10.5\"",
+      "reason": "10.5 (from '10.5') is numerically larger than 9.2 (from '9.2'), and '10.5' is a string."
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": "a = \"1\", b = 1",
+      "output": "None",
+      "reason": "The numerical values are equal (1 from '1' and 1)."
+    },
+    {
+      "input": "a = 5.0, b = 5",
+      "output": "None",
+      "reason": "The numerical values are equal (5.0 and 5)."
+    },
+    {
+      "input": "a = \"5,0\", b = 5",
+      "output": "None",
+      "reason": "The numerical values are equal (5.0 from '5,0' and 5)."
+    },
+    {
+      "input": "a = -1, b = -2",
+      "output": "-1",
+      "reason": "-1 is numerically larger than -2, and -1 is an integer."
+    },
+    {
+      "input": "a = \"-1.5\", b = -1",
+      "output": "-1",
+      "reason": "-1 is numerically larger than -1.5 (from '-1.5'), and -1 is an integer."
+    },
+    {
+      "input": "a = 0, b = 0.0",
+      "output": "None",
+      "reason": "The numerical values are equal (0 and 0.0)."
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": "a = \"abc\", b = 1",
+      "output": "Error: ValueError or similar",
+      "reason": "String 'a' does not represent a valid real number."
+    },
+    {
+      "input": "a = 1, b = [2]",
+      "output": "Error: TypeError or similar",
+      "reason": "Input 'b' is not an integer, float, or string."
+    },
+    {
+      "input": "a = \"1;2\", b = 3",
+      "output": "Error: ValueError or similar",
+      "reason": "String 'a' uses an invalid decimal separator (only '.' or ',' are allowed)."
+    }
+  ]
+}

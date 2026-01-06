@@ -1,0 +1,88 @@
+{
+  "task_id": "HumanEval_57",
+  "entry_point": "monotonic",
+  "preconditions": [
+    "The input `l` must be a Python list.",
+    "All elements in the list `l` must be comparable (e.g., numbers, strings of the same type)."
+  ],
+  "postconditions": [
+    "The function returns a boolean value (`True` or `False`).",
+    "If the list `l` is empty or contains only one element, the function returns `True`.",
+    "If the function returns `True`, then the list `l` is either monotonically increasing (each element is greater than or equal to the previous one) OR monotonically decreasing (each element is less than or equal to the previous one).",
+    "If the function returns `False`, then the list `l` is neither monotonically increasing nor monotonically decreasing."
+  ],
+  "invariants": [
+    "The input list `l` must not be modified by the function."
+  ],
+  "normal_cases": [
+    {
+      "input": "[1, 2, 4, 20]",
+      "output": "True",
+      "description": "Monotonically increasing list."
+    },
+    {
+      "input": "[1, 20, 4, 10]",
+      "output": "False",
+      "description": "Non-monotonic list."
+    },
+    {
+      "input": "[4, 1, 0, -10]",
+      "output": "True",
+      "description": "Monotonically decreasing list."
+    },
+    {
+      "input": "[5, 5, 5, 5]",
+      "output": "True",
+      "description": "List with all identical elements (considered both increasing and decreasing)."
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": "[]",
+      "output": "True",
+      "description": "Empty list (vacuously monotonic)."
+    },
+    {
+      "input": "[7]",
+      "output": "True",
+      "description": "Single-element list (vacuously monotonic)."
+    },
+    {
+      "input": "[1, 2]",
+      "output": "True",
+      "description": "Two-element increasing list."
+    },
+    {
+      "input": "[2, 1]",
+      "output": "True",
+      "description": "Two-element decreasing list."
+    },
+    {
+      "input": "[1, 1]",
+      "output": "True",
+      "description": "Two-element constant list."
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": "None",
+      "exception": "TypeError",
+      "description": "Input is not a list."
+    },
+    {
+      "input": "123",
+      "exception": "TypeError",
+      "description": "Input is an integer, not a list."
+    },
+    {
+      "input": "\"hello\"",
+      "exception": "TypeError",
+      "description": "Input is a string, not a list."
+    },
+    {
+      "input": "[1, 'a', 3]",
+      "exception": "TypeError",
+      "description": "List contains non-comparable elements (e.g., int and str)."
+    }
+  ]
+}

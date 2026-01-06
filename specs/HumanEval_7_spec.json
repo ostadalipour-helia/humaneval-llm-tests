@@ -1,0 +1,168 @@
+{
+  "task_id": "HumanEval_7",
+  "entry_point": "filter_by_substring",
+  "preconditions": [
+    "The 'strings' argument must be a list.",
+    "All elements within the 'strings' list must be of type string.",
+    "The 'substring' argument must be of type string."
+  ],
+  "postconditions": [
+    "The function must return a list of strings.",
+    "Every string in the returned list must be an element from the input 'strings' list.",
+    "Every string in the returned list must contain the 'substring' (case-sensitive).",
+    "The order of strings in the returned list must be preserved from their original order in the input 'strings' list.",
+    "The returned list must not contain any strings that do not contain the 'substring'.",
+    "The original 'strings' list must not be modified."
+  ],
+  "invariants": [
+    "The type of 'strings' remains List[str] throughout the function execution.",
+    "The type of 'substring' remains str throughout the function execution.",
+    "The function operates on immutable copies or references, ensuring no side effects on input arguments."
+  ],
+  "normal_cases": [
+    {
+      "input": {
+        "strings": [
+          "abc",
+          "bacd",
+          "cde",
+          "array"
+        ],
+        "substring": "a"
+      },
+      "output": [
+        "abc",
+        "bacd",
+        "array"
+      ],
+      "description": "Filter a list of strings for a common substring."
+    },
+    {
+      "input": {
+        "strings": [
+          "hello",
+          "world",
+          "python"
+        ],
+        "substring": "o"
+      },
+      "output": [
+        "hello",
+        "world"
+      ],
+      "description": "Filter strings where multiple matches exist."
+    },
+    {
+      "input": {
+        "strings": [
+          "apple",
+          "banana",
+          "cherry"
+        ],
+        "substring": "z"
+      },
+      "output": [],
+      "description": "No strings contain the given substring."
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": {
+        "strings": [],
+        "substring": "a"
+      },
+      "output": [],
+      "description": "Input list of strings is empty."
+    },
+    {
+      "input": {
+        "strings": [
+          "abc",
+          "def",
+          "ghi"
+        ],
+        "substring": ""
+      },
+      "output": [
+        "abc",
+        "def",
+        "ghi"
+      ],
+      "description": "Substring is an empty string (all strings contain an empty string)."
+    },
+    {
+      "input": {
+        "strings": [
+          "apple",
+          "Apple",
+          "APple"
+        ],
+        "substring": "apple"
+      },
+      "output": [
+        "apple"
+      ],
+      "description": "Case-sensitive filtering."
+    },
+    {
+      "input": {
+        "strings": [
+          "fullmatch",
+          "partial",
+          "nomatch"
+        ],
+        "substring": "fullmatch"
+      },
+      "output": [
+        "fullmatch"
+      ],
+      "description": "Substring is an entire string in the list."
+    },
+    {
+      "input": {
+        "strings": [
+          "aaaaa",
+          "bbbbb",
+          "ccccc"
+        ],
+        "substring": "a"
+      },
+      "output": [
+        "aaaaa"
+      ],
+      "description": "Substring appears multiple times within a single string."
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": {
+        "strings": "not_a_list",
+        "substring": "a"
+      },
+      "expected_error": "TypeError",
+      "description": "The 'strings' argument is not a list."
+    },
+    {
+      "input": {
+        "strings": [
+          123,
+          "abc"
+        ],
+        "substring": "a"
+      },
+      "expected_error": "TypeError",
+      "description": "Elements in 'strings' list are not all strings."
+    },
+    {
+      "input": {
+        "strings": [
+          "abc",
+          "def"
+        ],
+        "substring": 123
+      },
+      "expected_error": "TypeError",
+      "description": "The 'substring' argument is not a string."
+    }
+  ]
+}

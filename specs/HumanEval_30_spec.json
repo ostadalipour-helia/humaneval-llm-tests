@@ -1,0 +1,81 @@
+{
+  "task_id": "HumanEval_30",
+  "entry_point": "get_positive",
+  "preconditions": [
+    "The input `l` must be a Python list.",
+    "All elements within the list `l` are expected to be numeric types (integers or floats)."
+  ],
+  "postconditions": [
+    "The function must return a new Python list.",
+    "Every element in the returned list must be a positive number (greater than 0).",
+    "All elements in the returned list must originate from the input list `l`.",
+    "The relative order of positive numbers from the input list `l` must be preserved in the returned list.",
+    "The returned list must not contain any non-positive numbers (zero or negative numbers) from the input list `l`.",
+    "If the input list `l` contains no positive numbers, the function must return an empty list."
+  ],
+  "invariants": [
+    "The input list `l` must not be modified by the function (i.e., the function should operate on a copy or build a new list).",
+    "The type of elements in the output list will be consistent with the type of positive numeric elements found in the input list."
+  ],
+  "normal_cases": [
+    {
+      "input": "l = [-1, 2, -4, 5, 6]",
+      "expected_output": "[2, 5, 6]",
+      "description": "Mixed list of positive and negative integers."
+    },
+    {
+      "input": "l = [5, 3, -5, 2, -3, 3, 9, 0, 123, 1, -10]",
+      "expected_output": "[5, 3, 2, 3, 9, 123, 1]",
+      "description": "Mixed list including positive, negative, and zero integers."
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": "l = []",
+      "expected_output": "[]",
+      "description": "An empty input list."
+    },
+    {
+      "input": "l = [1, 2, 3, 4]",
+      "expected_output": "[1, 2, 3, 4]",
+      "description": "A list containing only positive numbers."
+    },
+    {
+      "input": "l = [-1, -2, -3, -4]",
+      "expected_output": "[]",
+      "description": "A list containing only negative numbers."
+    },
+    {
+      "input": "l = [0, 0, 0]",
+      "expected_output": "[]",
+      "description": "A list containing only zeros."
+    },
+    {
+      "input": "l = [0, 1, -1, 0, 2, -2]",
+      "expected_output": "[1, 2]",
+      "description": "A list with a mix of positive, negative, and zero numbers."
+    },
+    {
+      "input": "l = [1.5, -2.0, 3.14, 0.0, 0.5]",
+      "expected_output": "[1.5, 3.14, 0.5]",
+      "description": "A list containing floating-point numbers."
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": "l = None",
+      "expected_behavior": "Raise TypeError or AttributeError",
+      "description": "Input is not a list."
+    },
+    {
+      "input": "l = 'not_a_list'",
+      "expected_behavior": "Raise TypeError",
+      "description": "Input is a string, not a list."
+    },
+    {
+      "input": "l = [1, 'a', 2]",
+      "expected_behavior": "Raise TypeError or similar error when comparison with 0 is attempted, or handle gracefully by ignoring non-numeric types if specified.",
+      "description": "Input list contains non-numeric elements where 'positive' is undefined."
+    }
+  ]
+}

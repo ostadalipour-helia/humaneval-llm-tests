@@ -1,0 +1,165 @@
+{
+  "task_id": "HumanEval_72",
+  "entry_point": "will_it_fly",
+  "preconditions": [
+    "The parameter 'q' must be a list.",
+    "All elements in the list 'q' must be integers.",
+    "The parameter 'w' must be an integer."
+  ],
+  "postconditions": [
+    "The function must return a boolean value (True or False).",
+    "The function returns True if and only if 'q' is a palindromic list AND the sum of its elements is less than or equal to 'w'.",
+    "The function returns False if 'q' is not a palindromic list OR the sum of its elements is greater than 'w'."
+  ],
+  "invariants": [
+    "The input list 'q' must not be modified by the function."
+  ],
+  "normal_cases": [
+    {
+      "input": {
+        "q": [
+          3,
+          2,
+          3
+        ],
+        "w": 9
+      },
+      "output": true,
+      "reason": "The list [3, 2, 3] is palindromic, and its sum (8) is less than or equal to 9."
+    },
+    {
+      "input": {
+        "q": [
+          1,
+          2
+        ],
+        "w": 5
+      },
+      "output": false,
+      "reason": "The list [1, 2] is not palindromic, even though its sum (3) is less than or equal to 5."
+    },
+    {
+      "input": {
+        "q": [
+          3,
+          2,
+          3
+        ],
+        "w": 1
+      },
+      "output": false,
+      "reason": "The list [3, 2, 3] is palindromic, but its sum (8) is greater than 1."
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": {
+        "q": [],
+        "w": 5
+      },
+      "output": true,
+      "reason": "An empty list is palindromic, and its sum (0) is less than or equal to 5."
+    },
+    {
+      "input": {
+        "q": [
+          3
+        ],
+        "w": 5
+      },
+      "output": true,
+      "reason": "A single-element list [3] is palindromic, and its sum (3) is less than or equal to 5."
+    },
+    {
+      "input": {
+        "q": [
+          1,
+          2,
+          1
+        ],
+        "w": 4
+      },
+      "output": true,
+      "reason": "The list [1, 2, 1] is palindromic, and its sum (4) is exactly equal to 4."
+    },
+    {
+      "input": {
+        "q": [
+          1,
+          2,
+          1
+        ],
+        "w": 3
+      },
+      "output": false,
+      "reason": "The list [1, 2, 1] is palindromic, but its sum (4) is greater than 3."
+    },
+    {
+      "input": {
+        "q": [
+          0,
+          0
+        ],
+        "w": 0
+      },
+      "output": true,
+      "reason": "The list [0, 0] is palindromic, and its sum (0) is less than or equal to 0."
+    },
+    {
+      "input": {
+        "q": [
+          1
+        ],
+        "w": 0
+      },
+      "output": false,
+      "reason": "The list [1] is palindromic, but its sum (1) is greater than 0."
+    },
+    {
+      "input": {
+        "q": [
+          -1,
+          0,
+          -1
+        ],
+        "w": -2
+      },
+      "output": true,
+      "reason": "The list [-1, 0, -1] is palindromic, and its sum (-2) is less than or equal to -2."
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": {
+        "q": "not a list",
+        "w": 5
+      },
+      "expected_error": "TypeError",
+      "reason": "'q' must be a list."
+    },
+    {
+      "input": {
+        "q": [
+          1,
+          2,
+          3
+        ],
+        "w": "not an int"
+      },
+      "expected_error": "TypeError",
+      "reason": "'w' must be an integer."
+    },
+    {
+      "input": {
+        "q": [
+          1,
+          "a",
+          3
+        ],
+        "w": 5
+      },
+      "expected_error": "TypeError",
+      "reason": "All elements in 'q' must be integers."
+    }
+  ]
+}

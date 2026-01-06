@@ -1,0 +1,116 @@
+{
+  "task_id": "HumanEval_91",
+  "entry_point": "is_bored",
+  "preconditions": [
+    "S must be a string."
+  ],
+  "postconditions": [
+    "The function must return an integer.",
+    "The returned integer must be non-negative.",
+    "The returned integer represents the count of 'boredoms'.",
+    "A 'boredom' is defined as a sentence that starts with the word 'I'.",
+    "Sentences are delimited by '.', '?' or '!'.",
+    "The word 'I' must be case-sensitive (uppercase 'I').",
+    "The word 'I' must be a standalone word at the beginning of the sentence (e.g., 'I ' or 'I.')."
+  ],
+  "invariants": [
+    "The count of boredoms will always be an integer.",
+    "The count of boredoms will never exceed the total number of sentences in the input string."
+  ],
+  "normal_cases": [
+    {
+      "input": "Hello world",
+      "output": 0,
+      "description": "String with no 'I' sentences and no explicit delimiters, treated as one sentence."
+    },
+    {
+      "input": "The sky is blue. The sun is shining. I love this weather",
+      "output": 1,
+      "description": "Multiple sentences, one of which starts with 'I'."
+    },
+    {
+      "input": "I am happy. Are you? I am very happy!",
+      "output": 2,
+      "description": "Multiple 'I' sentences with different delimiters."
+    },
+    {
+      "input": "This is a test. I am testing. It works.",
+      "output": 1,
+      "description": "Mixed sentences, one starting with 'I'."
+    },
+    {
+      "input": "I. I? I!",
+      "output": 3,
+      "description": "Sentences consisting only of 'I' and a delimiter."
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": "",
+      "output": 0,
+      "description": "Empty string."
+    },
+    {
+      "input": "I am bored",
+      "output": 1,
+      "description": "String starting with 'I' but no explicit delimiter at the end."
+    },
+    {
+      "input": "i am bored. I am not.",
+      "output": 1,
+      "description": "Lowercase 'i' at the start of a sentence should not count."
+    },
+    {
+      "input": "I'm bored. I am not.",
+      "output": 1,
+      "description": "'I'm' is not 'I' as a standalone word."
+    },
+    {
+      "input": "Hello world. I.",
+      "output": 1,
+      "description": "Sentence ending with 'I' and a delimiter."
+    },
+    {
+      "input": "I am bored... Really?",
+      "output": 1,
+      "description": "Multiple delimiters in a row."
+    },
+    {
+      "input": "   I am bored.  ",
+      "output": 1,
+      "description": "Leading/trailing spaces and spaces around delimiters."
+    },
+    {
+      "input": "I",
+      "output": 1,
+      "description": "String is just 'I' (no delimiter, no other words)."
+    },
+    {
+      "input": "I.",
+      "output": 1,
+      "description": "String is 'I' followed by a delimiter."
+    },
+    {
+      "input": "Hello.World.I.Am.Bored.",
+      "output": 1,
+      "description": "Many short sentences, one starting with 'I'."
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": "None",
+      "type": "TypeError",
+      "description": "Input is not a string (e.g., None)."
+    },
+    {
+      "input": "123",
+      "type": "TypeError",
+      "description": "Input is not a string (e.g., integer)."
+    },
+    {
+      "input": "['a', 'b']",
+      "type": "TypeError",
+      "description": "Input is not a string (e.g., list)."
+    }
+  ]
+}

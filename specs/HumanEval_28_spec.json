@@ -1,0 +1,111 @@
+{
+  "task_id": "HumanEval_28",
+  "entry_point": "concatenate",
+  "preconditions": [
+    "The input `strings` must be a Python list.",
+    "Every element within the `strings` list must be a string (`str`)."
+  ],
+  "postconditions": [
+    "The function must return a single string (`str`).",
+    "The returned string must be the result of joining all strings from the input list `strings` in their original order.",
+    "If the input list `strings` is empty, the returned string must be an empty string."
+  ],
+  "invariants": [
+    "The relative order of the input strings in the `strings` list is preserved in the output string.",
+    "The characters within each individual string from the input list are preserved in their original order in the output string."
+  ],
+  "normal_cases": [
+    {
+      "input": {
+        "strings": [
+          "a",
+          "b",
+          "c"
+        ]
+      },
+      "output": "abc",
+      "description": "Concatenating a list of multiple non-empty strings."
+    },
+    {
+      "input": {
+        "strings": [
+          "hello",
+          " ",
+          "world",
+          "!"
+        ]
+      },
+      "output": "hello world!",
+      "description": "Concatenating strings including spaces and punctuation."
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": {
+        "strings": []
+      },
+      "output": "",
+      "description": "Concatenating an empty list of strings."
+    },
+    {
+      "input": {
+        "strings": [
+          "single_string"
+        ]
+      },
+      "output": "single_string",
+      "description": "Concatenating a list containing only one string."
+    },
+    {
+      "input": {
+        "strings": [
+          "",
+          "test",
+          ""
+        ]
+      },
+      "output": "test",
+      "description": "Concatenating a list that includes empty strings."
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": {
+        "strings": null
+      },
+      "exception": "TypeError",
+      "description": "Input `strings` is not a list (e.g., None)."
+    },
+    {
+      "input": {
+        "strings": "not_a_list"
+      },
+      "exception": "TypeError",
+      "description": "Input `strings` is a string, not a list of strings."
+    },
+    {
+      "input": {
+        "strings": [
+          "a",
+          123,
+          "b"
+        ]
+      },
+      "exception": "TypeError",
+      "description": "Input list contains non-string elements (e.g., an integer)."
+    },
+    {
+      "input": {
+        "strings": [
+          "a",
+          [
+            "list"
+          ],
+          "b"
+        ]
+      },
+      "exception": "TypeError",
+      "description": "Input list contains non-string elements (e.g., another list)."
+    }
+  ]
+}

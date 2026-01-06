@@ -1,0 +1,90 @@
+{
+  "task_id": "HumanEval_20",
+  "entry_point": "find_closest_elements",
+  "preconditions": [
+    "The input 'numbers' must be a list.",
+    "All elements in 'numbers' must be of type float.",
+    "The length of the 'numbers' list must be at least 2."
+  ],
+  "postconditions": [
+    "The function must return a tuple of two float numbers.",
+    "The first element of the returned tuple must be less than or equal to the second element (smaller, larger order).",
+    "The two numbers in the returned tuple must be elements from the input 'numbers' list.",
+    "The absolute difference between the two returned numbers must be the minimum absolute difference found between any two numbers in the input 'numbers' list."
+  ],
+  "invariants": [
+    "The input 'numbers' list must not be modified by the function.",
+    "During computation, the minimum difference tracked must always be non-negative."
+  ],
+  "normal_cases": [
+    {
+      "input": "[1.0, 2.0, 3.0, 4.0, 5.0, 2.2]",
+      "output": "(2.0, 2.2)",
+      "description": "Typical case with distinct closest elements."
+    },
+    {
+      "input": "[10.0, 1.0, 5.0, 8.0]",
+      "output": "(8.0, 10.0)",
+      "description": "Closest elements are not adjacent in the input list."
+    },
+    {
+      "input": "[0.1, 0.2, 0.3, 0.4]",
+      "output": "(0.1, 0.2)",
+      "description": "Closest elements are at the beginning of the list."
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": "[1.0, 2.0, 3.0, 4.0, 5.0, 2.0]",
+      "output": "(2.0, 2.0)",
+      "description": "Closest elements are identical and appear multiple times."
+    },
+    {
+      "input": "[5.0, 1.0]",
+      "output": "(1.0, 5.0)",
+      "description": "List with exactly two elements, requiring ordering."
+    },
+    {
+      "input": "[-1.0, -2.0, -1.5]",
+      "output": "(-1.5, -1.0)",
+      "description": "List containing negative numbers."
+    },
+    {
+      "input": "[3.0, 3.0, 3.0, 3.0]",
+      "output": "(3.0, 3.0)",
+      "description": "All elements in the list are identical."
+    },
+    {
+      "input": "[1.234567, 1.234568, 1.0]",
+      "output": "(1.234567, 1.234568)",
+      "description": "Numbers with high precision."
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": "[]",
+      "expected_error": "ValueError",
+      "description": "Input list has fewer than two elements (empty list)."
+    },
+    {
+      "input": "[1.0]",
+      "expected_error": "ValueError",
+      "description": "Input list has fewer than two elements (single element list)."
+    },
+    {
+      "input": "None",
+      "expected_error": "TypeError",
+      "description": "Input is not a list."
+    },
+    {
+      "input": "[1, 2, 3]",
+      "expected_error": "TypeError",
+      "description": "Input list contains integers instead of floats (type mismatch)."
+    },
+    {
+      "input": "[1.0, '2.0', 3.0]",
+      "expected_error": "TypeError",
+      "description": "Input list contains non-float elements (string)."
+    }
+  ]
+}

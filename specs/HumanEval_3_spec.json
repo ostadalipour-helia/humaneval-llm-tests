@@ -1,0 +1,155 @@
+{
+  "task_id": "HumanEval_3",
+  "entry_point": "below_zero",
+  "preconditions": [
+    "The 'operations' argument must be a list.",
+    "All elements in the 'operations' list must be integers."
+  ],
+  "postconditions": [
+    "The function returns a boolean value.",
+    "If at any point during the processing of operations, the cumulative balance (starting from 0) falls strictly below zero, the function returns True.",
+    "If the cumulative balance never falls strictly below zero after all operations are processed, the function returns False."
+  ],
+  "invariants": [
+    "The initial bank account balance is 0.",
+    "The balance is updated sequentially by adding each operation value from the 'operations' list."
+  ],
+  "normal_cases": [
+    {
+      "input": {
+        "operations": [
+          1,
+          2,
+          3
+        ]
+      },
+      "expected_output": false,
+      "description": "Balance never goes below zero."
+    },
+    {
+      "input": {
+        "operations": [
+          1,
+          2,
+          -4,
+          5
+        ]
+      },
+      "expected_output": true,
+      "description": "Balance goes below zero at the third operation (1+2-4 = -1)."
+    },
+    {
+      "input": {
+        "operations": [
+          10,
+          -5,
+          -3,
+          2
+        ]
+      },
+      "expected_output": false,
+      "description": "Balance remains positive or zero throughout."
+    },
+    {
+      "input": {
+        "operations": [
+          -1,
+          5,
+          -3
+        ]
+      },
+      "expected_output": true,
+      "description": "Balance goes below zero at the first operation."
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": {
+        "operations": []
+      },
+      "expected_output": false,
+      "description": "Empty list of operations, balance remains 0."
+    },
+    {
+      "input": {
+        "operations": [
+          0
+        ]
+      },
+      "expected_output": false,
+      "description": "Single zero operation, balance remains 0."
+    },
+    {
+      "input": {
+        "operations": [
+          -1
+        ]
+      },
+      "expected_output": true,
+      "description": "Single negative operation, balance goes below zero immediately."
+    },
+    {
+      "input": {
+        "operations": [
+          10,
+          -10
+        ]
+      },
+      "expected_output": false,
+      "description": "Balance returns to zero but never goes below."
+    },
+    {
+      "input": {
+        "operations": [
+          10,
+          -10,
+          -1
+        ]
+      },
+      "expected_output": true,
+      "description": "Balance returns to zero then goes below."
+    },
+    {
+      "input": {
+        "operations": [
+          5,
+          0,
+          -3,
+          -3
+        ]
+      },
+      "expected_output": true,
+      "description": "Balance goes below zero after multiple operations."
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": {
+        "operations": "not_a_list"
+      },
+      "expected_behavior": "TypeError",
+      "description": "Input 'operations' is not a list."
+    },
+    {
+      "input": {
+        "operations": [
+          1,
+          "two",
+          3
+        ]
+      },
+      "expected_behavior": "TypeError",
+      "description": "Input 'operations' contains non-integer elements."
+    },
+    {
+      "input": {
+        "operations": [
+          1.5,
+          2.0
+        ]
+      },
+      "expected_behavior": "TypeError",
+      "description": "Input 'operations' contains float elements."
+    }
+  ]
+}

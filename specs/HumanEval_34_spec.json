@@ -1,0 +1,142 @@
+{
+  "task_id": "HumanEval_34",
+  "entry_point": "unique",
+  "preconditions": [
+    "The input `l` must be a list.",
+    "All elements in the list `l` must be comparable (e.g., all numbers, all strings, or a mix of types that Python's default sort can handle)."
+  ],
+  "postconditions": [
+    "The function must return a list.",
+    "The returned list must contain only unique elements.",
+    "All elements in the returned list must be sorted in ascending order.",
+    "Every element in the returned list must be present in the original input list `l`.",
+    "Every unique element from the original input list `l` must be present in the returned list."
+  ],
+  "invariants": [
+    "The data type of elements in the output list will be consistent with the data type of elements in the input list.",
+    "The elements in the output list form a subset of the elements in the input list."
+  ],
+  "normal_cases": [
+    {
+      "input": [
+        5,
+        3,
+        5,
+        2,
+        3,
+        3,
+        9,
+        0,
+        123
+      ],
+      "output": [
+        0,
+        2,
+        3,
+        5,
+        9,
+        123
+      ],
+      "description": "A list with multiple duplicate elements and unsorted order."
+    },
+    {
+      "input": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "output": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "description": "A list with no duplicate elements, already sorted."
+    },
+    {
+      "input": [
+        10,
+        -5,
+        0,
+        7,
+        -5
+      ],
+      "output": [
+        -5,
+        0,
+        7,
+        10
+      ],
+      "description": "A list with negative numbers, zero, and positive numbers, with duplicates."
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": [],
+      "output": [],
+      "description": "An empty list."
+    },
+    {
+      "input": [
+        7
+      ],
+      "output": [
+        7
+      ],
+      "description": "A list with a single element."
+    },
+    {
+      "input": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "output": [
+        4
+      ],
+      "description": "A list with all identical elements."
+    },
+    {
+      "input": [
+        "b",
+        "a",
+        "c",
+        "b"
+      ],
+      "output": [
+        "a",
+        "b",
+        "c"
+      ],
+      "description": "A list of strings with duplicates."
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": null,
+      "exception": "TypeError",
+      "description": "Input is not a list (e.g., None)."
+    },
+    {
+      "input": 123,
+      "exception": "TypeError",
+      "description": "Input is not a list (e.g., an integer)."
+    },
+    {
+      "input": "hello",
+      "exception": "TypeError",
+      "description": "Input is not a list (e.g., a string)."
+    },
+    {
+      "input": [
+        1,
+        "a",
+        {}
+      ],
+      "exception": "TypeError",
+      "description": "Input list contains non-comparable elements, leading to a TypeError during sorting."
+    }
+  ]
+}

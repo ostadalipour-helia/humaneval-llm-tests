@@ -1,0 +1,135 @@
+{
+  "task_id": "HumanEval_18",
+  "entry_point": "how_many_times",
+  "preconditions": [
+    "The input 'string' must be a Python string (str).",
+    "The input 'substring' must be a Python string (str)."
+  ],
+  "postconditions": [
+    "The function must return an integer.",
+    "The returned integer must be non-negative.",
+    "The returned integer represents the total number of times 'substring' appears in 'string', including overlapping occurrences.",
+    "If 'substring' is an empty string, the function should return `len(string) + 1`."
+  ],
+  "invariants": [
+    "The input strings 'string' and 'substring' must not be modified by the function."
+  ],
+  "normal_cases": [
+    {
+      "input": {
+        "string": "abcabc",
+        "substring": "abc"
+      },
+      "output": 2,
+      "description": "Multiple non-overlapping occurrences."
+    },
+    {
+      "input": {
+        "string": "aaaaa",
+        "substring": "aa"
+      },
+      "output": 4,
+      "description": "Multiple overlapping occurrences."
+    },
+    {
+      "input": {
+        "string": "hello world",
+        "substring": "o"
+      },
+      "output": 2,
+      "description": "Standard case with single character substring."
+    },
+    {
+      "input": {
+        "string": "banana",
+        "substring": "ana"
+      },
+      "output": 2,
+      "description": "Overlapping occurrences in a common word."
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": {
+        "string": "",
+        "substring": "a"
+      },
+      "output": 0,
+      "description": "Empty original string, non-empty substring. (From example)"
+    },
+    {
+      "input": {
+        "string": "aaa",
+        "substring": "a"
+      },
+      "output": 3,
+      "description": "String consists only of substring character. (From example)"
+    },
+    {
+      "input": {
+        "string": "aaaa",
+        "substring": "aa"
+      },
+      "output": 3,
+      "description": "Overlapping occurrences. (From example)"
+    },
+    {
+      "input": {
+        "string": "abc",
+        "substring": "abcd"
+      },
+      "output": 0,
+      "description": "Substring is longer than the original string."
+    },
+    {
+      "input": {
+        "string": "abc",
+        "substring": "d"
+      },
+      "output": 0,
+      "description": "Substring not found in the original string."
+    },
+    {
+      "input": {
+        "string": "abc",
+        "substring": "abc"
+      },
+      "output": 1,
+      "description": "Original string and substring are identical."
+    },
+    {
+      "input": {
+        "string": "test",
+        "substring": ""
+      },
+      "output": 5,
+      "description": "Substring is empty, non-empty original string (len(string) + 1)."
+    },
+    {
+      "input": {
+        "string": "",
+        "substring": ""
+      },
+      "output": 1,
+      "description": "Both original string and substring are empty (len(string) + 1)."
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": {
+        "string": 123,
+        "substring": "a"
+      },
+      "expected_error": "TypeError",
+      "description": "Input 'string' is not a string."
+    },
+    {
+      "input": {
+        "string": "abc",
+        "substring": null
+      },
+      "expected_error": "TypeError",
+      "description": "Input 'substring' is not a string."
+    }
+  ]
+}

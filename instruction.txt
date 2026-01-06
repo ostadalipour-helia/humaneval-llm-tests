@@ -1,0 +1,12 @@
+python spec_pipeline/evaluate_part1.py
+
+python spec_pipeline/clean_and_merge_tests.py
+
+python spec_pipeline/debug_one_problem.py HumanEval_158
+
+
+
+
+source venv/bin/activate
+Cd humaneval-llm-tests
+python spec_pipeline/evaluator/evaluator.py

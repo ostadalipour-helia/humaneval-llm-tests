@@ -1,0 +1,108 @@
+{
+  "task_id": "HumanEval_140",
+  "entry_point": "fix_spaces",
+  "preconditions": [
+    "The input `text` must be a string."
+  ],
+  "postconditions": [
+    "The function must return a string.",
+    "All single space characters (' ') in the input `text` are replaced by a single underscore ('_').",
+    "All sequences of exactly two consecutive space characters ('  ') in the input `text` are replaced by two underscores ('__').",
+    "All sequences of three or more consecutive space characters ('   ', '    ', etc.) in the input `text` are replaced by a single hyphen ('-').",
+    "Characters in the input `text` that are not spaces remain unchanged and their relative order is preserved."
+  ],
+  "invariants": [
+    "The output string will only contain characters from the input string, underscores ('_'), and hyphens ('-').",
+    "The relative order of non-space characters in the output string is identical to their relative order in the input string."
+  ],
+  "normal_cases": [
+    {
+      "input": "Example",
+      "output": "Example",
+      "description": "No spaces in the input string."
+    },
+    {
+      "input": "Example 1",
+      "output": "Example_1",
+      "description": "Single space replaced by underscore."
+    },
+    {
+      "input": " Example 2",
+      "output": "_Example_2",
+      "description": "Leading single space replaced by underscore."
+    },
+    {
+      "input": "Example   3",
+      "output": "Example-3",
+      "description": "Three consecutive spaces replaced by a hyphen."
+    },
+    {
+      "input": "Hello  World",
+      "output": "Hello__World",
+      "description": "Two consecutive spaces replaced by two underscores."
+    },
+    {
+      "input": "  Test   String ",
+      "output": "__Test-String_",
+      "description": "Mixed leading, internal, and trailing spaces with different lengths."
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": "",
+      "output": "",
+      "description": "Empty string input."
+    },
+    {
+      "input": " ",
+      "output": "_",
+      "description": "String with only a single space."
+    },
+    {
+      "input": "  ",
+      "output": "__",
+      "description": "String with only two consecutive spaces."
+    },
+    {
+      "input": "   ",
+      "output": "-",
+      "description": "String with only three consecutive spaces."
+    },
+    {
+      "input": "     ",
+      "output": "-",
+      "description": "String with only five consecutive spaces."
+    },
+    {
+      "input": "A  B   C    D     E",
+      "output": "A__B-C-D-E",
+      "description": "String with various lengths of consecutive spaces."
+    },
+    {
+      "input": "HelloWorld",
+      "output": "HelloWorld",
+      "description": "String with no spaces."
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": 123,
+      "expected_error": "TypeError",
+      "description": "Input is not a string (e.g., an integer)."
+    },
+    {
+      "input": null,
+      "expected_error": "TypeError",
+      "description": "Input is not a string (e.g., None)."
+    },
+    {
+      "input": [
+        "list",
+        "of",
+        "strings"
+      ],
+      "expected_error": "TypeError",
+      "description": "Input is not a string (e.g., a list)."
+    }
+  ]
+}

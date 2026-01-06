@@ -1,0 +1,100 @@
+{
+  "task_id": "HumanEval_59",
+  "entry_point": "largest_prime_factor",
+  "preconditions": [
+    "n must be an integer.",
+    "n must be greater than 1 (n > 1).",
+    "n must not be a prime number."
+  ],
+  "postconditions": [
+    "The return value, let's call it 'r', must be an integer.",
+    "r must be a prime number.",
+    "r must be a factor of n (i.e., n % r == 0).",
+    "For any other prime factor 'p' of n, 'p' must be less than or equal to 'r' (p <= r)."
+  ],
+  "invariants": [
+    "The return value is always a prime number.",
+    "The return value is always a factor of the input 'n'."
+  ],
+  "normal_cases": [
+    {
+      "input": "n = 13195",
+      "expected_output": "29",
+      "comment": "A number with multiple distinct prime factors."
+    },
+    {
+      "input": "n = 2048",
+      "expected_output": "2",
+      "comment": "A number that is a power of a single prime factor."
+    },
+    {
+      "input": "n = 100",
+      "expected_output": "5",
+      "comment": "A number with multiple prime factors, where the largest is not the smallest."
+    },
+    {
+      "input": "n = 60",
+      "expected_output": "5",
+      "comment": "A number with several small distinct prime factors."
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": "n = 4",
+      "expected_output": "2",
+      "comment": "The smallest composite number (n > 1 and not prime)."
+    },
+    {
+      "input": "n = 81",
+      "expected_output": "3",
+      "comment": "A power of an odd prime."
+    },
+    {
+      "input": "n = 210",
+      "expected_output": "7",
+      "comment": "Product of the first few distinct primes (2*3*5*7)."
+    },
+    {
+      "input": "n = 999999",
+      "expected_output": "37",
+      "comment": "A larger composite number with multiple prime factors (3^3 * 7 * 11 * 13 * 37)."
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": "n = 1",
+      "expected_behavior": "Violation of precondition: n > 1. Behavior is undefined by the problem statement.",
+      "comment": "Input is not greater than 1."
+    },
+    {
+      "input": "n = 0",
+      "expected_behavior": "Violation of precondition: n > 1. Behavior is undefined by the problem statement.",
+      "comment": "Input is not greater than 1."
+    },
+    {
+      "input": "n = -5",
+      "expected_behavior": "Violation of precondition: n > 1. Behavior is undefined by the problem statement.",
+      "comment": "Input is not greater than 1."
+    },
+    {
+      "input": "n = 7",
+      "expected_behavior": "Violation of precondition: n is not a prime. Behavior is undefined by the problem statement.",
+      "comment": "Input is a prime number."
+    },
+    {
+      "input": "n = 13",
+      "expected_behavior": "Violation of precondition: n is not a prime. Behavior is undefined by the problem statement.",
+      "comment": "Input is a prime number."
+    },
+    {
+      "input": "n = 13.5",
+      "expected_behavior": "Violation of precondition: n must be an integer. Behavior is undefined.",
+      "comment": "Input is not an integer."
+    },
+    {
+      "input": "n = 'abc'",
+      "expected_behavior": "Violation of precondition: n must be an integer. Behavior is undefined.",
+      "comment": "Input is not an integer."
+    }
+  ]
+}

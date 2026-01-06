@@ -1,0 +1,123 @@
+{
+  "task_id": "HumanEval_17",
+  "entry_point": "parse_music",
+  "preconditions": [
+    "The input `music_string` must be a string (`str`).",
+    "The `music_string` should consist of space-separated musical notes.",
+    "Valid musical notes are 'o' (whole note), 'o|' (half note), and '.|' (quarter note).",
+    "Spaces are used as delimiters between notes. Multiple spaces between notes or leading/trailing spaces are allowed and should be handled by splitting."
+  ],
+  "postconditions": [
+    "The function must return a list of integers (`List[int]`).",
+    "Each integer in the returned list represents the beat duration of a corresponding note from the input string.",
+    "The order of integers in the list must match the order of notes as they appear in the input `music_string`.",
+    "Possible beat durations are 4 (for 'o'), 2 (for 'o|'), and 1 (for '.|').",
+    "The length of the output list must be equal to the number of valid musical notes successfully parsed from the input string."
+  ],
+  "invariants": [
+    "The mapping from musical note symbol to beat duration is fixed and constant: 'o' maps to 4 beats, 'o|' maps to 2 beats, and '.|' maps to 1 beat."
+  ],
+  "normal_cases": [
+    {
+      "input": "o o| .| o| o| .| .| .| .| o o",
+      "output": [
+        4,
+        2,
+        1,
+        2,
+        2,
+        1,
+        1,
+        1,
+        1,
+        4,
+        4
+      ],
+      "description": "Example from the docstring with a mix of all note types."
+    },
+    {
+      "input": "o| .| o",
+      "output": [
+        2,
+        1,
+        4
+      ],
+      "description": "A simple sequence of different notes."
+    },
+    {
+      "input": ".| .| .| .|",
+      "output": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "description": "A sequence of only quarter notes."
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": "",
+      "output": [],
+      "description": "An empty input string should result in an empty list."
+    },
+    {
+      "input": "o",
+      "output": [
+        4
+      ],
+      "description": "A single whole note."
+    },
+    {
+      "input": "   o   o|   .|   ",
+      "output": [
+        4,
+        2,
+        1
+      ],
+      "description": "Input string with leading, trailing, and multiple spaces between notes."
+    },
+    {
+      "input": "o o o o",
+      "output": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "description": "Input string with only one type of note."
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": null,
+      "exception": "TypeError",
+      "description": "Input is not a string."
+    },
+    {
+      "input": 123,
+      "exception": "TypeError",
+      "description": "Input is an integer, not a string."
+    },
+    {
+      "input": "o x .|",
+      "exception": "ValueError",
+      "description": "Input contains an invalid note symbol 'x'."
+    },
+    {
+      "input": "o|o",
+      "exception": "ValueError",
+      "description": "Input contains a malformed note 'o|o' (missing space delimiter)."
+    },
+    {
+      "input": "o||",
+      "exception": "ValueError",
+      "description": "Input contains an invalid note symbol 'o||'."
+    },
+    {
+      "input": "o .| |",
+      "exception": "ValueError",
+      "description": "Input contains an invalid note symbol '|'."
+    }
+  ]
+}

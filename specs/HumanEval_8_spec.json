@@ -1,0 +1,75 @@
+{
+  "task_id": "HumanEval_8",
+  "entry_point": "sum_product",
+  "preconditions": [
+    "The input `numbers` must be a Python list.",
+    "All elements within the `numbers` list must be integers."
+  ],
+  "postconditions": [
+    "The function must return a tuple of two integers `(sum_val, product_val)`.",
+    "The first element of the returned tuple (`sum_val`) must be the sum of all integers in the input `numbers` list.",
+    "The second element of the returned tuple (`product_val`) must be the product of all integers in the input `numbers` list.",
+    "If the input `numbers` list is empty, `sum_val` must be 0.",
+    "If the input `numbers` list is empty, `product_val` must be 1."
+  ],
+  "invariants": [
+    "The input `numbers` list must not be modified by the function.",
+    "The type of elements in the input list remains `int` throughout the computation."
+  ],
+  "normal_cases": [
+    {
+      "input": "[1, 2, 3, 4]",
+      "output": "(10, 24)",
+      "description": "A typical list of positive integers."
+    },
+    {
+      "input": "[5, -2, 0]",
+      "output": "(3, 0)",
+      "description": "A list containing positive, negative, and zero integers."
+    },
+    {
+      "input": "[10, 20, 30]",
+      "output": "(60, 6000)",
+      "description": "A list of larger positive integers."
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": "[]",
+      "output": "(0, 1)",
+      "description": "An empty list, as specified for empty sum and product."
+    },
+    {
+      "input": "[7]",
+      "output": "(7, 7)",
+      "description": "A list with a single integer."
+    },
+    {
+      "input": "[-1, -2, -3]",
+      "output": "(-6, -6)",
+      "description": "A list containing only negative integers."
+    },
+    {
+      "input": "[0, 0, 0]",
+      "output": "(0, 0)",
+      "description": "A list containing only zeros."
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": "None",
+      "expected_error": "TypeError",
+      "description": "Input is not a list."
+    },
+    {
+      "input": "[1, 2.5, 3]",
+      "expected_error": "TypeError",
+      "description": "Input list contains non-integer elements (float)."
+    },
+    {
+      "input": "[1, 'a', 3]",
+      "expected_error": "TypeError",
+      "description": "Input list contains non-integer elements (string)."
+    }
+  ]
+}

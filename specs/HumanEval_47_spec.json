@@ -1,0 +1,84 @@
+{
+  "task_id": "HumanEval_47",
+  "entry_point": "median",
+  "preconditions": [
+    "The input 'l' must be a list.",
+    "The list 'l' must not be empty (i.e., len(l) > 0).",
+    "All elements in the list 'l' must be numeric (integers or floats)."
+  ],
+  "postconditions": [
+    "The function returns a single numeric value (int or float).",
+    "The returned value 'm' will be between the minimum and maximum values of the input list 'l' (inclusive), i.e., min(l) <= m <= max(l).",
+    "If the length of 'l' is odd, the returned value 'm' is the middle element of the sorted list 'l'.",
+    "If the length of 'l' is even, the returned value 'm' is the average of the two middle elements of the sorted list 'l'."
+  ],
+  "invariants": [
+    "The input list 'l' must not be modified by the function."
+  ],
+  "normal_cases": [
+    {
+      "input": "[3, 1, 2, 4, 5]",
+      "expected_output": 3
+    },
+    {
+      "input": "[-10, 4, 6, 10, 20, 1000]",
+      "expected_output": 8.0
+    },
+    {
+      "input": "[1.0, 2.5, 3.0, 4.5]",
+      "expected_output": 2.75
+    },
+    {
+      "input": "[10, 20, 30, 40, 50]",
+      "expected_output": 30
+    },
+    {
+      "input": "[1, 1, 2, 3, 4, 5]",
+      "expected_output": 2.5
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": "[7]",
+      "expected_output": 7
+    },
+    {
+      "input": "[10, 20]",
+      "expected_output": 15.0
+    },
+    {
+      "input": "[5, 5, 5, 5]",
+      "expected_output": 5.0
+    },
+    {
+      "input": "[0, 0, 0]",
+      "expected_output": 0
+    },
+    {
+      "input": "[-1, -2, -3]",
+      "expected_output": -2
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": "[]",
+      "expected_exception": "ValueError"
+    },
+    {
+      "input": "[1, 2, 'a']",
+      "expected_exception": "TypeError"
+    },
+    {
+      "input": "None",
+      "expected_exception": "TypeError"
+    },
+    {
+      "input": "\"not a list\"",
+      "expected_exception": "TypeError"
+    },
+    {
+      "input": "[1, 2, None]",
+      "expected_exception": "TypeError"
+    }
+  ]
+}

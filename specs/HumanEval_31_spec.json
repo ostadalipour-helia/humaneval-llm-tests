@@ -1,0 +1,83 @@
+{
+  "task_id": "HumanEval_31",
+  "entry_point": "is_prime",
+  "preconditions": [
+    "n must be an integer."
+  ],
+  "postconditions": [
+    "The function returns a boolean value (True or False).",
+    "If n is a prime number, the function returns True.",
+    "If n is not a prime number, the function returns False.",
+    "A prime number is defined as a natural number greater than 1 that has no positive divisors other than 1 and itself."
+  ],
+  "invariants": [
+    "If is_prime(n) is True, then n must be an integer greater than 1.",
+    "If is_prime(n) is True, then n has exactly two distinct positive divisors: 1 and n."
+  ],
+  "normal_cases": [
+    {
+      "input": "n = 101",
+      "output": "True",
+      "description": "A typical prime number."
+    },
+    {
+      "input": "n = 11",
+      "output": "True",
+      "description": "Another typical prime number."
+    },
+    {
+      "input": "n = 13441",
+      "output": "True",
+      "description": "A larger prime number."
+    },
+    {
+      "input": "n = 61",
+      "output": "True",
+      "description": "A medium-sized prime number."
+    },
+    {
+      "input": "n = 6",
+      "output": "False",
+      "description": "A typical composite number (2*3)."
+    },
+    {
+      "input": "n = 4",
+      "output": "False",
+      "description": "A small composite number (2*2)."
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": "n = 1",
+      "output": "False",
+      "description": "The number 1 is not considered prime by definition."
+    },
+    {
+      "input": "n = 2",
+      "output": "True",
+      "description": "The smallest prime number."
+    },
+    {
+      "input": "n = 0",
+      "output": "False",
+      "description": "Zero is not a prime number."
+    },
+    {
+      "input": "n = -5",
+      "output": "False",
+      "description": "Negative numbers are not prime."
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": "n = 3.14",
+      "exception": "TypeError",
+      "description": "Input is not an integer."
+    },
+    {
+      "input": "n = 'hello'",
+      "exception": "TypeError",
+      "description": "Input is not an integer."
+    }
+  ]
+}

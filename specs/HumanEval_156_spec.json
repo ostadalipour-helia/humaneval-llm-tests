@@ -1,0 +1,100 @@
+{
+  "task_id": "HumanEval_156",
+  "entry_point": "int_to_mini_roman",
+  "preconditions": [
+    "The input `number` must be an integer.",
+    "The input `number` must be positive.",
+    "The input `number` must be within the range [1, 1000] inclusive."
+  ],
+  "postconditions": [
+    "The function must return a string.",
+    "The returned string must be the Roman numeral equivalent of the input `number`.",
+    "All characters in the returned string must be lowercase.",
+    "The Roman numeral representation must follow standard rules, including subtractive notation (e.g., 'iv' for 4, 'ix' for 9, 'xl' for 40, 'xc' for 90, 'cd' for 400, 'cm' for 900)."
+  ],
+  "invariants": [
+    "The mapping from a valid integer input to its mini-roman numeral string is deterministic and unique.",
+    "The returned string will only contain valid lowercase Roman numeral characters ('i', 'v', 'x', 'l', 'c', 'd', 'm')."
+  ],
+  "normal_cases": [
+    {
+      "input": 19,
+      "expected_output": "xix",
+      "description": "A typical number requiring subtractive notation and multiple symbols."
+    },
+    {
+      "input": 152,
+      "expected_output": "clii",
+      "description": "A number with hundreds, tens, and units."
+    },
+    {
+      "input": 426,
+      "expected_output": "cdxxvi",
+      "description": "A number requiring subtractive notation for hundreds and standard notation for tens and units."
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": 1,
+      "expected_output": "i",
+      "description": "The minimum allowed input value."
+    },
+    {
+      "input": 1000,
+      "expected_output": "m",
+      "description": "The maximum allowed input value."
+    },
+    {
+      "input": 4,
+      "expected_output": "iv",
+      "description": "A number demonstrating subtractive notation for units."
+    },
+    {
+      "input": 9,
+      "expected_output": "ix",
+      "description": "A number demonstrating subtractive notation for units."
+    },
+    {
+      "input": 50,
+      "expected_output": "l",
+      "description": "A number representing a base Roman numeral value."
+    },
+    {
+      "input": 99,
+      "expected_output": "xcix",
+      "description": "A number demonstrating subtractive notation for tens and units."
+    },
+    {
+      "input": 500,
+      "expected_output": "d",
+      "description": "A number representing a base Roman numeral value."
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": 0,
+      "expected_behavior": "Raise an error (e.g., ValueError or AssertionError) or return an empty string/undefined behavior, as it violates '1 <= num'.",
+      "description": "Input number is less than 1."
+    },
+    {
+      "input": -5,
+      "expected_behavior": "Raise an error (e.g., ValueError or AssertionError), as it violates 'positive integer' and '1 <= num'.",
+      "description": "Input number is negative."
+    },
+    {
+      "input": 1001,
+      "expected_behavior": "Raise an error (e.g., ValueError or AssertionError), as it violates 'num <= 1000'.",
+      "description": "Input number is greater than 1000."
+    },
+    {
+      "input": 19.5,
+      "expected_behavior": "Raise an error (e.g., TypeError or ValueError), as it violates 'integer'.",
+      "description": "Input is a float instead of an integer."
+    },
+    {
+      "input": "19",
+      "expected_behavior": "Raise an error (e.g., TypeError), as it violates 'integer'.",
+      "description": "Input is a string instead of an integer."
+    }
+  ]
+}

@@ -1,0 +1,108 @@
+{
+  "task_id": "HumanEval_141",
+  "entry_point": "file_name_check",
+  "preconditions": [
+    "The input `file_name` must be a string."
+  ],
+  "postconditions": [
+    "The function returns a string, which is either 'Yes' or 'No'.",
+    "If all validity conditions are met, the function returns 'Yes'.",
+    "Otherwise, the function returns 'No'."
+  ],
+  "invariants": [
+    "The input `file_name` string remains unchanged during the execution of the function."
+  ],
+  "normal_cases": [
+    {
+      "input": "example.txt",
+      "output": "Yes",
+      "reason": "Valid name, one dot, starts with letter, valid extension, 0 digits."
+    },
+    {
+      "input": "my_document_1.dll",
+      "output": "Yes",
+      "reason": "Valid name, one dot, starts with letter, valid extension, 1 digit."
+    },
+    {
+      "input": "Report_2023_final.exe",
+      "output": "Yes",
+      "reason": "Valid name, one dot, starts with letter, valid extension, 3 digits."
+    },
+    {
+      "input": "A.txt",
+      "output": "Yes",
+      "reason": "Minimal valid name: single letter before dot, valid extension."
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": "1example.dll",
+      "output": "No",
+      "reason": "The name should start with a latin alphabet letter (starts with a digit)."
+    },
+    {
+      "input": "file_name_with_4_digits_1234.txt",
+      "output": "No",
+      "reason": "Contains more than three digits."
+    },
+    {
+      "input": "file_name_with_3_digits_123.txt",
+      "output": "Yes",
+      "reason": "Contains exactly three digits, which is allowed."
+    },
+    {
+      "input": "no_dot_here",
+      "output": "No",
+      "reason": "Does not contain exactly one dot (contains zero dots)."
+    },
+    {
+      "input": "multiple.dots.txt",
+      "output": "No",
+      "reason": "Does not contain exactly one dot (contains multiple dots)."
+    },
+    {
+      "input": ".txt",
+      "output": "No",
+      "reason": "The substring before the dot is empty."
+    },
+    {
+      "input": "file.jpg",
+      "output": "No",
+      "reason": "The substring after the dot is not one of ['txt', 'exe', 'dll']."
+    },
+    {
+      "input": "file.TXT",
+      "output": "No",
+      "reason": "The substring after the dot is not one of ['txt', 'exe', 'dll'] (case mismatch)."
+    },
+    {
+      "input": "file.",
+      "output": "No",
+      "reason": "The substring after the dot is empty."
+    },
+    {
+      "input": "file_name_with_no_digits.txt",
+      "output": "Yes",
+      "reason": "Contains zero digits, which is allowed."
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": null,
+      "output": "TypeError",
+      "reason": "Input `file_name` is not a string."
+    },
+    {
+      "input": 123,
+      "output": "TypeError",
+      "reason": "Input `file_name` is not a string."
+    },
+    {
+      "input": [
+        "example.txt"
+      ],
+      "output": "TypeError",
+      "reason": "Input `file_name` is not a string."
+    }
+  ]
+}

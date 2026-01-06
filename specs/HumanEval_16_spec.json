@@ -1,0 +1,83 @@
+{
+  "task_id": "HumanEval_16",
+  "entry_point": "count_distinct_characters",
+  "preconditions": [
+    "The input `string` must be of type `str`."
+  ],
+  "postconditions": [
+    "The function must return an integer.",
+    "The returned integer must be non-negative.",
+    "The returned integer represents the count of unique characters in the input string, considering characters 'distinct regardless of case'.",
+    "For any character `c` in the input string, its lowercase version `c.lower()` is used for uniqueness comparison.",
+    "The returned count is equal to the size of the set of lowercase versions of all characters present in the input string."
+  ],
+  "invariants": [
+    "The set of distinct characters (case-insensitive) derived from the input string remains consistent throughout the function's execution.",
+    "The length of the input string does not affect the distinct character count beyond the presence or absence of unique characters."
+  ],
+  "normal_cases": [
+    {
+      "input": "xyzXYZ",
+      "output": 3,
+      "description": "String with mixed case characters that are distinct when case is ignored."
+    },
+    {
+      "input": "Jerry",
+      "output": 4,
+      "description": "String with some repeated characters and mixed case."
+    },
+    {
+      "input": "Hello World",
+      "output": 8,
+      "description": "String with spaces and common words, testing case-insensitivity and character set."
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": "",
+      "output": 0,
+      "description": "Empty string should have zero distinct characters."
+    },
+    {
+      "input": "aaaaaA",
+      "output": 1,
+      "description": "String with all characters being the same, regardless of case."
+    },
+    {
+      "input": "a",
+      "output": 1,
+      "description": "String with a single character."
+    },
+    {
+      "input": "123!@#",
+      "output": 6,
+      "description": "String with only non-alphabetic characters."
+    },
+    {
+      "input": "AaBbCc",
+      "output": 3,
+      "description": "String with pairs of same characters in different cases."
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": 123,
+      "exception": "TypeError",
+      "description": "Input is an integer instead of a string."
+    },
+    {
+      "input": null,
+      "exception": "TypeError",
+      "description": "Input is None instead of a string."
+    },
+    {
+      "input": [
+        "a",
+        "b",
+        "c"
+      ],
+      "exception": "TypeError",
+      "description": "Input is a list instead of a string."
+    }
+  ]
+}

@@ -1,0 +1,59 @@
+{
+  "task_id": "HumanEval_83",
+  "entry_point": "starts_one_ends",
+  "preconditions": [
+    "n is an integer.",
+    "n is a positive integer (n > 0)."
+  ],
+  "postconditions": [
+    "The function returns an integer.",
+    "The returned integer represents the count of n-digit positive integers that either start with '1' or end with '1'.",
+    "If n = 1, the returned value is 1.",
+    "If n > 1, the returned value is 18 * 10^(n-2)."
+  ],
+  "invariants": [
+    "The input 'n' remains unchanged during the function execution.",
+    "The returned value is always a non-negative integer."
+  ],
+  "normal_cases": [
+    {
+      "input": "n = 2",
+      "output": "18",
+      "reason": "For n=2, 2-digit numbers are 10-99. Numbers starting with 1: 10-19 (10 numbers). Numbers ending with 1: 11, 21, ..., 91 (9 numbers). Number starting AND ending with 1: 11 (1 number). Total = 10 + 9 - 1 = 18."
+    },
+    {
+      "input": "n = 3",
+      "output": "180",
+      "reason": "For n=3, 3-digit numbers are 100-999. Using the formula 18 * 10^(3-2) = 18 * 10^1 = 180."
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": "n = 1",
+      "output": "1",
+      "reason": "For n=1, 1-digit numbers are 1-9. Only '1' starts or ends with 1."
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": "n = 0",
+      "exception": "ValueError or AssertionError",
+      "reason": "n must be a positive integer. 0 is not positive."
+    },
+    {
+      "input": "n = -5",
+      "exception": "ValueError or AssertionError",
+      "reason": "n must be a positive integer. -5 is not positive."
+    },
+    {
+      "input": "n = 1.5",
+      "exception": "TypeError",
+      "reason": "n must be an integer."
+    },
+    {
+      "input": "n = \"abc\"",
+      "exception": "TypeError",
+      "reason": "n must be an integer."
+    }
+  ]
+}

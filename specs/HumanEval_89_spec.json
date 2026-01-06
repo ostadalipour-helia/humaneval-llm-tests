@@ -1,0 +1,102 @@
+{
+  "task_id": "HumanEval_89",
+  "entry_point": "encrypt",
+  "preconditions": [
+    "The input `s` must be a string."
+  ],
+  "postconditions": [
+    "The function must return a string.",
+    "The returned string must have the same length as the input string `s`.",
+    "Each lowercase alphabetic character in `s` must be replaced by a character shifted 4 positions forward in the lowercase English alphabet (a-z), wrapping around from 'z' to 'a'.",
+    "All other characters (uppercase letters, digits, symbols, spaces, etc.) must remain unchanged in their original positions."
+  ],
+  "invariants": [
+    "The type of the return value is always `str`.",
+    "The length of the output string is always equal to the length of the input string.",
+    "The case of non-alphabetic characters is preserved (they are unchanged).",
+    "The case of uppercase alphabetic characters is preserved (they are unchanged)."
+  ],
+  "normal_cases": [
+    {
+      "input": "hi",
+      "output": "lm",
+      "description": "Basic encryption of two lowercase letters."
+    },
+    {
+      "input": "asdfghjkl",
+      "output": "ewhjklnop",
+      "description": "Encryption of a longer sequence of lowercase letters."
+    },
+    {
+      "input": "gf",
+      "output": "kj",
+      "description": "Another basic encryption example."
+    },
+    {
+      "input": "et",
+      "output": "ix",
+      "description": "Another basic encryption example."
+    },
+    {
+      "input": "hello world",
+      "output": "lipps asvph",
+      "description": "Encryption with spaces and multiple words."
+    },
+    {
+      "input": "xyz",
+      "output": "bcd",
+      "description": "Encryption demonstrating wrap-around from 'z'."
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": "",
+      "output": "",
+      "description": "Empty input string should return an empty string."
+    },
+    {
+      "input": "123!@#",
+      "output": "123!@#",
+      "description": "String containing only non-alphabetic characters should remain unchanged."
+    },
+    {
+      "input": "Abc 123!",
+      "output": "Abc 123!",
+      "description": "String with mixed case and non-alphabetic characters; only lowercase 'b' and 'c' are shifted."
+    },
+    {
+      "input": "a",
+      "output": "e",
+      "description": "Single lowercase character encryption."
+    },
+    {
+      "input": "z",
+      "output": "d",
+      "description": "Single lowercase character 'z' demonstrating wrap-around."
+    },
+    {
+      "input": "AAAA",
+      "output": "AAAA",
+      "description": "String with only uppercase letters should remain unchanged."
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": 123,
+      "exception": "TypeError",
+      "description": "Input is not a string (e.g., an integer)."
+    },
+    {
+      "input": null,
+      "exception": "TypeError",
+      "description": "Input is not a string (e.g., None)."
+    },
+    {
+      "input": [
+        "hello"
+      ],
+      "exception": "TypeError",
+      "description": "Input is not a string (e.g., a list)."
+    }
+  ]
+}

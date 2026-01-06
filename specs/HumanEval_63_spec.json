@@ -1,0 +1,94 @@
+{
+  "task_id": "HumanEval_63",
+  "entry_point": "fibfib",
+  "preconditions": [
+    "n must be an integer.",
+    "n must be non-negative (n >= 0)."
+  ],
+  "postconditions": [
+    "The function returns an integer representing the n-th FibFib number.",
+    "If n is 0, the result is 0.",
+    "If n is 1, the result is 0.",
+    "If n is 2, the result is 1.",
+    "If n is greater than or equal to 3, the result is the sum of the (n-1)-th, (n-2)-th, and (n-3)-th FibFib numbers (fibfib(n-1) + fibfib(n-2) + fibfib(n-3))."
+  ],
+  "invariants": [
+    "For any non-negative integer n, fibfib(n) will always be a non-negative integer."
+  ],
+  "normal_cases": [
+    {
+      "input": {
+        "n": 5
+      },
+      "expected_output": 4,
+      "description": "Typical case for n > 2"
+    },
+    {
+      "input": {
+        "n": 8
+      },
+      "expected_output": 24,
+      "description": "Another typical case for n > 2"
+    },
+    {
+      "input": {
+        "n": 3
+      },
+      "expected_output": 1,
+      "description": "First recursive step: fibfib(3) = fibfib(2) + fibfib(1) + fibfib(0) = 1 + 0 + 0 = 1"
+    },
+    {
+      "input": {
+        "n": 4
+      },
+      "expected_output": 2,
+      "description": "Second recursive step: fibfib(4) = fibfib(3) + fibfib(2) + fibfib(1) = 1 + 1 + 0 = 2"
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": {
+        "n": 0
+      },
+      "expected_output": 0,
+      "description": "Base case: n = 0"
+    },
+    {
+      "input": {
+        "n": 1
+      },
+      "expected_output": 0,
+      "description": "Base case: n = 1"
+    },
+    {
+      "input": {
+        "n": 2
+      },
+      "expected_output": 1,
+      "description": "Base case: n = 2"
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": {
+        "n": -1
+      },
+      "expected_behavior": "Raise an error (e.g., ValueError or IndexError) or return an undefined value, as the sequence is not defined for negative indices.",
+      "description": "Input n is negative."
+    },
+    {
+      "input": {
+        "n": "abc"
+      },
+      "expected_behavior": "Raise a TypeError, as n must be an integer.",
+      "description": "Input n is not an integer."
+    },
+    {
+      "input": {
+        "n": 3.5
+      },
+      "expected_behavior": "Raise a TypeError, as n must be an integer.",
+      "description": "Input n is a float."
+    }
+  ]
+}

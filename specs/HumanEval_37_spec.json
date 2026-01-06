@@ -1,0 +1,95 @@
+{
+  "task_id": "HumanEval_37",
+  "entry_point": "sort_even",
+  "preconditions": [
+    "The input 'l' must be a Python list.",
+    "All elements in 'l' that are at even indices must be of a comparable type (e.g., all numbers, all strings) to allow for sorting."
+  ],
+  "postconditions": [
+    "The function returns a new list, let's call it 'l_prime'.",
+    "The length of 'l_prime' must be equal to the length of the input list 'l'.",
+    "For any odd index 'i' (where 0 <= i < len(l)), the element l_prime[i] must be identical to l[i].",
+    "The elements at even indices in 'l_prime' must be the sorted version of the elements that were originally at even indices in 'l'. Specifically, if 'even_elements_l' is the list of elements from 'l' at even indices, and 'even_elements_l_prime' is the list of elements from 'l_prime' at even indices, then 'even_elements_l_prime' must be equal to 'sorted(even_elements_l)'."
+  ],
+  "invariants": [
+    "The relative order of elements at odd indices is preserved.",
+    "The set of values present at even indices in the input list 'l' is the same as the set of values present at even indices in the output list 'l_prime'. Only their order changes.",
+    "The total number of elements in the list remains constant."
+  ],
+  "normal_cases": [
+    {
+      "input": "[1, 2, 3]",
+      "output": "[1, 2, 3]",
+      "description": "List where even-indexed elements are already sorted."
+    },
+    {
+      "input": "[5, 6, 3, 4]",
+      "output": "[3, 6, 5, 4]",
+      "description": "List with unsorted even-indexed elements."
+    },
+    {
+      "input": "[10, 1, 8, 3, 6, 5]",
+      "output": "[6, 1, 8, 3, 10, 5]",
+      "description": "A longer list with mixed sorted/unsorted even-indexed elements."
+    },
+    {
+      "input": "[7, 2, 9, 4, 1, 6, 3, 8]",
+      "output": "[1, 2, 3, 4, 7, 6, 9, 8]",
+      "description": "List with multiple even and odd elements."
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": "[]",
+      "output": "[]",
+      "description": "Empty list."
+    },
+    {
+      "input": "[1]",
+      "output": "[1]",
+      "description": "List with a single element (at an even index)."
+    },
+    {
+      "input": "[2, 1]",
+      "output": "[2, 1]",
+      "description": "List with two elements, even-indexed element is already sorted."
+    },
+    {
+      "input": "[1, 2, 3, 4, 5]",
+      "output": "[1, 2, 3, 4, 5]",
+      "description": "List where all even-indexed elements are already sorted."
+    },
+    {
+      "input": "[5, 2, 3, 4, 1]",
+      "output": "[1, 2, 3, 4, 5]",
+      "description": "List with unsorted even-indexed elements, including duplicates or negative numbers."
+    },
+    {
+      "input": "[0, -1, 10, -5, 5]",
+      "output": "[0, -1, 5, -5, 10]",
+      "description": "List with negative numbers and zero."
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": "None",
+      "expected_error": "TypeError",
+      "description": "Input is not a list."
+    },
+    {
+      "input": "123",
+      "expected_error": "TypeError",
+      "description": "Input is an integer, not a list."
+    },
+    {
+      "input": "[1, 'a', 3]",
+      "expected_error": "TypeError",
+      "description": "Even-indexed elements are not sortable (mixed types)."
+    },
+    {
+      "input": "[{'key': 1}, 2, {'key': 0}]",
+      "expected_error": "TypeError",
+      "description": "Even-indexed elements are unhashable/uncomparable objects."
+    }
+  ]
+}

@@ -1,0 +1,112 @@
+{
+  "task_id": "HumanEval_40",
+  "entry_point": "triples_sum_to_zero",
+  "preconditions": [
+    "The input `l` must be a list.",
+    "All elements in the list `l` must be integers."
+  ],
+  "postconditions": [
+    "The function must return a boolean value (`True` or `False`).",
+    "If `True` is returned, there must exist three distinct indices `i, j, k` within the list `l` such that the sum of the elements at these indices (`l[i] + l[j] + l[k]`) equals zero.",
+    "If `False` is returned, no such three distinct indices `i, j, k` exist in `l` whose corresponding elements sum to zero."
+  ],
+  "invariants": [
+    "The input list `l` must not be modified by the function."
+  ],
+  "normal_cases": [
+    {
+      "input": "[1, 3, 5, 0]",
+      "output": "False",
+      "description": "No three distinct elements sum to zero."
+    },
+    {
+      "input": "[1, 3, -2, 1]",
+      "output": "True",
+      "description": "Elements at distinct indices (e.g., l[0]=1, l[2]=-2, l[3]=1) sum to zero."
+    },
+    {
+      "input": "[2, 4, -5, 3, 9, 7]",
+      "output": "True",
+      "description": "Elements at distinct indices (e.g., l[0]=2, l[2]=-5, l[3]=3) sum to zero."
+    },
+    {
+      "input": "[1, 2, 3, 7]",
+      "output": "False",
+      "description": "No three distinct elements sum to zero."
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": "[]",
+      "output": "False",
+      "description": "An empty list, fewer than three elements."
+    },
+    {
+      "input": "[1]",
+      "output": "False",
+      "description": "A list with one element, fewer than three elements."
+    },
+    {
+      "input": "[1, 2]",
+      "output": "False",
+      "description": "A list with two elements, fewer than three elements."
+    },
+    {
+      "input": "[0, 0, 0]",
+      "output": "True",
+      "description": "Exactly three elements, all zeros, sum to zero."
+    },
+    {
+      "input": "[1, 2, 3]",
+      "output": "False",
+      "description": "Exactly three elements, but their sum is not zero."
+    },
+    {
+      "input": "[-1, 0, 1]",
+      "output": "True",
+      "description": "Exactly three elements that sum to zero."
+    },
+    {
+      "input": "[0, 0, 0, 5]",
+      "output": "True",
+      "description": "More than three elements, with three zeros summing to zero."
+    },
+    {
+      "input": "[1, 1, 1, -2]",
+      "output": "True",
+      "description": "List with duplicate values, but three elements at distinct indices (e.g., l[0]=1, l[1]=1, l[3]=-2) sum to zero."
+    },
+    {
+      "input": "[10, 20, -30, 40, -50]",
+      "output": "True",
+      "description": "Larger numbers, with a combination summing to zero (e.g., 10, 20, -30)."
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": "null",
+      "exception": "TypeError",
+      "description": "Input is not a list."
+    },
+    {
+      "input": "123",
+      "exception": "TypeError",
+      "description": "Input is an integer, not a list."
+    },
+    {
+      "input": "\"hello\"",
+      "exception": "TypeError",
+      "description": "Input is a string, not a list."
+    },
+    {
+      "input": "[1, 2, \"a\"]",
+      "exception": "TypeError",
+      "description": "List contains non-integer elements (string)."
+    },
+    {
+      "input": "[1, 2, 3.0]",
+      "exception": "TypeError",
+      "description": "List contains non-integer elements (float)."
+    }
+  ]
+}

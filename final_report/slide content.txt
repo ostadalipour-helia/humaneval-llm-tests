@@ -1,0 +1,273 @@
+Slide 1 — Title
+Evaluation Results: Baseline vs Spec-NoSUT vs Spec-SUT vs Hybrid
+
+Project: LLM-Driven Test Generation for HumanEval
+Helia Ostadalipour
+
+Slide 2 — Overview
+
+164 HumanEval problems
+
+4 test-generation pipelines:
+
+Baseline (direct LLM-generated tests)
+
+Spec_NoSUT (test generation purely from specs)
+
+Spec_SUT (spec + SUT-aware test generation)
+
+Hybrid (NoSUT + baseline merged)
+
+Metrics:
+
+Mutation Score
+
+Validity
+
+Coverage
+
+Variance & Stability
+
+Correlation & Effect Size
+
+Problem-level anomalies
+
+Slide 3 — High-Level Findings
+
+Hybrid ≈ Baseline performance with slight improvements
+
+Spec_NoSUT performs close to baseline but slightly worse
+
+Spec_SUT collapses severely for many tasks
+
+Mutation score distributions show:
+
+Baseline & Hybrid concentrated at 80–100%
+
+Spec_NoSUT slightly shifted down
+
+Spec_SUT heavily bi-modal (0 or 100)
+
+Slide 4 — Baseline Mutation Score
+
+Mean: 86.7
+Zeros: 8
+Variance: 558
+Distribution:
+
+80–100: 132
+
+60–80: 18
+
+Below 50: 10
+
+Interpretation: Baseline is strong and stable, with a cluster at 100%, but still has blind spots for ~10 tasks.
+
+Slide 5 — Spec_NoSUT Mutation Score
+
+Mean: 84.3
+Zeros: 11
+Variance: 732
+Notes:
+
+Slight drop vs baseline
+
+Higher variance → more inconsistent generation
+
+84 perfect 100s (slightly fewer than baseline)
+
+Interpretation: Specs help structure tests but missing the SUT reduces oracle quality.
+
+Slide 6 — Spec_SUT Mutation Score
+
+Mean: 59.1
+Zeros: 42 (!!)
+Variance: 1830 (very high)
+Distribution:
+
+0–20: 51
+
+80–100: 81
+
+Interpretation:
+Strong bi-modal collapse:
+
+When the LLM understands the SUT → very strong tests
+
+When the LLM misinterprets specs + SUT → test suite fails completely
+
+This pipeline is unstable and not suitable as-is.
+
+Slide 7 — Hybrid Mutation Score
+
+Mean: 86.4
+Zeros: 10
+Variance: 635
+Distribution:
+
+80–100: 131
+
+Similar shape to baseline
+
+Interpretation:
+Hybrid offers the best consistency and slightly improves robustness via extra tests.
+
+Slide 8 — Improvements vs Baseline
+Hybrid vs Baseline
+
+✔ Improved: 14
+
+❌ Worse: 6
+
+➖ Same: 144
+
+Interpretation: Hybrid rarely harms performance and sometimes improves it.
+
+Slide 9 — Spec_NoSUT vs Baseline
+
+✔ Improved: 12
+
+❌ Worse: 28
+
+➖ Same: 124
+
+Interpretation: Spec-based NoSUT tests are structurally good but often miss fine-grained behavior.
+
+Slide 10 — Spec_SUT vs Baseline
+
+✔ Improved: 12
+
+❌ Worse: 66
+
+➖ Same: 85
+
+Interpretation: The worst-performing pipeline: integrating the SUT confused the LLM in many tasks.
+
+Slide 11 — Variance Analysis
+High-Variance Problems (~50 tasks):
+
+Examples:
+HumanEval_4, 10, 24, 30, 38, 45, 62, 83, 102, 136, 162, …
+
+Interpretation:
+
+These tasks are unstable across pipelines
+
+Indicates:
+
+SUT complexity
+
+Spec ambiguity
+
+Test oracle uncertainty
+
+LLM inconsistency
+
+Slide 12 — Correlation Analysis
+Pipeline	Baseline	Spec_NoSUT	Spec_SUT	Hybrid
+Baseline	1	0.80	0.28	0.82
+Hybrid	0.82	0.80	0.27	1
+
+Interpretation:
+
+Baseline & Hybrid correlate strongly → similar behavior
+
+Spec_NoSUT moderately correlated → structural consistency
+
+Spec_SUT almost uncorrelated → unpredictable
+
+Slide 13 — Key Anomalies
+Categories:
+
+Baseline Weaknesses
+
+Spec_NoSUT Low Mutation
+
+Spec_SUT Collapses
+
+Hybrid Severe Regression
+
+High Variance
+
+Frequent problematic tasks:
+
+HumanEval_10, 13, 30, 38, 83, 102, 136, 162, 163 …
+
+Slide 14 — Why Spec_SUT Collapsed
+
+LLM tries to combine:
+
+A structured spec
+
+AND raw SUT code
+
+This causes:
+
+Incorrect assumptions
+
+Wrong expected outputs
+
+Overfitting to implementation details
+
+Hallucinated exceptions
+
+Broken oracle logic
+
+Conclusion: SUT-aware generation needs a stronger guardrail.
+
+Slide 15 — Hybrid Pipeline Takeaways
+
+Hybrid = Baseline + Spec_NoSUT →
+
+Adds edge cases
+
+Reduces hallucinated oracles
+
+Keeps high coverage
+
+Maintains baseline’s correctness
+
+Avoids SUT-driven failures
+
+Result:
+Hybrid is the best performing pipeline in both quality and stability.
+
+Slide 16 — Overall Insights
+
+Specifications help but are not enough alone.
+
+Direct SUT-aware generation is too unstable.
+
+Hybrid improves robustness without hurting correctness.
+
+High variance tasks reveal fundamental difficulty in HumanEval.
+
+Mutation testing shows real fault-detection differences vs coverage/validity.
+
+Slide 17 — What to Improve Next
+
+Better spec repair loop
+
+Improved SUT-aware generation prompt
+
+Oracle validation via reference interpreter
+
+LLM self-debug pass (like GPT-4 chain-of-thought validation)
+
+Multi-generation ensemble tests
+
+Slide 18 — Conclusion
+
+Baseline remains strong
+
+Hybrid = best overall pipeline
+
+Formal specifications partially help
+
+Mutation testing reveals deep weaknesses
+
+This analysis shows clear next-step research directions
+
+Slide 19 — Questions
+
+Thank you!

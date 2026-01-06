@@ -1,0 +1,74 @@
+{
+  "task_id": "HumanEval_149",
+  "entry_point": "sorted_list_sum",
+  "preconditions": [
+    "The input `lst` must be a Python list.",
+    "All elements within `lst` must be strings.",
+    "The list `lst` can be empty.",
+    "The list `lst` can contain duplicate string elements."
+  ],
+  "postconditions": [
+    "The function must return a new Python list of strings.",
+    "All strings in the returned list must have an even length.",
+    "The returned list must be sorted in ascending order based on the length of its string elements.",
+    "If two strings in the returned list have the same length, they must be sorted alphabetically (lexicographically) in ascending order.",
+    "The returned list must only contain strings that were present in the original `lst` and satisfied the even length criterion.",
+    "The returned list must not contain any strings that had an odd length in the original `lst`."
+  ],
+  "invariants": [
+    "All elements in the returned list are strings.",
+    "The order of elements in the returned list is always non-decreasing by length, and then alphabetically for elements of equal length."
+  ],
+  "normal_cases": [
+    {
+      "input": "lst = [\"aa\", \"a\", \"aaa\"]",
+      "output": "[\"aa\"]",
+      "description": "Filter odd lengths, then sort. Only 'aa' remains."
+    },
+    {
+      "input": "lst = [\"ab\", \"a\", \"aaa\", \"cd\"]",
+      "output": "[\"ab\", \"cd\"]",
+      "description": "Filter odd lengths, then sort by length (equal), then alphabetically."
+    },
+    {
+      "input": "lst = [\"apple\", \"banana\", \"cat\", \"dog\", \"elephant\", \"zebra\", \"ant\", \"bat\"]",
+      "output": "[\"banana\", \"elephant\"]",
+      "description": "Mixed lengths, filter odd, sort remaining even lengths."
+    },
+    {
+      "input": "lst = [\"date\", \"pear\", \"fig\", \"grape\"]",
+      "output": "[\"date\", \"pear\"]",
+      "description": "Filter odd lengths, then sort by length (equal), then alphabetically."
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": "lst = []",
+      "output": "[]",
+      "description": "Empty input list."
+    },
+    {
+      "input": "lst = [\"a\", \"abc\", \"abcde\"]",
+      "output": "[]",
+      "description": "List containing only strings with odd lengths."
+    },
+    {
+      "input": "lst = [\"aa\", \"bb\", \"cc\"]",
+      "output": "[\"aa\", \"bb\", \"cc\"]",
+      "description": "List containing only strings with the same even length, requiring alphabetical sort."
+    },
+    {
+      "input": "lst = [\"aaaa\", \"bb\", \"cc\", \"dddd\"]",
+      "output": "[\"bb\", \"cc\", \"aaaa\", \"dddd\"]",
+      "description": "List with multiple lengths, including duplicates, requiring both length and alphabetical sort."
+    },
+    {
+      "input": "lst = [\"even\", \"odd\", \"eveneven\", \"oddd\"]",
+      "output": "[\"even\", \"eveneven\"]",
+      "description": "Mixed lengths, some odd, some even, with varying lengths."
+    }
+  ],
+  "error_conditions": [
+    "None, as the problem statement guarantees that the input `lst` is always a list of strings and never an array of numbers."
+  ]
+}

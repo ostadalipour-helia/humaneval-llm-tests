@@ -1,0 +1,540 @@
+
+
+(venv) helia@AP-FL-7YDN5G3 humaneval-llm-tests % python spec_pipeline/comparison/analyze_all_results.py
+
+
+📥 Loading CSV files...
+Loaded: ['baseline', 'spec_NoSUT', 'spec_SUT', 'hybrid']
+Total problems: 164
+
+============================== STATS ==============================
+
+📊 BASELINE SUMMARY
+  • count: 164
+  • missing: 0
+  • zeros: 8
+  • mean: 86.72447744264588
+  • median: 100.0
+  • variance: 558.3782793445762
+  • std: 23.630029186282783
+  • stderr: 1.8451952757796697
+  • min: 0.0
+  • max: 100.0
+  • p25: 83.08823529411765
+  • p75: 100.0
+  • skew: -2.5617375904021387
+  • kurtosis: 6.370992143204438
+  • Distribution buckets:
+     - 0–20: 8
+     - 20–40: 1
+     - 40–60: 5
+     - 60–80: 18
+     - 80–100: 132
+  • perfect_100: 86
+  • below_50: 10
+
+📊 SPEC_NOSUT SUMMARY
+  • count: 164
+  • missing: 0
+  • zeros: 11
+  • mean: 84.27627450840453
+  • median: 100.0
+  • variance: 732.1258869563732
+  • std: 27.057824874818987
+  • stderr: 2.1128611496117915
+  • min: 0.0
+  • max: 100.0
+  • p25: 81.81818181818181
+  • p75: 100.0
+  • skew: -2.1551712367612827
+  • kurtosis: 3.7842852397380637
+  • Distribution buckets:
+     - 0–20: 11
+     - 20–40: 3
+     - 40–60: 7
+     - 60–80: 16
+     - 80–100: 127
+  • perfect_100: 84
+  • below_50: 16
+
+📊 SPEC_SUT SUMMARY
+  • count: 164
+  • missing: 1
+  • zeros: 42
+  • mean: 59.103155626263394
+  • median: 79.54545454545455
+  • variance: 1830.694266479518
+  • std: 42.786613169068644
+  • stderr: 3.351306188426537
+  • min: 0.0
+  • max: 100.0
+  • p25: 0.0
+  • p75: 100.0
+  • skew: -0.4453950126583821
+  • kurtosis: -1.5929492186448537
+  • Distribution buckets:
+     - 0–20: 51
+     - 20–40: 8
+     - 40–60: 5
+     - 60–80: 18
+     - 80–100: 81
+  • perfect_100: 54
+  • below_50: 61
+
+📊 HYBRID SUMMARY
+  • count: 164
+  • missing: 0
+  • zeros: 10
+  • mean: 86.40754608105885
+  • median: 100.0
+  • variance: 634.8953587488402
+  • std: 25.19712997047164
+  • stderr: 1.9675652881423487
+  • min: 0.0
+  • max: 100.0
+  • p25: 84.2948717948718
+  • p75: 100.0
+  • skew: -2.5084454557314873
+  • kurtosis: 5.720477824085249
+  • Distribution buckets:
+     - 0–20: 10
+     - 20–40: 0
+     - 40–60: 5
+     - 60–80: 18
+     - 80–100: 131
+  • perfect_100: 90
+  • below_50: 10
+
+============================== DELTAS ==============================
+
+Δ spec_NoSUT - baseline:
+  • Improved: 12
+  • Worse: 28
+  • Same: 124
+  • Mean Δ: -2.448202934241352
+  • Variance Δ: 260.7715623275103
+
+Δ spec_SUT - baseline:
+  • Improved: 12
+  • Worse: 66
+  • Same: 85
+  • Mean Δ: -27.539876892717732
+  • Variance Δ: 1816.2330586676953
+
+Δ hybrid - baseline:
+  • Improved: 14
+  • Worse: 6
+  • Same: 144
+  • Mean Δ: -0.3169313615870288
+  • Variance Δ: 217.66796985567933
+
+Δ spec_SUT - spec_NoSUT:
+  • Improved: 15
+  • Worse: 61
+  • Same: 87
+  • Mean Δ: -25.076654308573058
+  • Variance Δ: 1913.2293525766395
+
+Δ hybrid - spec_NoSUT:
+  • Improved: 27
+  • Worse: 5
+  • Same: 132
+  • Mean Δ: 2.1312715726543234
+  • Variance Δ: 278.52624306541065
+
+============================== VARIANCE ==============================
+Average variance: 701.8451698251208
+
+High variance problems: ['HumanEval_4', 'HumanEval_5', 'HumanEval_8', 'HumanEval_10', 'HumanEval_13', 'HumanEval_15', 'HumanEval_20', 'HumanEval_24', 'HumanEval_30', 'HumanEval_31', 'HumanEval_33', 'HumanEval_37', 'HumanEval_38', 'HumanEval_44', 'HumanEval_45', 'HumanEval_46', 'HumanEval_47', 'HumanEval_53', 'HumanEval_60', 'HumanEval_62', 'HumanEval_68', 'HumanEval_69', 'HumanEval_83', 'HumanEval_85', 'HumanEval_88', 'HumanEval_92', 'HumanEval_96', 'HumanEval_102', 'HumanEval_106', 'HumanEval_107', 'HumanEval_113', 'HumanEval_114', 'HumanEval_121', 'HumanEval_128', 'HumanEval_130', 'HumanEval_131', 'HumanEval_136', 'HumanEval_137', 'HumanEval_138', 'HumanEval_139', 'HumanEval_146', 'HumanEval_149', 'HumanEval_151', 'HumanEval_156', 'HumanEval_157', 'HumanEval_158', 'HumanEval_162', 'HumanEval_163']
+
+============================== CORRELATION ==============================
+            baseline  spec_NoSUT  spec_SUT    hybrid
+baseline    1.000000    0.805262  0.283856  0.819274
+spec_NoSUT  0.805262    1.000000  0.281265  0.798275
+spec_SUT    0.283856    0.281265  1.000000  0.270959
+hybrid      0.819274    0.798275  0.270959  1.000000
+
+============================== ANOMALIES ==============================
+⚠️ HumanEval_4: High variance
+⚠️ HumanEval_4: Spec_SUT collapse
+⚠️ HumanEval_5: High variance
+⚠️ HumanEval_5: Spec_SUT collapse
+⚠️ HumanEval_8: High variance
+⚠️ HumanEval_8: Spec_SUT collapse
+⚠️ HumanEval_10: High variance
+⚠️ HumanEval_10: Hybrid severe regression
+⚠️ HumanEval_13: High variance
+⚠️ HumanEval_13: Spec_SUT collapse
+⚠️ HumanEval_13: Hybrid severe regression
+⚠️ HumanEval_15: High variance
+⚠️ HumanEval_15: Spec_SUT collapse
+⚠️ HumanEval_16: Baseline weak
+⚠️ HumanEval_16: Spec_SUT collapse
+⚠️ HumanEval_20: High variance
+⚠️ HumanEval_20: Spec_SUT collapse
+⚠️ HumanEval_22: Baseline weak
+⚠️ HumanEval_22: Spec_SUT collapse
+⚠️ HumanEval_23: Baseline weak
+⚠️ HumanEval_23: Spec_SUT collapse
+⚠️ HumanEval_24: High variance
+⚠️ HumanEval_24: Spec_SUT collapse
+⚠️ HumanEval_25: Spec_SUT collapse
+⚠️ HumanEval_27: Baseline weak
+⚠️ HumanEval_27: Spec_SUT collapse
+⚠️ HumanEval_29: Baseline weak
+⚠️ HumanEval_29: Spec_SUT collapse
+⚠️ HumanEval_30: High variance
+⚠️ HumanEval_30: Spec_SUT collapse
+⚠️ HumanEval_31: High variance
+⚠️ HumanEval_31: Spec_SUT collapse
+⚠️ HumanEval_32: Baseline weak
+⚠️ HumanEval_32: Hybrid severe regression
+⚠️ HumanEval_33: High variance
+⚠️ HumanEval_33: Spec_SUT collapse
+⚠️ HumanEval_34: Baseline weak
+⚠️ HumanEval_34: Spec_SUT collapse
+⚠️ HumanEval_37: High variance
+⚠️ HumanEval_37: Spec_SUT collapse
+⚠️ HumanEval_38: High variance
+⚠️ HumanEval_38: Hybrid severe regression
+⚠️ HumanEval_44: High variance
+⚠️ HumanEval_45: High variance
+⚠️ HumanEval_45: Spec_SUT collapse
+⚠️ HumanEval_46: High variance
+⚠️ HumanEval_46: Spec_SUT collapse
+⚠️ HumanEval_47: High variance
+⚠️ HumanEval_47: Spec_SUT collapse
+⚠️ HumanEval_50: Hybrid severe regression
+⚠️ HumanEval_53: High variance
+⚠️ HumanEval_53: Spec_SUT collapse
+⚠️ HumanEval_59: High variance
+⚠️ HumanEval_59: Spec_SUT collapse
+⚠️ HumanEval_60: High variance
+⚠️ HumanEval_60: Spec_SUT collapse
+⚠️ HumanEval_62: High variance
+⚠️ HumanEval_62: Spec_SUT collapse
+⚠️ HumanEval_68: High variance
+⚠️ HumanEval_68: Spec_SUT collapse
+⚠️ HumanEval_69: High variance
+⚠️ HumanEval_69: Spec_SUT collapse
+⚠️ HumanEval_83: High variance
+⚠️ HumanEval_83: Spec_SUT collapse
+⚠️ HumanEval_85: High variance
+⚠️ HumanEval_85: Spec_SUT collapse
+⚠️ HumanEval_88: High variance
+⚠️ HumanEval_88: Spec_SUT collapse
+⚠️ HumanEval_92: High variance
+⚠️ HumanEval_92: Spec_SUT collapse
+⚠️ HumanEval_96: High variance
+⚠️ HumanEval_96: Spec_SUT collapse
+⚠️ HumanEval_102: High variance
+⚠️ HumanEval_102: Spec_SUT collapse
+⚠️ HumanEval_106: High variance
+⚠️ HumanEval_106: Spec_SUT collapse
+⚠️ HumanEval_107: High variance
+⚠️ HumanEval_107: Spec_SUT collapse
+⚠️ HumanEval_108: High variance
+⚠️ HumanEval_108: Spec_SUT collapse
+⚠️ HumanEval_113: High variance
+⚠️ HumanEval_113: Spec_SUT collapse
+⚠️ HumanEval_114: High variance
+⚠️ HumanEval_114: Spec_SUT collapse
+⚠️ HumanEval_121: High variance
+⚠️ HumanEval_121: Spec_SUT collapse
+⚠️ HumanEval_123: Spec_SUT collapse
+⚠️ HumanEval_124: Baseline weak
+⚠️ HumanEval_128: High variance
+⚠️ HumanEval_128: Spec_SUT collapse
+⚠️ HumanEval_130: High variance
+⚠️ HumanEval_130: Spec_SUT collapse
+⚠️ HumanEval_131: High variance
+⚠️ HumanEval_131: Spec_SUT collapse
+⚠️ HumanEval_136: High variance
+⚠️ HumanEval_136: Spec_SUT collapse
+⚠️ HumanEval_137: High variance
+⚠️ HumanEval_137: Spec_SUT collapse
+⚠️ HumanEval_138: High variance
+⚠️ HumanEval_138: Spec_SUT collapse
+⚠️ HumanEval_139: High variance
+⚠️ HumanEval_139: Spec_SUT collapse
+⚠️ HumanEval_145: Baseline weak
+⚠️ HumanEval_145: Spec_SUT collapse
+⚠️ HumanEval_146: High variance
+⚠️ HumanEval_146: Spec_SUT collapse
+⚠️ HumanEval_149: High variance
+⚠️ HumanEval_149: Spec_SUT collapse
+⚠️ HumanEval_151: High variance
+⚠️ HumanEval_151: Spec_SUT collapse
+⚠️ HumanEval_156: High variance
+⚠️ HumanEval_157: High variance
+⚠️ HumanEval_157: Spec_SUT collapse
+⚠️ HumanEval_158: High variance
+⚠️ HumanEval_158: Spec_SUT collapse
+⚠️ HumanEval_162: High variance
+⚠️ HumanEval_162: Baseline weak
+⚠️ HumanEval_163: High variance
+⚠️ HumanEval_163: Spec_SUT collapse
+
+📄 Saved SUPER extended comparison → result_spec/comparison_super_extended.csv
+(venv) helia@AP-FL-7YDN5G3 humaneval-llm-tests % 
+
+
+
+-----------------------------------------------
+
+
+
+(venv) helia@AP-FL-7YDN5G3 humaneval-llm-tests % python spec_pipeline/comparison/column_stats.py       
+
+=========== Column-Level Analysis ===========
+
+Loaded CSV columns: ['problem_id', 'baseline_validity_rate', 'baseline_coverage', 'baseline_mutation_score', 'spec_NoSUT_validity_rate', 'spec_NoSUT_coverage', 'spec_NoSUT_mutation_score', 'spec_SUT_validity_rate', 'spec_SUT_coverage', 'spec_SUT_mutation_score', 'hybrid_validity_rate', 'hybrid_coverage', 'hybrid_mutation_score']
+
+
+📊 COLUMN: baseline_validity_rate
+  • count: 164
+  • missing: 2
+  • zeros: 0
+  • mean: 93.76543209876543
+  • median: 100.0
+  • variance: 139.14960509163404
+  • std: 11.796169085412181
+  • min: 40.0
+  • max: 100.0
+  • p25: 100.0
+  • p75: 100.0
+  • Distribution buckets:
+     - 0–20: 0
+     - 20–40: 0
+     - 40–60: 1
+     - 60–80: 12
+     - 80–100: 149
+
+📊 COLUMN: baseline_coverage
+  • count: 164
+  • missing: 0
+  • zeros: 2
+  • mean: 98.53658536585365
+  • median: 100.0
+  • variance: 125.07227293131827
+  • std: 11.183571564188172
+  • min: 0.0
+  • max: 100.0
+  • p25: 100.0
+  • p75: 100.0
+  • Distribution buckets:
+     - 0–20: 2
+     - 20–40: 0
+     - 40–60: 0
+     - 60–80: 1
+     - 80–100: 161
+
+📊 COLUMN: baseline_mutation_score
+  • count: 164
+  • missing: 0
+  • zeros: 8
+  • mean: 86.72447744264588
+  • median: 100.0
+  • variance: 558.3782793445762
+  • std: 23.630029186282783
+  • min: 0.0
+  • max: 100.0
+  • p25: 83.08823529411765
+  • p75: 100.0
+  • Distribution buckets:
+     - 0–20: 8
+     - 20–40: 1
+     - 40–60: 5
+     - 60–80: 18
+     - 80–100: 132
+
+📊 COLUMN: spec_NoSUT_validity_rate
+  • count: 164
+  • missing: 5
+  • zeros: 0
+  • mean: 74.27287422570443
+  • median: 75.0
+  • variance: 229.71407401853972
+  • std: 15.15632125611422
+  • min: 33.333333333333336
+  • max: 100.0
+  • p25: 66.66666666666667
+  • p75: 83.33333333333333
+  • Distribution buckets:
+     - 0–20: 0
+     - 20–40: 2
+     - 40–60: 23
+     - 60–80: 74
+     - 80–100: 60
+
+📊 COLUMN: spec_NoSUT_coverage
+  • count: 164
+  • missing: 5
+  • zeros: 0
+  • mean: 99.67924528301887
+  • median: 100.0
+  • variance: 4.953427274898495
+  • std: 2.225629635608426
+  • min: 75.0
+  • max: 100.0
+  • p25: 100.0
+  • p75: 100.0
+  • Distribution buckets:
+     - 0–20: 0
+     - 20–40: 0
+     - 40–60: 0
+     - 60–80: 1
+     - 80–100: 158
+
+📊 COLUMN: spec_NoSUT_mutation_score
+  • count: 164
+  • missing: 0
+  • zeros: 11
+  • mean: 84.27627450840453
+  • median: 100.0
+  • variance: 732.1258869563732
+  • std: 27.057824874818987
+  • min: 0.0
+  • max: 100.0
+  • p25: 81.81818181818181
+  • p75: 100.0
+  • Distribution buckets:
+     - 0–20: 11
+     - 20–40: 3
+     - 40–60: 7
+     - 60–80: 16
+     - 80–100: 127
+
+📊 COLUMN: spec_SUT_validity_rate
+  • count: 164
+  • missing: 1
+  • zeros: 3
+  • mean: 80.51806407634629
+  • median: 100.0
+  • variance: 1598.891666035497
+  • std: 39.986143425385464
+  • min: -10.0
+  • max: 100.0
+  • p25: 100.0
+  • p75: 100.0
+  • Distribution buckets:
+     - 0–20: 6
+     - 20–40: 3
+     - 40–60: 2
+     - 60–80: 1
+     - 80–100: 131
+
+📊 COLUMN: spec_SUT_coverage
+  • count: 164
+  • missing: 1
+  • zeros: 2
+  • mean: 90.8159509202454
+  • median: 100.0
+  • variance: 549.0646822691813
+  • std: 23.43212927305543
+  • min: 0.0
+  • max: 100.0
+  • p25: 100.0
+  • p75: 100.0
+  • Distribution buckets:
+     - 0–20: 6
+     - 20–40: 6
+     - 40–60: 6
+     - 60–80: 6
+     - 80–100: 139
+
+📊 COLUMN: spec_SUT_mutation_score
+  • count: 164
+  • missing: 1
+  • zeros: 42
+  • mean: 59.103155626263394
+  • median: 79.54545454545455
+  • variance: 1830.694266479518
+  • std: 42.786613169068644
+  • min: 0.0
+  • max: 100.0
+  • p25: 0.0
+  • p75: 100.0
+  • Distribution buckets:
+     - 0–20: 51
+     - 20–40: 8
+     - 40–60: 5
+     - 60–80: 18
+     - 80–100: 81
+
+📊 COLUMN: hybrid_validity_rate
+  • count: 164
+  • missing: 4
+  • zeros: 0
+  • mean: 99.87739234449761
+  • median: 100.0
+  • variance: 1.2015266053386766
+  • std: 1.0961416903569887
+  • min: 89.47368421052632
+  • max: 100.0
+  • p25: 100.0
+  • p75: 100.0
+  • Distribution buckets:
+     - 0–20: 0
+     - 20–40: 0
+     - 40–60: 0
+     - 60–80: 0
+     - 80–100: 160
+
+📊 COLUMN: hybrid_coverage
+  • count: 164
+  • missing: 0
+  • zeros: 4
+  • mean: 97.3170731707317
+  • median: 100.0
+  • variance: 242.68412389645377
+  • std: 15.57832224266958
+  • min: 0.0
+  • max: 100.0
+  • p25: 100.0
+  • p75: 100.0
+  • Distribution buckets:
+     - 0–20: 4
+     - 20–40: 0
+     - 40–60: 0
+     - 60–80: 1
+     - 80–100: 159
+
+📊 COLUMN: hybrid_mutation_score
+  • count: 164
+  • missing: 0
+  • zeros: 10
+  • mean: 86.40754608105885
+  • median: 100.0
+  • variance: 634.8953587488402
+  • std: 25.19712997047164
+  • min: 0.0
+  • max: 100.0
+  • p25: 84.2948717948718
+  • p75: 100.0
+  • Distribution buckets:
+     - 0–20: 10
+     - 20–40: 0
+     - 40–60: 5
+     - 60–80: 18
+     - 80–100: 131
+
+=========== CORRELATION MATRIX ===========
+
+                           baseline_validity_rate  baseline_coverage  ...  hybrid_coverage  hybrid_mutation_score
+baseline_validity_rate                   1.000000          -0.061746  ...         0.109421               0.051896
+baseline_coverage                       -0.061746           1.000000  ...         0.069339               0.082452
+baseline_mutation_score                 -0.016060           0.432783  ...         0.175190               0.819274
+spec_NoSUT_validity_rate                 0.223390           0.169703  ...         0.016501               0.051610
+spec_NoSUT_coverage                     -0.044757           0.165530  ...         0.516658               0.327610
+spec_NoSUT_mutation_score                0.085175           0.095133  ...         0.192184               0.798275
+spec_SUT_validity_rate                  -0.090361           0.099146  ...        -0.075998              -0.067856
+spec_SUT_coverage                       -0.018131          -0.034432  ...        -0.024076               0.080738
+spec_SUT_mutation_score                 -0.113097           0.032493  ...        -0.021319               0.270959
+hybrid_validity_rate                     0.044999          -0.013545  ...        -0.013151              -0.060105
+hybrid_coverage                          0.109421           0.069339  ...         1.000000               0.555637
+hybrid_mutation_score                    0.051896           0.082452  ...         0.555637               1.000000
+
+[12 rows x 12 columns]
+
+

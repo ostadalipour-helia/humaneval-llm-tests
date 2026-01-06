@@ -1,0 +1,243 @@
+{
+  "task_id": "HumanEval_160",
+  "entry_point": "do_algebra",
+  "preconditions": [
+    "The 'operator' argument must be a list of strings.",
+    "The 'operand' argument must be a list of integers.",
+    "Each string in the 'operator' list must be one of '+', '-', '*', '//', '**'.",
+    "Each integer in the 'operand' list must be non-negative (i.e., >= 0).",
+    "The length of the 'operator' list must be exactly one less than the length of the 'operand' list (len(operator) == len(operand) - 1).",
+    "The 'operator' list must contain at least one operator (len(operator) >= 1).",
+    "The 'operand' list must contain at least two operands (len(operand) >= 2)."
+  ],
+  "postconditions": [
+    "The function must return a single numerical value (integer or float, depending on the operations).",
+    "The returned value must be the result of evaluating the algebraic expression formed by interleaving the operands and operators in their given order.",
+    "Standard mathematical operator precedence (e.g., exponentiation before multiplication/division, multiplication/division before addition/subtraction) must be applied during evaluation."
+  ],
+  "invariants": [
+    "The structure of the expression being evaluated is always 'operand[0] operator[0] operand[1] operator[1] ... operator[n-1] operand[n]'.",
+    "The types of elements in 'operator' and 'operand' lists remain consistent throughout the function's execution."
+  ],
+  "normal_cases": [
+    {
+      "description": "Example from docstring, demonstrating mixed operations and precedence.",
+      "input": {
+        "operator": [
+          "+",
+          "*",
+          "-"
+        ],
+        "operand": [
+          2,
+          3,
+          4,
+          5
+        ]
+      },
+      "expected_output": 9,
+      "explanation": "2 + 3 * 4 - 5 evaluates as 2 + (3 * 4) - 5 = 2 + 12 - 5 = 14 - 5 = 9."
+    },
+    {
+      "description": "Simple addition with two operands.",
+      "input": {
+        "operator": [
+          "+"
+        ],
+        "operand": [
+          10,
+          5
+        ]
+      },
+      "expected_output": 15,
+      "explanation": "10 + 5 = 15."
+    },
+    {
+      "description": "Mixed operations with floor division and multiplication.",
+      "input": {
+        "operator": [
+          "*",
+          "//"
+        ],
+        "operand": [
+          10,
+          2,
+          3
+        ]
+      },
+      "expected_output": 6,
+      "explanation": "10 * 2 // 3 evaluates as (10 * 2) // 3 = 20 // 3 = 6."
+    },
+    {
+      "description": "Operations involving exponentiation and addition.",
+      "input": {
+        "operator": [
+          "**",
+          "+"
+        ],
+        "operand": [
+          2,
+          3,
+          4
+        ]
+      },
+      "expected_output": 12,
+      "explanation": "2 ** 3 + 4 evaluates as (2 ** 3) + 4 = 8 + 4 = 12."
+    }
+  ],
+  "edge_cases": [
+    {
+      "description": "Minimum valid input: one operator and two operands.",
+      "input": {
+        "operator": [
+          "**"
+        ],
+        "operand": [
+          2,
+          3
+        ]
+      },
+      "expected_output": 8,
+      "explanation": "2 ** 3 = 8."
+    },
+    {
+      "description": "All operands are zero.",
+      "input": {
+        "operator": [
+          "+",
+          "*",
+          "-"
+        ],
+        "operand": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "expected_output": 0,
+      "explanation": "0 + 0 * 0 - 0 = 0 + 0 - 0 = 0."
+    },
+    {
+      "description": "Floor division resulting in a negative number due to intermediate subtraction.",
+      "input": {
+        "operator": [
+          "-",
+          "//"
+        ],
+        "operand": [
+          10,
+          20,
+          3
+        ]
+      },
+      "expected_output": -4,
+      "explanation": "10 - 20 // 3 evaluates as (10 - 20) // 3 = -10 // 3 = -4."
+    },
+    {
+      "description": "Large numbers, testing Python's arbitrary precision integers.",
+      "input": {
+        "operator": [
+          "**",
+          "+"
+        ],
+        "operand": [
+          2,
+          60,
+          1
+        ]
+      },
+      "expected_output": 1152921504606846977,
+      "explanation": "2 ** 60 + 1 = 1152921504606846976 + 1 = 1152921504606846977."
+    }
+  ],
+  "error_conditions": [
+    {
+      "description": "Invalid operator string in the 'operator' list.",
+      "input": {
+        "operator": [
+          "+",
+          "%"
+        ],
+        "operand": [
+          1,
+          2,
+          3
+        ]
+      },
+      "expected_error": "ValueError",
+      "explanation": "The '%' operator is not among the allowed basic algebra operations."
+    },
+    {
+      "description": "Operand list contains a non-integer value.",
+      "input": {
+        "operator": [
+          "+"
+        ],
+        "operand": [
+          1,
+          2.5
+        ]
+      },
+      "expected_error": "TypeError",
+      "explanation": "Operands must be integers, 2.5 is a float."
+    },
+    {
+      "description": "Operand list contains a negative integer.",
+      "input": {
+        "operator": [
+          "+"
+        ],
+        "operand": [
+          1,
+          -2
+        ]
+      },
+      "expected_error": "ValueError",
+      "explanation": "Operands must be non-negative integers."
+    },
+    {
+      "description": "Length of 'operator' list does not match 'len(operand) - 1'.",
+      "input": {
+        "operator": [
+          "+",
+          "*"
+        ],
+        "operand": [
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      "expected_error": "ValueError",
+      "explanation": "len(operator) is 2, len(operand) is 4. Expected len(operator) == 3."
+    },
+    {
+      "description": "Empty 'operator' list (violates minimum length constraint).",
+      "input": {
+        "operator": [],
+        "operand": [
+          1,
+          2
+        ]
+      },
+      "expected_error": "ValueError",
+      "explanation": "The 'operator' list must have at least one operator."
+    },
+    {
+      "description": "Division by zero.",
+      "input": {
+        "operator": [
+          "//"
+        ],
+        "operand": [
+          5,
+          0
+        ]
+      },
+      "expected_error": "ZeroDivisionError",
+      "explanation": "Attempting to perform floor division by zero."
+    }
+  ]
+}

@@ -1,0 +1,97 @@
+{
+  "task_id": "HumanEval_82",
+  "entry_point": "prime_length",
+  "preconditions": [
+    "The input `string` must be a Python string (`str`)."
+  ],
+  "postconditions": [
+    "The function must return a boolean value (`True` or `False`).",
+    "If the length of the input `string` is a prime number, the function must return `True`.",
+    "If the length of the input `string` is not a prime number, the function must return `False`."
+  ],
+  "invariants": [
+    "The input `string` itself must not be modified by the function.",
+    "The determination of primality is based solely on the integer value of `len(string)`."
+  ],
+  "normal_cases": [
+    {
+      "input": "'Hello'",
+      "expected_output": true,
+      "reason": "Length is 5, which is a prime number."
+    },
+    {
+      "input": "'abcdcba'",
+      "expected_output": true,
+      "reason": "Length is 7, which is a prime number."
+    },
+    {
+      "input": "'kittens'",
+      "expected_output": true,
+      "reason": "Length is 7, which is a prime number."
+    },
+    {
+      "input": "'orange'",
+      "expected_output": false,
+      "reason": "Length is 6, which is not a prime number."
+    },
+    {
+      "input": "'python'",
+      "expected_output": false,
+      "reason": "Length is 6, which is not a prime number."
+    },
+    {
+      "input": "'abc'",
+      "expected_output": true,
+      "reason": "Length is 3, which is a prime number."
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": "''",
+      "expected_output": false,
+      "reason": "Length is 0. 0 is not a prime number."
+    },
+    {
+      "input": "'a'",
+      "expected_output": false,
+      "reason": "Length is 1. 1 is not a prime number."
+    },
+    {
+      "input": "'ab'",
+      "expected_output": true,
+      "reason": "Length is 2. 2 is the smallest prime number."
+    },
+    {
+      "input": "'abcdefghijklm'",
+      "expected_output": true,
+      "reason": "Length is 13, which is a prime number."
+    },
+    {
+      "input": "'abcdefghijklmn'",
+      "expected_output": false,
+      "reason": "Length is 14, which is not a prime number."
+    },
+    {
+      "input": "'!@#$'",
+      "expected_output": false,
+      "reason": "Length is 4, which is not a prime number. Content of string does not affect primality of length."
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": "123",
+      "expected_exception": "TypeError",
+      "reason": "Input is an integer, not a string."
+    },
+    {
+      "input": "None",
+      "expected_exception": "TypeError",
+      "reason": "Input is None, not a string."
+    },
+    {
+      "input": "[1, 2, 3]",
+      "expected_exception": "TypeError",
+      "reason": "Input is a list, not a string."
+    }
+  ]
+}

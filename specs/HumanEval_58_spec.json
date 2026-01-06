@@ -1,0 +1,227 @@
+{
+  "task_id": "HumanEval_58",
+  "entry_point": "common",
+  "preconditions": [
+    "l1 must be an instance of list.",
+    "l2 must be an instance of list.",
+    "All elements within l1 and l2 must be comparable (support equality checking and ordering for sorting)."
+  ],
+  "postconditions": [
+    "The function must return a list.",
+    "The returned list must contain only elements that are present in both l1 and l2.",
+    "Every element that is present in both l1 and l2 must be included in the returned list.",
+    "All elements in the returned list must be unique.",
+    "The returned list must be sorted in ascending order."
+  ],
+  "invariants": [
+    "The order of elements in the input lists (l1, l2) does not affect the content or order of the output list.",
+    "Duplicate elements within l1 or l2 do not result in duplicate elements in the output list.",
+    "The type of elements in the output list will be consistent with the types of common elements found in the input lists."
+  ],
+  "normal_cases": [
+    {
+      "input": {
+        "l1": [
+          1,
+          4,
+          3,
+          34,
+          653,
+          2,
+          5
+        ],
+        "l2": [
+          5,
+          7,
+          1,
+          5,
+          9,
+          653,
+          121
+        ]
+      },
+      "expected_output": [
+        1,
+        5,
+        653
+      ]
+    },
+    {
+      "input": {
+        "l1": [
+          5,
+          3,
+          2,
+          8
+        ],
+        "l2": [
+          3,
+          2
+        ]
+      },
+      "expected_output": [
+        2,
+        3
+      ]
+    },
+    {
+      "input": {
+        "l1": [
+          10,
+          20,
+          30
+        ],
+        "l2": [
+          20,
+          40,
+          10
+        ]
+      },
+      "expected_output": [
+        10,
+        20
+      ]
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": {
+        "l1": [],
+        "l2": [
+          1,
+          2,
+          3
+        ]
+      },
+      "expected_output": []
+    },
+    {
+      "input": {
+        "l1": [
+          1,
+          2,
+          3
+        ],
+        "l2": []
+      },
+      "expected_output": []
+    },
+    {
+      "input": {
+        "l1": [],
+        "l2": []
+      },
+      "expected_output": []
+    },
+    {
+      "input": {
+        "l1": [
+          1,
+          2,
+          3
+        ],
+        "l2": [
+          4,
+          5,
+          6
+        ]
+      },
+      "expected_output": []
+    },
+    {
+      "input": {
+        "l1": [
+          1,
+          1,
+          2,
+          2,
+          3
+        ],
+        "l2": [
+          1,
+          2,
+          2,
+          4
+        ]
+      },
+      "expected_output": [
+        1,
+        2
+      ]
+    },
+    {
+      "input": {
+        "l1": [
+          1,
+          2,
+          3
+        ],
+        "l2": [
+          1,
+          2,
+          3
+        ]
+      },
+      "expected_output": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "input": {
+        "l1": [
+          "a",
+          "b",
+          "c"
+        ],
+        "l2": [
+          "c",
+          "a",
+          "d"
+        ]
+      },
+      "expected_output": [
+        "a",
+        "c"
+      ]
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": {
+        "l1": "not a list",
+        "l2": [
+          1,
+          2
+        ]
+      },
+      "description": "l1 is not a list, should raise TypeError or AttributeError."
+    },
+    {
+      "input": {
+        "l1": [
+          1,
+          2
+        ],
+        "l2": null
+      },
+      "description": "l2 is not a list, should raise TypeError or AttributeError."
+    },
+    {
+      "input": {
+        "l1": [
+          1,
+          "a",
+          {}
+        ],
+        "l2": [
+          1,
+          "a",
+          3
+        ]
+      },
+      "description": "Lists contain uncomparable elements (e.g., dicts), which might lead to TypeError during sorting or set operations."
+    }
+  ]
+}

@@ -1,0 +1,95 @@
+{
+  "task_id": "HumanEval_163",
+  "entry_point": "generate_integers",
+  "preconditions": [
+    "a is an integer.",
+    "b is an integer.",
+    "a is a positive integer (a > 0).",
+    "b is a positive integer (b > 0)."
+  ],
+  "postconditions": [
+    "The return value is a list of integers.",
+    "All elements in the returned list are even numbers.",
+    "All elements in the returned list are single-digit numbers (i.e., 0 <= x <= 9).",
+    "All elements x in the returned list satisfy min(a, b) <= x <= max(a, b).",
+    "The returned list is sorted in ascending order.",
+    "The returned list contains all such numbers that satisfy the above conditions, and no other numbers."
+  ],
+  "invariants": [
+    "The order of 'a' and 'b' does not affect the content of the returned list; the range considered is always [min(a,b), max(a,b)]."
+  ],
+  "normal_cases": [
+    {
+      "input": "generate_integers(2, 8)",
+      "output": "[2, 4, 6, 8]"
+    },
+    {
+      "input": "generate_integers(8, 2)",
+      "output": "[2, 4, 6, 8]"
+    },
+    {
+      "input": "generate_integers(1, 9)",
+      "output": "[2, 4, 6, 8]"
+    },
+    {
+      "input": "generate_integers(3, 7)",
+      "output": "[4, 6]"
+    },
+    {
+      "input": "generate_integers(2, 2)",
+      "output": "[2]"
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": "generate_integers(10, 14)",
+      "output": "[]"
+    },
+    {
+      "input": "generate_integers(1, 1)",
+      "output": "[]"
+    },
+    {
+      "input": "generate_integers(1, 2)",
+      "output": "[2]"
+    },
+    {
+      "input": "generate_integers(9, 1)",
+      "output": "[2, 4, 6, 8]"
+    },
+    {
+      "input": "generate_integers(1, 100)",
+      "output": "[2, 4, 6, 8]"
+    },
+    {
+      "input": "generate_integers(100, 1)",
+      "output": "[2, 4, 6, 8]"
+    },
+    {
+      "input": "generate_integers(9, 9)",
+      "output": "[]"
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": "generate_integers(0, 8)",
+      "expected_error": "ValueError or AssertionError (a must be positive)"
+    },
+    {
+      "input": "generate_integers(-2, 8)",
+      "expected_error": "ValueError or AssertionError (a must be positive)"
+    },
+    {
+      "input": "generate_integers(2, 0)",
+      "expected_error": "ValueError or AssertionError (b must be positive)"
+    },
+    {
+      "input": "generate_integers(2.5, 8)",
+      "expected_error": "TypeError (a must be an integer)"
+    },
+    {
+      "input": "generate_integers(2, 'b')",
+      "expected_error": "TypeError (b must be an integer)"
+    }
+  ]
+}

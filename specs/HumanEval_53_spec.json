@@ -1,0 +1,88 @@
+{
+  "task_id": "HumanEval_53",
+  "entry_point": "add",
+  "preconditions": [
+    "x must be an integer.",
+    "y must be an integer."
+  ],
+  "postconditions": [
+    "The function must return an integer.",
+    "The returned value must be the sum of x and y."
+  ],
+  "invariants": [
+    "The operation is commutative: add(x, y) == add(y, x).",
+    "Adding zero to any number returns the number itself: add(x, 0) == x.",
+    "Adding a number to its negative counterpart results in zero: add(x, -x) == 0."
+  ],
+  "normal_cases": [
+    {
+      "input": "x = 2, y = 3",
+      "output": "5",
+      "description": "Adding two positive integers."
+    },
+    {
+      "input": "x = 5, y = 7",
+      "output": "12",
+      "description": "Adding two different positive integers."
+    },
+    {
+      "input": "x = 10, y = 20",
+      "output": "30",
+      "description": "Another example of adding two positive integers."
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": "x = 0, y = 5",
+      "output": "5",
+      "description": "One input is zero."
+    },
+    {
+      "input": "x = 0, y = 0",
+      "output": "0",
+      "description": "Both inputs are zero."
+    },
+    {
+      "input": "x = -2, y = 3",
+      "output": "1",
+      "description": "Adding a negative and a positive integer, result is positive."
+    },
+    {
+      "input": "x = 2, y = -3",
+      "output": "-1",
+      "description": "Adding a positive and a negative integer, result is negative."
+    },
+    {
+      "input": "x = -5, y = -7",
+      "output": "-12",
+      "description": "Adding two negative integers."
+    },
+    {
+      "input": "x = 5, y = -5",
+      "output": "0",
+      "description": "Adding a number and its additive inverse."
+    },
+    {
+      "input": "x = 1000000000000000000, y = 2000000000000000000",
+      "output": "3000000000000000000",
+      "description": "Adding very large integers (Python handles arbitrary precision)."
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": "x = 2.5, y = 3",
+      "exception": "TypeError",
+      "description": "Input x is not an integer."
+    },
+    {
+      "input": "x = 2, y = 'a'",
+      "exception": "TypeError",
+      "description": "Input y is not an integer."
+    },
+    {
+      "input": "x = 'hello', y = 'world'",
+      "exception": "TypeError",
+      "description": "Both inputs are not integers."
+    }
+  ]
+}

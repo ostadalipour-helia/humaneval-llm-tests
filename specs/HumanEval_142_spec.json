@@ -1,0 +1,144 @@
+{
+  "task_id": "HumanEval_142",
+  "entry_point": "sum_squares",
+  "preconditions": [
+    "The input `lst` must be a Python list.",
+    "All elements within `lst` must be integers."
+  ],
+  "postconditions": [
+    "The function returns a single integer value.",
+    "The returned integer is the sum of all elements in the input list `lst` after applying specific transformations based on their indices.",
+    "For each element `x` at index `i` in the original list:",
+    "  - If `i` is a multiple of 3 (i.e., `i % 3 == 0`), `x` is squared (`x * x`).",
+    "  - Else if `i` is a multiple of 4 (i.e., `i % 4 == 0`), `x` is cubed (`x * x * x`).",
+    "  - Otherwise (if `i` is not a multiple of 3 or 4), `x` remains unchanged."
+  ],
+  "invariants": [
+    "The conceptual length of the list (number of elements contributing to the sum) remains constant, equal to the length of the input list.",
+    "Each element's transformation is determined solely by its index and follows the specified precedence (multiple of 3 takes precedence over multiple of 4)."
+  ],
+  "normal_cases": [
+    {
+      "input": {
+        "lst": [
+          1,
+          2,
+          3
+        ]
+      },
+      "output": 6,
+      "reason": "Index 0 (1) is squared to 1. Index 1 (2) is unchanged. Index 2 (3) is unchanged. Sum: 1 + 2 + 3 = 6."
+    },
+    {
+      "input": {
+        "lst": [
+          -1,
+          -5,
+          2,
+          -1,
+          -5
+        ]
+      },
+      "output": -126,
+      "reason": "Index 0 (-1) squared to 1. Index 1 (-5) unchanged. Index 2 (2) unchanged. Index 3 (-1) squared to 1. Index 4 (-5) cubed to -125. Sum: 1 + (-5) + 2 + 1 + (-125) = -126."
+    },
+    {
+      "input": {
+        "lst": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ]
+      },
+      "output": 1062,
+      "reason": "idx 0: 1^2=1; idx 1: 2; idx 2: 3; idx 3: 4^2=16; idx 4: 5^3=125; idx 5: 6; idx 6: 7^2=49; idx 7: 8; idx 8: 9^3=729; idx 9: 10^2=100; idx 10: 11; idx 11: 12. Sum: 1+2+3+16+125+6+49+8+729+100+11+12 = 1062."
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": {
+        "lst": []
+      },
+      "output": 0,
+      "reason": "An empty list results in a sum of 0."
+    },
+    {
+      "input": {
+        "lst": [
+          0
+        ]
+      },
+      "output": 0,
+      "reason": "Index 0 (0) is a multiple of 3, so 0 is squared to 0. Sum: 0."
+    },
+    {
+      "input": {
+        "lst": [
+          100
+        ]
+      },
+      "output": 10000,
+      "reason": "Index 0 (100) is a multiple of 3, so 100 is squared to 10000. Sum: 10000."
+    },
+    {
+      "input": {
+        "lst": [
+          2,
+          2,
+          2,
+          2,
+          2
+        ]
+      },
+      "output": 20,
+      "reason": "idx 0: 2^2=4; idx 1: 2; idx 2: 2; idx 3: 2^2=4; idx 4: 2^3=8. Sum: 4+2+2+4+8 = 20."
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": {
+        "lst": null
+      },
+      "error_type": "TypeError",
+      "reason": "Input `lst` is not a list."
+    },
+    {
+      "input": {
+        "lst": "not a list"
+      },
+      "error_type": "TypeError",
+      "reason": "Input `lst` is not a list."
+    },
+    {
+      "input": {
+        "lst": [
+          1,
+          2.5,
+          3
+        ]
+      },
+      "error_type": "TypeError",
+      "reason": "The list contains a non-integer element (float)."
+    },
+    {
+      "input": {
+        "lst": [
+          1,
+          "a",
+          3
+        ]
+      },
+      "error_type": "TypeError",
+      "reason": "The list contains a non-integer element (string)."
+    }
+  ]
+}

@@ -1,0 +1,160 @@
+{
+  "task_id": "HumanEval_54",
+  "entry_point": "same_chars",
+  "preconditions": [
+    "s0 must be a string.",
+    "s1 must be a string."
+  ],
+  "postconditions": [
+    "The function returns a boolean value.",
+    "The return value is True if and only if the set of unique characters present in s0 is exactly the same as the set of unique characters present in s1.",
+    "The order and frequency of characters within s0 and s1 do not affect the result.",
+    "Character comparison is case-sensitive."
+  ],
+  "invariants": [],
+  "normal_cases": [
+    {
+      "input": {
+        "s0": "eabcdzzzz",
+        "s1": "dddzzzzzzzddeddabc"
+      },
+      "expected_output": true,
+      "description": "Strings with same unique characters, different order and frequency."
+    },
+    {
+      "input": {
+        "s0": "abcd",
+        "s1": "dddddddabc"
+      },
+      "expected_output": true,
+      "description": "Strings with same unique characters, one is a subset of the other in terms of characters present."
+    },
+    {
+      "input": {
+        "s0": "dddddddabc",
+        "s1": "abcd"
+      },
+      "expected_output": true,
+      "description": "Strings with same unique characters, reversed order of previous example."
+    },
+    {
+      "input": {
+        "s0": "eabcd",
+        "s1": "dddddddabc"
+      },
+      "expected_output": false,
+      "description": "s0 contains an extra unique character 'e' not in s1."
+    },
+    {
+      "input": {
+        "s0": "abcd",
+        "s1": "dddddddabce"
+      },
+      "expected_output": false,
+      "description": "s1 contains an extra unique character 'e' not in s0."
+    },
+    {
+      "input": {
+        "s0": "eabcdzzzz",
+        "s1": "dddzzzzzzzddddabc"
+      },
+      "expected_output": false,
+      "description": "s0 contains 'e' while s1 does not, despite other characters being common."
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": {
+        "s0": "",
+        "s1": ""
+      },
+      "expected_output": true,
+      "description": "Both strings are empty."
+    },
+    {
+      "input": {
+        "s0": "a",
+        "s1": "a"
+      },
+      "expected_output": true,
+      "description": "Both strings have a single, identical character."
+    },
+    {
+      "input": {
+        "s0": "a",
+        "s1": "b"
+      },
+      "expected_output": false,
+      "description": "Both strings have a single, different character."
+    },
+    {
+      "input": {
+        "s0": "aaaaa",
+        "s1": "a"
+      },
+      "expected_output": true,
+      "description": "One string has multiple occurrences of a character, the other has one."
+    },
+    {
+      "input": {
+        "s0": "abc",
+        "s1": ""
+      },
+      "expected_output": false,
+      "description": "One string is empty, the other is not."
+    },
+    {
+      "input": {
+        "s0": "aBc",
+        "s1": "AbC"
+      },
+      "expected_output": false,
+      "description": "Strings differ only by case (case-sensitive comparison)."
+    },
+    {
+      "input": {
+        "s0": "123",
+        "s1": "321"
+      },
+      "expected_output": true,
+      "description": "Strings containing digits."
+    },
+    {
+      "input": {
+        "s0": "!@#",
+        "s1": "#@!"
+      },
+      "expected_output": true,
+      "description": "Strings containing special characters."
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": {
+        "s0": null,
+        "s1": "abc"
+      },
+      "expected_behavior": "Raise TypeError",
+      "description": "s0 is not a string."
+    },
+    {
+      "input": {
+        "s0": "abc",
+        "s1": 123
+      },
+      "expected_behavior": "Raise TypeError",
+      "description": "s1 is not a string."
+    },
+    {
+      "input": {
+        "s0": [
+          "a",
+          "b"
+        ],
+        "s1": "abc"
+      },
+      "expected_behavior": "Raise TypeError",
+      "description": "s0 is a list, not a string."
+    }
+  ]
+}

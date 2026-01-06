@@ -1,0 +1,177 @@
+{
+  "task_id": "HumanEval_95",
+  "entry_point": "check_dict_case",
+  "preconditions": [
+    "The input `dict` must be an instance of `dict`."
+  ],
+  "postconditions": [
+    "The function returns a boolean value.",
+    "The input dictionary remains unchanged after the function execution."
+  ],
+  "invariants": [
+    "The type of the input argument `dict` remains a dictionary throughout the function's execution."
+  ],
+  "normal_cases": [
+    {
+      "input": {
+        "dict": {
+          "a": "apple",
+          "b": "banana"
+        }
+      },
+      "expected_output": true,
+      "description": "All keys are lowercase strings."
+    },
+    {
+      "input": {
+        "dict": {
+          "STATE": "NC",
+          "ZIP": "12345"
+        }
+      },
+      "expected_output": true,
+      "description": "All keys are uppercase strings."
+    },
+    {
+      "input": {
+        "dict": {
+          "a": "apple",
+          "A": "banana",
+          "B": "banana"
+        }
+      },
+      "expected_output": false,
+      "description": "Keys contain a mix of lowercase and uppercase strings."
+    },
+    {
+      "input": {
+        "dict": {
+          "a": "apple",
+          "b": "banana",
+          "c": 1
+        }
+      },
+      "expected_output": true,
+      "description": "All keys are lowercase strings, values can be mixed types."
+    },
+    {
+      "input": {
+        "dict": {
+          "Name": "John",
+          "Age": "36",
+          "City": "Houston"
+        }
+      },
+      "expected_output": false,
+      "description": "Keys are strings but not uniformly all lowercase or all uppercase (e.g., title case)."
+    },
+    {
+      "input": {
+        "dict": {
+          "a": "apple",
+          "b": "banana",
+          "C": "cherry"
+        }
+      },
+      "expected_output": false,
+      "description": "Keys are strings but not uniformly all lowercase or all uppercase."
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": {
+        "dict": {}
+      },
+      "expected_output": false,
+      "description": "The dictionary is empty."
+    },
+    {
+      "input": {
+        "dict": {
+          "a": "apple",
+          "8": "banana"
+        }
+      },
+      "expected_output": true,
+      "description": "Keys are strings, all lowercase, one is a digit string."
+    },
+    {
+      "input": {
+        "dict": {
+          "A": "apple",
+          "8": "banana"
+        }
+      },
+      "expected_output": false,
+      "description": "Keys are strings, but not uniformly all lowercase or all uppercase (one uppercase, one digit string)."
+    },
+    {
+      "input": {
+        "dict": {
+          "a": "apple",
+          "8": "banana"
+        }
+      },
+      "expected_output": false,
+      "description": "Keys include non-string types (example from docstring, assuming 8 is an int key, not string '8'). Note: Python dicts cannot have duplicate keys like 'a':'apple', 'a':'apple'. This case is interpreted as a dict with a non-string key."
+    },
+    {
+      "input": {
+        "dict": {
+          "a": "apple",
+          "b": 8
+        }
+      },
+      "expected_output": true,
+      "description": "All keys are lowercase strings, values can be non-strings."
+    },
+    {
+      "input": {
+        "dict": {
+          "A": 1
+        }
+      },
+      "expected_output": true,
+      "description": "Dictionary with a single uppercase string key."
+    },
+    {
+      "input": {
+        "dict": {
+          "a": 1
+        }
+      },
+      "expected_output": true,
+      "description": "Dictionary with a single lowercase string key."
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": {
+        "dict": null
+      },
+      "expected_exception": "TypeError",
+      "description": "Input is not a dictionary (None)."
+    },
+    {
+      "input": {
+        "dict": []
+      },
+      "expected_exception": "TypeError",
+      "description": "Input is not a dictionary (list)."
+    },
+    {
+      "input": {
+        "dict": "hello"
+      },
+      "expected_exception": "TypeError",
+      "description": "Input is not a dictionary (string)."
+    },
+    {
+      "input": {
+        "dict": 123
+      },
+      "expected_exception": "TypeError",
+      "description": "Input is not a dictionary (integer)."
+    }
+  ]
+}

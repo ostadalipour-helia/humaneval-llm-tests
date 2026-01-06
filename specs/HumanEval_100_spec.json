@@ -1,0 +1,90 @@
+{
+  "task_id": "HumanEval_100",
+  "entry_point": "make_a_pile",
+  "preconditions": [
+    "n must be an integer.",
+    "n must be a positive integer (n > 0)."
+  ],
+  "postconditions": [
+    "The function returns a list of integers.",
+    "The length of the returned list is equal to n.",
+    "The first element of the list is n.",
+    "For any subsequent element at index i (where i > 0), its value is 2 greater than the element at index i-1 (i.e., result[i] = result[i-1] + 2).",
+    "All elements in the returned list maintain the same parity (odd or even) as the initial input n."
+  ],
+  "invariants": [
+    "The difference between any two consecutive elements in the output list is always 2.",
+    "The parity of all numbers in the generated sequence is consistent with the parity of the initial input 'n'."
+  ],
+  "normal_cases": [
+    {
+      "input": 3,
+      "expected_output": [
+        3,
+        5,
+        7
+      ],
+      "description": "An odd positive integer n, generating an odd sequence."
+    },
+    {
+      "input": 4,
+      "expected_output": [
+        4,
+        6,
+        8,
+        10
+      ],
+      "description": "An even positive integer n, generating an even sequence."
+    },
+    {
+      "input": 5,
+      "expected_output": [
+        5,
+        7,
+        9,
+        11,
+        13
+      ],
+      "description": "Another odd positive integer n."
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": 1,
+      "expected_output": [
+        1
+      ],
+      "description": "The smallest valid positive integer n, resulting in a list with a single element."
+    },
+    {
+      "input": 2,
+      "expected_output": [
+        2,
+        4
+      ],
+      "description": "The smallest valid even positive integer n."
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": 0,
+      "expected_behavior": "Raises an error (e.g., ValueError or AssertionError) because n must be positive.",
+      "description": "Input n is zero."
+    },
+    {
+      "input": -5,
+      "expected_behavior": "Raises an error (e.g., ValueError or AssertionError) because n must be positive.",
+      "description": "Input n is a negative integer."
+    },
+    {
+      "input": 3.5,
+      "expected_behavior": "Raises an error (e.g., TypeError or AssertionError) because n must be an integer.",
+      "description": "Input n is a float."
+    },
+    {
+      "input": "abc",
+      "expected_behavior": "Raises an error (e.g., TypeError or AssertionError) because n must be an integer.",
+      "description": "Input n is a string."
+    }
+  ]
+}

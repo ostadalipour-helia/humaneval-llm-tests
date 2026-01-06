@@ -1,0 +1,216 @@
+{
+  "task_id": "HumanEval_29",
+  "entry_point": "filter_by_prefix",
+  "preconditions": [
+    "isinstance(strings, list)",
+    "all(isinstance(s, str) for s in strings)",
+    "isinstance(prefix, str)"
+  ],
+  "postconditions": [
+    "isinstance(__return__, list)",
+    "all(isinstance(s, str) for s in __return__)",
+    "all(s.startswith(prefix) for s in __return__)",
+    "all(s in strings for s in __return__)",
+    "len(__return__) <= len(strings)",
+    "The relative order of elements from 'strings' that satisfy the condition is preserved in '__return__'."
+  ],
+  "invariants": [
+    "The input list 'strings' must not be modified."
+  ],
+  "normal_cases": [
+    {
+      "input": {
+        "strings": [
+          "abc",
+          "bcd",
+          "cde",
+          "array"
+        ],
+        "prefix": "a"
+      },
+      "expected_output": [
+        "abc",
+        "array"
+      ]
+    },
+    {
+      "input": {
+        "strings": [
+          "apple",
+          "banana",
+          "apricot",
+          "grape"
+        ],
+        "prefix": "ap"
+      },
+      "expected_output": [
+        "apple",
+        "apricot"
+      ]
+    },
+    {
+      "input": {
+        "strings": [
+          "hello",
+          "world"
+        ],
+        "prefix": "h"
+      },
+      "expected_output": [
+        "hello"
+      ]
+    },
+    {
+      "input": {
+        "strings": [
+          "cat",
+          "dog",
+          "cow"
+        ],
+        "prefix": "z"
+      },
+      "expected_output": []
+    },
+    {
+      "input": {
+        "strings": [
+          "test",
+          "testing",
+          "tester"
+        ],
+        "prefix": "test"
+      },
+      "expected_output": [
+        "test",
+        "testing",
+        "tester"
+      ]
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": {
+        "strings": [],
+        "prefix": "a"
+      },
+      "expected_output": []
+    },
+    {
+      "input": {
+        "strings": [
+          "abc",
+          "def"
+        ],
+        "prefix": ""
+      },
+      "expected_output": [
+        "abc",
+        "def"
+      ]
+    },
+    {
+      "input": {
+        "strings": [
+          "a",
+          "b",
+          "c"
+        ],
+        "prefix": "a"
+      },
+      "expected_output": [
+        "a"
+      ]
+    },
+    {
+      "input": {
+        "strings": [
+          "apple"
+        ],
+        "prefix": "ap"
+      },
+      "expected_output": [
+        "apple"
+      ]
+    },
+    {
+      "input": {
+        "strings": [
+          "banana"
+        ],
+        "prefix": "ap"
+      },
+      "expected_output": []
+    },
+    {
+      "input": {
+        "strings": [
+          "a",
+          "aa",
+          "aaa"
+        ],
+        "prefix": "aa"
+      },
+      "expected_output": [
+        "aa",
+        "aaa"
+      ]
+    },
+    {
+      "input": {
+        "strings": [
+          "short",
+          "longer"
+        ],
+        "prefix": "verylongprefix"
+      },
+      "expected_output": []
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": {
+        "strings": null,
+        "prefix": "a"
+      },
+      "expected_behavior": "TypeError or AttributeError"
+    },
+    {
+      "input": {
+        "strings": [
+          "a",
+          "b"
+        ],
+        "prefix": null
+      },
+      "expected_behavior": "TypeError or AttributeError"
+    },
+    {
+      "input": {
+        "strings": "not a list",
+        "prefix": "a"
+      },
+      "expected_behavior": "TypeError"
+    },
+    {
+      "input": {
+        "strings": [
+          "a",
+          "b"
+        ],
+        "prefix": 123
+      },
+      "expected_behavior": "TypeError"
+    },
+    {
+      "input": {
+        "strings": [
+          "a",
+          1,
+          "b"
+        ],
+        "prefix": "a"
+      },
+      "expected_behavior": "TypeError or AttributeError (when calling .startswith on int)"
+    }
+  ]
+}

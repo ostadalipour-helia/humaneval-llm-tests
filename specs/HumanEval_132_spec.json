@@ -1,0 +1,109 @@
+{
+  "task_id": "HumanEval_132",
+  "entry_point": "is_nested",
+  "preconditions": [
+    "The input `string` must be of type `str`.",
+    "The input `string` must contain only square bracket characters: `[` and `]`."
+  ],
+  "postconditions": [
+    "The function returns a boolean value (`True` or `False`).",
+    "The function returns `True` if and only if there exists a pair of indices `i` and `j` in the input `string` such that:",
+    "  1. `0 <= i < j < len(string)`",
+    "  2. `string[i]` is `'['`",
+    "  3. `string[j]` is `']'`",
+    "  4. The substring `string[i+1:j]` (the content between `string[i]` and `string[j]`) is a non-empty, valid bracket sequence.",
+    "A 'valid bracket sequence' is defined recursively: an empty string is valid; if `S` is valid, then `[S]` is valid; if `S` and `T` are valid, then `ST` is valid.",
+    "A 'non-empty, valid bracket sequence' is a valid bracket sequence with a length greater than 0.",
+    "Otherwise, the function returns `False`."
+  ],
+  "invariants": [
+    "The input `string` is not modified by the function.",
+    "The function operates deterministically, producing the same output for the same input."
+  ],
+  "normal_cases": [
+    {
+      "input": "'[[]]'",
+      "output": "True",
+      "reason": "The outermost brackets at indices 0 and 3 enclose '[]', which is a non-empty, valid bracket sequence."
+    },
+    {
+      "input": "'[[][]]'",
+      "output": "True",
+      "reason": "The outermost brackets at indices 0 and 5 enclose '[][]', which is a non-empty, valid bracket sequence."
+    },
+    {
+      "input": "'[[]][['",
+      "output": "True",
+      "reason": "The brackets at indices 0 and 3 enclose '[]', which is a non-empty, valid bracket sequence. The trailing '[[' does not affect this."
+    },
+    {
+      "input": "'[]]]]]]][[[[[]'",
+      "output": "False",
+      "reason": "No pair of brackets encloses a non-empty, valid bracket sequence. All valid pairs enclose an empty string."
+    },
+    {
+      "input": "'[][]'",
+      "output": "False",
+      "reason": "Each pair of brackets encloses an empty string. No nested structure."
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": "''",
+      "output": "False",
+      "reason": "An empty string contains no brackets, thus no nested brackets."
+    },
+    {
+      "input": "'['",
+      "output": "False",
+      "reason": "A single opening bracket cannot form a pair, let alone a nested one."
+    },
+    {
+      "input": "']'",
+      "output": "False",
+      "reason": "A single closing bracket cannot form a pair."
+    },
+    {
+      "input": "'[[['",
+      "output": "False",
+      "reason": "Only opening brackets, no valid pairs can be formed."
+    },
+    {
+      "input": "']]]'",
+      "output": "False",
+      "reason": "Only closing brackets, no valid pairs can be formed."
+    },
+    {
+      "input": "'[]'",
+      "output": "False",
+      "reason": "The only pair of brackets encloses an empty string, which is not a non-empty valid bracket sequence."
+    },
+    {
+      "input": "'[][][][][][][][][][]'",
+      "output": "False",
+      "reason": "Multiple non-nested valid pairs, none of which enclose a non-empty valid sequence."
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": "123",
+      "exception": "TypeError",
+      "reason": "Input is not a string."
+    },
+    {
+      "input": "None",
+      "exception": "TypeError",
+      "reason": "Input is not a string."
+    },
+    {
+      "input": "'[a]'",
+      "exception": "ValueError",
+      "reason": "Input string contains characters other than '[' and ']'. (Or potentially a TypeError if not handled gracefully, but ValueError is more specific to content constraint)."
+    },
+    {
+      "input": "'{}'",
+      "exception": "ValueError",
+      "reason": "Input string contains characters other than '[' and ']'. (Or TypeError)."
+    }
+  ]
+}

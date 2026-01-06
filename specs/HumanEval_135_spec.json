@@ -1,0 +1,76 @@
+{
+  "task_id": "HumanEval_135",
+  "entry_point": "can_arrange",
+  "preconditions": [
+    "Input 'arr' must be a list (or array-like structure).",
+    "Elements of 'arr' must be comparable (e.g., integers, floats).",
+    "The array 'arr' will not contain duplicate values."
+  ],
+  "postconditions": [
+    "The function returns an integer.",
+    "If there exists at least one index 'i' (where 1 <= i < len(arr)) such that arr[i] < arr[i-1], the function returns the largest such index 'i'.",
+    "If no such index 'i' exists (i.e., the array is sorted in non-decreasing order), the function returns -1."
+  ],
+  "invariants": [
+    "The input array 'arr' remains unchanged after the function call.",
+    "The uniqueness of elements in 'arr' is maintained throughout the function's execution (as per precondition)."
+  ],
+  "normal_cases": [
+    {
+      "input": "[1,2,4,3,5]",
+      "output": 3,
+      "description": "A typical case with a single 'disorder' at index 3 (4 > 3)."
+    },
+    {
+      "input": "[1,5,2,6,3]",
+      "output": 4,
+      "description": "Multiple 'disorders', returning the largest index (6 > 3 at index 4)."
+    },
+    {
+      "input": "[5,4,3,2,1]",
+      "output": 4,
+      "description": "A fully reverse-sorted array, returning the last possible index."
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": "[1,2,3]",
+      "output": -1,
+      "description": "An already sorted array, no disorder."
+    },
+    {
+      "input": "[]",
+      "output": -1,
+      "description": "An empty array, no elements to compare."
+    },
+    {
+      "input": "[5]",
+      "output": -1,
+      "description": "A single-element array, no preceding element for comparison."
+    },
+    {
+      "input": "[3,2]",
+      "output": 1,
+      "description": "The smallest possible array with a disorder."
+    },
+    {
+      "input": "[2,1,3]",
+      "output": 1,
+      "description": "Disorder at index 1, then sorted again."
+    }
+  ],
+  "error_conditions": [
+    {
+      "condition": "Input 'arr' is not a list.",
+      "behavior": "Undefined behavior or a TypeError should occur."
+    },
+    {
+      "condition": "Elements of 'arr' are not comparable (e.g., mixed types like [1, 'a']).",
+      "behavior": "Undefined behavior or a TypeError should occur during comparison."
+    },
+    {
+      "condition": "The array 'arr' contains duplicate values (violates precondition).",
+      "behavior": "The function's behavior is undefined as per the problem statement's guarantee."
+    }
+  ]
+}

@@ -1,0 +1,144 @@
+{
+  "task_id": "HumanEval_111",
+  "entry_point": "histogram",
+  "preconditions": [
+    "The input `test` must be a string.",
+    "If `test` is not an empty string, it must consist of one or more lowercase English letters.",
+    "Letters in `test` must be separated by a single space.",
+    "There must be no leading or trailing spaces in `test`.",
+    "Each 'word' in the space-separated string must be a single lowercase letter."
+  ],
+  "postconditions": [
+    "The function must return a dictionary.",
+    "If the input string `test` is empty or contains no letters, the returned dictionary must be empty.",
+    "The keys of the returned dictionary must be single lowercase letters (strings of length 1).",
+    "The values of the returned dictionary must be positive integers, representing the count of each corresponding letter.",
+    "All values in the returned dictionary must be equal to the maximum frequency of any letter found in the input string `test`.",
+    "The returned dictionary must contain all letters that achieve this maximum frequency."
+  ],
+  "invariants": [
+    "The keys in the output dictionary are always single lowercase letters.",
+    "The values in the output dictionary are always positive integers.",
+    "All values in the output dictionary are identical (representing the maximum frequency)."
+  ],
+  "normal_cases": [
+    {
+      "input": "a b c",
+      "output": {
+        "a": 1,
+        "b": 1,
+        "c": 1
+      }
+    },
+    {
+      "input": "a b b a",
+      "output": {
+        "a": 2,
+        "b": 2
+      }
+    },
+    {
+      "input": "a b c a b",
+      "output": {
+        "a": 2,
+        "b": 2
+      }
+    },
+    {
+      "input": "b b b b a",
+      "output": {
+        "b": 4
+      }
+    },
+    {
+      "input": "x y z x y x",
+      "output": {
+        "x": 3
+      }
+    },
+    {
+      "input": "m n o p m n o m",
+      "output": {
+        "m": 3
+      }
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": "",
+      "output": {}
+    },
+    {
+      "input": "a",
+      "output": {
+        "a": 1
+      }
+    },
+    {
+      "input": "a a a a a",
+      "output": {
+        "a": 5
+      }
+    },
+    {
+      "input": "z",
+      "output": {
+        "z": 1
+      }
+    },
+    {
+      "input": "a b a b a b",
+      "output": {
+        "a": 3,
+        "b": 3
+      }
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": 123,
+      "description": "Input is not a string.",
+      "expected_behavior": "Raise a TypeError or similar."
+    },
+    {
+      "input": null,
+      "description": "Input is not a string.",
+      "expected_behavior": "Raise a TypeError or similar."
+    },
+    {
+      "input": "A b c",
+      "description": "Input contains uppercase letters.",
+      "expected_behavior": "Behavior is undefined; could raise an error, ignore uppercase, or treat as different characters."
+    },
+    {
+      "input": "a 1 b",
+      "description": "Input contains digits.",
+      "expected_behavior": "Behavior is undefined; could raise an error, ignore digits, or treat as different characters."
+    },
+    {
+      "input": "a # c",
+      "description": "Input contains special characters.",
+      "expected_behavior": "Behavior is undefined; could raise an error, ignore special characters, or treat as different characters."
+    },
+    {
+      "input": "a  b",
+      "description": "Input contains multiple spaces between letters.",
+      "expected_behavior": "Behavior is undefined; could raise an error, treat ' ' as a letter, or parse incorrectly."
+    },
+    {
+      "input": " a b",
+      "description": "Input contains a leading space.",
+      "expected_behavior": "Behavior is undefined; could raise an error, ignore leading space, or parse incorrectly."
+    },
+    {
+      "input": "a b ",
+      "description": "Input contains a trailing space.",
+      "expected_behavior": "Behavior is undefined; could raise an error, ignore trailing space, or parse incorrectly."
+    },
+    {
+      "input": "ab c",
+      "description": "Input contains multi-character 'words'.",
+      "expected_behavior": "Behavior is undefined; could raise an error, treat 'ab' as a single item, or parse incorrectly."
+    }
+  ]
+}

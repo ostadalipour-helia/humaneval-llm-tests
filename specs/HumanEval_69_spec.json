@@ -1,0 +1,94 @@
+{
+  "task_id": "HumanEval_69",
+  "entry_point": "search",
+  "preconditions": [
+    "The input `lst` must be a Python list.",
+    "The list `lst` must not be empty (i.e., `len(lst) > 0`).",
+    "All elements in `lst` must be positive integers (i.e., `x` is an integer and `x > 0` for every `x` in `lst`)."
+  ],
+  "postconditions": [
+    "The function must return an integer.",
+    "If there exists at least one integer `x` in `lst` such that its frequency in `lst` is greater than or equal to `x` itself (i.e., `count(x, lst) >= x`), then the returned value `R` must be the greatest among all such `x`.",
+    "If no such integer `x` exists in `lst` that satisfies the condition `count(x, lst) >= x`, then the function must return `-1`."
+  ],
+  "invariants": [
+    "The input list `lst` remains unchanged during the execution of the function.",
+    "The frequency of any number in `lst` is always a non-negative integer."
+  ],
+  "normal_cases": [
+    {
+      "input": "[4, 1, 2, 2, 3, 1]",
+      "output": "2",
+      "reason": "Numbers satisfying the condition: 1 (freq 2 >= 1), 2 (freq 2 >= 2). The greatest is 2."
+    },
+    {
+      "input": "[1, 2, 2, 3, 3, 3, 4, 4, 4]",
+      "output": "3",
+      "reason": "Numbers satisfying the condition: 1 (freq 1 >= 1), 2 (freq 2 >= 2), 3 (freq 3 >= 3). The greatest is 3."
+    },
+    {
+      "input": "[1, 1, 1, 1, 1]",
+      "output": "1",
+      "reason": "Only number is 1 (freq 5 >= 1). The greatest is 1."
+    },
+    {
+      "input": "[10, 10, 10, 10, 10, 10, 10, 10, 10, 10]",
+      "output": "10",
+      "reason": "Only number is 10 (freq 10 >= 10). The greatest is 10."
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": "[1]",
+      "output": "1",
+      "reason": "Only number is 1 (freq 1 >= 1). The greatest is 1."
+    },
+    {
+      "input": "[2]",
+      "output": "-1",
+      "reason": "Only number is 2 (freq 1 < 2). No numbers satisfy the condition."
+    },
+    {
+      "input": "[5, 5, 4, 4, 4]",
+      "output": "-1",
+      "reason": "For 4 (freq 3 < 4), for 5 (freq 2 < 5). No numbers satisfy the condition."
+    },
+    {
+      "input": "[1, 2, 3, 4, 5]",
+      "output": "1",
+      "reason": "Only number 1 satisfies (freq 1 >= 1). Others fail (2: freq 1 < 2, etc.). The greatest is 1."
+    },
+    {
+      "input": "[1, 1, 2, 2, 3, 3]",
+      "output": "2",
+      "reason": "Numbers satisfying the condition: 1 (freq 2 >= 1), 2 (freq 2 >= 2). Number 3 fails (freq 2 < 3). The greatest is 2."
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": "[]",
+      "expected_error": "ValueError or AssertionError",
+      "reason": "Input list is empty, violating the 'non-empty list' precondition."
+    },
+    {
+      "input": "[-1, 2, 3]",
+      "expected_error": "ValueError or AssertionError",
+      "reason": "Input list contains a non-positive integer, violating the 'positive integers' precondition."
+    },
+    {
+      "input": "[1, 2.5, 3]",
+      "expected_error": "TypeError or ValueError or AssertionError",
+      "reason": "Input list contains a non-integer, violating the 'positive integers' precondition."
+    },
+    {
+      "input": "[1, 'a', 3]",
+      "expected_error": "TypeError or ValueError or AssertionError",
+      "reason": "Input list contains a non-integer/non-numeric type, violating the 'positive integers' precondition."
+    },
+    {
+      "input": "None",
+      "expected_error": "TypeError",
+      "reason": "Input is not a list, violating the 'input must be a list' precondition."
+    }
+  ]
+}

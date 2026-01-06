@@ -1,0 +1,147 @@
+{
+  "task_id": "HumanEval_153",
+  "entry_point": "Strongest_Extension",
+  "preconditions": [
+    "class_name is a string.",
+    "extensions is a list.",
+    "Each element in extensions is a string, representing an extension name."
+  ],
+  "postconditions": [
+    "The function returns a string.",
+    "The returned string is in the format 'ClassName.StrongestExtensionName'.",
+    "If extensions is not empty, 'StrongestExtensionName' is the name of the extension with the highest calculated strength.",
+    "The strength of an extension is calculated as (number of uppercase letters in its name) - (number of lowercase letters in its name).",
+    "If multiple extensions have the same maximum strength, the one that appears first in the 'extensions' list is chosen as 'StrongestExtensionName'."
+  ],
+  "invariants": [
+    "The strength calculation (CAP - SM) is consistently applied to all candidate extensions.",
+    "The output format 'ClassName.StrongestExtensionName' is always maintained when a strongest extension can be determined."
+  ],
+  "normal_cases": [
+    {
+      "input": {
+        "class_name": "Slices",
+        "extensions": [
+          "SErviNGSliCes",
+          "Cheese",
+          "StuFfed"
+        ]
+      },
+      "output": "Slices.SErviNGSliCes",
+      "reason": "'SErviNGSliCes' (CAP=4, SM=5, Strength=-1) is stronger than 'Cheese' (CAP=1, SM=5, Strength=-4) and 'StuFfed' (CAP=1, SM=6, Strength=-5)."
+    },
+    {
+      "input": {
+        "class_name": "my_class",
+        "extensions": [
+          "AA",
+          "Be",
+          "CC"
+        ]
+      },
+      "output": "my_class.AA",
+      "reason": "'AA' (CAP=2, SM=0, Strength=2) and 'CC' (CAP=2, SM=0, Strength=2) have the same strength, but 'AA' comes first in the list. 'Be' (CAP=1, SM=1, Strength=0) is weaker."
+    },
+    {
+      "input": {
+        "class_name": "Processor",
+        "extensions": [
+          "Fast",
+          "Slow",
+          "Medium"
+        ]
+      },
+      "output": "Processor.Medium",
+      "reason": "'Fast' (CAP=1, SM=3, Strength=-2), 'Slow' (CAP=1, SM=3, Strength=-2), 'Medium' (CAP=1, SM=5, Strength=-4). 'Fast' and 'Slow' are strongest, 'Fast' comes first."
+    },
+    {
+      "input": {
+        "class_name": "Data",
+        "extensions": [
+          "ALLCAPS",
+          "lowercase",
+          "MiXeD"
+        ]
+      },
+      "output": "Data.ALLCAPS",
+      "reason": "'ALLCAPS' (CAP=7, SM=0, Strength=7) is strongest. 'lowercase' (CAP=0, SM=9, Strength=-9). 'MiXeD' (CAP=2, SM=3, Strength=-1)."
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": {
+        "class_name": "EmptyClass",
+        "extensions": [
+          "",
+          "a",
+          "B"
+        ]
+      },
+      "output": "EmptyClass.B",
+      "reason": "Empty string extension '' (CAP=0, SM=0, Strength=0). 'a' (CAP=0, SM=1, Strength=-1). 'B' (CAP=1, SM=0, Strength=1). 'B' is strongest."
+    },
+    {
+      "input": {
+        "class_name": "NoLetters",
+        "extensions": [
+          "123",
+          "!@#",
+          "aB"
+        ]
+      },
+      "output": "NoLetters.aB",
+      "reason": "'123' (CAP=0, SM=0, Strength=0). '!@#' (CAP=0, SM=0, Strength=0). 'aB' (CAP=1, SM=1, Strength=0). All have strength 0, '123' comes first."
+    },
+    {
+      "input": {
+        "class_name": "",
+        "extensions": [
+          "Ext1",
+          "Ext2"
+        ]
+      },
+      "output": ".Ext1",
+      "reason": "Class name can be empty. 'Ext1' (CAP=1, SM=3, Strength=-2), 'Ext2' (CAP=1, SM=3, Strength=-2). 'Ext1' comes first."
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": {
+        "class_name": 123,
+        "extensions": [
+          "Ext"
+        ]
+      },
+      "expected_error": "TypeError",
+      "reason": "class_name is not a string."
+    },
+    {
+      "input": {
+        "class_name": "MyClass",
+        "extensions": "not_a_list"
+      },
+      "expected_error": "TypeError",
+      "reason": "extensions is not a list."
+    },
+    {
+      "input": {
+        "class_name": "MyClass",
+        "extensions": [
+          "Ext1",
+          123,
+          "Ext2"
+        ]
+      },
+      "expected_error": "TypeError",
+      "reason": "An element in extensions is not a string."
+    },
+    {
+      "input": {
+        "class_name": "MyClass",
+        "extensions": []
+      },
+      "expected_error": "ValueError or IndexError",
+      "reason": "The problem implies a non-empty list of extensions to find the 'strongest'. If the list is empty, no strongest extension can be found, leading to an undefined state or an error."
+    }
+  ]
+}

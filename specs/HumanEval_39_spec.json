@@ -1,0 +1,94 @@
+{
+  "task_id": "HumanEval_39",
+  "entry_point": "prime_fib",
+  "preconditions": [
+    "n must be an integer.",
+    "n must be a positive integer (n >= 1)."
+  ],
+  "postconditions": [
+    "The function must return an integer.",
+    "The returned integer must be a Fibonacci number.",
+    "The returned integer must be a prime number.",
+    "The returned integer must be the n-th number in the sequence of prime Fibonacci numbers, ordered by their value."
+  ],
+  "invariants": [
+    "The sequence of prime Fibonacci numbers is strictly increasing.",
+    "All numbers in the sequence are positive integers."
+  ],
+  "normal_cases": [
+    {
+      "input": {
+        "n": 1
+      },
+      "output": 2,
+      "description": "The first prime Fibonacci number."
+    },
+    {
+      "input": {
+        "n": 2
+      },
+      "output": 3,
+      "description": "The second prime Fibonacci number."
+    },
+    {
+      "input": {
+        "n": 3
+      },
+      "output": 5,
+      "description": "The third prime Fibonacci number."
+    },
+    {
+      "input": {
+        "n": 4
+      },
+      "output": 13,
+      "description": "The fourth prime Fibonacci number."
+    },
+    {
+      "input": {
+        "n": 5
+      },
+      "output": 89,
+      "description": "The fifth prime Fibonacci number."
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": {
+        "n": 1
+      },
+      "output": 2,
+      "description": "Smallest valid input for n."
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": {
+        "n": 0
+      },
+      "expected_behavior": "Raise an error (e.g., ValueError or IndexError) or return an undefined value, as n must be positive.",
+      "description": "Input n is zero."
+    },
+    {
+      "input": {
+        "n": -1
+      },
+      "expected_behavior": "Raise an error (e.g., ValueError or IndexError), as n must be positive.",
+      "description": "Input n is a negative integer."
+    },
+    {
+      "input": {
+        "n": 1.5
+      },
+      "expected_behavior": "Raise a TypeError, as n must be an integer.",
+      "description": "Input n is a float."
+    },
+    {
+      "input": {
+        "n": "2"
+      },
+      "expected_behavior": "Raise a TypeError, as n must be an integer.",
+      "description": "Input n is a string."
+    }
+  ]
+}

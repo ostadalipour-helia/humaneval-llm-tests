@@ -1,0 +1,74 @@
+{
+  "task_id": "HumanEval_158",
+  "entry_point": "find_max",
+  "preconditions": [
+    "The input `words` must be a list.",
+    "All elements within the `words` list must be strings."
+  ],
+  "postconditions": [
+    "If the input list `words` is empty, the function must return an empty string `\"\"`.",
+    "If the input list `words` is not empty, the returned string `result` must be one of the strings from the `words` list.",
+    "The returned string `result` must have the maximum number of unique characters among all strings in the `words` list.",
+    "If there are multiple strings in `words` that have the maximum number of unique characters, the returned string `result` must be the one among them that comes first in lexicographical order."
+  ],
+  "invariants": [
+    "The count of unique characters for any given string is a non-negative integer.",
+    "Lexicographical comparison between strings is well-defined and consistent."
+  ],
+  "normal_cases": [
+    {
+      "input": "words = [\"name\", \"of\", \"string\"]",
+      "output": "\"string\"",
+      "reason": "Unique chars: 'name'=3, 'of'=2, 'string'=6. 'string' has max unique chars."
+    },
+    {
+      "input": "words = [\"name\", \"enam\", \"game\"]",
+      "output": "\"enam\"",
+      "reason": "Unique chars: 'name'=3, 'enam'=4, 'game'=3. 'enam' has max unique chars."
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": "words = []",
+      "output": "\"\"",
+      "reason": "An empty list should return an empty string as per common convention for 'no max found'."
+    },
+    {
+      "input": "words = [\"hello\"]",
+      "output": "\"hello\"",
+      "reason": "A list with a single word should return that word."
+    },
+    {
+      "input": "words = [\"aaaaaaa\", \"bb\" ,\"cc\"]",
+      "output": "\"aaaaaaa\"",
+      "reason": "All words have 1 unique character. 'aaaaaaa' comes first lexicographically among them."
+    },
+    {
+      "input": "words = [\"abc\", \"bca\", \"cab\"]",
+      "output": "\"abc\"",
+      "reason": "All words have 3 unique characters. 'abc' comes first lexicographically among them."
+    },
+    {
+      "input": "words = [\"apple\", \"banana\", \"apricot\"]",
+      "output": "\"apricot\"",
+      "reason": "Unique chars: 'apple'=4, 'banana'=3, 'apricot'=6. 'apricot' has max unique chars."
+    },
+    {
+      "input": "words = [\"Aa\", \"aA\"]",
+      "output": "\"Aa\"",
+      "reason": "Both 'Aa' and 'aA' have 2 unique characters ('A', 'a'). 'Aa' comes first lexicographically."
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": "words = \"not_a_list\"",
+      "expected_behavior": "Raise a TypeError or similar, as the input is not a list.",
+      "reason": "The input `words` must be a list."
+    },
+    {
+      "input": "words = [\"hello\", 123, \"world\"]",
+      "expected_behavior": "Raise a TypeError or similar, as the list contains non-string elements.",
+      "reason": "All elements in the `words` list must be strings."
+    }
+  ]
+}

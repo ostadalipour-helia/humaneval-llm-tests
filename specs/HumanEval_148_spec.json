@@ -1,0 +1,140 @@
+{
+  "task_id": "HumanEval_148",
+  "entry_point": "bf",
+  "preconditions": [
+    "The function expects two arguments, `planet1` and `planet2`."
+  ],
+  "postconditions": [
+    "The function returns a tuple.",
+    "The elements of the returned tuple, if any, are strings representing planet names.",
+    "If either `planet1` or `planet2` is not a string, or if it is a string but not one of the eight recognized planet names ('Mercury', 'Venus', 'Earth', 'Mars', 'Jupiter', 'Saturn', 'Uranus', 'Neptune'), the function returns an empty tuple.",
+    "If both `planet1` and `planet2` are valid planet names, the returned tuple contains all planets whose orbits are located strictly between the orbit of `planet1` and the orbit of `planet2`.",
+    "The planets in the returned tuple are sorted by their proximity to the Sun (i.e., in the canonical order: Mercury, Venus, Earth, Mars, Jupiter, Saturn, Uranus, Neptune).",
+    "If no planets are located strictly between `planet1` and `planet2` (e.g., adjacent planets, same planet, or only one planet between them), the returned tuple is empty."
+  ],
+  "invariants": [
+    "The set of eight planets in our solar system is fixed: 'Mercury', 'Venus', 'Earth', 'Mars', 'Jupiter', 'Saturn', 'Uranus', 'Neptune'.",
+    "The order of planets by proximity to the Sun is fixed and immutable: Mercury < Venus < Earth < Mars < Jupiter < Saturn < Uranus < Neptune."
+  ],
+  "normal_cases": [
+    {
+      "input": {
+        "planet1": "Jupiter",
+        "planet2": "Neptune"
+      },
+      "output": [
+        "Saturn",
+        "Uranus"
+      ]
+    },
+    {
+      "input": {
+        "planet1": "Earth",
+        "planet2": "Mercury"
+      },
+      "output": [
+        "Venus"
+      ]
+    },
+    {
+      "input": {
+        "planet1": "Mercury",
+        "planet2": "Uranus"
+      },
+      "output": [
+        "Venus",
+        "Earth",
+        "Mars",
+        "Jupiter",
+        "Saturn"
+      ]
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": {
+        "planet1": "Mercury",
+        "planet2": "Venus"
+      },
+      "output": []
+    },
+    {
+      "input": {
+        "planet1": "Venus",
+        "planet2": "Mercury"
+      },
+      "output": []
+    },
+    {
+      "input": {
+        "planet1": "Earth",
+        "planet2": "Earth"
+      },
+      "output": []
+    },
+    {
+      "input": {
+        "planet1": "Mercury",
+        "planet2": "Neptune"
+      },
+      "output": [
+        "Venus",
+        "Earth",
+        "Mars",
+        "Jupiter",
+        "Saturn",
+        "Uranus"
+      ]
+    },
+    {
+      "input": {
+        "planet1": "Neptune",
+        "planet2": "Mercury"
+      },
+      "output": [
+        "Venus",
+        "Earth",
+        "Mars",
+        "Jupiter",
+        "Saturn",
+        "Uranus"
+      ]
+    },
+    {
+      "input": {
+        "planet1": "Pluto",
+        "planet2": "Earth"
+      },
+      "output": []
+    },
+    {
+      "input": {
+        "planet1": "Earth",
+        "planet2": "Sun"
+      },
+      "output": []
+    },
+    {
+      "input": {
+        "planet1": 123,
+        "planet2": "Earth"
+      },
+      "output": []
+    },
+    {
+      "input": {
+        "planet1": "Earth",
+        "planet2": null
+      },
+      "output": []
+    },
+    {
+      "input": {
+        "planet1": "Mars",
+        "planet2": "mars"
+      },
+      "output": []
+    }
+  ],
+  "error_conditions": []
+}

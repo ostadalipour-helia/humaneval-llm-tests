@@ -1,0 +1,124 @@
+{
+  "task_id": "HumanEval_71",
+  "entry_point": "triangle_area",
+  "preconditions": [
+    "The inputs `a`, `b`, and `c` must be numbers (integers or floats).",
+    "The inputs `a`, `b`, and `c` must be strictly positive (a > 0, b > 0, c > 0), as side lengths cannot be zero or negative."
+  ],
+  "postconditions": [
+    "If `a`, `b`, and `c` form a valid triangle (i.e., `a + b > c`, `a + c > b`, and `b + c > a`):",
+    "  The function returns the area of the triangle as a float.",
+    "  The returned area is rounded to exactly two decimal places.",
+    "  The returned area is non-negative.",
+    "Otherwise (if the sides do not form a valid triangle, including cases where side lengths are non-positive or violate the triangle inequality):",
+    "  The function returns the integer value -1."
+  ],
+  "invariants": [
+    "The determination of a 'valid triangle' is strictly based on the triangle inequality theorem: the sum of the lengths of any two sides must be strictly greater than the length of the third side."
+  ],
+  "normal_cases": [
+    {
+      "input": [
+        3,
+        4,
+        5
+      ],
+      "expected_output": 6.0,
+      "comment": "A standard right-angled triangle."
+    },
+    {
+      "input": [
+        5.0,
+        12.0,
+        13.0
+      ],
+      "expected_output": 30.0,
+      "comment": "Another right-angled triangle with float inputs."
+    },
+    {
+      "input": [
+        7,
+        8,
+        9
+      ],
+      "expected_output": 26.83,
+      "comment": "A scalene triangle with non-integer area, rounded to two decimal places."
+    },
+    {
+      "input": [
+        5,
+        5,
+        5
+      ],
+      "expected_output": 10.83,
+      "comment": "An equilateral triangle, area rounded."
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": [
+        1,
+        2,
+        10
+      ],
+      "expected_output": -1,
+      "comment": "Invalid triangle: sum of two sides is less than the third (1+2 < 10)."
+    },
+    {
+      "input": [
+        1,
+        2,
+        3
+      ],
+      "expected_output": -1,
+      "comment": "Degenerate triangle: sum of two sides equals the third (1+2 = 3), not strictly greater."
+    },
+    {
+      "input": [
+        0.1,
+        0.1,
+        0.1
+      ],
+      "expected_output": 0.0,
+      "comment": "Very small valid equilateral triangle, area rounds to 0.00."
+    },
+    {
+      "input": [
+        5,
+        5,
+        6
+      ],
+      "expected_output": 12.0,
+      "comment": "An isosceles triangle."
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": [
+        "a",
+        4,
+        5
+      ],
+      "expected_behavior": "Raise a TypeError or similar exception, as side lengths must be numeric.",
+      "comment": "Non-numeric input for a side length."
+    },
+    {
+      "input": [
+        -3,
+        4,
+        5
+      ],
+      "expected_output": -1,
+      "comment": "Negative side length. This violates the positivity precondition, making it an invalid triangle, thus returning -1."
+    },
+    {
+      "input": [
+        0,
+        4,
+        5
+      ],
+      "expected_output": -1,
+      "comment": "Zero side length. This violates the positivity precondition, making it an invalid triangle, thus returning -1."
+    }
+  ]
+}

@@ -1,0 +1,70 @@
+{
+  "task_id": "HumanEval_23",
+  "entry_point": "strlen",
+  "preconditions": [
+    "The input 'string' must be of type 'str'."
+  ],
+  "postconditions": [
+    "The function must return an integer.",
+    "The returned integer must be non-negative.",
+    "The returned integer must represent the number of characters in the input 'string'."
+  ],
+  "invariants": [
+    "The length of any string is always a non-negative integer.",
+    "The input 'string' itself is not modified by the function."
+  ],
+  "normal_cases": [
+    {
+      "input": "abc",
+      "output": 3,
+      "description": "A typical non-empty string with alphanumeric characters."
+    },
+    {
+      "input": "hello world",
+      "output": 11,
+      "description": "A string containing spaces."
+    },
+    {
+      "input": "\u4f60\u597d",
+      "output": 2,
+      "description": "A string containing Unicode characters."
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": "",
+      "output": 0,
+      "description": "An empty string."
+    },
+    {
+      "input": "a",
+      "output": 1,
+      "description": "A string with a single character."
+    },
+    {
+      "input": "!@#$",
+      "output": 4,
+      "description": "A string with special characters."
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": 123,
+      "exception": "TypeError",
+      "description": "Input is an integer instead of a string."
+    },
+    {
+      "input": null,
+      "exception": "TypeError",
+      "description": "Input is None instead of a string."
+    },
+    {
+      "input": [
+        "a",
+        "b"
+      ],
+      "exception": "TypeError",
+      "description": "Input is a list instead of a string."
+    }
+  ]
+}

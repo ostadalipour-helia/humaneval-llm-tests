@@ -1,0 +1,91 @@
+{
+  "task_id": "HumanEval_48",
+  "entry_point": "is_palindrome",
+  "preconditions": [
+    "The input `text` must be a string (`str`)."
+  ],
+  "postconditions": [
+    "The function must return a boolean value (`bool`).",
+    "If the input `text` reads the same forwards and backwards, the function must return `True`.",
+    "Otherwise, the function must return `False`.",
+    "The comparison is case-sensitive and considers all characters in the string."
+  ],
+  "invariants": [
+    "The function must not modify the input string `text`."
+  ],
+  "normal_cases": [
+    {
+      "input": "aba",
+      "output": true,
+      "description": "A typical palindrome string."
+    },
+    {
+      "input": "aaaaa",
+      "output": true,
+      "description": "A palindrome string with repeating characters."
+    },
+    {
+      "input": "zbcd",
+      "output": false,
+      "description": "A typical non-palindrome string."
+    },
+    {
+      "input": "racecar",
+      "output": true,
+      "description": "Another common palindrome example."
+    },
+    {
+      "input": "hello",
+      "output": false,
+      "description": "Another common non-palindrome example."
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": "",
+      "output": true,
+      "description": "An empty string is considered a palindrome."
+    },
+    {
+      "input": "a",
+      "output": true,
+      "description": "A single-character string is considered a palindrome."
+    },
+    {
+      "input": "aa",
+      "output": true,
+      "description": "A two-character palindrome string."
+    },
+    {
+      "input": "ab",
+      "output": false,
+      "description": "A two-character non-palindrome string."
+    },
+    {
+      "input": "Madam",
+      "output": false,
+      "description": "A string that would be a palindrome if case-insensitive, but is not due to case-sensitivity."
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": 123,
+      "exception": "TypeError",
+      "description": "Input is an integer instead of a string."
+    },
+    {
+      "input": null,
+      "exception": "TypeError",
+      "description": "Input is None instead of a string."
+    },
+    {
+      "input": [
+        "a",
+        "b",
+        "a"
+      ],
+      "exception": "TypeError",
+      "description": "Input is a list instead of a string."
+    }
+  ]
+}

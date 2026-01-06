@@ -1,0 +1,89 @@
+{
+  "task_id": "HumanEval_66",
+  "entry_point": "digitSum",
+  "preconditions": [
+    "The input `s` must be a string."
+  ],
+  "postconditions": [
+    "The function returns an integer.",
+    "The returned integer is the sum of the ASCII (ordinal) values of all characters `c` in the input string `s` for which `c.isupper()` is true.",
+    "If the input string `s` is empty or contains no uppercase characters, the function returns 0."
+  ],
+  "invariants": [
+    "The returned sum is always a non-negative integer."
+  ],
+  "normal_cases": [
+    {
+      "input": "abAB",
+      "output": 131,
+      "reason": "Sum of ASCII codes for 'A' (65) and 'B' (66)."
+    },
+    {
+      "input": "abcCd",
+      "output": 67,
+      "reason": "ASCII code for 'C' (67)."
+    },
+    {
+      "input": "helloE",
+      "output": 69,
+      "reason": "ASCII code for 'E' (69)."
+    },
+    {
+      "input": "woArBld",
+      "output": 131,
+      "reason": "Sum of ASCII codes for 'A' (65) and 'B' (66)."
+    },
+    {
+      "input": "aAaaaXa",
+      "output": 153,
+      "reason": "Sum of ASCII codes for 'A' (65) and 'X' (88)."
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": "",
+      "output": 0,
+      "reason": "Empty string, no uppercase characters to sum."
+    },
+    {
+      "input": "abcdefg",
+      "output": 0,
+      "reason": "String contains only lowercase characters."
+    },
+    {
+      "input": "ABCDEFG",
+      "output": 504,
+      "reason": "String contains only uppercase characters. Sum of A-G (65+66+67+68+69+70+71)."
+    },
+    {
+      "input": "123!@#$",
+      "output": 0,
+      "reason": "String contains only non-alphabetic characters."
+    },
+    {
+      "input": "MiXeD CaSe 123!",
+      "output": 455,
+      "reason": "Sum of M(77)+X(88)+C(67)+S(83)+C(67)+S(83)+E(69)+D(68)."
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": 123,
+      "exception": "TypeError",
+      "reason": "Input is not a string."
+    },
+    {
+      "input": null,
+      "exception": "AttributeError",
+      "reason": "Input is not a string, attempting to iterate or call string methods on None."
+    },
+    {
+      "input": [
+        "a",
+        "B"
+      ],
+      "exception": "TypeError",
+      "reason": "Input is not a string."
+    }
+  ]
+}

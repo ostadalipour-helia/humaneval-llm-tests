@@ -1,0 +1,306 @@
+{
+  "task_id": "HumanEval_122",
+  "entry_point": "add_elements",
+  "preconditions": [
+    "arr is a non-empty list of integers.",
+    "The length of arr is between 1 and 100, inclusive (1 <= len(arr) <= 100).",
+    "k is an integer.",
+    "k is between 1 and len(arr), inclusive (1 <= k <= len(arr))."
+  ],
+  "postconditions": [
+    "The function returns an integer.",
+    "The returned integer is the sum of specific elements from arr.",
+    "Only elements from the first k elements of arr (i.e., arr[0] to arr[k-1]) are considered for summation.",
+    "Among these first k elements, only those whose absolute value is less than 100 (i.e., -99 <= element <= 99) are included in the sum."
+  ],
+  "invariants": [
+    "The input array 'arr' remains unchanged.",
+    "The input integer 'k' remains unchanged."
+  ],
+  "normal_cases": [
+    {
+      "input": {
+        "arr": [
+          111,
+          21,
+          3,
+          4000,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "k": 4
+      },
+      "output": 24,
+      "description": "Example from docstring: sum of 21 and 3 from the first 4 elements."
+    },
+    {
+      "input": {
+        "arr": [
+          1,
+          2,
+          3,
+          100,
+          5
+        ],
+        "k": 3
+      },
+      "output": 6,
+      "description": "All first k elements have at most two digits."
+    },
+    {
+      "input": {
+        "arr": [
+          1000,
+          200,
+          300,
+          400,
+          500
+        ],
+        "k": 5
+      },
+      "output": 0,
+      "description": "None of the first k elements have at most two digits."
+    },
+    {
+      "input": {
+        "arr": [
+          10,
+          -20,
+          30,
+          100,
+          50
+        ],
+        "k": 4
+      },
+      "output": 20,
+      "description": "Includes negative numbers with at most two digits."
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": {
+        "arr": [
+          5,
+          100,
+          200
+        ],
+        "k": 1
+      },
+      "output": 5,
+      "description": "k is 1, only the first element is considered."
+    },
+    {
+      "input": {
+        "arr": [
+          10,
+          20,
+          30
+        ],
+        "k": 3
+      },
+      "output": 60,
+      "description": "k is equal to len(arr), all elements are considered."
+    },
+    {
+      "input": {
+        "arr": [
+          0,
+          10,
+          100
+        ],
+        "k": 2
+      },
+      "output": 10,
+      "description": "Array contains zero, which has at most two digits."
+    },
+    {
+      "input": {
+        "arr": [
+          99,
+          -99,
+          100,
+          -100
+        ],
+        "k": 4
+      },
+      "output": 0,
+      "description": "Boundary values for 'at most two digits' (99, -99 included; 100, -100 excluded)."
+    },
+    {
+      "input": {
+        "arr": [
+          1
+        ],
+        "k": 1
+      },
+      "output": 1,
+      "description": "Minimum length array and k is 1."
+    },
+    {
+      "input": {
+        "arr": [
+          10,
+          20,
+          30,
+          40,
+          50,
+          60,
+          70,
+          80,
+          90,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39,
+          40,
+          41,
+          42,
+          43,
+          44,
+          45,
+          46,
+          47,
+          48,
+          49,
+          50,
+          51,
+          52,
+          53,
+          54,
+          55,
+          56,
+          57,
+          58,
+          59,
+          60,
+          61,
+          62,
+          63,
+          64,
+          65,
+          66,
+          67,
+          68,
+          69,
+          70,
+          71,
+          72,
+          73,
+          74,
+          75,
+          76,
+          77,
+          78,
+          79,
+          80,
+          81,
+          82,
+          83,
+          84,
+          85,
+          86,
+          87,
+          88,
+          89,
+          90,
+          91,
+          92,
+          93,
+          94,
+          95,
+          96,
+          97,
+          98,
+          99
+        ],
+        "k": 100
+      },
+      "output": 4950,
+      "description": "Maximum length array and k is 100, all elements are included (sum of 1 to 99)."
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": {
+        "arr": [],
+        "k": 0
+      },
+      "expected_error": "ValueError",
+      "description": "arr is empty (violates 1 <= len(arr))."
+    },
+    {
+      "input": {
+        "arr": [
+          1,
+          2,
+          3
+        ],
+        "k": 0
+      },
+      "expected_error": "ValueError",
+      "description": "k is less than 1 (violates 1 <= k)."
+    },
+    {
+      "input": {
+        "arr": [
+          1,
+          2,
+          3
+        ],
+        "k": 4
+      },
+      "expected_error": "IndexError",
+      "description": "k is greater than len(arr) (violates k <= len(arr))."
+    },
+    {
+      "input": {
+        "arr": [
+          1,
+          "a",
+          3
+        ],
+        "k": 2
+      },
+      "expected_error": "TypeError",
+      "description": "arr contains non-integer elements."
+    }
+  ]
+}

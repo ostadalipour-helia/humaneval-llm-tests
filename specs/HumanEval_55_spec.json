@@ -1,0 +1,94 @@
+{
+  "task_id": "HumanEval_55",
+  "entry_point": "fib",
+  "preconditions": [
+    "n must be an integer.",
+    "n must be greater than or equal to 1 (n >= 1)."
+  ],
+  "postconditions": [
+    "The function returns an integer.",
+    "The returned integer is the n-th Fibonacci number.",
+    "The Fibonacci sequence is defined as F(1)=1, F(2)=1, and F(k) = F(k-1) + F(k-2) for k > 2.",
+    "The returned value is non-negative."
+  ],
+  "invariants": [],
+  "normal_cases": [
+    {
+      "input": {
+        "n": 10
+      },
+      "output": 55
+    },
+    {
+      "input": {
+        "n": 1
+      },
+      "output": 1
+    },
+    {
+      "input": {
+        "n": 8
+      },
+      "output": 21
+    },
+    {
+      "input": {
+        "n": 5
+      },
+      "output": 5
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": {
+        "n": 1
+      },
+      "output": 1,
+      "comment": "Smallest valid input"
+    },
+    {
+      "input": {
+        "n": 2
+      },
+      "output": 1,
+      "comment": "Second smallest valid input"
+    },
+    {
+      "input": {
+        "n": 3
+      },
+      "output": 2,
+      "comment": "Third smallest valid input"
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": {
+        "n": 0
+      },
+      "exception": "ValueError",
+      "description": "n must be a positive integer (n >= 1)."
+    },
+    {
+      "input": {
+        "n": -5
+      },
+      "exception": "ValueError",
+      "description": "n must be a positive integer (n >= 1)."
+    },
+    {
+      "input": {
+        "n": 10.5
+      },
+      "exception": "TypeError",
+      "description": "n must be an integer."
+    },
+    {
+      "input": {
+        "n": "abc"
+      },
+      "exception": "TypeError",
+      "description": "n must be an integer."
+    }
+  ]
+}

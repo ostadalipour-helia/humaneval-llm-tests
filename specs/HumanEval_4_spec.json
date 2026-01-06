@@ -1,0 +1,75 @@
+{
+  "task_id": "HumanEval_4",
+  "entry_point": "mean_absolute_deviation",
+  "preconditions": [
+    "The input `numbers` must be a list of floating-point numbers (List[float]).",
+    "The input list `numbers` must not be empty, as the mean is undefined for an empty set."
+  ],
+  "postconditions": [
+    "The function must return a single floating-point number (float).",
+    "The returned value must be non-negative.",
+    "The returned value represents the Mean Absolute Deviation (MAD) of the input numbers around their mean.",
+    "If all numbers in the input list are identical, the returned MAD must be 0.0."
+  ],
+  "invariants": [
+    "The mean of the input `numbers` is calculated as the sum of all elements divided by the count of elements.",
+    "For each number `x` in the input list, the absolute difference `|x - mean|` is calculated.",
+    "The final result is the average of all these absolute differences."
+  ],
+  "normal_cases": [
+    {
+      "input": "[1.0, 2.0, 3.0, 4.0]",
+      "output": "1.0",
+      "description": "Example from the docstring: a simple sequence of positive floats."
+    },
+    {
+      "input": "[10.0, 20.0, 30.0]",
+      "output": "6.666666666666667",
+      "description": "A list of three positive floats with a non-integer mean."
+    },
+    {
+      "input": "[-1.0, 0.0, 1.0]",
+      "output": "0.6666666666666666",
+      "description": "A list including negative, zero, and positive floats."
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": "[5.0]",
+      "output": "0.0",
+      "description": "A list with a single element. MAD should be 0 as x - mean = 0."
+    },
+    {
+      "input": "[2.5, 2.5, 2.5]",
+      "output": "0.0",
+      "description": "A list where all elements are identical. MAD should be 0."
+    },
+    {
+      "input": "[0.0, 0.0, 0.0, 0.0]",
+      "output": "0.0",
+      "description": "A list of all zeros. MAD should be 0."
+    },
+    {
+      "input": "[-5.0, -4.0, -3.0, -2.0, -1.0]",
+      "output": "1.2",
+      "description": "A list of only negative numbers."
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": "[]",
+      "behavior": "Should raise an error (e.g., ValueError or ZeroDivisionError) because the mean is undefined for an empty list.",
+      "description": "Input list is empty."
+    },
+    {
+      "input": "[1, 2, 3]",
+      "behavior": "Type checker should flag this. If dynamically typed, might raise a TypeError if operations expect floats.",
+      "description": "Input list contains integers instead of floats (violates type hint)."
+    },
+    {
+      "input": "[1.0, 'a', 3.0]",
+      "behavior": "Type checker should flag this. If dynamically typed, will raise a TypeError during arithmetic operations.",
+      "description": "Input list contains non-numeric elements."
+    }
+  ]
+}

@@ -1,0 +1,95 @@
+{
+  "task_id": "HumanEval_2",
+  "entry_point": "truncate_number",
+  "preconditions": [
+    "The input `number` must be a floating-point number (float).",
+    "The input `number` must be strictly positive (`number > 0`)."
+  ],
+  "postconditions": [
+    "The function must return a floating-point number.",
+    "The returned value `r` must be non-negative (`r >= 0`).",
+    "The returned value `r` must be strictly less than 1 (`r < 1`).",
+    "The difference between the input `number` and the returned value `r` must be an integer (i.e., `number - r` is an integer).",
+    "The returned value `r` represents the fractional (decimal) part of the input `number`."
+  ],
+  "invariants": [
+    "For any valid input `number`, the returned value `r` will always satisfy `0 <= r < 1`.",
+    "The sum of the returned decimal part and the integer part (floor of the input number) will be equal to the input number (accounting for floating point precision)."
+  ],
+  "normal_cases": [
+    {
+      "input": {
+        "number": 3.5
+      },
+      "expected_output": 0.5
+    },
+    {
+      "input": {
+        "number": 1.234
+      },
+      "expected_output": 0.234
+    },
+    {
+      "input": {
+        "number": 10.0
+      },
+      "expected_output": 0.0
+    },
+    {
+      "input": {
+        "number": 0.999
+      },
+      "expected_output": 0.999
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": {
+        "number": 1e-06
+      },
+      "expected_output": 1e-06
+    },
+    {
+      "input": {
+        "number": 1.0
+      },
+      "expected_output": 1e-16
+    },
+    {
+      "input": {
+        "number": 123456789.12345679
+      },
+      "expected_output": 0.123456789
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": {
+        "number": -3.5
+      },
+      "expected_error": "ValueError",
+      "description": "Input number is negative, violating the 'positive' precondition."
+    },
+    {
+      "input": {
+        "number": 0.0
+      },
+      "expected_error": "ValueError",
+      "description": "Input number is zero, violating the 'positive' precondition."
+    },
+    {
+      "input": {
+        "number": "not_a_float"
+      },
+      "expected_error": "TypeError",
+      "description": "Input is not a float."
+    },
+    {
+      "input": {
+        "number": null
+      },
+      "expected_error": "TypeError",
+      "description": "Input is null."
+    }
+  ]
+}

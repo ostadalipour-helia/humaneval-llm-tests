@@ -1,0 +1,177 @@
+{
+  "task_id": "HumanEval_76",
+  "entry_point": "is_simple_power",
+  "preconditions": [
+    "x is an integer.",
+    "n is an integer.",
+    "x >= 1 (x must be a positive integer).",
+    "n >= 1 (n must be a positive integer)."
+  ],
+  "postconditions": [
+    "The function returns a boolean value.",
+    "If the function returns true, there exists a non-negative integer k such that n^k = x.",
+    "If the function returns false, no such non-negative integer k exists where n^k = x."
+  ],
+  "invariants": [
+    "The input values x and n remain unchanged during the function execution.",
+    "If x is a simple power of n, then x must be divisible by n (unless k=0, where x=1)."
+  ],
+  "normal_cases": [
+    {
+      "input": {
+        "x": 1,
+        "n": 4
+      },
+      "output": true,
+      "reason": "4^0 = 1"
+    },
+    {
+      "input": {
+        "x": 2,
+        "n": 2
+      },
+      "output": true,
+      "reason": "2^1 = 2"
+    },
+    {
+      "input": {
+        "x": 8,
+        "n": 2
+      },
+      "output": true,
+      "reason": "2^3 = 8"
+    },
+    {
+      "input": {
+        "x": 3,
+        "n": 2
+      },
+      "output": false,
+      "reason": "3 is not a power of 2"
+    },
+    {
+      "input": {
+        "x": 5,
+        "n": 3
+      },
+      "output": false,
+      "reason": "5 is not a power of 3"
+    },
+    {
+      "input": {
+        "x": 27,
+        "n": 3
+      },
+      "output": true,
+      "reason": "3^3 = 27"
+    },
+    {
+      "input": {
+        "x": 100,
+        "n": 10
+      },
+      "output": true,
+      "reason": "10^2 = 100"
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": {
+        "x": 1,
+        "n": 1
+      },
+      "output": true,
+      "reason": "1^0 = 1"
+    },
+    {
+      "input": {
+        "x": 3,
+        "n": 1
+      },
+      "output": false,
+      "reason": "1 raised to any non-negative integer power is always 1, so 3 cannot be a power of 1."
+    },
+    {
+      "input": {
+        "x": 7,
+        "n": 7
+      },
+      "output": true,
+      "reason": "7^1 = 7"
+    },
+    {
+      "input": {
+        "x": 16,
+        "n": 2
+      },
+      "output": true,
+      "reason": "2^4 = 16"
+    },
+    {
+      "input": {
+        "x": 625,
+        "n": 5
+      },
+      "output": true,
+      "reason": "5^4 = 625"
+    },
+    {
+      "input": {
+        "x": 7,
+        "n": 2
+      },
+      "output": false,
+      "reason": "7 is a prime number and not a power of 2."
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": {
+        "x": 0,
+        "n": 2
+      },
+      "behavior": "Undefined or raises an error (violates x >= 1 precondition).",
+      "reason": "x must be a positive integer."
+    },
+    {
+      "input": {
+        "x": -4,
+        "n": 2
+      },
+      "behavior": "Undefined or raises an error (violates x >= 1 precondition).",
+      "reason": "x must be a positive integer."
+    },
+    {
+      "input": {
+        "x": 8,
+        "n": 0
+      },
+      "behavior": "Undefined or raises an error (violates n >= 1 precondition).",
+      "reason": "n must be a positive integer. 0^k is problematic."
+    },
+    {
+      "input": {
+        "x": 8,
+        "n": -2
+      },
+      "behavior": "Undefined or raises an error (violates n >= 1 precondition).",
+      "reason": "n must be a positive integer."
+    },
+    {
+      "input": {
+        "x": 8.0,
+        "n": 2
+      },
+      "behavior": "Undefined or raises an error (violates integer type precondition).",
+      "reason": "x must be an integer."
+    },
+    {
+      "input": {
+        "x": 8,
+        "n": 2.5
+      },
+      "behavior": "Undefined or raises an error (violates integer type precondition).",
+      "reason": "n must be an integer."
+    }
+  ]
+}

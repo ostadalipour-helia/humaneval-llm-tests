@@ -1,0 +1,94 @@
+{
+  "task_id": "HumanEval_131",
+  "entry_point": "digits",
+  "preconditions": [
+    "n must be an integer.",
+    "n must be a positive integer (n > 0)."
+  ],
+  "postconditions": [
+    "The return value must be an integer.",
+    "If n contains at least one odd digit, the return value is the product of all odd digits in n.",
+    "If n contains no odd digits (i.e., all digits are even), the return value is 0.",
+    "The return value must be non-negative."
+  ],
+  "invariants": [
+    "During processing, each extracted digit will be an integer between 0 and 9 inclusive.",
+    "The accumulated product will only include odd digits."
+  ],
+  "normal_cases": [
+    {
+      "input": "n = 1",
+      "output": "1",
+      "description": "Single odd digit."
+    },
+    {
+      "input": "n = 235",
+      "output": "15",
+      "description": "Multiple odd digits, mixed with even digits."
+    },
+    {
+      "input": "n = 137",
+      "output": "21",
+      "description": "All digits are odd."
+    },
+    {
+      "input": "n = 12345",
+      "output": "15",
+      "description": "Mixed odd and even digits, product of odd digits."
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": "n = 4",
+      "output": "0",
+      "description": "Single even digit."
+    },
+    {
+      "input": "n = 246",
+      "output": "0",
+      "description": "All digits are even."
+    },
+    {
+      "input": "n = 10",
+      "output": "1",
+      "description": "Contains an odd digit (1) and an even digit (0)."
+    },
+    {
+      "input": "n = 9",
+      "output": "9",
+      "description": "Largest single odd digit."
+    },
+    {
+      "input": "n = 2",
+      "output": "0",
+      "description": "Smallest single even digit (positive)."
+    },
+    {
+      "input": "n = 1000000000000000000",
+      "output": "1",
+      "description": "Very large number with only one odd digit."
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": "n = 0",
+      "expected_error": "Input n must be a positive integer.",
+      "description": "n is not positive."
+    },
+    {
+      "input": "n = -5",
+      "expected_error": "Input n must be a positive integer.",
+      "description": "n is a negative integer."
+    },
+    {
+      "input": "n = 3.14",
+      "expected_error": "Input n must be an integer.",
+      "description": "n is a float."
+    },
+    {
+      "input": "n = \"abc\"",
+      "expected_error": "Input n must be an integer.",
+      "description": "n is a string."
+    }
+  ]
+}

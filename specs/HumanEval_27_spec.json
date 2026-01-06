@@ -1,0 +1,85 @@
+{
+  "task_id": "HumanEval_27",
+  "entry_point": "flip_case",
+  "preconditions": [
+    "The input `string` must be of type `str`."
+  ],
+  "postconditions": [
+    "The function returns a string.",
+    "The length of the returned string is equal to the length of the input string.",
+    "For each character in the input string:",
+    "  - If the character is a lowercase letter, it is converted to its uppercase equivalent in the output.",
+    "  - If the character is an uppercase letter, it is converted to its lowercase equivalent in the output.",
+    "  - If the character is not an alphabetic letter (e.g., digit, symbol, space), it remains unchanged in the output."
+  ],
+  "invariants": [
+    "The order of characters in the output string is the same as in the input string.",
+    "The length of the output string is always equal to the length of the input string."
+  ],
+  "normal_cases": [
+    {
+      "input": "'Hello'",
+      "output": "'hELLO'",
+      "description": "Mixed case string with standard letters."
+    },
+    {
+      "input": "'WORLD'",
+      "output": "'world'",
+      "description": "All uppercase string."
+    },
+    {
+      "input": "'python'",
+      "output": "'PYTHON'",
+      "description": "All lowercase string."
+    },
+    {
+      "input": "'PyThOn'",
+      "output": "'pYtHoN'",
+      "description": "Alternating case string."
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": "''",
+      "output": "''",
+      "description": "Empty string."
+    },
+    {
+      "input": "'123!@#'",
+      "output": "'123!@#'",
+      "description": "String with only non-alphabetic characters."
+    },
+    {
+      "input": "'Hello World 123!'",
+      "output": "'hELLO wORLD 123!'",
+      "description": "String with mixed alphabetic and non-alphabetic characters including spaces."
+    },
+    {
+      "input": "'a'",
+      "output": "'A'",
+      "description": "Single lowercase character."
+    },
+    {
+      "input": "'Z'",
+      "output": "'z'",
+      "description": "Single uppercase character."
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": "None",
+      "exception": "TypeError",
+      "description": "Input is not a string (NoneType)."
+    },
+    {
+      "input": "123",
+      "exception": "TypeError",
+      "description": "Input is not a string (integer)."
+    },
+    {
+      "input": "[1, 'a']",
+      "exception": "TypeError",
+      "description": "Input is not a string (list)."
+    }
+  ]
+}

@@ -1,0 +1,212 @@
+{
+  "task_id": "HumanEval_110",
+  "entry_point": "exchange",
+  "preconditions": [
+    "The input `lst1` must be a list.",
+    "The input `lst2` must be a list.",
+    "All elements in `lst1` must be integers.",
+    "All elements in `lst2` must be integers.",
+    "The list `lst1` must not be empty (len(lst1) > 0).",
+    "The list `lst2` must not be empty (len(lst2) > 0)."
+  ],
+  "postconditions": [
+    "The function must return a string, either 'YES' or 'NO'.",
+    "Let `odd_count_lst1` be the number of odd integers in the original `lst1`.",
+    "Let `even_count_lst2` be the number of even integers in the original `lst2`.",
+    "If `odd_count_lst1` is less than or equal to `even_count_lst2`, the function must return 'YES'.",
+    "If `odd_count_lst1` is greater than `even_count_lst2`, the function must return 'NO'."
+  ],
+  "invariants": [
+    "The parity (even or odd) of an integer is determined by its remainder when divided by 2.",
+    "The conceptual exchange process does not change the total number of elements in `lst1` or `lst2`.",
+    "The conceptual exchange process does not create or destroy numbers, only moves them between lists based on parity requirements."
+  ],
+  "normal_cases": [
+    {
+      "input": {
+        "lst1": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "lst2": [
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      "output": "YES",
+      "reason": "lst1 has 2 odd numbers (1, 3). lst2 has 2 even numbers (2, 4). 2 <= 2, so 'YES'."
+    },
+    {
+      "input": {
+        "lst1": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "lst2": [
+          1,
+          5,
+          3,
+          4
+        ]
+      },
+      "output": "NO",
+      "reason": "lst1 has 2 odd numbers (1, 3). lst2 has 1 even number (4). 2 > 1, so 'NO'."
+    },
+    {
+      "input": {
+        "lst1": [
+          2,
+          4,
+          6
+        ],
+        "lst2": [
+          1,
+          3,
+          5
+        ]
+      },
+      "output": "YES",
+      "reason": "lst1 has 0 odd numbers. lst2 has 0 even numbers. 0 <= 0, so 'YES'."
+    },
+    {
+      "input": {
+        "lst1": [
+          1,
+          3,
+          5
+        ],
+        "lst2": [
+          2,
+          4,
+          6
+        ]
+      },
+      "output": "YES",
+      "reason": "lst1 has 3 odd numbers (1, 3, 5). lst2 has 3 even numbers (2, 4, 6). 3 <= 3, so 'YES'."
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": {
+        "lst1": [
+          1
+        ],
+        "lst2": [
+          2
+        ]
+      },
+      "output": "YES",
+      "reason": "lst1 has 1 odd number. lst2 has 1 even number. 1 <= 1, so 'YES'."
+    },
+    {
+      "input": {
+        "lst1": [
+          1
+        ],
+        "lst2": [
+          3
+        ]
+      },
+      "output": "NO",
+      "reason": "lst1 has 1 odd number. lst2 has 0 even numbers. 1 > 0, so 'NO'."
+    },
+    {
+      "input": {
+        "lst1": [
+          2
+        ],
+        "lst2": [
+          1
+        ]
+      },
+      "output": "YES",
+      "reason": "lst1 has 0 odd numbers. lst2 has 0 even numbers. 0 <= 0, so 'YES'."
+    },
+    {
+      "input": {
+        "lst1": [
+          1,
+          3
+        ],
+        "lst2": [
+          2
+        ]
+      },
+      "output": "NO",
+      "reason": "lst1 has 2 odd numbers. lst2 has 1 even number. 2 > 1, so 'NO'."
+    },
+    {
+      "input": {
+        "lst1": [
+          2,
+          4
+        ],
+        "lst2": [
+          1,
+          3
+        ]
+      },
+      "output": "YES",
+      "reason": "lst1 has 0 odd numbers. lst2 has 0 even numbers. 0 <= 0, so 'YES'."
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": {
+        "lst1": "not_a_list",
+        "lst2": [
+          1,
+          2
+        ]
+      },
+      "expected_error": "TypeError",
+      "reason": "`lst1` is not a list."
+    },
+    {
+      "input": {
+        "lst1": [
+          1,
+          2
+        ],
+        "lst2": null
+      },
+      "expected_error": "TypeError",
+      "reason": "`lst2` is not a list."
+    },
+    {
+      "input": {
+        "lst1": [
+          1,
+          "a",
+          3
+        ],
+        "lst2": [
+          2,
+          4
+        ]
+      },
+      "expected_error": "TypeError",
+      "reason": "`lst1` contains non-integer elements."
+    },
+    {
+      "input": {
+        "lst1": [
+          1,
+          2
+        ],
+        "lst2": [
+          3,
+          4.5
+        ]
+      },
+      "expected_error": "TypeError",
+      "reason": "`lst2` contains non-integer elements (float)."
+    }
+  ]
+}

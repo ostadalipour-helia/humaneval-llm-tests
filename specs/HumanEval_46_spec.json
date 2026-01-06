@@ -1,0 +1,67 @@
+{
+  "task_id": "HumanEval_46",
+  "entry_point": "fib4",
+  "preconditions": [
+    "n must be an integer.",
+    "n must be a non-negative integer (n >= 0)."
+  ],
+  "postconditions": [
+    "The function must return an integer.",
+    "The returned value must be the n-th element of the fib4 sequence as defined.",
+    "For n = 0, the return value is 0.",
+    "For n = 1, the return value is 0.",
+    "For n = 2, the return value is 2.",
+    "For n = 3, the return value is 0.",
+    "For n >= 4, the return value must satisfy the recurrence relation: fib4(n) = fib4(n-1) + fib4(n-2) + fib4(n-3) + fib4(n-4)."
+  ],
+  "invariants": [
+    "The sequence is defined by fixed base cases for n < 4.",
+    "For n >= 4, each element is the sum of the four preceding elements."
+  ],
+  "normal_cases": [
+    {
+      "input": "n = 5",
+      "output": "4"
+    },
+    {
+      "input": "n = 6",
+      "output": "8"
+    },
+    {
+      "input": "n = 7",
+      "output": "14"
+    },
+    {
+      "input": "n = 4",
+      "output": "2"
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": "n = 0",
+      "output": "0"
+    },
+    {
+      "input": "n = 1",
+      "output": "0"
+    },
+    {
+      "input": "n = 2",
+      "output": "2"
+    },
+    {
+      "input": "n = 3",
+      "output": "0"
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": "n is not an integer (e.g., n = 3.5, n = 'abc')",
+      "behavior": "Type error or undefined behavior, as per Python's type hinting implications."
+    },
+    {
+      "input": "n is a negative integer (e.g., n = -1)",
+      "behavior": "Undefined behavior, as the sequence is not defined for negative indices."
+    }
+  ]
+}

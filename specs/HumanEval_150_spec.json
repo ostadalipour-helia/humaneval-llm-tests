@@ -1,0 +1,150 @@
+{
+  "task_id": "HumanEval_150",
+  "entry_point": "x_or_y",
+  "preconditions": [
+    "n must be an integer.",
+    "n must be a positive integer (n > 0).",
+    "x can be of any type.",
+    "y can be of any type."
+  ],
+  "postconditions": [
+    "If n is a prime number, the function must return the value of x.",
+    "If n is not a prime number, the function must return the value of y.",
+    "The return value will be of the same type as x if n is prime, or the same type as y if n is not prime."
+  ],
+  "invariants": [
+    "The function always returns either the value of x or the value of y, without modification."
+  ],
+  "normal_cases": [
+    {
+      "input": {
+        "n": 7,
+        "x": 34,
+        "y": 12
+      },
+      "expected_output": 34,
+      "reason": "7 is a prime number, so x (34) is returned."
+    },
+    {
+      "input": {
+        "n": 15,
+        "x": 8,
+        "y": 5
+      },
+      "expected_output": 5,
+      "reason": "15 is not a prime number (15 = 3 * 5), so y (5) is returned."
+    },
+    {
+      "input": {
+        "n": 13,
+        "x": "hello",
+        "y": "world"
+      },
+      "expected_output": "hello",
+      "reason": "13 is a prime number, so x ('hello') is returned. x and y can be strings."
+    },
+    {
+      "input": {
+        "n": 9,
+        "x": true,
+        "y": false
+      },
+      "expected_output": false,
+      "reason": "9 is not a prime number (9 = 3 * 3), so y (false) is returned. x and y can be booleans."
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": {
+        "n": 1,
+        "x": 100,
+        "y": 200
+      },
+      "expected_output": 200,
+      "reason": "1 is not considered a prime number, so y (200) is returned."
+    },
+    {
+      "input": {
+        "n": 2,
+        "x": 10,
+        "y": 20
+      },
+      "expected_output": 10,
+      "reason": "2 is the smallest prime number, so x (10) is returned."
+    },
+    {
+      "input": {
+        "n": 4,
+        "x": 10,
+        "y": 20
+      },
+      "expected_output": 20,
+      "reason": "4 is the smallest composite number, so y (20) is returned."
+    },
+    {
+      "input": {
+        "n": 29,
+        "x": 5.5,
+        "y": 10.1
+      },
+      "expected_output": 5.5,
+      "reason": "29 is a prime number, so x (5.5) is returned. x and y can be floats."
+    },
+    {
+      "input": {
+        "n": 30,
+        "x": 5.5,
+        "y": 10.1
+      },
+      "expected_output": 10.1,
+      "reason": "30 is not a prime number, so y (10.1) is returned. x and y can be floats."
+    },
+    {
+      "input": {
+        "n": 17,
+        "x": 5,
+        "y": 5
+      },
+      "expected_output": 5,
+      "reason": "17 is prime, but x and y are the same value, so the return value is 5."
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": {
+        "n": 0,
+        "x": 10,
+        "y": 20
+      },
+      "expected_behavior": "Undefined behavior or error (e.g., ValueError, AssertionError) due to n not being a positive integer.",
+      "reason": "n must be a positive integer according to preconditions."
+    },
+    {
+      "input": {
+        "n": -5,
+        "x": 10,
+        "y": 20
+      },
+      "expected_behavior": "Undefined behavior or error (e.g., ValueError, AssertionError) due to n not being a positive integer.",
+      "reason": "n must be a positive integer according to preconditions."
+    },
+    {
+      "input": {
+        "n": "abc",
+        "x": 10,
+        "y": 20
+      },
+      "expected_behavior": "TypeError, as n must be an integer.",
+      "reason": "n must be an integer according to preconditions."
+    },
+    {
+      "input": {
+        "n": 7.5,
+        "x": 10,
+        "y": 20
+      },
+      "expected_behavior": "TypeError or ValueError, as n must be an integer.",
+      "reason": "n must be an integer according to preconditions."
+    }
+  ]
+}

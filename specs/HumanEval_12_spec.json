@@ -1,0 +1,110 @@
+{
+  "task_id": "HumanEval_12",
+  "entry_point": "longest",
+  "preconditions": [
+    "The input `strings` must be a `List`.",
+    "All elements within the `strings` list must be of type `str`."
+  ],
+  "postconditions": [
+    "If the input `strings` list is empty, the function must return `None`.",
+    "If the input `strings` list is not empty, the function must return a `str`.",
+    "The returned string must be an element of the input `strings` list.",
+    "The returned string must have a length greater than or equal to the length of any other string in the input `strings` list.",
+    "If there are multiple strings with the maximum length, the function must return the one that appears first in the input `strings` list."
+  ],
+  "invariants": [
+    "The type of the returned value is either `str` or `None`.",
+    "If the returned value is not `None`, its length is maximized among all strings in the input list."
+  ],
+  "normal_cases": [
+    {
+      "input": "['a', 'bb', 'ccc']",
+      "output": "'ccc'",
+      "description": "Returns the clearly longest string."
+    },
+    {
+      "input": "['apple', 'banana', 'cherry']",
+      "output": "'banana'",
+      "description": "Returns the longest string when lengths vary."
+    },
+    {
+      "input": "['hello', 'world']",
+      "output": "'hello'",
+      "description": "Returns the first string when multiple strings have the same maximum length."
+    },
+    {
+      "input": "['short', 'medium', 'longest_string']",
+      "output": "'longest_string'",
+      "description": "Returns the longest string from a list with varying lengths."
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": "[]",
+      "output": "None",
+      "description": "Returns None for an empty input list."
+    },
+    {
+      "input": "['a', 'b', 'c']",
+      "output": "'a'",
+      "description": "Returns the first string when all strings have the same length."
+    },
+    {
+      "input": "['']",
+      "output": "''",
+      "description": "Returns an empty string if it's the only element."
+    },
+    {
+      "input": "['', 'a', 'bb']",
+      "output": "'bb'",
+      "description": "Handles empty strings correctly when other strings are present."
+    },
+    {
+      "input": "['a']",
+      "output": "'a'",
+      "description": "Returns the single string in a list with one element."
+    },
+    {
+      "input": "['longest', 'longer', 'long']",
+      "output": "'longest'",
+      "description": "Returns the longest string even if it's at the beginning."
+    },
+    {
+      "input": "['a', 'b', 'c', 'd', 'e']",
+      "output": "'a'",
+      "description": "Multiple strings of the same length, returns the first."
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": "None",
+      "exception": "TypeError",
+      "description": "Input is not a list."
+    },
+    {
+      "input": "123",
+      "exception": "TypeError",
+      "description": "Input is an integer, not a list."
+    },
+    {
+      "input": "'not_a_list'",
+      "exception": "TypeError",
+      "description": "Input is a string, not a list."
+    },
+    {
+      "input": "[1, 2, 3]",
+      "exception": "TypeError",
+      "description": "List contains non-string elements (integers)."
+    },
+    {
+      "input": "['a', 1, 'b']",
+      "exception": "TypeError",
+      "description": "List contains mixed types, including non-string elements."
+    },
+    {
+      "input": "[['a'], ['b']]",
+      "exception": "TypeError",
+      "description": "List contains nested lists instead of strings."
+    }
+  ]
+}

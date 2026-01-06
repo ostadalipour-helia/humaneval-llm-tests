@@ -1,0 +1,85 @@
+{
+  "task_id": "HumanEval_97",
+  "entry_point": "multiply",
+  "preconditions": [
+    "The input `a` must be an integer.",
+    "The input `b` must be an integer."
+  ],
+  "postconditions": [
+    "The function must return an integer.",
+    "The returned integer must be the product of the unit digit of `a` and the unit digit of `b`.",
+    "The unit digit of an integer `x` is defined as `x % 10` (using Python's modulo behavior for negative numbers)."
+  ],
+  "invariants": [],
+  "normal_cases": [
+    {
+      "input": {
+        "a": 148,
+        "b": 412
+      },
+      "expected_output": 16,
+      "reasoning": "Unit digit of 148 is 8. Unit digit of 412 is 2. Product is 8 * 2 = 16."
+    },
+    {
+      "input": {
+        "a": 19,
+        "b": 28
+      },
+      "expected_output": 72,
+      "reasoning": "Unit digit of 19 is 9. Unit digit of 28 is 8. Product is 9 * 8 = 72."
+    },
+    {
+      "input": {
+        "a": 2020,
+        "b": 1851
+      },
+      "expected_output": 0,
+      "reasoning": "Unit digit of 2020 is 0. Unit digit of 1851 is 1. Product is 0 * 1 = 0."
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": {
+        "a": 14,
+        "b": -15
+      },
+      "expected_output": 20,
+      "reasoning": "Unit digit of 14 is 4. Unit digit of -15 is 5 (since -15 % 10 = 5 in Python). Product is 4 * 5 = 20."
+    },
+    {
+      "input": {
+        "a": 5,
+        "b": 7
+      },
+      "expected_output": 35,
+      "reasoning": "Single-digit numbers. Unit digit of 5 is 5. Unit digit of 7 is 7. Product is 5 * 7 = 35."
+    },
+    {
+      "input": {
+        "a": 0,
+        "b": 100
+      },
+      "expected_output": 0,
+      "reasoning": "One number is zero. Unit digit of 0 is 0. Unit digit of 100 is 0. Product is 0 * 0 = 0."
+    },
+    {
+      "input": {
+        "a": -1,
+        "b": -1
+      },
+      "expected_output": 1,
+      "reasoning": "Both numbers are negative. Unit digit of -1 is 9. Unit digit of -1 is 9. Product is 9 * 9 = 81. (Correction: -1 % 10 is 9 in Python. The example `14, -15` implies `a % 10` and `b % 10` are used directly. Let's re-evaluate the example `14, -15` -> `4 * 5 = 20`. This is correct. For `-1, -1`, it would be `(-1 % 10) * (-1 % 10) = 9 * 9 = 81`. The docstring implies 'unit digits' in a way that `x % 10` works. Let's stick to `x % 10`.)"
+    },
+    {
+      "input": {
+        "a": -1,
+        "b": -1
+      },
+      "expected_output": 81,
+      "reasoning": "Both numbers are negative. Unit digit of -1 is 9 (since -1 % 10 = 9 in Python). Product is 9 * 9 = 81."
+    }
+  ],
+  "error_conditions": [
+    "The problem statement explicitly assumes the input is always valid, meaning `a` and `b` will always be integers. Therefore, no error conditions for invalid input types are expected."
+  ]
+}

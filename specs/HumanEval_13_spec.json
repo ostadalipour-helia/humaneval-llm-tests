@@ -1,0 +1,83 @@
+{
+  "task_id": "HumanEval_13",
+  "entry_point": "greatest_common_divisor",
+  "preconditions": [
+    "The input 'a' must be an integer.",
+    "The input 'b' must be an integer."
+  ],
+  "postconditions": [
+    "The function must return an integer 'r'.",
+    "The returned value 'r' must be non-negative (r >= 0).",
+    "If 'r' is not zero, then 'r' must divide 'a' without a remainder (a % r == 0).",
+    "If 'r' is not zero, then 'r' must divide 'b' without a remainder (b % r == 0).",
+    "For any integer 'd' such that 'd' divides 'a' and 'd' divides 'b', it must be true that 'd' <= 'r'.",
+    "If both 'a' and 'b' are 0, the returned value 'r' must be 0.",
+    "If one of 'a' or 'b' is 0 and the other is non-zero, the returned value 'r' must be the absolute value of the non-zero integer."
+  ],
+  "invariants": [
+    "The greatest common divisor of 'a' and 'b' is the same as the greatest common divisor of 'b' and 'a' (commutative property).",
+    "The greatest common divisor of 'a' and 'b' is the same as the greatest common divisor of '|a|' and '|b|'.",
+    "The returned value 'r' must always be a common divisor of 'a' and 'b'."
+  ],
+  "normal_cases": [
+    {
+      "input": "a = 3, b = 5",
+      "output": "1",
+      "description": "Two coprime positive integers."
+    },
+    {
+      "input": "a = 25, b = 15",
+      "output": "5",
+      "description": "Two positive integers with a common factor."
+    },
+    {
+      "input": "a = 10, b = 5",
+      "output": "5",
+      "description": "One integer is a multiple of the other."
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": "a = 0, b = 5",
+      "output": "5",
+      "description": "One input is zero, the other is positive."
+    },
+    {
+      "input": "a = 5, b = 0",
+      "output": "5",
+      "description": "One input is positive, the other is zero."
+    },
+    {
+      "input": "a = 0, b = 0",
+      "output": "0",
+      "description": "Both inputs are zero."
+    },
+    {
+      "input": "a = -10, b = 5",
+      "output": "5",
+      "description": "One input is negative, the other is positive."
+    },
+    {
+      "input": "a = -10, b = -5",
+      "output": "5",
+      "description": "Both inputs are negative."
+    },
+    {
+      "input": "a = 1, b = 1",
+      "output": "1",
+      "description": "Smallest positive integers."
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": "a = 3.0, b = 5",
+      "exception": "TypeError",
+      "description": "Input 'a' is not an integer."
+    },
+    {
+      "input": "a = 3, b = 'hello'",
+      "exception": "TypeError",
+      "description": "Input 'b' is not an integer."
+    }
+  ]
+}

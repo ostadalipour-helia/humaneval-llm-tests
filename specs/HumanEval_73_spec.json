@@ -1,0 +1,198 @@
+{
+  "task_id": "HumanEval_73",
+  "entry_point": "smallest_change",
+  "preconditions": [
+    "The input `arr` must be a list.",
+    "All elements within `arr` must be integers."
+  ],
+  "postconditions": [
+    "The function must return an integer.",
+    "The returned integer `r` must be non-negative (r >= 0).",
+    "The returned integer `r` must be less than or equal to half the length of the array (r <= len(arr) // 2).",
+    "The returned integer `r` represents the minimum number of elements that need to be changed to make `arr` palindromic."
+  ],
+  "invariants": [
+    "The input array `arr` is not modified by the function.",
+    "The length of the array `arr` remains constant throughout the calculation."
+  ],
+  "normal_cases": [
+    {
+      "input": {
+        "arr": [
+          1,
+          2,
+          3,
+          5,
+          4,
+          7,
+          9,
+          6
+        ]
+      },
+      "expected_output": 4,
+      "description": "Array requiring multiple changes to become palindromic."
+    },
+    {
+      "input": {
+        "arr": [
+          1,
+          2,
+          3,
+          4,
+          3,
+          2,
+          2
+        ]
+      },
+      "expected_output": 1,
+      "description": "Array requiring a single change to become palindromic."
+    },
+    {
+      "input": {
+        "arr": [
+          1,
+          2,
+          3,
+          2,
+          1
+        ]
+      },
+      "expected_output": 0,
+      "description": "Array that is already palindromic."
+    }
+  ],
+  "edge_cases": [
+    {
+      "input": {
+        "arr": []
+      },
+      "expected_output": 0,
+      "description": "Empty array (already palindromic)."
+    },
+    {
+      "input": {
+        "arr": [
+          5
+        ]
+      },
+      "expected_output": 0,
+      "description": "Single-element array (already palindromic)."
+    },
+    {
+      "input": {
+        "arr": [
+          1,
+          2
+        ]
+      },
+      "expected_output": 1,
+      "description": "Two-element array, different elements."
+    },
+    {
+      "input": {
+        "arr": [
+          7,
+          7
+        ]
+      },
+      "expected_output": 0,
+      "description": "Two-element array, same elements (already palindromic)."
+    },
+    {
+      "input": {
+        "arr": [
+          3,
+          3,
+          3,
+          3,
+          3
+        ]
+      },
+      "expected_output": 0,
+      "description": "Array with all identical elements (already palindromic)."
+    },
+    {
+      "input": {
+        "arr": [
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      "expected_output": 2,
+      "description": "Even length array, all different elements."
+    },
+    {
+      "input": {
+        "arr": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      },
+      "expected_output": 2,
+      "description": "Odd length array, all different elements."
+    },
+    {
+      "input": {
+        "arr": [
+          -1,
+          0,
+          1,
+          0,
+          -1
+        ]
+      },
+      "expected_output": 0,
+      "description": "Array with negative and zero integers (already palindromic)."
+    }
+  ],
+  "error_conditions": [
+    {
+      "input": {
+        "arr": null
+      },
+      "expected_exception": "TypeError",
+      "description": "Input `arr` is not a list (None)."
+    },
+    {
+      "input": {
+        "arr": "not_a_list"
+      },
+      "expected_exception": "TypeError",
+      "description": "Input `arr` is not a list (string)."
+    },
+    {
+      "input": {
+        "arr": 123
+      },
+      "expected_exception": "TypeError",
+      "description": "Input `arr` is not a list (integer)."
+    },
+    {
+      "input": {
+        "arr": [
+          1,
+          2.5,
+          3
+        ]
+      },
+      "expected_exception": "TypeError",
+      "description": "Array contains non-integer elements (float)."
+    },
+    {
+      "input": {
+        "arr": [
+          1,
+          "a",
+          3
+        ]
+      },
+      "expected_exception": "TypeError",
+      "description": "Array contains non-integer elements (string)."
+    }
+  ]
+}
